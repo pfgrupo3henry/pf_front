@@ -6,11 +6,10 @@
 
 .footer {
     background: rgba(9, 22, 29, 0.712);
-    ;
     height: auto;
     width: 100vw;
     font-family: "Open Sans";
-    padding-top: 40px;
+    padding-top: 10px;
     color: #fff;
 }
 
@@ -30,19 +29,12 @@
     line-height: 3rem;
 }
 
-.footer-content p {
-    max-width: 500px;
-    margin: 10px auto;
-    line-height: 28px;
-    font-size: 14px;
-}
-
 .socials {
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0 3rem 0;
+    margin: 1rem 0;
 }
 
 .socials li {
