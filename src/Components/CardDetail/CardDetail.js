@@ -28,11 +28,11 @@ function CardDetail() {
 
                 <br></br>
 
-                <h2>Desde 1950 $</h2>
+                <h2>Desde $1950</h2>
 
                 <br></br>
 
-                <p>
+                <p className="descripcion-juego">
                     Among Us (traducido como entre nosotros) es un videojuego de género party y multijugador en línea desarrollado por la compañía estadounidense Innersloth y distribuido entre junio y noviembre de 2018 para las plataformas Android, iOS y Windows. El 15 de diciembre de 2020 se anunció su disponibilidad en Nintendo Switch, mientras que su adaptación a las consolas Xbox One y Xbox Series X|S se confirmó para 14 de diciembre de 2021.Posteriormente se anunció su lanzamiento para PlayStation 4 y PlayStation 5 con skins exclusivos.
                     La trama del juego consiste en un grupo de tripulantes a bordo de una nave espacial que deben supervisar el adecuado funcionamiento del vehículo, al mismo tiempo que investigan a los «impostores» que intentan sabotear la nave y asesinarlos durante cada partida.
                     Un par de años después de su aparición en el mercado, en 2020 gozó de una mayor popularidad gracias a los vídeos publicados por streamers de Twitch y Youtube en los que se comparten partidas del juego.Como resultado, el 17 de septiembre de ese año se registraron más de 85 millones de descargas en dispositivos móviles. Según la empresa Sensor Tower, solo en Estados Unidos ha acumulado 20 millones de descargas, en Brasil cerca de 16 millones, y en México casi 7 millones; que entre estos tres países americanos sumaron más de la mitad en descargas.
