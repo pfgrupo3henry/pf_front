@@ -3,7 +3,7 @@ import {
     Card, CardBody, ButtonGroup, Image, Stack, Heading, Text, Box
 } from '@chakra-ui/react';
 import "./CardDetail.css";
-
+import { Rate } from 'antd';
 
 
 
@@ -42,7 +42,7 @@ function CardDetail() {
 
                         <br></br>
 
-                        <Heading fontSize='30px'>Rating: 4</Heading>
+                        <Heading fontSize='25px'>Rating: <Rate disabled allowHalf defaultValue={3.5} /></Heading>
 
                         <br></br>
                         <br></br>
@@ -81,9 +81,9 @@ function CardDetail() {
                     alt='Imagen Perfil'
                 />
 
-                <Text>Rating 3.5</Text>
+                <Text fontSize="20px">Pedro Perez <Rate disabled allowHalf defaultValue={3.5} /></Text>
 
-                <Text fontSize='20px'>
+                <Text>
                     De mi top 10 a no jugarlo.
                     El juego siempre estuvo bien, tu manera de "comunicarte" hasta cierto punto definía
                     partidas y era bastante entretenido.Yo al menos conseguí una habilidad escribiendo con el móvil gracias a
@@ -103,9 +103,9 @@ function CardDetail() {
                     alt='Imagen Perfil'
                 />
 
-                <Text>Rating: 4.5</Text>
+                <Text fontSize="20px">Marta Rodriguez <Rate disabled allowHalf defaultValue={3.5} /></Text>
 
-                <Text fontSize='20px'>
+                <Text>
                     Ta bien.
                     Trama: Eres un astronauta cualquiera en una nave, y entre tantos deberás encontrar al impostor que
                     querrá matar a todos.
