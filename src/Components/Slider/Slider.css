@@ -1,0 +1,64 @@
+.slider-card-component {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  background-size: cover !important;
+  background-position: top center !important;
+  background-repeat: no-repeat !important;
+}
+
+.slider-card-component .info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin-left: 40px;
+  color: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.slider-card-component .title {
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+.slider-card-component .subtitle {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.slider-card-component .description {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.slider-card-component .price {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+.slider-card-component button {
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgba(9, 22, 29, 1);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.slider-card-component button:hover {
+  background-color: #7e7e7e;
+}
