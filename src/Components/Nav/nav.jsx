@@ -69,7 +69,7 @@
         </div>
 
 
-        <Dropdown 
+        <Dropdown   
                 className = "rutasNav2Aux"
                 menu={{
                     items: inboxOptions,
