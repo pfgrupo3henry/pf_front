@@ -112,6 +112,16 @@ function Admin() {
                 console.log(inputJuego);
             };
 
+            const onChangeInputImage = (e) => {
+                setInputJuego({
+                    ...inputJuego,
+                    imagen: e.name
+                });
+
+                console.log(inputJuego);
+                console.log(e);
+            };
+
             const onChangeSelectGenero = (e) => {
 
                 const selectGeneros = document.getElementById('select-generos');
@@ -229,7 +239,7 @@ function Admin() {
                         </Form.Item>
 
                         <Form.Item label="Imagen" valuePropName="fileList">
-                            <Upload action="/upload.do" listType="picture-card">
+                            <Upload action={onChangeInputImage} listType="picture-card" name="imagen">
                                 <div>
                                     <PlusOutlined />
                                     <div style={{ marginTop: 8 }}>Upload</div>
