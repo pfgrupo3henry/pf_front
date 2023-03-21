@@ -1,12 +1,13 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import { Nav } from "./Components/Nav/nav"
-import { CardElement } from "./Components/Card/card"
+import {Nav} from "./Components/Nav/nav"
+import {CardElement} from "./Components/Card/card"
 import { CardList } from './Components/CardList/cardList';
 import { PaginationHome } from './Components/Pagination/pagination';
+import { UserInfo } from './Components/UserInfo/userInfo';
 import CardDetail from './Components/CardDetail/CardDetail';
 import Footer from './Components/Footer/Footer';
+import Filter from './Components/Filter/Filter'
 import { Slider } from "./Components/Slider/Slider";
-import CrearJuego from "./Components/Admin/Admin";
 
 
 
@@ -16,26 +17,30 @@ function App() {
 
     <div className="App">
       <BrowserRouter>
+        <Nav/>
+        <Routes>
+          <Route  path="/" element={<CardList/>} />
+        </Routes>
 
-      <Nav />
 
-      <Routes>
-
-        <Route path="/" element={<CardList />} />
-
-        <Route path="/admin" element={<CrearJuego />} />
-
-        <Route exact path="/game/:id" element={<CardDetail />} />
+        {/* <Routes>
+          <Route path='/' element={<Filter />} />
+        </Routes> */}
         
-        <Route path='slider-test' element={<Slider />} />
+        <Routes>
+          <Route exact path="/game" element={<CardDetail />} />
+        </Routes>
 
-      </Routes>
+        <Routes>
+          <Route exact path="/profile/userInfo" element={<UserInfo />} />
+        </Routes>
+        
 
-      <Footer />
-
-    </BrowserRouter>
+         <Footer />    
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App;
+export default App
+
