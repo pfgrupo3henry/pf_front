@@ -23,16 +23,16 @@ function App() {
         </Routes>
 
 
-        {/* <Routes>
+         <Routes>
           <Route path='/' element={<Filter />} />
-        </Routes> */}
+        </Routes> 
         
         <Routes>
           <Route exact path="/game" element={<CardDetail />} />
         </Routes>
 
         <Routes>
-          <Route exact path="/profile/userInfo" element={<UserInfo />} />
+          <Route exact path="/profile" element={<UserInfo />} />
         </Routes>
         
 
@@ -43,4 +43,3 @@ function App() {
 }
 
 export default App
-

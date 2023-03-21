@@ -1,46 +1,120 @@
-import { Route, BrowserRouter, Routes } from "react-router-dom";
-import {Nav} from "./Components/Nav/nav"
-import {CardElement} from "./Components/Card/card"
-import { CardList } from './Components/CardList/cardList';
-import { PaginationHome } from './Components/Pagination/pagination';
-import { UserInfo } from './Components/UserInfo/userInfo';
-import CardDetail from './Components/CardDetail/CardDetail';
-import Footer from './Components/Footer/Footer';
-import Filter from './Components/Filter/Filter'
-import { Slider } from "./Components/Slider/Slider";
+import React from "react";
+import "./nav.css";
+import { Login } from "../Auth0/login";
+import { Logout } from "../Auth0/logut";
+import { Profile } from "../Auth0/profile";
+import { useAuth0 } from "@auth0/auth0-react";
+import SearchBar from "../SearchBar/SearchBar";
 
+import { RiShoppingCartLine } from "react-icons/ri";
 
+/*     import { useState } from 'react';
+ */
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, message, Space } from "antd";
 
+function Nav() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
-function App() {
+  const onClick = ({ key }) => {
+    /*             message.info(`Click on item ${key}`);
+     */
+  };
+  const inboxOptions = [
+    {
+      label: "Example 1",
+      key: "1",
+    },
+    {
+      label: "Example 2",
+      key: "2",
+    },
+    {
+      label: "Example 3",
+      key: "3",
+    },
+  ];
+
+  const profileOptions = [
+    {
+      label: "Profile",
+      key: "1",
+    },
+    {
+      label: "Favorites",
+      key: "2",
+    },
+    {
+      label: <Logout />,
+      key: "3",
+    },
+  ];
+
   return (
+    <div className={isAuthenticated ? "nav" : "navAux"}>
+      <div className="rutasNavContainer">
+        <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternative"}>
+          <Login />
+        </div>
+ 
+         <Dropdown
+          className="rutasNav2Aux"
+          menu={{
+            items: inboxOptions,
+            onClick,
+          }}>
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              Catalogue
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown> 
+        <div className="buscador">
+          <SearchBar />
+        </div>
 
-    <div className="App">
-      <BrowserRouter>
-        <Nav/>
-        <Routes>
-          <Route  path="/" element={<CardList/>} />
-        </Routes>
 
+        <div className="rutasNav3">
+          {/* <Profile/> */}
 
-        {/* <Routes>
-          <Route path='/' element={<Filter />} />
-        </Routes> */}
-        
-        <Routes>
-          <Route exact path="/game" element={<CardDetail />} />
-        </Routes>
+          {!isAuthenticated ? null : (
+            <Dropdown
+              className="rutasNav"
+              menu={{
+                items: profileOptions,
+                onClick,
+              }}>
+              <a onClick={(e) => e.preventDefault()}>
+                <Space>
+                  <Profile />
+                  {/* <DownOutlined /> */}
+                </Space>
+              </a>
+            </Dropdown>
+          )}
 
-        <Routes>
-          <Route exact path="/profile/userInfo" element={<UserInfo />} />
-        </Routes>
-        
-
-         <Footer />    
-      </BrowserRouter>
+          <RiShoppingCartLine className="cart" />
+        </div>
+      </div>
     </div>
   );
 }
 
-export default App
+export { Nav };
 
+/*     <div className="nav">
+    <div className="rutasNavContainer">
+        < div className = "rutasNav"><Login/>
+        
+        </div>
+        < div className = "rutasNav"><Logout/>
+        
+        </div>
+        < div className = "rutasNav"><Profile/>
+        
+        </div>
+        
+    </div>
+
+</div> */
