@@ -5,7 +5,7 @@ import { CardList } from './Components/CardList/cardList';
 import { PaginationHome } from './Components/Pagination/pagination';
 import CardDetail from './Components/CardDetail/CardDetail';
 import Footer from './Components/Footer/Footer';
-import CrearJuego from "./Components/CrearJuego/CrearJuego";
+import CrearJuego from "./Components/Admin/Admin";
 
 
 

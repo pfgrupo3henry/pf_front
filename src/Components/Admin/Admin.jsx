@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./CrearJuego.css";
+import "./Admin.css";
 import { Button } from 'antd';
 
 
@@ -100,21 +100,33 @@ function CrearJuego() {
         };
 
         const onChangeSelectGenero = (e) => {
+
+            const selectGeneros = document.getElementById('select-generos');
+
+
             setInputJuego({
                 ...inputJuego,
                 [e.target.name]: `${inputJuego.genero} ${e.target.value}`
             });
 
             console.log(inputJuego);
+
+            selectGeneros.value = "Encontra tu genero";
         };
 
         const onChangeSelectConsola = (e) => {
+
+            const selectConsolas = document.getElementById('select-consolas');
+
+
             setInputJuego({
                 ...inputJuego,
                 [e.target.name]: `${inputJuego.consola} ${e.target.value}`
             });
 
             console.log(inputJuego);
+
+            selectConsolas.value = "Encontra tu consola";
         };
 
         if (inputJuego.nombre.length >= 1 && inputJuego.nombre.length <= 3) {
@@ -169,7 +181,7 @@ function CrearJuego() {
                     <input onChange={onChangeInputJuego} className="controls" type="text" name="imagen" placeholder="imagen" value={inputJuego.imagen} />
                     {errorImagen === "error" ? <p className="parrafo-juego">Imagen debe minimo 10 letras</p> : <p></p>}
 
-                    <select className="controls" onChange={onChangeSelectGenero} name="genero">
+                    <select className="controls" onChange={onChangeSelectGenero} name="genero" id="select-generos">
 
                         <option>Encontra tu genero</option>
                         <option>Accion</option>
@@ -181,9 +193,9 @@ function CrearJuego() {
 
                     {inputJuego.genero ? <p className="parrafo-juego">{inputJuego.genero}</p> : <p></p>}
 
-                    <select className="controls" onChange={onChangeSelectConsola} name="consola">
+                    <select className="controls" onChange={onChangeSelectConsola} name="consola" id="select-consolas">
 
-                        <option>Encontra tu console</option>
+                        <option>Encontra tu consola</option>
                         <option>PlayStation 1</option>
                         <option>PlayStation 2</option>
                         <option>PlayStation 3</option>
