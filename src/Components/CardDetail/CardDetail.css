@@ -1,0 +1,14 @@
+.body-card {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.comentarios-card {
+    padding: 15px;
+}
+
+.descripcion-juego {
+    font-size: 18px;
+}
