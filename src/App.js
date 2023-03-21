@@ -5,6 +5,7 @@ import { CardList } from './Components/CardList/cardList';
 import { PaginationHome } from './Components/Pagination/pagination';
 import CardDetail from './Components/CardDetail/CardDetail';
 import Footer from './Components/Footer/Footer';
+import { Slider } from "./Components/Slider/Slider";
 
 
 
@@ -24,10 +25,13 @@ function App() {
         
         <Routes>
           <Route exact path="/game/:id" element={<CardDetail />} />
+          <Route path='slider-test' element={<Slider />} />
         </Routes>
         
          <Footer />    
       </BrowserRouter>
     </div>
+  )
+}
 
 export default App;
