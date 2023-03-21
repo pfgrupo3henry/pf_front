@@ -14,6 +14,7 @@
  */
     import { DownOutlined } from '@ant-design/icons';
     import { Dropdown, message, Space } from 'antd';
+import { Link } from "react-router-dom";
   
     
     
@@ -61,12 +62,16 @@
        
         return(
           
-            <div className= {isAuthenticated ?  "nav" : "navAux" }>
+        <div className= {isAuthenticated ?  "nav" : "navAux" }>
 
-        <div className="rutasNavContainer">
-        < div className = {!isAuthenticated ?"rutasNav" : "rutasNavAlternative" } ><Login/>
-        
-        </div>
+          <div className="rutasNavContainer">
+          <Link to ="/" className = {!isAuthenticated ?"rutasNav" : "rutasNavAlternative" }>
+              <div>Home</div>
+            </Link>
+            < div className = {!isAuthenticated ?"rutasNav" : "rutasNavAlternative" } ><Login/>
+
+  
+          </div>
 
 
         <Dropdown   

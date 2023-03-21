@@ -51,24 +51,23 @@ function CardList (){
 
     return(
         <div className="containerExtreme">
-        <div className="listCards"> 
-            {elementsToShow.map((e) => (
-                <CardElement 
-                title={e.title} 
-                imgProvisoria={e.img} 
-                description={e.description}
+            <div className="listCards"> 
+                {elementsToShow.map((e) => (
+                    <CardElement 
+                    title={e.title} 
+                    imgProvisoria={e.img} 
+                    description={e.description}
 
-                 />
+                    />
 
-            ))}
+                ))}
+                
+            </div>
 
+            <div className="paginationHomeStyle" >
+                <Pagination current={current} onChange={onChange} total={16} />
+            </div>
 
-        <div className="paginationHomeStyle" >
-            <Pagination current={current} onChange={onChange} total={16} />
-        </div>
-
-            
-        </div>
         </div>
     )
 }
