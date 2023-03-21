@@ -1,0 +1,63 @@
+.listCards{
+    display: flex;
+    width: 50rem;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.containerExtreme{
+    display: flex;
+    margin-top: 7rem;
+    margin-left: 35rem;
+    margin-right: 7rem;
+    flex-direction: column;
+}
+
+.paginated{
+    display: flex;
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+    width: 70rem;
+  
+}
+
+.arrow{
+
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.loading{
+    margin-top: 10rem;
+}
+
+
+ .paginatedContainer{
+    display: flex;
+    z-index: 999;
+    margin-left: 10rem;
+}
+
+.buttonPaginated{
+    height: 2rem;
+    width: 2rem;    
+    border-radius: 2rem;
+    border: none;
+    background-color: rgba(9, 22, 29, 0.712);
+    color: white;
+    cursor: pointer;
+    margin-left: 1rem;
+
+}
+
+.buttonPaginated:hover{
+    transform: scale(1.1);
+} 
+
+
+.buttonPaginated.active {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+  }

@@ -4,10 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Auth0Provider } from '@auth0/auth0-react';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Auth0Provider
+    domain="dev-vqquk1o17l7jbf7b.us.auth0.com"
+    clientId="4FyKIMnrvXFyyVKKNnjsga17ooPDy2Qh"
+    redirectUri={window.location.origin}
+    scope="openid profile email https://www.googleapis.com/auth/userinfo.profile"
+    >
     <App />
+    </Auth0Provider>
   </React.StrictMode>
 );
 
