@@ -13,7 +13,6 @@ export const Logout = () => {
     const form = useRef();
     const { user } = useAuth0();
 
-    var formulario = "borrar";
 
     const sendEmail = (e) => {
         e.preventDefault();
