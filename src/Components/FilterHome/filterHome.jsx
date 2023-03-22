@@ -1,7 +1,9 @@
 import { SendOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useState } from "react";
-import "./Filter.css";
+import "./filterHome.css";
+
+
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -28,7 +30,9 @@ const items = [
 
 // submenu keys of first level
 const rootSubmenuKeys = ["sub1", "sub2"];
-const SearchBar = () => {
+
+function FilterHome ()  {
+
   const [openKeys, setOpenKeys] = useState(["sub1"]);
   const onOpenChange = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
@@ -50,4 +54,4 @@ const SearchBar = () => {
     />
   );
 };
-export default SearchBar;
+export {FilterHome}
