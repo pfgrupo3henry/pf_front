@@ -6,8 +6,6 @@ import { Input } from 'antd';
 
 
 
-
-
 export const Logout = () => {
     const { logout } = useAuth0();
     const form = useRef();
@@ -20,19 +18,20 @@ export const Logout = () => {
         emailjs.sendForm('service_p04zgza', 'template_sque1s9', e.target, 'PvHbawws_-6fNNwSb')
             .then((result) => {
                 console.log(result.text);
+                logout({ returnTo: window.location.origin });
             }, (error) => {
                 console.log(error.text);
             });
-
-        logout();
 
     };
 
     return (
 
         <form ref={form} onSubmit={sendEmail} className="form-email">
-            <div>< Input type="text" name="user_name" value={user.name} /></div>
-            <div> <Input type="email" name="user_email" value={user.email} /></div>
+            <div className="form-input">
+                < input type="text" name="user_name" value={user.name} className="form-input" />
+                <input type="email" name="user_email" value={user.email} className="form-input" />
+            </div>
             <div> <Input type="submit" value="Logout" /></div>
         </form >
     );
