@@ -110,19 +110,3 @@ function Nav() {
 }
 
 export { Nav };
-
-/*     <div className="nav">
-    <div className="rutasNavContainer">
-        < div className = "rutasNav"><Login/>
-        
-        </div>
-        < div className = "rutasNav"><Logout/>
-        
-        </div>
-        < div className = "rutasNav"><Profile/>
-        
-        </div>
-        
-    </div>
-
-</div> */
