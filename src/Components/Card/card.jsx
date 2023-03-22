@@ -3,6 +3,7 @@ import "../Card/card.css"
 const { Meta } = Card;
 
 
+
 const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
 
 
@@ -17,7 +18,9 @@ function CardElement ({title, imgProvisoria, description}) {
     }}
     cover={<img alt="example" src={imgProvisoria} />}
   >
-    <Meta title={title} description={description} />
+    <Meta title={title} description={description} 
+    
+    />
   </Card>
   </div>
   )
