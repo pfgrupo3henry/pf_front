@@ -1,0 +1,45 @@
+.card-carousel-component {
+    transition: all ease-in-out 0.3s;
+    position: relative;
+    border-radius: 8px;
+    padding: 10px;
+    scroll-snap-align: start;
+}
+
+.card-carousel-component:hover {
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+    border-radius: 8px;
+}
+
+.card-carousel-component::after {
+    content: "";
+    position: absolute;
+    top: 66px;
+    left: 10px;
+    bottom: 10px;
+    right: 10px;
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    transition: all ease-in-out 0.3s;
+    opacity: 0;
+}
+
+.card-carousel-component:hover::after {
+    opacity: 1;
+}
+
+.card-carousel-component svg {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: calc(50% - 20px);
+    opacity: 0;
+    transition: all ease-in-out 0.3s;
+}
+
+.card-carousel-component:hover svg {
+    opacity: 1;
+}

@@ -5,11 +5,10 @@ import { Logout } from "../Auth0/logut";
 import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import SearchBar from "../SearchBar/SearchBar";
-
+import { Link } from "react-router-dom";
 import { RiShoppingCartLine } from "react-icons/ri";
 
-/*     import { useState } from 'react';
- */
+
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space } from "antd";
 
@@ -53,12 +52,20 @@ function Nav() {
   return (
     <div className={isAuthenticated ? "nav" : "navAux"}>
       <div className="rutasNavContainer">
-        <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternative"}>
+
+        <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}>
+
+          <Link to ="/" className = "rutasNav">
+            Home
+          </Link>
+        </div>
+
+        <div className={!isAuthenticated ? "rutasNavAux" : "rutasNavAlternativeAux2"}>
           <Login />
         </div>
  
          <Dropdown
-          className="rutasNav2Aux"
+          className={!isAuthenticated ? "rutasNav2AuxUltimate" : "rutasNav2Aux"}
           menu={{
             items: inboxOptions,
             onClick,
@@ -70,17 +77,17 @@ function Nav() {
             </Space>
           </a>
         </Dropdown> 
-        <div className="buscador">
+        <div className={!isAuthenticated ? "buscador" : "buscadorAux"}>
           <SearchBar />
         </div>
 
 
         <div className="rutasNav3">
-          {/* <Profile/> */}
 
+          <div className="profileNav">
           {!isAuthenticated ? null : (
             <Dropdown
-              className="rutasNav"
+              className=""
               menu={{
                 items: profileOptions,
                 onClick,
@@ -94,7 +101,8 @@ function Nav() {
             </Dropdown>
           )}
 
-          <RiShoppingCartLine className="cart" />
+          <RiShoppingCartLine className={!isAuthenticated ? "cartAux" : "cart"}/>
+          </div>
         </div>
       </div>
     </div>
@@ -102,19 +110,3 @@ function Nav() {
 }
 
 export { Nav };
-
-/*     <div className="nav">
-    <div className="rutasNavContainer">
-        < div className = "rutasNav"><Login/>
-        
-        </div>
-        < div className = "rutasNav"><Logout/>
-        
-        </div>
-        < div className = "rutasNav"><Profile/>
-        
-        </div>
-        
-    </div>
-
-</div> */

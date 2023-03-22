@@ -8,7 +8,7 @@
 .containerExtreme{
     display: flex;
     margin-top: 7rem;
-    margin-left: 35rem;
+    margin-left: 10rem;
     margin-right: 7rem;
     flex-direction: column;
 }
@@ -60,4 +60,15 @@
     background-color: #007bff;
     color: #fff;
     border: 1px solid #007bff;
+  }
+
+
+  .homeContainerUltraMega{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .filterHome{
+    margin-top: 10rem;
+    margin-left: 10rem;
   }

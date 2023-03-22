@@ -1,19 +1,19 @@
 import React from "react"
 import { useState } from 'react';
 import { Pagination } from 'antd';
-import {CardElement} from "../Card/card"
-
-
+import {CardElement} from "../Card/card";
+import {FilterHome} from "../FilterHome/filterHome"
+import {Slider} from "../Slider/Slider"
 
 import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
 import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
 
 
-import "./cardList.css"
+import "./Home.css"
 import "../Pagination/pagination.css"
 
 
-function CardList (){
+function Home (){
     const arrayAux = [
         {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
         {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
@@ -50,6 +50,13 @@ function CardList (){
 
 
     return(
+        <div>
+        <Slider />
+        <div className="homeContainerUltraMega">
+        <div className="filterHome" >
+        <FilterHome/>
+        </div>
+
         <div className="containerExtreme">
             <div className="listCards"> 
                 {elementsToShow.map((e) => (
@@ -69,7 +76,9 @@ function CardList (){
             </div>
 
         </div>
+        </div>
+        </div>
     )
 }
 
-export {CardList}
+export {Home}
