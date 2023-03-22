@@ -6,7 +6,7 @@ const onSearch = (value) => console.log(value);
 const SearchBar = () => (
   <Space direction="vertical">
     <Search
-      placeholder="input search text"
+      placeholder="Buscar juego"
       allowClear
       onSearch={onSearch}
       style={{
