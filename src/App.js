@@ -8,6 +8,7 @@ import CardDetail from './Components/CardDetail/CardDetail';
 import Footer from './Components/Footer/Footer';
 import Filter from './Components/FilterHome/filterHome'
 import { Slider } from "./Components/Slider/Slider";
+import Admin from "./Components/Admin/Admin";
 
 
 
@@ -28,6 +29,10 @@ function App() {
 
         <Routes>
           <Route exact path="/profile" element={<UserInfo />} />
+        </Routes>
+
+        <Routes>
+          <Route exact path="/admin" element={<Admin />} />
         </Routes>
         
 
