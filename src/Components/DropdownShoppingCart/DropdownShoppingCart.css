@@ -1,0 +1,26 @@
+.dropdown-shopping-cart-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(145, 145, 145);
+    border-radius: 0 0 10px 10px;
+}
+
+.dropdown-shopping-cart-component .main {
+    min-height: 250px;
+    overflow: scroll;
+    margin: 0 auto;
+    width: 320px;
+    max-height: 350px;
+    box-shadow: 0 4px 2px -2px gray;    
+}
+
+.dropdown-shopping-cart-component .scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dropdown-shopping-cart-component .continue {
+    padding: 10px 0;
+}

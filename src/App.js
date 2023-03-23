@@ -9,6 +9,7 @@ import Footer from './Components/Footer/Footer';
 import Filter from './Components/FilterHome/filterHome'
 import { Slider } from "./Components/Slider/Slider";
 import Admin from "./Components/Admin/Admin";
+import { DropdownShoppingCart } from "./Components/DropdownShoppingCart/DropdownShoppingCart";
 
 
 
@@ -18,6 +19,7 @@ function App() {
 
     <div className="App">
       <BrowserRouter>
+
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,10 +31,11 @@ function App() {
 
         <Routes>
           <Route exact path="/profile" element={<UserInfo />} />
-        </Routes>
+        </Routes> */}
 
         <Routes>
           <Route exact path="/admin" element={<Admin />} />
+          <Route exact path="/test" element={<DropdownShoppingCart />} />
         </Routes>
 
 
