@@ -36,7 +36,7 @@ function Nav() {
 
   const profileOptions = [
     {
-      label: "Profile",
+      label: <Link to="/profile">Profile</Link>,
       key: "1",
     },
     {
@@ -83,9 +83,6 @@ function Nav() {
 
         <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}>
 
-          <Link to="/admin" className="rutasNav">
-            Admin
-          </Link>
         </div>
 
 
