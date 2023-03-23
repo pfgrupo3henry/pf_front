@@ -1,0 +1,12 @@
+.dropdown-shopping-cart-component {
+    min-height: 250px;
+    max-height: 500px;
+    overflow: scroll;
+    margin: 0 auto;
+    width: 400px;
+    /* border: 2px solid grey; */
+}
+
+.dropdown-shopping-cart-component .scroll {
+    overflow: scroll;
+}

@@ -1,0 +1,55 @@
+.dropdown-shopping-cart-card-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    border-bottom: 3px solid #00000050;
+    padding: 10px;
+}
+
+.dropdown-shopping-cart-card-component .card-header {
+    display: flex;
+    gap: 20px;
+    height: 150px;
+    overflow: hidden;
+    background-size: cover;
+}
+
+.dropdown-shopping-cart-card-component .card-header .image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 120px;
+    height: inherit;
+}
+
+.dropdown-shopping-cart-card-component .card-header .title {
+    padding-top: 20px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 700;
+}
+
+.dropdown-shopping-cart-card-component .card-header .description {
+    padding-top: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.dropdown-shopping-cart-card-component .card-header .price {
+    display: flex;
+    align-items: flex-end;
+    font-weight: 700;
+    width: 80px;
+}
+
+.dropdown-shopping-cart-card-component .card-footer {
+    padding: 20px 0 10px;
+}
+
+.dropdown-shopping-cart-card-component .card-footer span {
+    cursor: pointer;
+    color: red;
+    font-weight: 700;
+}
