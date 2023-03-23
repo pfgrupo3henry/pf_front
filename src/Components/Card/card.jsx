@@ -28,14 +28,14 @@ function CardElement ({title, imgProvisoria, description}) {
 
 
 
-  const handleFavorites = ({title, description, imgProvisoria}) =>{
+  const handleFavorites = (title, description, imgProvisoria) =>{
     console.log("valores", title, description, imgProvisoria)
     setFavorite(!favorite)
-    let valores =[{
+    let valores = {
       title: title,
       description: description,
       img: imgProvisoria,
-    }]
+    }
     
     dispatch(postFavorites(valores));
   }
@@ -65,7 +65,7 @@ function CardElement ({title, imgProvisoria, description}) {
       className='favIconCardHome'
       onClick={() => {
         console.log('onClick fired');
-        handleFavorites({title, description, imgProvisoria})}}/> 
+        handleFavorites(title, description, imgProvisoria)}}/> 
       : <AiFillHeart 
       onClick={handleFavorites}
       className='favIconCardHome'/>}

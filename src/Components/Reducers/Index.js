@@ -11,17 +11,17 @@ const initialState = {
 
 const rootReducer = (state = initialState , action) => {
     switch(action.type){
-        case GET_FAVORITES:
-            return{
-                ...state,
-                allFavorites: action.payload,
+        // case GET_FAVORITES:
+        //     return{
+        //         ...state,
+        //         allFavorites: [...state.allFavorites, ...action.payload],
                 
-            }
+        //     }
 
-            case POST_FAVORITES:
+        case POST_FAVORITES:
             return{
                 ...state,
-                allFavorites: action.payload
+                allFavorites: [...state.allFavorites, action.payload]
                 
             }
 

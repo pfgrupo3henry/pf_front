@@ -1,7 +1,7 @@
 import {React, useEffect} from "react";
 import { useSelector, useDispatch, } from "react-redux";
 import { useContext } from "react";
-import {getFavorites} from "../Actions/Index";
+// import {getFavorites} from "../Actions/Index";
 import {createElement} from "react";
 import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
 import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
@@ -31,17 +31,17 @@ const IconText = ({ icon, text }) => (
 function Favorites (){
 
 
-     const allFavorites = useSelector(state => state.allFavorites);
+    const allFavorites = useSelector(state => state.allFavorites);
     
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        dispatch(getFavorites());
-      },[dispatch]) 
+    // useEffect(()=>{
+    //     dispatch(getFavorites());
+    //   },[dispatch]) 
 
       useEffect(()=>{
         console.log(allFavorites)
-      },[dispatch])
+      },[allFavorites])
 
       /* const data = allFavorites && Object.values(allFavorites); */
 
