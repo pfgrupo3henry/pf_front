@@ -24,7 +24,7 @@ function CardDetail() {
 
     return (
 
-        <div className="body-card">
+        <div className="body-card card-detail-component">
 
             <div className="cardsDetailsRates">
             <div className="cardsContainer">
