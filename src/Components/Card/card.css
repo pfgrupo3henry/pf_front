@@ -1,3 +1,20 @@
-.individualCard{
+.card-component{
     margin-top: 3rem;
+}
+
+.card-component .favIconCardHome{
+    display: flex;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.favIconCardHome:hover{
+    transform:scale(1.2)
+}
+
+.iconsCardHomeContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 }
