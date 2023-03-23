@@ -1,5 +1,5 @@
 import { 
-    GET_FAVORITES,
+    DELETE_FAVORITES,
     POST_FAVORITES 
   
 } from "../Actions/Types"
@@ -11,38 +11,28 @@ const initialState = {
 
 const rootReducer = (state = initialState , action) => {
     switch(action.type){
-        // case GET_FAVORITES:
-        //     return{
-        //         ...state,
-        //         allFavorites: [...state.allFavorites, ...action.payload],
-                
-        //     }
 
-        case POST_FAVORITES:
-            return{
-                ...state,
-                allFavorites: [...state.allFavorites, action.payload]
-                
-            }
+            case POST_FAVORITES:
+                return{
+                    ...state,
+                    allFavorites: [...state.allFavorites, action.payload]
+                    
+                }
+
+            case DELETE_FAVORITES:
+                const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload)
+                return{
+                    ...state,
+                    allFavorites: favoriteFIlter
+                    
+                }
 
             default: return{...state} 
 
-        }}
-          
+        }
+
+    }
+
+       
 export default rootReducer;           
 
-
-
-/* function rootReducer(state = initialState, action) {
-    if (action.type === "ADD_MOVIE_FAVORITE") {
-        return {
-          ...state,
-          moviesFavourites: state.moviesFavourites.concat(action.payload)
-        }
-    }
-    if (action.type === "REMOVE_MOVIE_FAVORITE") {
-        return {
-          ...state,
-          moviesFavourites: state.moviesFavourites.filter((movie) => movie.id !== action.payload)
-        }
-    } */

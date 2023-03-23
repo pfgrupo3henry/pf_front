@@ -2,12 +2,12 @@ import {React, useEffect} from "react";
 import { useSelector, useDispatch, } from "react-redux";
 import { useContext } from "react";
 // import {getFavorites} from "../Actions/Index";
+import { deleteFavorites } from "../Redux/Actions/Index";
 import {createElement} from "react";
 import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
 import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
 import { Avatar, List, Space } from 'antd';
-/* import {StarOutlined, LikeOutlined, MessageOutlined} from "@ant-design/icons"
- */
+
 
 import "./Favorites.css"
 import StarOutlined from "@ant-design/icons/StarOutlined";
@@ -28,44 +28,27 @@ const IconText = ({ icon, text }) => (
 ); 
 
 
-function Favorites (){
-
+function Favorites (props){
+    const {id} = props
 
     const allFavorites = useSelector(state => state.allFavorites);
     
     const dispatch = useDispatch();
 
-    // useEffect(()=>{
-    //     dispatch(getFavorites());
-    //   },[dispatch]) 
 
       useEffect(()=>{
         console.log(allFavorites)
       },[allFavorites])
 
-      /* const data = allFavorites && Object.values(allFavorites); */
 
-  
-
-      const arrayAux = [
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-        {title:"God of War Ragnarok PS5 Retro", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000"},
-    ]
-
+/*       useEffect(() => {
+        dispatch(deleteFavorites(id));
+      }, [id, dispatch]); */
+      
+    
+      const deleteFavorite = (id)=>{
+        dispatch(deleteFavorites(id))
+      }
    
     return(
         
@@ -95,7 +78,11 @@ function Favorites (){
                             <div className="iconsFavCard">
                               <AiFillHeart/>
                               <AiOutlineDelete
-                              className="deleteFav"/>
+                              className="deleteFav"
+                              onClick={()=>{
+                                console.log(id)
+                                deleteFavorite(item.id)
+                              }}/>
                             
                             </div>
                             ]}  

@@ -1,25 +1,12 @@
 import axios from "axios";
 import { 
-    // GET_FAVORITES,
+    DELETE_FAVORITES,
     POST_FAVORITES
  } from "./Types";
 
-// export const getFavorites = () => {
-//     // data = fetch
-//     return function(dispatch) {
-//         dispatch({
-//             type: GET_FAVORITES,
-//             payload: data,
-//         })
-//     }
 
-// }  
 
 export const postFavorites = (data) => {
-    // return {
-    //     type: POST_FAVORITES,
-    //     payload
-    // }
     return function(dispatch) {
         dispatch({
             type: POST_FAVORITES,
@@ -29,15 +16,14 @@ export const postFavorites = (data) => {
 
 } 
 
-// export const deletetFavorites = (data) => {
-//     // return {
-//     //     type: POST_FAVORITES,
-//     //     payload
-//     // }
-//     return function(dispatch) {
-//         dispatch({
-//             type: GET_FAVORITES,
-//             payload: data,
-//         })
-//     }
-// } 
+export const deleteFavorites = (id) => {
+    return function(dispatch) {
+        dispatch({
+            type: DELETE_FAVORITES,
+            payload: id
+        })
+    }
+
+} 
+
+
