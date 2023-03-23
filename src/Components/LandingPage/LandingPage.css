@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-image: url("https://fondosmil.com/fondo/3550.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.row {
+    display: flex;
+    height: 88%;
+    align-items: center;
+    padding: 0px 40px;
+}
+
+.col {
+    flex-basis: 50%;
+}
+
+.col h1 {
+    color: white;
+    font-size: 80px;
+}
+
+.col p {
+    color: white;
+    font-size: 15px;
+    line-height: 15px;
+}
+
+.col button {
+    width: 180px;
+    color: black;
+    font-size: 16px;
+    padding: 12px 0px;
+    background-color: white;
+    border: 0;
+    border-radius: 20px;
+    outline: none;
+    margin-top: 30px;
+}
+
+.col button:hover {
+    width: 200px;
+    color: rgb(34, 2, 2);
+    background-color: rgb(228, 213, 213);
+}
+
+.card {
+    width: 200px;
+    height: 230px;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 15px 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 10px 15px;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.card1 {
+    background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/O4JWB4MZUJFIXD3SVWZP6YHQPM.jpg");
+}
+
+.card2 {
+    background-image: url("https://image.api.playstation.com/vulcan/ap/rnd/202010/0205/dyvo9eGUf7WTZx49eTpQyDuL.png");
+}
+
+.card3 {
+    background-image: url("http://www.edicioncoleccionista.com/wp-content/uploads/2015/12/Rese%C3%B1a-de-Assassins-Creed-La-Historia-Definitiva-Ilustrada-Panini-Comics-1.jpg");
+}
+
+.card4 {
+    background-image: url("https://upload.wikimedia.org/wikipedia/en/5/5a/FF_XV_cover_art.jpg");
+}
+
+.card5 {
+    background-image: url("https://upload.wikimedia.org/wikipedia/en/4/46/Video_Game_Cover_-_The_Last_of_Us.jpg");
+}
+
+.card6 {
+    background-image: url("https://i0.wp.com/regionps.com/wp-content/uploads/2018/11/El-arte-de-uncharted-portada.jpg?ssl=1");
+}
+
+.card:hover {
+    height: 245px;
+}

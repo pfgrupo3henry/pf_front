@@ -72,7 +72,7 @@ function Nav() {
       <div className="rutasNavContainer">
         <ul>
           <li className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}>
-            <Link to="/" className="rutasNav">
+            <Link to="/home" className="rutasNav">
               Home
             </Link>
           </li>
