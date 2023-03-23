@@ -100,6 +100,9 @@ function Nav() {
           <li className={!isAuthenticated ? "buscador" : "buscadorAux"}>
             <SearchBar />
           </li>
+          <Link to="/admin" className="rutasNav">
+            Admin
+          </Link>
         </ul>
         <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}></div>
         <div className="rutasNav3">

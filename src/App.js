@@ -41,7 +41,9 @@ function App() {
           <Route exact path="/profile" element={<UserInfo />} />
         </Routes>
 
-
+        <Routes>
+          <Route exact path="/admin" element={<Admin />} />
+        </Routes>
 
         <Footer />
       </BrowserRouter>
