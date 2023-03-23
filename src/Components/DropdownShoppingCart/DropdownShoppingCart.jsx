@@ -2,19 +2,23 @@ import React from 'react';
 import { DropdownShoppingCartCard } from './DropdownShoppingCartCard';
 import { Button, Space } from 'antd';
 import './DropdownShoppingCart.css';
+import { useSelector } from 'react-redux';
 
 function DropdownShoppingCart() {
 
   const [color, setColor] = React.useState('rgba(9, 22, 29, 1)');
+  const cards = useSelector(state => state.shoppingChart)
   
   return (
     <div className='dropdown-shopping-cart-component' style={{width: 'fit-content', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <div className='main'>
         <div className='scroll'>
           {
-            Array.from({length: 5}).map((el,i) => (
-              <DropdownShoppingCartCard key={i}/>
+            cards.length
+            ? cards.map((el,i) => (
+              <DropdownShoppingCartCard key={i} title={el.title} image={el.img} price={el.price} description={el.description}/>
             ))
+            : null
           }
         </div>
       </div>
