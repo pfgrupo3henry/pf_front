@@ -5,18 +5,45 @@ import {
     Form,
     Input,
     Button,
-    Select,
-    DatePicker,
     Upload,
+    Menu
 } from 'antd';
+import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
+
+
+function getItem(label, key, icon, children, type) {
+
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+    };
+}
+
+const items = [
+    getItem('Dashboard', null, <MailOutlined />, [
+    ]),
+
+    getItem('Articles', 'sub2', <AppstoreOutlined />, [
+        getItem('New Product', '1'),
+        getItem('Modify User', '2'),
+        getItem('Modify Games', '3'),
+        getItem('List Products', '4'),
+        getItem('See Payments ', '5'),
+        getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+    ])
+
+];
 
 
 
 function Admin() {
 
-    const { RangePicker } = DatePicker;
+    const [theme, setTheme] = useState('ligth');
+    const [current, setCurrent] = useState('1');
     const { TextArea } = Input;
-
     const [state, setState] = useState("buttons");
     const [inputJuego, setInputJuego] = useState({
         nombre: "",
@@ -28,20 +55,14 @@ function Admin() {
         consola: ""
     });
 
-    const onClickCrearJuego = () => {
+    const onClick = (e) => {
+        console.log('click ', e);
+        setCurrent(e.key);
         setState("crear-juego")
     };
 
-    const onClickModificarJuego = () => {
-        setState("modificar-juego")
-    };
-
-    const onClickModificarUsuario = () => {
-        setState("modificar-usuario")
-    };
-
-    const onClickVerPagos = () => {
-        setState("ver-pagos")
+    const changeTheme = (value) => {
+        setTheme(value ? 'dark' : 'light');
     };
 
     const onClickReturn = () => {
@@ -61,38 +82,22 @@ function Admin() {
 
         return (
 
-            <div className="admin-body">
+            <div className="userInfoContainer">
+                <div className="menuOptions">
 
-                <div className="button-admin-body">
-
-                    <Button type="primary" block onClick={onClickCrearJuego}>
-                        Crear Juego
-                    </Button>
-
-                </div>
-
-                <div className="button-admin-body">
-
-                    <Button type="primary" block onClick={onClickModificarJuego}>
-                        Modificar Juego
-                    </Button>
-
-                </div>
-
-                <div className="button-admin-body">
-
-                    <Button type="primary" block onClick={onClickModificarUsuario}>
-                        Desabilitar / Habilitar , Usuario
-                    </Button>
-
-                </div>
-
-                <div className="button-admin-body">
-
-                    <Button type="primary" block onClick={onClickVerPagos}>
-                        Ver Compras
-                    </Button>
-
+                    <br />
+                    <br />
+                    <Menu
+                        theme={theme}
+                        onClick={onClick}
+                        style={{
+                            width: 256,
+                        }}
+                        defaultOpenKeys={['sub1']}
+                        selectedKeys={[current]}
+                        mode="inline"
+                        items={items}
+                    />
                 </div>
 
             </div>
@@ -300,4 +305,4 @@ function Admin() {
 
 };
 
-export  default Admin;
+export default Admin;
