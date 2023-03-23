@@ -10,7 +10,6 @@ function DropdownShoppingCartCard({image, title, description, price}) {
         <div style={{ backgroundImage: `url('${image || sustituteImage}')` }} className='image'></div>
         <div className='info'>
           <div className='title'>{title || 'Game Title'}</div>
-          <div className='description'>{description || 'Im a game description'}</div>
         </div>
         <div className='price'>
           <span>{price || '$USD 30'}</span>
