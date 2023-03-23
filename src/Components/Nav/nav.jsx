@@ -55,7 +55,7 @@ function Nav() {
 
         <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}>
 
-          <Link to ="/" className = "rutasNav">
+          <Link to="/" className="rutasNav">
             Home
           </Link>
         </div>
@@ -63,8 +63,8 @@ function Nav() {
         <div className={!isAuthenticated ? "rutasNavAux" : "rutasNavAlternativeAux2"}>
           <Login />
         </div>
- 
-         <Dropdown
+
+        <Dropdown
           className={!isAuthenticated ? "rutasNav2AuxUltimate" : "rutasNav2Aux"}
           menu={{
             items: inboxOptions,
@@ -76,32 +76,39 @@ function Nav() {
               <DownOutlined />
             </Space>
           </a>
-        </Dropdown> 
+        </Dropdown>
         <div className={!isAuthenticated ? "buscador" : "buscadorAux"}>
           <SearchBar />
+        </div>
+
+        <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}>
+
+          <Link to="/admin" className="rutasNav">
+            Admin
+          </Link>
         </div>
 
 
         <div className="rutasNav3">
 
           <div className="profileNav">
-          {!isAuthenticated ? null : (
-            <Dropdown
-              className=""
-              menu={{
-                items: profileOptions,
-                onClick,
-              }}>
-              <a onClick={(e) => e.preventDefault()}>
-                <Space>
-                  <Profile />
-                  {/* <DownOutlined /> */}
-                </Space>
-              </a>
-            </Dropdown>
-          )}
+            {!isAuthenticated ? null : (
+              <Dropdown
+                className=""
+                menu={{
+                  items: profileOptions,
+                  onClick,
+                }}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <Profile />
+                    {/* <DownOutlined /> */}
+                  </Space>
+                </a>
+              </Dropdown>
+            )}
 
-          <RiShoppingCartLine className={!isAuthenticated ? "cartAux" : "cart"}/>
+            <RiShoppingCartLine className={!isAuthenticated ? "cartAux" : "cart"} />
           </div>
         </div>
       </div>
