@@ -1,3 +1,4 @@
 export const GET_FAVORITES = 'GET_FAVORITES';
-export const POST_FAVORITES = "POST_FAVORITES"
+export const POST_FAVORITES = "POST_FAVORITES";
+export const ADD_ITEM_TO_CHART = 'ADD_ITEM_TO_CHART';
 

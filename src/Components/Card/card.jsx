@@ -1,5 +1,5 @@
 import { useSelector, useDispatch} from "react-redux";
-import { postFavorites } from "../../Redux/Actions/Index";
+import { postFavorites, addItemToChart } from "../../Redux/Actions/Index";
 import { Card } from 'antd';
 import "../Card/card.css"
 import {AiOutlineHeart} from "react-icons/ai";
@@ -23,6 +23,7 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
   const [cart, setCart] = useState(true);
 
   const allFavorites = useSelector(state => state.allFavorites);
+  const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
 
 
@@ -35,14 +36,26 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
       description: descriptionComplete,
       img: imgProvisoria,
       price: price
-    }
-    
+    }  
     dispatch(postFavorites(valores));
   }
 
+  const handleShoppingChart = (title, description, img, price) => {
+    if (!title || !description || !img || !price) {
+      return null
+    }
+
+    dispatch(addItemToChart({
+      title,
+      description,
+      img,
+      price,
+    }))
+  }
 
   const handleCart = () =>{
-    setCart(!cart)
+    setCart(!cart);
+    handleShoppingChart(title, description, imgProvisoria, price)
   }
 
   return (
