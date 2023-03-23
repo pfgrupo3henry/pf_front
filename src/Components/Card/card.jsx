@@ -1,5 +1,4 @@
 import { useSelector, useDispatch} from "react-redux";
-import { postFavorites } from "../Redux/Actions/Index";
 import {deleteFavorites}  from "../Redux/Actions/Index";
 import { postFavorites, addItemToChart } from "../../Redux/Actions/Index";
 
