@@ -9,12 +9,17 @@
     font-size: 1.2rem;
 }
 
-.favIconCardHome:hover{
+.card-component .favIconCardHome:hover{
     transform:scale(1.2)
 }
 
-.iconsCardHomeContainer{
+.card-component .iconsCardHomeContainer{
     display: flex;
     flex-direction: row;
     justify-content: end;
+}
+
+.card-component .ant-card-meta-description {
+    font-weight: 500;
+    color: black;
 }

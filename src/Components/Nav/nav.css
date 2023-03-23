@@ -1,156 +1,143 @@
-.nav{
-    display: flex;
-    width: 100%;
-    /* background-color: #502d0ed3; */
-    background-color: rgba(9, 22, 29, 0.712);
-    padding: 0.3rem;
-    box-shadow: 0px 2px 10px gray;
-
-   
-
-}
-
-.navAux{
+.nav-component.nav{
   display: flex;
-  
+  justify-content: center;
   width: 100%;
-  /* background-color: #502d0ed3; */
   background-color: rgba(9, 22, 29, 0.712);
-  padding: 0.6rem;
   box-shadow: 0px 2px 10px gray;
-
-
 }
 
-
-.rutasNavContainer{
+.nav-component.navAux{
   display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: rgba(9, 22, 29, 0.712);
+  box-shadow: 0px 2px 10px gray;
 }
 
 
+.nav-component .rutasNavContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1336px;
+  padding: 5px 30px;
+  width: 100%;
+  position: relative;
+}
 
+.nav-component .rutasNavContainer ul {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
 
-.buscador:focus {
+.nav-component .rutasNavContainer ul li {
+  list-style: none;
+}
+
+.nav-component .buscador:focus {
     outline: none;
     border: none;
-  }
+}
   
-.rutasNav{
-    margin-top: 0.5rem;
+  .nav-component .rutasNav{
     color: white;
     cursor: pointer;
-    margin-left: 3rem;
-    /* width: 2%; */
     text-decoration: none;
-    font-size: 0.90rem;
+    font-size: 16px;
+    line-height: 20px;
 }
 
-.profileNav{
+.nav-component .profileNav{
   display: flex;
+  align-items: center;
   flex-direction: row;
-  margin-top: 0.5rem;
   color: white;
   cursor: pointer;
-  font-size: 0.90rem;
-
+  font-size: 16px;
+  line-height: 20px;
 }
 
-.rutasNavAux{
-  margin-top: 0.5rem;
+.nav-component .profileNav .ant-dropdown-trigger {
+  display: flex;
+  align-items: center;
+}
+
+.nav-component .rutasNavAux{
   color: white;
   cursor: pointer;
-  margin-left: 3rem;
-  margin-right: 2rem;
   text-decoration: none;
-  font-size: 0.90rem;
+  font-size: 16px;
+  line-height: 20px;
 }
 
-  .rutasNav2Aux{
-    margin-top: 0.7rem;
+.nav-component .rutasNav2Aux{
     color: white;
     cursor: pointer;
-    margin-left: 2rem;
     
   }
-.rutasNav2AuxUltimate{
-  margin-top: 0.42rem;
-
+  .nav-component .rutasNav2AuxUltimate{
   color: white;
   cursor: pointer;
-  margin-left: 2rem;
 }
 
-  .rutasNavAlternativeAux2{
-    margin-top: 0.8rem;
-    margin-right: 2rem;
+.nav-component .rutasNavAlternativeAux2{
     color: white;
     cursor: pointer;
-    margin-left: 3rem;
-    /* width: 2%; */
     text-decoration: none;
-    font-size: 0.90rem;
-  
+    font-size: 16px;
+    line-height: 20px;  
   }
 
-.rutasNavAlternativeAux{
-  margin-top: 0.8rem;
+  .nav-component .rutasNavAlternativeAux{
   color: white;
   cursor: pointer;
-  margin-left: 3rem;
-  /* width: 2%; */
   text-decoration: none;
-  font-size: 0.90rem;
-
+  font-size: 16px;
+  line-height: 20px;
 }
 
-.rutasNav3{
+.nav-component .rutasNav3{
   display: flex;
-  margin-left: 35rem;
 
 }
 
 
-.ant-dropdown-trigger    {
+.nav-component .ant-dropdown-trigger    {
     margin-left: 0;
     padding-right: 0;
-  }
+}
 
+.nav-component .ant-space-item {
+  font-size: 16px;
+  line-height: 20px;
+}
 
+.nav-component .cart{
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white
+}
 
-
-  .cart{
-    margin-top: 0.4rem;
-    font-size: 1.5rem;
-    margin-left: 2rem;
-    cursor: pointer;
-    color: white
-  }
-
-  .cartAux{
-    margin-top: 0.4rem;
+  .nav-component .cartAux{
     align-items: center;
     font-size: 1.5rem;
-    margin-left: 2rem;
     cursor: pointer;
     color: white
   }
 
-.buscadorAux{
+  .nav-component .buscadorAux{
   display: flex;
-  margin-left: 2rem;
-  margin-top: 0.5rem;
   height: 2rem;
   width: 20rem;
   border-radius: 0.4rem;
   border: none;
 }
 
-.buscador{
+.nav-component .buscador{
+  padding-left: 40px;
   display: flex;
-  margin-left: 2rem;
-  margin-top: 0.3rem;
   height: 2rem;
-  width: 20rem;
   border-radius: 0.4rem;
   border: none;
 }

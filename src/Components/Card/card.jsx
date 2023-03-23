@@ -1,6 +1,5 @@
 import { useSelector, useDispatch} from "react-redux";
-import { postFavorites } from "../Redux/Actions/Index";
-
+import { postFavorites } from "../../Redux/Actions/Index";
 import { Card } from 'antd';
 import "../Card/card.css"
 import {AiOutlineHeart} from "react-icons/ai";
@@ -58,7 +57,7 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
   >
     <Meta 
     title={title} 
-    description={description} 
+    description={price} 
     />
 
     <div className='iconsCardHomeContainer'>
