@@ -10,6 +10,7 @@ import { Favorites } from './Components/Favorites/Favorites';
 import Filter from './Components/FilterHome/filterHome'
 import { Slider } from "./Components/Slider/Slider";
 import Admin from "./Components/Admin/Admin";
+import LandingPage from "./Components/LandingPage/LandinPage";
 
 
 
@@ -20,18 +21,22 @@ function App() {
   return (
 
     <div className="App">
+
       <BrowserRouter>
+
         <Nav />
+
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
 
+        <Routes>
+          <Route path="/home" element={<Home />} />
+        </Routes>
 
         <Routes>
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
-
-
 
         <Routes>
           <Route exact path="/game" element={<CardDetail />} />
@@ -46,7 +51,9 @@ function App() {
         </Routes>
 
         <Footer />
+
       </BrowserRouter>
+
     </div>
   );
 }
