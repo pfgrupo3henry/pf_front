@@ -6,6 +6,10 @@ import "./LandingPage.css";
 
 function LandingPage() {
 
+    const onClick = () => {
+        window.location.href = "http://localhost:3000/home";
+    };
+
 
 
     return (
@@ -20,7 +24,7 @@ function LandingPage() {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                         incididunt ut labore et dolore magna aliqua.
                     </p>
-                    <button type="button">Explore</button>
+                    <button type="button" onClick={onClick}>Explore</button>
                 </div>
 
                 <div className="col">
