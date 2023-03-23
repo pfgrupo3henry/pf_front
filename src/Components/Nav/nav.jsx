@@ -40,7 +40,7 @@ function Nav() {
       key: "1",
     },
     {
-      label: "Favorites",
+      label: <Link to="/favorites">Favorites</Link>,
       key: "2",
     },
     {
