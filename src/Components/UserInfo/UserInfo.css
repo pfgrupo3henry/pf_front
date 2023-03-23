@@ -1,11 +1,25 @@
-.userInfoContainer.menuOptions{
-    
+/*.userInfoContainer.menuOptions {
     margin-top: 5rem;
     margin-left: 2rem;
 
 }
 
-.userInfoContainer{
+.userInfoContainer {
     display: flex;
     flex-direction: row;
+}*/
+
+
+.profile-body {
+    display: flex;
+    padding: 20px 40px;
+
+}
+
+.profile-text {
+    padding: 30px 20px;
+}
+
+.text-data-profile {
+    color: blue;
 }
