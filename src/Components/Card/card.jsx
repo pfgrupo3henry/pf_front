@@ -1,5 +1,5 @@
 import { useSelector, useDispatch} from "react-redux";
-import { postFavorites } from "../Actions/Index";
+import { postFavorites } from "../Redux/Actions/Index";
 
 import { Card } from 'antd';
 import "../Card/card.css"
@@ -18,7 +18,7 @@ const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
 
 
 
-function CardElement ({title, imgProvisoria, description}) {
+function CardElement ({title, imgProvisoria, description, price, descriptionComplete}) {
 
   const [favorite, setFavorite] = useState(true);
   const [cart, setCart] = useState(true);
@@ -28,13 +28,14 @@ function CardElement ({title, imgProvisoria, description}) {
 
 
 
-  const handleFavorites = (title, description, imgProvisoria) =>{
+  const handleFavorites = (title, description, imgProvisoria, descriptionComplete, price) =>{
     console.log("valores", title, description, imgProvisoria)
     setFavorite(!favorite)
     let valores = {
       title: title,
-      description: description,
+      description: descriptionComplete,
       img: imgProvisoria,
+      price: price
     }
     
     dispatch(postFavorites(valores));
@@ -55,8 +56,11 @@ function CardElement ({title, imgProvisoria, description}) {
     }}
     cover={<img alt="example" src={imgProvisoria} />}
   >
-    <Meta title={title} description={description} 
+    <Meta 
+    title={title} 
+    description={description} 
     />
+
     <div className='iconsCardHomeContainer'>
 
 
@@ -65,7 +69,7 @@ function CardElement ({title, imgProvisoria, description}) {
       className='favIconCardHome'
       onClick={() => {
         console.log('onClick fired');
-        handleFavorites(title, description, imgProvisoria)}}/> 
+        handleFavorites(title, description, imgProvisoria, descriptionComplete, price)}}/> 
       : <AiFillHeart 
       onClick={handleFavorites}
       className='favIconCardHome'/>}

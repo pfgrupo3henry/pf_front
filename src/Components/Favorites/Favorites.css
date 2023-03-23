@@ -24,8 +24,13 @@
 .favorites-component .iconsFavCard{
     display: flex;
     gap: 1rem;
-    font-size: 2rem;
-    cursor: pointer;
-    
+    font-size: 2rem; 
 }
 
+.favorites-component .deleteFav{
+    cursor: pointer;
+}
+
+.favorites-component .deleteFav:hover{
+    transform:scale(1.2)
+}

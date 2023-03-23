@@ -2,7 +2,7 @@ import {
     GET_FAVORITES,
     POST_FAVORITES 
   
-} from "../Actions/Types";
+} from "../Actions/Types"
 
 const initialState = {
     allFavorites: [],

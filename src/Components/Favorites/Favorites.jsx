@@ -94,7 +94,8 @@ function Favorites (){
                             actions={[
                             <div className="iconsFavCard">
                               <AiFillHeart/>
-                              <AiOutlineDelete/>
+                              <AiOutlineDelete
+                              className="deleteFav"/>
                             
                             </div>
                             ]}  
