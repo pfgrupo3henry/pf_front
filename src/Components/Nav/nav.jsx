@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { DropdownShoppingCart } from "../DropdownShoppingCart/DropdownShoppingCart";
+import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
 
 
 import { DownOutlined } from "@ant-design/icons";
@@ -26,11 +26,11 @@ function Nav() {
   }, [user])
 
   const handleLoginClick = () => {
-      loginWithPopup({
-        height: 600,
-        width: 400,
-        timeoutInSeconds: 10,
-      });
+    loginWithPopup({
+      height: 600,
+      width: 400,
+      timeoutInSeconds: 10,
+    });
   }
 
   const onClick = ({ key }) => {
@@ -78,8 +78,8 @@ function Nav() {
           </li>
           {
             isAuthenticated
-            ? null
-            : <li className={!isAuthenticated ? "rutasNavAux" : "rutasNavAlternativeAux2"}>
+              ? null
+              : <li className={!isAuthenticated ? "rutasNavAux" : "rutasNavAlternativeAux2"}>
                 <Login />
               </li>
           }
@@ -118,14 +118,14 @@ function Nav() {
                 </a>
               </Dropdown>
             )}
-            <RiShoppingCartLine onClick={() => {isAuthenticated ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick()}} className={!isAuthenticated ? "cartAux" : "cart"} />
+            <RiShoppingCartLine onClick={() => { isAuthenticated ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated ? "cartAux" : "cart"} />
           </div>
         </div>
-          {
-            shoppingCartRender
+        {
+          shoppingCartRender
             ? <DropdownShoppingCart />
             : null
-          }
+        }
       </div>
     </div>
   );
