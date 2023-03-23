@@ -19,11 +19,13 @@ const rootReducer = (state = initialState , action) => {
         //     }
 
         case POST_FAVORITES:
+                
             return{
                 ...state,
                 allFavorites: [...state.allFavorites, action.payload]
-                
             }
+            
+            
 
             default: return{...state} 
 
