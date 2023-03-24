@@ -11,3 +11,34 @@
 .text-data-profile {
     color: blue;
 }
+
+.menuProfileInfo{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+    margin-left: 5rem;
+    gap: 10rem;
+    margin-bottom: 5rem;
+}
+
+.cardUserInfoDescription{
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.infoUserDetail{
+    display: flex;    
+    flex-direction: column;
+    font-style: oblique;
+    
+}
+
+.cardInfoUser{
+    margin-bottom: 5rem;
+
+}
+
+.cardIndoUserInformation{
+    display: flex;
+    gap: 3rem
+}

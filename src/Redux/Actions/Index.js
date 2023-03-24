@@ -2,6 +2,7 @@ import {
     // GET_FAVORITES,
     POST_FAVORITES,
     ADD_ITEM_TO_CHART,
+    DELETE_FAVORITES
 } from "./Types";
 
 export const postFavorites = (data) => {
@@ -13,6 +14,17 @@ export const postFavorites = (data) => {
     }
 
 }
+
+export const deleteFavorites = (id) => {
+    return function(dispatch) {
+        dispatch({
+            type: DELETE_FAVORITES,
+            payload: id
+        })
+    }
+
+} 
+
 
 export const addItemToChart = (data) => {
     return function (dispatch) {

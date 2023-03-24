@@ -2,7 +2,7 @@ import {React, useEffect} from "react";
 import { useSelector, useDispatch, } from "react-redux";
 import { useContext } from "react";
 // import {getFavorites} from "../Actions/Index";
-import { deleteFavorites } from "../Redux/Actions/Index";
+import { deleteFavorites } from "../../Redux/Actions/Index";
 import {createElement} from "react";
 import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
 import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";

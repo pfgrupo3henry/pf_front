@@ -1,4 +1,4 @@
-import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART } from "../Actions/Types"
+import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES } from "../Actions/Types"
 
 const initialState = {
     allFavorites: [],
@@ -13,6 +13,15 @@ const rootReducer = (state = initialState , action) => {
                 ...state,
                 allFavorites: [...state.allFavorites, action.payload]
             }
+
+            case DELETE_FAVORITES:
+                const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload)
+                return{
+                    ...state,
+                    allFavorites: favoriteFIlter
+                    
+                }
+
         
         case ADD_ITEM_TO_CHART:
             let flag = false;
