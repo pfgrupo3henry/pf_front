@@ -31,12 +31,16 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
   getItem('Dashboard', null, <MailOutlined />, [
+      getItem('Analytics finance', '1'),
   ]),
 
   getItem('Articles', 'sub2', <AppstoreOutlined />, [
-    getItem('List Products', '5'),
-    getItem('New Product ', '6'),
-    getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+      getItem('New Product', '1'),
+      getItem('Modify User', '2'),
+      getItem('Modify Games', '3'),
+      getItem('List Products', '4'),
+      getItem('See Payments ', '5'),
+      getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
   ])
 
 ];
