@@ -140,8 +140,6 @@ console.log("finalizado")
         </Form.Item>
         <Form.Item >
           <Button
-          type='primary'
-          htmlType='submit'
           className='buttonFormCreateProduct'>Create Product</Button>
         </Form.Item>
       </Form>
