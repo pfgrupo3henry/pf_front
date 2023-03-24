@@ -4,20 +4,13 @@
     box-sizing: border-box;
 }
 
-.admin-body {
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-}
-
-.button-admin-body {
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    width: 500px;
+.admin-component {
+    display: flex;
+    min-height: 80vh;
 }
 
 .form-ant {
+    padding: 20px 40px;
     max-width: 600px;
 }
 
@@ -32,11 +25,38 @@ h1 {
 }
 
 .parrafo-juego {
-    color: red;
+    color: rgba(255, 0, 0, 0.733);
     padding: 0px 0px 10px 40px;
 }
 
-.parrafo-juego-select {
-    color: blue;
+.parrafo-juego-select { 
+    color: rgba(9, 22, 29, 0.712);
     padding: 0px 0px 10px 40px;
 }
+
+.userInfoContainer.menuOptions {
+    margin-top: 5rem;
+    margin-left: 2rem;
+
+
+}
+
+.userInfoContainer {
+    display: flex;
+    flex-direction: row;
+    margin-left: 6rem;
+    margin-top: 3rem;
+    
+}
+
+.formCreateNewProduct{
+    margin-top: 3rem;
+    margin-left: 15rem;
+    margin-bottom: 3rem;
+    width: 25rem;
+}
+
+.buttonFormCreateProduct{
+     margin-left: 7.2em; 
+}
+

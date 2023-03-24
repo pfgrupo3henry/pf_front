@@ -15,22 +15,22 @@ import "../Pagination/pagination.css"
 
 function Home (){
     const arrayAux = [
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
-        {title:"Europe Street beat", description:"www.instagram.com", img: imgProvisoria2},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000", id:"1"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000", id:"2"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000", id:"3"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000", id:"4"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000", id:"5"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000", id:"6"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria, price: "$2000", id:"7"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"8"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"9"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"10"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"11"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"12"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"13"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"14"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"15"},
+        {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"16"},
     ]
 
 
@@ -63,7 +63,10 @@ function Home (){
                     <CardElement 
                     title={e.title} 
                     imgProvisoria={e.img} 
-                    description={e.description}
+                    description="DIGITAL"
+                    descriptionComplete={e.description}
+                    price={e.price}
+                    id={e.id}
 
                     />
 
