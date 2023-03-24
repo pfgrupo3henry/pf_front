@@ -56,9 +56,30 @@ function Admin() {
     });
 
     const onClick = (e) => {
+
         console.log('click ', e);
         setCurrent(e.key);
-        setState("crear-juego")
+
+        if (e.key === "1") {
+            setState("crear-juego");
+        }
+
+        if (e.key === "2") {
+            setState("modify-user");
+        }
+
+        if (e.key === "3") {
+            setState("modify-games");
+        }
+
+        if (e.key === "4") {
+            setState("list-products");
+        }
+
+        if (e.key === "5") {
+            setState("see-payments");
+        }
+
     };
 
     const changeTheme = (value) => {
@@ -261,6 +282,46 @@ function Admin() {
                         </Form>
 
                     </div >
+
+                    :
+
+                    <div></div>
+
+                }
+
+                {state === "modify-user" ?
+
+                    <div>Form Modify User</div>
+
+                    :
+
+                    <div></div>
+
+                }
+
+                {state === "modify-games" ?
+
+                    <div>Form Modify Games</div>
+
+                    :
+
+                    <div></div>
+
+                }
+
+                {state === "list-products" ?
+
+                    <div>Form Modify List Products</div>
+
+                    :
+
+                    <div></div>
+
+                }
+
+                {state === "see-payments" ?
+
+                    <div>Form Modify See Payments</div>
 
                     :
 
