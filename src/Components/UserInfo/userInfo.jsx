@@ -149,7 +149,7 @@ export default UserInfo;
   <h3>Favorites: <h5 className="text-data-profile">God of War, Age of Empires</h5></h3>
   <br></br>
   <h3>email: <h5 className="text-data-profile">felipe.blaksley@hotmail.com</h5></h3>
-
+  btrhreyj
 </div>
 
 </div> */}
