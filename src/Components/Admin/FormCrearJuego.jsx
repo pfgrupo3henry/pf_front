@@ -5,7 +5,8 @@ import {
     Form,
     Input,
     Button,
-    Upload
+    Upload,
+    Select
 } from 'antd';
 
 
@@ -143,13 +144,13 @@ function FromularioCrearJuego() {
                 </Form.Item>
 
                 <Form.Item label="Genero">
-                    <select name="genero" id="select-generos" onChange={onChangeSelectGenero} className="select-form">
+                    <Select name="genero" id="select-generos" onChange={onChangeSelectGenero} className="select-form">
                         <option>Encontra tu genero</option>
                         <option>Carreras</option>
                         <option>Multijugador</option>
                         <option>Pelas</option>
                         <option>Aventuras</option>
-                    </select>
+                    </Select>
                 </Form.Item>
 
                 {inputJuego.genero ? <p className="parrafo-juego-select">{inputJuego.genero}</p> : <p></p>}

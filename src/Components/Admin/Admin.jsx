@@ -6,6 +6,7 @@ import {
 } from 'antd';
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
 import FromularioCrearJuego from "./FormCrearJuego";
+import {FormCreateProduct} from "./FormCreateProduct"
 
 
 function getItem(label, key, icon, children, type) {
@@ -21,6 +22,7 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
     getItem('Dashboard', null, <MailOutlined />, [
+        getItem('Analytics finance', '1'),
     ]),
 
     getItem('Articles', 'sub2', <AppstoreOutlined />, [
@@ -79,9 +81,9 @@ function Admin() {
 
         return (
 
-            <div className="body-admin">
+        <div className="admin-component">
 
-                <div className="userInfoContainer">
+            <div className="userInfoContainer">
 
                     <div className="menuOptions">
 
@@ -100,18 +102,17 @@ function Admin() {
                         />
                     </div>
 
-                </div>
+               
 
                 {state === "crear-juego" ?
 
-                    <div><FromularioCrearJuego /></div>
+                    <div><FormCreateProduct/></div>
 
                     :
 
                     <div></div>
 
                 }
-
                 {state === "modify-user" ?
 
                     <div>Form Modify User</div>
@@ -124,7 +125,7 @@ function Admin() {
 
                 {state === "modify-games" ?
 
-                    <div>Form Modify Games</div>
+                    <div></div>
 
                     :
 
@@ -151,6 +152,8 @@ function Admin() {
                     <div></div>
 
                 }
+
+            </div>
 
             </div>
 

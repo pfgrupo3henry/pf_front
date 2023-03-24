@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.body-admin {
+.admin-component {
     display: flex;
     min-height: 80vh;
 }
@@ -25,12 +25,12 @@ h1 {
 }
 
 .parrafo-juego {
-    color: red;
+    color: rgba(255, 0, 0, 0.733);
     padding: 0px 0px 10px 40px;
 }
 
-.parrafo-juego-select {
-    color: blue;
+.parrafo-juego-select { 
+    color: rgba(9, 22, 29, 0.712);
     padding: 0px 0px 10px 40px;
 }
 
@@ -38,9 +38,25 @@ h1 {
     margin-top: 5rem;
     margin-left: 2rem;
 
+
 }
 
 .userInfoContainer {
     display: flex;
     flex-direction: row;
+    margin-left: 6rem;
+    margin-top: 3rem;
+    
 }
+
+.formCreateNewProduct{
+    margin-top: 3rem;
+    margin-left: 15rem;
+    margin-bottom: 3rem;
+    width: 25rem;
+}
+
+.buttonFormCreateProduct{
+     margin-left: 7.2em; 
+}
+
