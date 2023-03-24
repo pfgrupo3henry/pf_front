@@ -6,6 +6,7 @@
 
 .body-admin {
     display: flex;
+    min-height: 80vh;
 }
 
 .form-ant {
