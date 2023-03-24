@@ -1,6 +1,5 @@
 import { useSelector, useDispatch} from "react-redux";
-import {deleteFavorites}  from "../Redux/Actions/Index";
-import { postFavorites, addItemToChart } from "../../Redux/Actions/Index";
+import { postFavorites, addItemToChart, deleteFavorites } from "../../Redux/Actions/Index";
 
 import { Card } from 'antd';
 import "../Card/card.css"
@@ -65,10 +64,10 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
 
 
 
-/*   const deleteFavoritesCardHome = (id)=>{
+/*    const deleteFavoritesCardHome = (id)=>{
     dispatch(deleteFavorites(id))
-  }
- */
+  } */
+ 
 
 
   return (
