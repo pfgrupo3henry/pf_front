@@ -110,8 +110,6 @@ function UserInfo() {
             </div> 
 
           
-{/*             */}
-          
 
        
     </div>  
@@ -121,35 +119,3 @@ function UserInfo() {
 };
 
 export default UserInfo;
-
-
-
-{/* <div className="profile-body">
-
-<Card
-  hoverable
-  style={{ width: 300, height: 500 }}
-  cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
->
-
-  <h1>Felipe Blaksley</h1>
-
-</Card>
-
-<div className="profile-text">
-
-  <h3>Date of birth: <h5 className="text-data-profile">22/05/1992</h5></h3>
-  <br></br>
-  <h3>Nacionality: <h5 className="text-data-profile">Argentina</h5></h3>
-  <br></br>
-  <h3>Mobile: <h5 className="text-data-profile">112-458-6710</h5></h3>
-  <br></br>
-  <h3>Social Networks: <h5 className="text-data-profile">Linkedin, Instagram</h5></h3>
-  <br></br>
-  <h3>Favorites: <h5 className="text-data-profile">God of War, Age of Empires</h5></h3>
-  <br></br>
-  <h3>email: <h5 className="text-data-profile">felipe.blaksley@hotmail.com</h5></h3>
-  btrhreyj
-</div>
-
-</div> */}
