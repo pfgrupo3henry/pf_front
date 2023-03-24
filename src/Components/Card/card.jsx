@@ -114,4 +114,3 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
   )
 };
 export {CardElement};
-
