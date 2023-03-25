@@ -1,8 +1,8 @@
-import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES } from "../Actions/Types"
+import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES } from "../Actions/Types";
 
 const initialState = {
     allFavorites: [],
-    shoppingChart: localStorage.getItem('shoppingChart') && JSON.parse(localStorage.getItem('shoppingChart')) ||[],
+    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) ||[],
 }
 
 const rootReducer = (state = initialState , action) => {
@@ -19,7 +19,6 @@ const rootReducer = (state = initialState , action) => {
                 return{
                     ...state,
                     allFavorites: favoriteFIlter
-                    
                 }
 
         
