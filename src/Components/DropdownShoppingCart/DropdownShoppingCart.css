@@ -1,13 +1,14 @@
 .dropdown-shopping-cart-component {
     position: absolute;
     right: 0;
-    top: 45px;
+    top: 50px;
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(145, 145, 145);
-    border-radius: 0 0 10px 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(5, 5, 5, 0.06)
 }
 
 .dropdown-shopping-cart-component .main {
