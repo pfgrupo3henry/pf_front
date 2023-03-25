@@ -1,6 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
-//import { Pagination } from 'antd';
+import { useState, useEffect } from 'react';
+import { Pagination } from 'antd';
+import { PaginationHome } from "../Pagination/pagination";
 import { CardElement } from "../Card/card";
 //import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
@@ -12,320 +13,304 @@ import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
 
-function Home(label, key, icon, children, type) {
-  useEffect(() => {
-    setCard([...arrayAux]);
-    setItems([...elementsToShow]);
-  }, []);
-  const [card, setCard] = useState([]);
-  const [items, setItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  var ITEMS_PER_PAGE = 8;
 
-  /*
+function Home(label, key, icon, children, type) {
+
+    useEffect(() => {
+        setCard([...arrayAux])
+        setItems([...elementsToShow])
+    }, []);
+
+    const [card, setCard] = useState([]);
+    const [items, setItems] = useState([]);
+ 
     const [current, setCurrent] = useState(1);
     const onChange = (page) => {
         console.log(page);
         setCurrent(page);
+        updateElementsToShow(page);
     };
-    const pageSize = 8; // Cantidad de elementos por página
-    const startIndex = (current - 1) * pageSize;
-    const endIndex = startIndex + pageSize;*/
-  const elementsToShow = arrayAux.slice(0, ITEMS_PER_PAGE);
 
-  const nextHandler = () => {
-    try {
-      const totalElementos = card.length;
+      const pageSize = 8; // Cantidad de elementos por página
+      const [startIndex, setStartIndex] = useState(0);
+      const [endIndex, setEndIndex] = useState(pageSize);
+      const [elementsToShow, setElementsToShow] = useState(arrayAux.slice(startIndex, endIndex));
 
-      const nextPage = currentPage + 1;
 
-      const firstIndex = nextPage * ITEMS_PER_PAGE;
-
-      if (
-        nextPage >= totalElementos / ITEMS_PER_PAGE ||
-        items.length >= 9 ||
-        items.length <= 7
-      )
-        return;
-
-      setItems([...card].splice(firstIndex, ITEMS_PER_PAGE));
-      setCurrentPage(nextPage);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const prevHandler = () => {
-    const prevPage = currentPage - 1;
-
-    if (items.length !== 3) {
-      if (prevPage < 0 || items.length >= 9 || items.length <= 7) return;
-    }
-
-    const firstIndex = prevPage * ITEMS_PER_PAGE;
-
-    setItems([...card].splice(firstIndex, ITEMS_PER_PAGE));
-    setCurrentPage(prevPage);
-  };
-
-  //------------------------------Filtros----------------------------------------------------
-
-  function getItem(label, key, icon, children, type) {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type,
+      const updateElementsToShow = (page) => {
+        const newStartIndex = (page - 1) * pageSize;
+        const newEndIndex = newStartIndex + pageSize;
+        setStartIndex(newStartIndex);
+        setEndIndex(newEndIndex);
+        setItems(card.slice(newStartIndex, newEndIndex));
     };
-  }
-  const items2 = [
-    getItem("See All", "sub4", null),
-    getItem("PS3", "sub1", null, [
-      getItem("Accion", "1"),
-      getItem("Aventura", "2"),
-      getItem("Deportes", "3"),
-      getItem("Multijugador", "4"),
-    ]),
-    getItem("PS4", "sub2", null, [
-      getItem("Accion", "5"),
-      getItem("Aventura", "6"),
-      getItem("Deportes", "7"),
-      getItem("Multijugador", "8"),
-    ]),
-    getItem("PS5", "sub3", null, [
-      getItem("Accion", "9"),
-      getItem("Aventura", "10"),
-      getItem("Deportes", "11"),
-      getItem("Multijugador", "12"),
-    ]),
-  ];
 
-  const rootSubmenuKeys = ["sub1", "sub2", "sub3", "sub4"];
+    //------------------------------Filtros----------------------------------------------------
 
-  const [openKeys, setOpenKeys] = useState(["sub1"]);
-  const onOpenChange = (keys) => {
-    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      setOpenKeys(keys);
-    } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    function getItem(label, key, icon, children, type) {
+
+        
+
+        return {
+            key,
+            icon,
+            children,
+            label,
+            type,
+        };
     }
-  };
+    const items2 = [
+        getItem("See All", "13", null),
+        getItem("PS3", "sub1", null, [
+            getItem("Accion", "1"),
+            getItem("Aventura", "2"),
+            getItem("Deportes", "3"),
+            getItem("Multijugador", "4"),
+        ]),
+        getItem("PS4", "sub2", null, [
+            getItem("Accion", "5"),
+            getItem("Aventura", "6"),
+            getItem("Deportes", "7"),
+            getItem("Multijugador", "8"),
+        ]),
+        getItem("PS5", "sub3", null, [
+            getItem("Accion", "9"),
+            getItem("Aventura", "10"),
+            getItem("Deportes", "11"),
+            getItem("Multijugador", "12"),
+        ])
+    ];
 
-  const onClick = (e) => {
-    console.log("click ", e);
+    const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
 
-    if (e.key === "1") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
+    const [openKeys, setOpenKeys] = useState(["sub1"]);
+    const onOpenChange = (keys) => {
+        const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+        if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            setOpenKeys(keys);
+        } else {
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
+    };
 
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
+    const onClick = (e) => {
+        console.log("click ", e);
 
-      setCurrentPage(0);
-    }
-    if (e.key === "2") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
+        if (e.key === "1") {
 
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Aventura");
-        })
-      );
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
+            })
 
-      setCurrentPage(0);
-    }
-    if (e.key === "3") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Acción")
+            }))
 
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Deportes");
-        })
-      );
+            setCurrent(1);
+        }
+        if (e.key === "2") {
 
-      setCurrentPage(0);
-    }
-    if (e.key === "4") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
+            })
 
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Multijugador");
-        })
-      );
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Aventura")
+            }))
 
-      setCurrentPage(0);
-    }
-    //ps4
-    if (e.key === "5") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
+            setCurrent(1);
 
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
+        }
+        if (e.key === "3") {
 
-      setCurrentPage(0);
-    }
-    if (e.key === "6") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
+            })
 
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Aventura");
-        })
-      );
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Deportes")
+            }))
 
-      setCurrentPage(0);
-    }
-    if (e.key === "7") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
+            setCurrent(1);
 
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Deportes");
-        })
-      );
+        }
+        if (e.key === "4") {
 
-      setCurrentPage(0);
-    }
-    if (e.key === "8") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
+            })
 
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Multijugador");
-        })
-      );
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Multijugador")
+            }))
 
-      setCurrentPage(0);
-    }
-    //ps5
-    if (e.key === "9") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
+            setCurrent(1);
 
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
+        }
+        //ps4
+        if (e.key === "5") {
 
-      setCurrentPage(0);
-    }
-    if (e.key === "10") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
 
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Aventura");
-        })
-      );
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Acción")
+            }))
 
-      setCurrentPage(0);
-    }
-    if (e.key === "11") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
+            setCurrent(1);
 
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Deportes");
-        })
-      );
+        }
+        if (e.key === "6") {
 
-      setCurrentPage(0);
-    }
-    if (e.key === "12") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
 
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Multijugador");
-        })
-      );
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Aventura")
+            }))
 
-      setCurrentPage(0);
-    }
-    if (e.key === "sub4") {
-      setItems([...elementsToShow]);
+            setCurrent(1);
+        }
+        if (e.key === "7") {
 
-      setCurrentPage(0);
-    }
-  };
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
 
-  console.log(items);
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Deportes")
+            }))
 
-  if (card) {
-    return (
-      <div className="home-component">
-        <Slider />
-        <div className="homeContainerUltraMega">
-          <div className="filterHome">
-            <Menu
-              mode="inline"
-              onClick={onClick}
-              openKeys={openKeys}
-              onOpenChange={onOpenChange}
-              style={{
-                width: 256,
-              }}
-              items={items2}
-            />
-          </div>
-          <div className="containerExtreme">
-            <div className="listCards">
-              {items.map((e, i) => (
-                <CardElement
-                  key={i}
-                  title={e.title}
-                  imgProvisoria={e.img[0]}
-                  description="DIGITAL"
-                  descriptionComplete={e.description}
-                  price={e.price}
-                  id={e.id}
-                />
-              ))}
+            setCurrent(1);
+        }
+        if (e.key === "8") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Multijugador")
+            }))
+
+            setCurrent(1);
+
+        }
+        //ps5
+        if (e.key === "9") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Acción")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "11") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Aventura")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "11") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Deportes")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "12") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Multijugador")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "13") {
+
+            setItems([...elementsToShow]);
+
+            setCurrent(1);
+
+        }
+    };
+
+
+    if (card) {
+
+        const total = card.length;
+        return (
+
+            <div className="home-component">
+                <Slider />
+                <div className="homeContainerUltraMega">
+                    <div className="filterHome" >
+                        <Menu
+                            mode="inline"
+                            onClick={onClick}
+                            openKeys={openKeys}
+                            onOpenChange={onOpenChange}
+                            style={{
+                                width: 256,
+                            }}
+                            items={items2}
+                        />
+                    </div>
+                    <div className="containerExtreme">
+                        <div className="listCards">
+                            {items.map((e, i) => (
+                                <CardElement
+                                    key={i}
+                                    title={e.title}
+                                    imgProvisoria={e.img[0]}
+                                    description="DIGITAL"
+                                    descriptionComplete={e.description}
+                                    price={e.price}
+                                    id={e.id}
+                                />
+                            ))}
+                        </div>
+                    <div className="paginationHomeStyle" >
+                    <Pagination 
+                            current={current}
+                            onChange={onChange}
+                            total={card.length}
+                            pageSize={pageSize}
+                            showSizeChanger={false} />
+                    </div>
+                    </div>
+                </div>
             </div>
-            <div className="paginationHomeStyle">
-              <Button onClick={prevHandler}>Prev</Button>
-              <p className="current-page">{currentPage}</p>
-              <Button onClick={nextHandler}>Next</Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 
-export { Home };
+        );
 
-//linea de codigo al pedo
+    }
+
+};
+
+export { Home }
