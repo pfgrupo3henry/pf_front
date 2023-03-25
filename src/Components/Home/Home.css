@@ -10,7 +10,7 @@
     max-width: calc(180px * 4 + 20px * 3);
 }
 
-.home-component .homeContainerUltraMega{
+.home-component .homeContainerUltraMega {
     display: flex;
     gap: 40px;
     margin: 0 auto;
@@ -35,7 +35,7 @@
     padding-top: 40px;
 }
 
-.home-component .containerExtreme{
+.home-component .containerExtreme {
     display: flex;
     width: -webkit-fill-available;
     flex-direction: column;
@@ -43,34 +43,34 @@
     flex-wrap: wrap;
 }
 
-.home-component .paginated{
+.home-component .paginated {
     display: flex;
     margin-top: 3rem;
     margin-bottom: 6rem;
     width: 70rem;
-  
+
 }
 
-.home-component .arrow{
+.home-component .arrow {
     font-size: 1.5rem;
     margin-left: 1rem;
     cursor: pointer;
 }
 
-.home-component .loading{
+.home-component .loading {
     margin-top: 10rem;
 }
 
 
-.home-component .paginatedContainer{
+.home-component .paginatedContainer {
     display: flex;
     z-index: 999;
     margin-left: 10rem;
 }
 
-.home-component .buttonPaginated{
+.home-component .buttonPaginated {
     height: 2rem;
-    width: 2rem;    
+    width: 2rem;
     border-radius: 2rem;
     border: none;
     background-color: rgba(9, 22, 29, 0.712);
@@ -80,13 +80,19 @@
 
 }
 
-.home-component .buttonPaginated:hover{
+.home-component .buttonPaginated:hover {
     transform: scale(1.1);
-} 
+}
 
 
 .home-component .buttonPaginated.active {
     background-color: #007bff;
     color: #fff;
     border: 1px solid #007bff;
-  }
+}
+
+.current-page {
+    font-size: 21px;
+    color: blue;
+    padding: 3px 10px;
+}
