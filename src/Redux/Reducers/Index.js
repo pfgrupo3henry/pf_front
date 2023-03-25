@@ -2,7 +2,7 @@ import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES } fr
 
 const initialState = {
     allFavorites: [],
-    shoppingChart: [],
+    shoppingChart: localStorage.getItem('shoppingChart') && JSON.parse(localStorage.getItem('shoppingChart')) ||[],
 }
 
 const rootReducer = (state = initialState , action) => {
@@ -33,6 +33,7 @@ const rootReducer = (state = initialState , action) => {
             })
 
             if (!flag) {
+                localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
                 return{
                     ...state,
                     shoppingChart: [...state.shoppingChart, action.payload]
@@ -41,6 +42,7 @@ const rootReducer = (state = initialState , action) => {
                 const filteredChart = state.shoppingChart.filter(el => {
                     return JSON.stringify(el) !== JSON.stringify(action.payload)
                 });
+                localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
                 return{
                     ...state,
                     shoppingChart: [...filteredChart]

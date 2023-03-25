@@ -16,7 +16,7 @@ function DropdownShoppingCart() {
           {
             cards.length
               ? cards.map((el, i) => (
-                <DropdownShoppingCartCard key={i} title={el.title} image={el.img} price={el.price} description={el.description} />
+                <DropdownShoppingCartCard key={i} title={el.title} image={el.img} price={el.price} description={el.description} id={el.id} />
               ))
               : null
           }

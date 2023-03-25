@@ -1,19 +1,49 @@
-.listCards{
+.home-component {
+    overflow: hidden;
+}
+
+.home-component .listCards {
     display: flex;
-    width: 50rem;
     flex-wrap: wrap;
-    justify-content: space-around;
+    gap: 20px;
+    width: 100%;
+    max-width: calc(180px * 4 + 20px * 3);
 }
 
-.containerExtreme{
+.home-component .homeContainerUltraMega{
     display: flex;
-    margin-top: 7rem;
-    margin-left: 10rem;
-    margin-right: 7rem;
-    flex-direction: column;
+    gap: 40px;
+    margin: 0 auto;
+    max-width: 1300px;
+    width: 100%;
+    flex-direction: row;
 }
 
-.paginated{
+.home-component .filterHome {
+    border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
+    box-shadow: 10px 0 5px -10px #00000020;
+    position: relative;
+}
+
+.home-component .paginationHomeStyle {
+    margin: 40px 0;
+}
+
+.home-component .filterHome ul.ant-menu-light.ant-menu-root.ant-menu-inline {
+    background-color: transparent;
+    border-inline-end: none !important;
+    padding-top: 40px;
+}
+
+.home-component .containerExtreme{
+    display: flex;
+    width: -webkit-fill-available;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.home-component .paginated{
     display: flex;
     margin-top: 3rem;
     margin-bottom: 6rem;
@@ -21,25 +51,24 @@
   
 }
 
-.arrow{
-
+.home-component .arrow{
     font-size: 1.5rem;
     margin-left: 1rem;
     cursor: pointer;
 }
 
-.loading{
+.home-component .loading{
     margin-top: 10rem;
 }
 
 
- .paginatedContainer{
+.home-component .paginatedContainer{
     display: flex;
     z-index: 999;
     margin-left: 10rem;
 }
 
-.buttonPaginated{
+.home-component .buttonPaginated{
     height: 2rem;
     width: 2rem;    
     border-radius: 2rem;
@@ -51,24 +80,13 @@
 
 }
 
-.buttonPaginated:hover{
+.home-component .buttonPaginated:hover{
     transform: scale(1.1);
 } 
 
 
-.buttonPaginated.active {
+.home-component .buttonPaginated.active {
     background-color: #007bff;
     color: #fff;
     border: 1px solid #007bff;
-  }
-
-
-  .homeContainerUltraMega{
-    display: flex;
-    flex-direction: row;
-  }
-
-  .filterHome{
-    margin-top: 10rem;
-    margin-left: 10rem;
   }
