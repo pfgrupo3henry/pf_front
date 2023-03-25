@@ -41,18 +41,22 @@ function Slider() {
 
   return (
     <Carousel autoplay>
-      {sliderCards.map(el => (
-        <div>
-          <div className='slider-card-component' style={{background: `url('${el.background}')`}}>
-            <div className='info'>
-              <h2 className='title'>{el.title}</h2>
-              <p className='subtitle'>{el.subtitle}</p>
-              <p className='description'>{el.description}</p>
-              <p className='price'>{el.price}</p>
-              <button>Comprar</button>
+      {sliderCards.map((el,i) => (
+        <React.Fragment key={i}>
+          <div>
+            <div className='slider-card-component' style={{background: `url('${el.background}')`}}>
+              <div className='slider-card-component-container'>
+                <div className='info'>
+                  <h2 className='title'>{el.title}</h2>
+                  <p className='subtitle'>{el.subtitle}</p>
+                  <p className='description'>{el.description}</p>
+                  <p className='price'>{el.price}</p>
+                  <button>Comprar</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </React.Fragment>
       ))}
     </Carousel>
   )
