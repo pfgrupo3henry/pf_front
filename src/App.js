@@ -7,9 +7,9 @@ import Footer from './Components/Footer/Footer';
 import { Favorites } from './Components/Favorites/Favorites';
 import Admin from "./Components/Admin/Admin";
 import LandingPage from "./Components/LandingPage/LandinPage";
+import { FinishPayment } from "./Components/FinishPayment/FinishPayment";
 
 
-//linea inutil para poder hacer nuevo commit
 
 
 function App() {
@@ -21,9 +21,10 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route exact path="/game" element={<CardDetail />} />
-          <Route exact path="/profile" element={<UserInfo />} />
-          <Route exact path="/admin" element={<Admin />} />
+          <Route path="/game" element={<CardDetail />} />
+          <Route path="/profile" element={<UserInfo />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/status-payment" element={<FinishPayment />} />
         </Routes>
         <Footer />
       </BrowserRouter>

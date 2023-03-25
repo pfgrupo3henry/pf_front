@@ -5,8 +5,8 @@
 }
 
 .admin-component {
-    display: flex;
     min-height: 80vh;
+    width: 80rem;
 }
 
 .form-ant {
@@ -37,6 +37,8 @@ h1 {
 .userInfoContainer.menuOptions {
     margin-top: 5rem;
     margin-left: 2rem;
+    border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
+    box-shadow: 10px 0 5px -10px #00000020;
 
 
 }
@@ -58,5 +60,15 @@ h1 {
 
 .buttonFormCreateProduct{
      margin-left: 7.2em; 
+}
+
+.admin-component .buttonSearch{
+    color: rgba(9, 22, 29, 0.712);
+    margin-bottom: 3rem;
+}
+
+.admin-component .searchUserListContainer{
+    margin-left: 15rem;
+    margin-top: 3rem;
 }
 
