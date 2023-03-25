@@ -7,7 +7,7 @@
 .landing-page-component.container {
     user-select: none;
     width: 100%;
-    min-height: calc(100vh - 45.2px);
+    min-height: 100vh;
     padding: 40px;
     background-image: url("https://fondosmil.com/fondo/3550.jpg");
     background-repeat: no-repeat;
