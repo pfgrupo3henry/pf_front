@@ -287,7 +287,7 @@ function Home(label, key, icon, children, type) {
                                 <CardElement
                                     key={i}
                                     title={e.title}
-                                    imgProvisoria={e.img}
+                                    imgProvisoria={e.img[0]}
                                     description="DIGITAL"
                                     descriptionComplete={e.description}
                                     price={e.price}
@@ -314,53 +314,3 @@ function Home(label, key, icon, children, type) {
 };
 
 export { Home }
-
-//linea de codigo al pedo
-
-
-{/*                         <div className="paginationHomeStyle" >
-                            <Button onClick={prevHandler}>Prev</Button>
-                            <p className="current-page">{currentPage}</p>
-                            <Button onClick={nextHandler}>Next</Button>
-
-                        </div> */}
-
-
-
-                        /*     const nextHandler = () => {
-
-        try {
-
-            const totalElementos = card.length;
-
-            const nextPage = currentPage + 1;
-
-            const firstIndex = nextPage * ITEMS_PER_PAGE;
-
-            if (nextPage >= totalElementos / ITEMS_PER_PAGE || items.length >= 9 || items.length <= 7) return;
-
-            setItems([...card].splice(firstIndex, ITEMS_PER_PAGE))
-            setCurrent(nextPage);
-
-        } catch (error) {
-
-            console.log(error)
-
-        }
-
-    }; */
-
-/*     const prevHandler = () => {
-
-        const prevPage = currentPage - 1;
-
-        if (items.length !== 3) {
-            if (prevPage < 0 || items.length >= 9 || items.length <= 7) return;
-        }
-
-        const firstIndex = prevPage * ITEMS_PER_PAGE;
-
-        setItems([...card].splice(firstIndex, ITEMS_PER_PAGE))
-        setCurrent(prevPage);
-
-    }; */
