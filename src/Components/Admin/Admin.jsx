@@ -115,64 +115,66 @@ function Admin() {
                         />
                     </div>
 
-               
+                    <div className="forms-render">
+                        {state === "crear-juego" ?
 
-                {state === "crear-juego" ?
+                            <div><FormCreateProduct/></div>
+                            :
+                            <div></div>
 
-                    <div><FormCreateProduct/></div>
-                    :
-                    <div></div>
+                        }
+                        {state === "modify-user" ?
 
-                }
-                {state === "modify-user" ?
+                            <div className="searchUserListContainer">
+                                <Search 
+                                className="buttonSearch"
+                                placeholder="Search user" onSearch="" enterButton 
+                                enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }} 
+                                style={{ width: 300}}/> 
+                                <ModifyUser
+                                />
 
-                    <div className="searchUserListContainer">
-                         <Search 
-                         className="buttonSearch"
-                         placeholder="Search user" onSearch="" enterButton 
-                         enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }} 
-                         style={{ width: 300}}/> 
-                        <ModifyUser
-                        />
+                            </div>  
 
-                    </div>  
+                                :
 
-                        :
-
-                        <div></div> 
+                                <div></div> 
 
 
-                }
+                        }
 
-                {state === "modify-games" ?
+                        {state === "modify-games" ?
 
-                    <div></div>
+                            <div></div>
 
-                    :
+                            :
 
-                    <div></div>
+                            <div></div>
 
-                }
+                        }
 
-                {state === "list-products" ?
+                        {state === "list-products" ?
 
-                    <div>Form Modify List Products</div>
+                            <div>Form Modify List Products</div>
 
-                    :
+                            :
 
-                    <div></div>
+                            <div></div>
 
-                }
+                        }
 
-                {state === "see-payments" ?
+                        {state === "see-payments" ?
 
-                    <div>Form Modify See Payments</div>
+                            <div>Form Modify See Payments</div>
 
-                    :
+                            :
 
-                    <div></div>
+                            <div></div>
 
-                }
+                        }
+
+                    </div>
+
 
             </div>
 
