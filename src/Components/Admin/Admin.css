@@ -5,8 +5,9 @@
 }
 
 .admin-component {
-    min-height: 80vh;
-    width: 80rem;
+    min-height: calc(100vh - 45.2px);
+    max-width: 1300px;
+    margin: 40px auto 0;
 }
 
 .form-ant {
@@ -34,21 +35,15 @@ h1 {
     padding: 0px 0px 10px 40px;
 }
 
-.userInfoContainer.menuOptions {
-    margin-top: 5rem;
-    margin-left: 2rem;
+.userInfoContainer .menuOptions {
     border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
     box-shadow: 10px 0 5px -10px #00000020;
-
-
 }
 
 .userInfoContainer {
     display: flex;
     flex-direction: row;
-    margin-left: 6rem;
-    margin-top: 3rem;
-    
+    min-height: calc(100vh - 45.2px);
 }
 
 .formCreateNewProduct{
