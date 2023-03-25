@@ -1,11 +1,15 @@
 import { useState } from "react";
 import "./Admin.css";
-import { PlusOutlined } from '@ant-design/icons';
 import {
     Menu
 } from 'antd';
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
-import FromularioCrearJuego from "./FormCrearJuego";
+import {FormCreateProduct} from "./FormCreateProduct"
+import {ModifyUser} from "./ModifyUser"
+import { Input, Space } from 'antd';
+
+
+const { Search } = Input;
 
 
 function getItem(label, key, icon, children, type) {
@@ -21,6 +25,7 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
     getItem('Dashboard', null, <MailOutlined />, [
+        getItem('Analytics finance', '1'),
     ]),
 
     getItem('Articles', 'sub2', <AppstoreOutlined />, [
@@ -34,9 +39,20 @@ const items = [
 
 ];
 
+const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
 
 
 function Admin() {
+
+    const [openKeys, setOpenKeys] = useState(["sub1"]);
+    const onOpenChange = (keys) => {
+      const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+      if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+        setOpenKeys(keys);
+      } else {
+        setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+      }
+    };
 
     const [theme, setTheme] = useState('ligth');
     const [current, setCurrent] = useState('1');
@@ -79,78 +95,88 @@ function Admin() {
 
         return (
 
-            <div className="body-admin">
+        <div className="admin-component">
 
-                <div className="userInfoContainer">
+            <div className="userInfoContainer">
 
                     <div className="menuOptions">
 
                         <br />
                         <br />
                         <Menu
-                            theme={theme}
+                            mode="inline"
                             onClick={onClick}
+                            openKeys={openKeys}
+                            onOpenChange={onOpenChange}
                             style={{
                                 width: 256,
                             }}
-                            defaultOpenKeys={['sub1']}
-                            selectedKeys={[current]}
-                            mode="inline"
                             items={items}
                         />
                     </div>
 
-                </div>
+                    <div className="forms-render">
+                        {state === "crear-juego" ?
 
-                {state === "crear-juego" ?
+                            <div><FormCreateProduct/></div>
+                            :
+                            <div></div>
 
-                    <div><FromularioCrearJuego /></div>
+                        }
+                        {state === "modify-user" ?
 
-                    :
+                            <div className="searchUserListContainer">
+                                <Search 
+                                className="buttonSearch"
+                                placeholder="Search user" onSearch="" enterButton 
+                                enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }} 
+                                style={{ width: 300}}/> 
+                                <ModifyUser
+                                />
 
-                    <div></div>
+                            </div>  
 
-                }
+                                :
 
-                {state === "modify-user" ?
+                                <div></div> 
 
-                    <div>Form Modify User</div>
 
-                    :
+                        }
 
-                    <div></div>
+                        {state === "modify-games" ?
 
-                }
+                            <div></div>
 
-                {state === "modify-games" ?
+                            :
 
-                    <div>Form Modify Games</div>
+                            <div></div>
 
-                    :
+                        }
 
-                    <div></div>
+                        {state === "list-products" ?
 
-                }
+                            <div>Form Modify List Products</div>
 
-                {state === "list-products" ?
+                            :
 
-                    <div>Form Modify List Products</div>
+                            <div></div>
 
-                    :
+                        }
 
-                    <div></div>
+                        {state === "see-payments" ?
 
-                }
+                            <div>Form Modify See Payments</div>
 
-                {state === "see-payments" ?
+                            :
 
-                    <div>Form Modify See Payments</div>
+                            <div></div>
 
-                    :
+                        }
 
-                    <div></div>
+                    </div>
 
-                }
+
+            </div>
 
             </div>
 
@@ -160,4 +186,4 @@ function Admin() {
 
 };
 
-export default Admin;
+export  default Admin;

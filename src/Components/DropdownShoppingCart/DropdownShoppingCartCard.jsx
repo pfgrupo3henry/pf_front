@@ -5,7 +5,7 @@ import granulado from '../Assets/granulado.png';
 import { useDispatch } from 'react-redux';
 import { addItemToChart } from '../../Redux/Actions/Index';
 
-function DropdownShoppingCartCard({ image, title, description, price }) {
+function DropdownShoppingCartCard({ image, title, description, price, id }) {
 
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ function DropdownShoppingCartCard({ image, title, description, price }) {
         </div>
       </div>
       <div className='card-footer'>
-        <span onClick={() => dispatch(addItemToChart({ title, description, img: image, price }))}>Eliminar</span>
+        <span onClick={() => dispatch(addItemToChart({ title, description, img: image, price, id }))}>Eliminar</span>
       </div>
     </div>
   )

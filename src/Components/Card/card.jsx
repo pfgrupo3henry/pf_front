@@ -1,6 +1,6 @@
 import { useSelector, useDispatch} from "react-redux";
 import { postFavorites, addItemToChart, deleteFavorites } from "../../Redux/Actions/Index";
-
+import React from 'react'
 import { Card } from 'antd';
 import "../Card/card.css"
 import {AiOutlineHeart} from "react-icons/ai";
@@ -10,13 +10,7 @@ import {RiShoppingCartFill} from "react-icons/ri";
 import { useState } from 'react';
 const { Meta } = Card;
 
-
-
 const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
-
-
-
-
 
 function CardElement ({title, imgProvisoria, description, price, descriptionComplete, id}) {
 
@@ -26,6 +20,8 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
   const allFavorites = useSelector(state => state.allFavorites);
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
+
+  const [shoppingStringified, setShoppingStringified] = React.useState([]);
 
 
 
@@ -44,8 +40,8 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
     dispatch(postFavorites(valores));
   }
 
-  const handleShoppingChart = (title, description, img, price) => {
-    if (!title || !description || !img || !price) {
+  const handleShoppingChart = (title, description, img, price, id) => {
+    if (!title || !description || !img || !price || !id) {
       return null
     }
 
@@ -54,12 +50,13 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
       description,
       img,
       price,
+      id
     }))
   }
 
   const handleCart = () =>{
     setCart(!cart);
-    handleShoppingChart(title, description, imgProvisoria, price)
+    handleShoppingChart(title, description, imgProvisoria, price, id)
   }
 
 
@@ -67,6 +64,13 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
 /*    const deleteFavoritesCardHome = (id)=>{
     dispatch(deleteFavorites(id))
   } */
+
+  React.useEffect(() => {
+    const returnStringified = shoppingChart.map(el => {
+      return JSON.stringify(el);
+    });
+    setShoppingStringified(returnStringified);
+  }, [shoppingChart])
  
 
 
@@ -99,7 +103,13 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
       className='favIconCardHome'/>}
 
 
-    {cart ?
+    {!shoppingStringified.includes(JSON.stringify({
+      title,
+      description,
+      img: imgProvisoria,
+      price,
+      id
+    })) ?
       <RiShoppingCartLine
       className='favIconCardHome'
       onClick={handleCart}/> 
@@ -114,4 +124,3 @@ function CardElement ({title, imgProvisoria, description, price, descriptionComp
   )
 };
 export {CardElement};
-
