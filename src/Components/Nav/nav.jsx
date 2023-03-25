@@ -8,22 +8,13 @@ import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import { RiShoppingCartLine } from "react-icons/ri";
 import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
-
-
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space } from "antd";
 
 function Nav() {
 
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
-
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
-
-  React.useEffect(() => {
-    if (user) {
-      console.log(user.email);
-    }
-  }, [user])
 
   const handleLoginClick = () => {
     loginWithPopup({
@@ -33,10 +24,6 @@ function Nav() {
     });
   }
 
-  const onClick = ({ key }) => {
-    /*             message.info(`Click on item ${key}`);
-     */
-  };
   const inboxOptions = [
     {
       label: "Example 1",
@@ -62,8 +49,12 @@ function Nav() {
       key: "2",
     },
     {
-      label: <Logout />,
+      label: <Link to="/admin" className="rutasNav">Admin</Link>,
       key: "3",
+    },
+    {
+      label: <Logout />,
+      key: "4",
     },
   ];
 
@@ -72,9 +63,7 @@ function Nav() {
       <div className="rutasNavContainer">
         <ul>
           <li className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}>
-            <Link to="/home" className="rutasNav">
-              Home
-            </Link>
+            <Link to="/home" className="rutasNav">Home</Link>
           </li>
           {
             isAuthenticated
@@ -87,7 +76,6 @@ function Nav() {
             <Dropdown className={!isAuthenticated ? "rutasNav2AuxUltimate" : "rutasNav2Aux"}
               menu={{
                 items: inboxOptions,
-                onClick,
               }}>
               <a onClick={(e) => e.preventDefault()}>
                 <Space>
@@ -100,9 +88,6 @@ function Nav() {
           <li className={!isAuthenticated ? "buscador" : "buscadorAux"}>
             <SearchBar />
           </li>
-          <Link to="/admin" className="rutasNav">
-            Admin
-          </Link>
         </ul>
         <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}></div>
         <div className="rutasNav3">
@@ -112,7 +97,6 @@ function Nav() {
                 className=""
                 menu={{
                   items: profileOptions,
-                  onClick,
                 }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
@@ -126,8 +110,8 @@ function Nav() {
         </div>
         {
           shoppingCartRender
-            ? <DropdownShoppingCart />
-            : null
+          ? <DropdownShoppingCart />
+          : null
         }
       </div>
     </div>

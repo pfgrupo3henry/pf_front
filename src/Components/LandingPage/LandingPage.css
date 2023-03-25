@@ -1,96 +1,138 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Roboto", sans-serif;
+    font-family: "montserrat", sans-serif;
 }
 
-.container {
+.landing-page-component.container {
+    user-select: none;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 40px;
     background-image: url("https://fondosmil.com/fondo/3550.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-}
-
-.row {
     display: flex;
-    height: 88%;
     align-items: center;
-    padding: 0px 40px;
 }
 
-.col {
-    flex-basis: 50%;
+.landing-page-component .row {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
 }
 
-.col h1 {
+.landing-page-component .col.cards-col {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 60%;
+}
+
+.landing-page-component .col.text-col {
+    padding-top: 80px;
+    width: 40%;
+}
+
+.landing-page-component .col h1 {
     color: white;
-    font-size: 80px;
+    font-size: 52px;
+    line-height: 56px;
 }
 
-.col p {
+.landing-page-component .col p {
     color: white;
     font-size: 18px;
-    line-height: 15px;
+    line-height: 22px;
 }
 
-.col button {
+.landing-page-component .col button {
     width: 180px;
-    color: black;
-    font-size: 16px;
+    color: #000;
+    /* font-size: 16px;
     padding: 12px 0px;
     background-color: white;
     border: 0;
-    border-radius: 20px;
+    border-radius: 20px; */
+    border: none;
     outline: none;
     margin-top: 30px;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out !important;
 }
 
-.col button:hover {
-    width: 200px;
-    color: rgb(34, 2, 2);
-    background-color: rgb(228, 213, 213);
+.landing-page-component .col button:hover {
+    color: #fff;
+    background-color: #828893;
+    box-shadow: 0px 2px 10px gray;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out !important;
 }
 
-.card {
+.landing-page-component .card {
     width: 200px;
     height: 230px;
     display: inline-block;
     border-radius: 10px;
     padding: 15px 25px;
     box-sizing: border-box;
-    cursor: pointer;
+    /* cursor: pointer; */
     margin: 10px 15px;
     background-position: center;
     background-size: cover;
 }
 
 
-.card1 {
+.landing-page-component .card1 {
     background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/O4JWB4MZUJFIXD3SVWZP6YHQPM.jpg");
 }
 
-.card2 {
+.landing-page-component .card2 {
     background-image: url("https://image.api.playstation.com/vulcan/ap/rnd/202010/0205/dyvo9eGUf7WTZx49eTpQyDuL.png");
 }
 
-.card3 {
+.landing-page-component .card3 {
     background-image: url("http://www.edicioncoleccionista.com/wp-content/uploads/2015/12/Rese%C3%B1a-de-Assassins-Creed-La-Historia-Definitiva-Ilustrada-Panini-Comics-1.jpg");
 }
 
-.card4 {
+.landing-page-component .card4 {
     background-image: url("https://upload.wikimedia.org/wikipedia/en/5/5a/FF_XV_cover_art.jpg");
 }
 
-.card5 {
+.landing-page-component .card5 {
     background-image: url("https://upload.wikimedia.org/wikipedia/en/4/46/Video_Game_Cover_-_The_Last_of_Us.jpg");
 }
 
-.card6 {
+.landing-page-component .card6 {
     background-image: url("https://i0.wp.com/regionps.com/wp-content/uploads/2018/11/El-arte-de-uncharted-portada.jpg?ssl=1");
 }
 
-.card:hover {
-    height: 245px;
+@media (max-width:1023px) {
+    .landing-page-component .row {
+        flex-direction: column;
+        gap: 80px;
+        padding-top: 80px;
+    }
+
+    .landing-page-component .col.text-col {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .landing-page-component .col.cards-col {
+        width: 100%;
+    }
+
+    .landing-page-component .text-col h1,
+    .landing-page-component .text-col p,
+    .landing-page-component .text-col button {
+        max-width: 450px;
+    }
+}
+
+@media (max-width:767px) {
+    .landing-page-component.container {
+        padding: 25px;
+    }
 }

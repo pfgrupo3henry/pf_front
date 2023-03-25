@@ -6,7 +6,7 @@ function FormCreateProduct (){
     
     return(
         <div className="form-ant">
-            soy un formulario
+            soy un form
         </div>
     )
 }

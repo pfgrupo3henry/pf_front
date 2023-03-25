@@ -33,55 +33,47 @@ function Home (){
         {title:"God of War Ragnarok", description:"En esta secuela, Kratos y Atreus iniciarán un viaje mítico en busca de respuestas antes de que llegue Ragnarök. Padre e hijo deberán arriesgarlo todo en cada uno de los Nueve Reinos. A lo largo de impresionantes paisajes mitológicos, se enfrentarán a temibles enemigos, desde dioses nórdicos hasta bestias salvajes", img: imgProvisoria2, price: "$2000", id:"16"},
     ]
 
-
-
-
-
     const [current, setCurrent] = useState(1);
     const onChange = (page) => {
         console.log(page);
         setCurrent(page);
-      };
+    };
 
     const pageSize = 8; // Cantidad de elementos por página
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     const elementsToShow = arrayAux.slice(startIndex, endIndex);
 
-
     return(
-        <div>
-        <Slider />
-        <div className="homeContainerUltraMega">
-        <div className="filterHome" >
-        <FilterHome/>
-        </div>
-
-        <div className="containerExtreme">
-            <div className="listCards"> 
-                {elementsToShow.map((e) => (
-                    <CardElement 
-                    title={e.title} 
-                    imgProvisoria={e.img} 
-                    description="DIGITAL"
-                    descriptionComplete={e.description}
-                    price={e.price}
-                    id={e.id}
-
-                    />
-
-                ))}
-                
+        <div className="home-component">
+            <Slider />
+            <div className="homeContainerUltraMega">
+                <div className="filterHome" >
+                    <FilterHome/>
+                </div>
+                <div className="containerExtreme">
+                    <div className="listCards"> 
+                        {elementsToShow.map((e, i) => (
+                            <CardElement
+                            key={i} 
+                            title={e.title} 
+                            imgProvisoria={e.img} 
+                            description="DIGITAL"
+                            descriptionComplete={e.description}
+                            price={e.price}
+                            id={e.id}
+                            />
+                        ))} 
+                    </div>
+                    <div className="paginationHomeStyle" >
+                        <Pagination current={current} onChange={onChange} total={16} />
+                    </div>
+                </div>
             </div>
-
-            <div className="paginationHomeStyle" >
-                <Pagination current={current} onChange={onChange} total={16} />
-            </div>
-
-        </div>
-        </div>
         </div>
     )
 }
 
-export {Home}
+export { Home }
+
+//linea de codigo al pedo

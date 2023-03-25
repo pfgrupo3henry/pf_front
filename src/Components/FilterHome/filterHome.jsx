@@ -14,19 +14,19 @@ function getItem(label, key, icon, children, type) {
   };
 }
 const items = [
-  getItem("PS3", "sub1", <SendOutlined />, [
+  getItem("PS3", "sub1", null, [
     getItem("Accion", "1"),
     getItem("Aventura", "2"),
     getItem("Deportes", "3"),
     getItem("Multijugador", "4"),
   ]),
-  getItem("PS4", "sub2", <SendOutlined />, [
+  getItem("PS4", "sub2", null, [
     getItem("Accion", "5"),
     getItem("Aventura", "6"),
     getItem("Deportes", "7"),
     getItem("Multijugador", "8"),
   ]),
-  getItem("PS5", "sub3", <SendOutlined />, [
+  getItem("PS5", "sub3", null, [
     getItem("Accion", "9"),
     getItem("Aventura", "10"),
     getItem("Deportes", "11"),

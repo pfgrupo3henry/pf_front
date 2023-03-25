@@ -1,0 +1,12 @@
+.finishPayment-component{
+     min-height: 80vh;
+    width: 100%;
+}
+
+.statusPayment{
+    display: flex;
+    margin-top: 3rem;
+    margin-left: 20rem;
+    width: 50rem;
+    
+}
