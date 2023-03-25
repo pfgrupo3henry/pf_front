@@ -11,6 +11,7 @@ import Filter from './Components/FilterHome/filterHome'
 import { Slider } from "./Components/Slider/Slider";
 import Admin from "./Components/Admin/Admin";
 import LandingPage from "./Components/LandingPage/LandinPage";
+import { FinishPayment } from "./Components/FinishPayment/FinishPayment";
 
 
 //linea inutil para poder hacer nuevo commit
@@ -48,6 +49,9 @@ function App() {
 
         <Routes>
           <Route exact path="/admin" element={<Admin />} />
+        </Routes>
+        <Routes>
+          <Route exact path="/status-payment" element={<FinishPayment />} />
         </Routes>
 
         <Footer />
