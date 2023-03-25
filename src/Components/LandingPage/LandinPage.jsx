@@ -6,9 +6,10 @@ import { Button } from "antd";
 function LandingPage() {
     React.useEffect(() => {
         document.querySelector('.nav-component').style.display = 'none';
-
+        document.querySelector('.footer').style.display = 'none';
         return () => {
             document.querySelector('.nav-component').style.display = '';
+            document.querySelector('.footer').style.display = '';
         }
     })
     return (
