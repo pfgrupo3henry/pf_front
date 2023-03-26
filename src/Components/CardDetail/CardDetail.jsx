@@ -40,6 +40,8 @@ function CardDetail() {
 
     if (card.length !== 0) {
 
+        var precio = `$ ${card[0].price}`
+
         return (
 
             <div className="body-card card-detail-component">
@@ -95,7 +97,7 @@ function CardDetail() {
                             <hr></hr>
                             <Card
                                 className="cardDetailDescription"
-                                title={card[0].price}
+                                title={precio}
                                 bordered={false}
                                 style={{
                                     width: 300,
