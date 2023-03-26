@@ -96,3 +96,14 @@
     color: blue;
     padding: 3px 10px;
 }
+
+.alert-home {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 150px 0px;
+}
+
+.link-card {
+    text-decoration: none;
+}

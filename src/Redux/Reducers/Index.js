@@ -1,9 +1,13 @@
-import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, POST_NEW_PRODUCT } from "../Actions/Types";
+import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, POST_NEW_PRODUCT, GET_CARDS, FILTER_CARDS, GET_SEARCH, SET_NAME_FILTER } from "../Actions/Types";
+
 
 const initialState = {
     allFavorites: [],
     allGames:[],
     shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) ||[],
+    cards: [],
+    filteredCards: [],
+    nameFilter: '',
 }
 
 const rootReducer = (state = initialState , action) => {
@@ -21,12 +25,15 @@ const rootReducer = (state = initialState , action) => {
                 ...state,
                 allFavorites: favoriteFIlter
             }
+
             
         case POST_NEW_PRODUCT:
             return{
                 ...state,
                 allGames: action.payload
             }
+
+
 
         
         case ADD_ITEM_TO_CHART:
@@ -55,7 +62,33 @@ const rootReducer = (state = initialState , action) => {
                 }
             }
 
-        default: return{...state} 
+        case GET_CARDS:
+            return {
+                ...state,
+                cards: action.payload,
+                filteredCards: action.payload,
+            }
+
+        case FILTER_CARDS:
+            return {
+                ...state,
+                filteredCards: action.payload,
+            }
+
+        case GET_SEARCH:
+            return {
+                ...state,
+                filteredCards: action.payload,
+            }
+        
+        case SET_NAME_FILTER:
+            return {
+                ...state,
+                nameFilter: action.payload,
+            }
+
+        default: 
+        return { ...state } 
     }}
 
         
