@@ -55,24 +55,39 @@ function Home(label, key, icon, children, type) {
         };
     }
     const items2 = [
-        getItem("See All", "13", null),
+        getItem("See All", "28", null),
         getItem("PS3", "sub1", null, [
             getItem("Accion", "1"),
             getItem("Aventura", "2"),
-            getItem("Deportes", "3"),
-            getItem("Multijugador", "4"),
+            getItem("Combos", "3"),
+            getItem("Conducción", "4"),
+            getItem("Deportes", "5"),
+            getItem("Estrategia", "6"),
+            getItem("Infantiles", "7"),
+            getItem("Multijugador", "8"),
+            getItem("Rol", "9"),
         ]),
         getItem("PS4", "sub2", null, [
-            getItem("Accion", "5"),
-            getItem("Aventura", "6"),
-            getItem("Deportes", "7"),
-            getItem("Multijugador", "8"),
+            getItem("Accion", "10"),
+            getItem("Aventura", "11"),
+            getItem("Combos", "12"),
+            getItem("Conducción", "13"),
+            getItem("Deportes", "14"),
+            getItem("Estrategia", "15"),
+            getItem("Infantiles", "16"),
+            getItem("Multijugador", "17"),
+            getItem("Rol", "18"),
         ]),
         getItem("PS5", "sub3", null, [
-            getItem("Accion", "9"),
-            getItem("Aventura", "10"),
-            getItem("Deportes", "11"),
-            getItem("Multijugador", "12"),
+            getItem("Accion", "19"),
+            getItem("Aventura", "20"),
+            getItem("Combos", "21"),
+            getItem("Conducción", "22"),
+            getItem("Deportes", "23"),
+            getItem("Estrategia", "24"),
+            getItem("Infantiles", "25"),
+            getItem("Multijugador", "26"),
+            getItem("Rol", "27"),
         ])
     ];
 
@@ -88,9 +103,10 @@ function Home(label, key, icon, children, type) {
         }
     };
 
+
     const onClick = (e) => {
         console.log("click ", e);
-
+        // Filtros PS3 -----------------
         if (e.key === "1") {
 
             let PS3 = card.filter((card) => {
@@ -123,7 +139,7 @@ function Home(label, key, icon, children, type) {
             })
 
             setItems([...PS3].filter((card) => {
-                return card.genre.includes("Deportes")
+                return card.genre.includes("Combos")
             }))
 
             setCurrent(1);
@@ -136,21 +152,20 @@ function Home(label, key, icon, children, type) {
             })
 
             setItems([...PS3].filter((card) => {
-                return card.genre.includes("Multijugador")
+                return card.genre.includes("Conducción")
             }))
 
             setCurrent(1);
 
         }
-        //ps4
         if (e.key === "5") {
 
-            let PS4 = card.filter((card) => {
-                return card.platform.includes("PS4")
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
             })
 
-            setItems([...PS4].filter((card) => {
-                return card.genre.includes("Acción")
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Deportes")
             }))
 
             setCurrent(1);
@@ -158,63 +173,63 @@ function Home(label, key, icon, children, type) {
         }
         if (e.key === "6") {
 
-            let PS4 = card.filter((card) => {
-                return card.platform.includes("PS4")
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
             })
 
-            setItems([...PS4].filter((card) => {
-                return card.genre.includes("Aventura")
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Estrategia")
             }))
 
             setCurrent(1);
         }
         if (e.key === "7") {
 
-            let PS4 = card.filter((card) => {
-                return card.platform.includes("PS4")
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
             })
 
-            setItems([...PS4].filter((card) => {
-                return card.genre.includes("Deportes")
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Infantiles")
             }))
 
             setCurrent(1);
         }
         if (e.key === "8") {
 
-            let PS4 = card.filter((card) => {
-                return card.platform.includes("PS4")
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
             })
 
-            setItems([...PS4].filter((card) => {
+            setItems([...PS3].filter((card) => {
                 return card.genre.includes("Multijugador")
             }))
 
             setCurrent(1);
 
         }
-        //ps5
         if (e.key === "9") {
 
-            let PS5 = card.filter((card) => {
-                return card.platform.includes("PS5")
+            let PS3 = card.filter((card) => {
+                return card.platform.includes("PS3")
             })
 
-            setItems([...PS5].filter((card) => {
-                return card.genre.includes("Acción")
+            setItems([...PS3].filter((card) => {
+                return card.genre.includes("Rol")
             }))
 
             setCurrent(1);
 
         }
+        // Filtros PS4 -----------------
         if (e.key === "10") {
 
-            let PS5 = card.filter((card) => {
-                return card.platform.includes("PS5")
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
             })
 
-            setItems([...PS5].filter((card) => {
-                return card.genre.includes("Aventura")
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Accion")
             }))
 
             setCurrent(1);
@@ -222,6 +237,163 @@ function Home(label, key, icon, children, type) {
         }
         if (e.key === "11") {
 
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Aventura")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "12") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Combos")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "13") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Conducción")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "14") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Deportes")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "15") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Estrategia")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "16") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Infantiles")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "17") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Multijugador")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "18") {
+
+            let PS4 = card.filter((card) => {
+                return card.platform.includes("PS4")
+            })
+
+            setItems([...PS4].filter((card) => {
+                return card.genre.includes("Rol")
+            }))
+
+            setCurrent(1);
+
+        }
+        // Filtros PS5 -----------------
+        if (e.key === "19") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Accion")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "20") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Aventura")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "21") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Combos")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "22") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Conducción")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "23") {
+
             let PS5 = card.filter((card) => {
                 return card.platform.includes("PS5")
             })
@@ -233,7 +405,33 @@ function Home(label, key, icon, children, type) {
             setCurrent(1);
 
         }
-        if (e.key === "12") {
+        if (e.key === "24") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Estrategia")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "25") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Infantiles")
+            }))
+
+            setCurrent(1);
+
+        }
+        if (e.key === "26") {
 
             let PS5 = card.filter((card) => {
                 return card.platform.includes("PS5")
@@ -246,7 +444,21 @@ function Home(label, key, icon, children, type) {
             setCurrent(1);
 
         }
-        if (e.key === "13") {
+        if (e.key === "27") {
+
+            let PS5 = card.filter((card) => {
+                return card.platform.includes("PS5")
+            })
+
+            setItems([...PS5].filter((card) => {
+                return card.genre.includes("Rol")
+            }))
+
+            setCurrent(1);
+
+        }
+        // Ver todos los juegos -----------------
+        if (e.key === "28") {
 
             setItems([...card].slice(0, 8));
 
