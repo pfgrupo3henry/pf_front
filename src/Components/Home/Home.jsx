@@ -531,11 +531,10 @@ function Home(label, key, icon, children, type) {
                 setOpenKeys(["All"]);
                 // console.log('all cards');
             } else {
+                dispatch(setNameFilter(''));
                 const videojuegosFiltrados = cards.filter(el => {
-                    return eliminarDiacriticos(el.genre.toLowerCase()) === eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) && el.platform === e.keyPath[1] && eliminarDiacriticos(el.name.toLowerCase()).includes(eliminarDiacriticos(filterName.toLowerCase()));
+                    return eliminarDiacriticos(el.genre.toLowerCase()) === eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) && el.platform === e.keyPath[1];
                 });
-    
-                console.log(videojuegosFiltrados);
                 dispatch(filterCards(videojuegosFiltrados));
             }
         }
