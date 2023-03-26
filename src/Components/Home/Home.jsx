@@ -258,7 +258,7 @@ function Home(label, key, icon, children, type) {
 
     // ------------------------------ axios ---------------------------------------
 
-    if (items.length === 0) {
+    if (items.length === 0 && card.length === 0) {
 
         axios.get("https://pfservidor-production.up.railway.app/videogames")
             .then((res) => {
