@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Alert } from 'antd';
 import { PaginationHome } from "../Pagination/pagination";
 import { CardElement } from "../Card/card";
 //import { FilterHome } from "../FilterHome/filterHome"
@@ -13,6 +13,10 @@ import "./Home.css";
 import "../Pagination/pagination.css";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+
+
+
+
 
 
 function Home(label, key, icon, children, type) {
@@ -505,21 +509,32 @@ function Home(label, key, icon, children, type) {
                         />
                     </div>
                     <div className="containerExtreme">
-                        <div className="listCards">
-                            {items.map((e, i) => (
-                                <Link to={"/game/" + e.id}>
-                                    <CardElement
-                                        key={i}
-                                        title={e.title}
-                                        imgProvisoria={e.img[0]}
-                                        description="DIGITAL"
-                                        descriptionComplete={e.description}
-                                        price={e.price}
-                                        id={e.id}
-                                    />
-                                </Link>
-                            ))}
-                        </div>
+                        {items.length === 0 ?
+                            <div className="alert-home">
+                                <Alert
+                                    message="Por el momento no tenemos juegos de este genero"
+                                    description="Ni bien tengamos disponibilidad les estaremos comunicando"
+                                    type="info"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div className="listCards">
+                                {items.map((e, i) => (
+                                    <Link to={"/game/" + e.id}>
+                                        <CardElement
+                                            key={i}
+                                            title={e.title}
+                                            imgProvisoria={e.img[0]}
+                                            description="DIGITAL"
+                                            descriptionComplete={e.description}
+                                            price={e.price}
+                                            id={e.id}
+                                        />
+                                    </Link>
+                                ))}
+                            </div>
+                        }
                         <div className="paginationHomeStyle" >
                             <Pagination
                                 current={current}
@@ -530,7 +545,7 @@ function Home(label, key, icon, children, type) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
 
         );
 
