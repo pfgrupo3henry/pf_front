@@ -249,7 +249,7 @@ function Home(label, key, icon, children, type) {
             })
 
             setItems([...PS4].filter((card) => {
-                return card.genre.includes("Accion")
+                return card.genre.includes("Acción")
             }))
 
             setCurrent(1);
@@ -376,7 +376,7 @@ function Home(label, key, icon, children, type) {
             })
 
             setItems([...PS5].filter((card) => {
-                return card.genre.includes("Accion")
+                return card.genre.includes("Acción")
             }))
 
             setCurrent(1);
