@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { Nav } from "./Components/Nav/nav"
 import { Home } from './Components/Home/Home';
@@ -8,11 +9,17 @@ import { Favorites } from './Components/Favorites/Favorites';
 import Admin from "./Components/Admin/Admin";
 import LandingPage from "./Components/LandingPage/LandinPage";
 import { FinishPayment } from "./Components/FinishPayment/FinishPayment";
-
-
-
+import { useDispatch } from "react-redux";
+import { getCards } from "./Redux/Actions/Index";
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getCards());
+  }, [])
+
   return (
     <div className="App">
       <BrowserRouter>
