@@ -23,6 +23,8 @@ function Home(label, key, icon, children, type) {
 
     const [card, setCard] = useState([]);
     const [items, setItems] = useState([]);
+    const [numberPaginado, setNumberPagindo] = useState(1);
+    const [number2, setNumber2] = useState(1);
 
     const [current, setCurrent] = useState(1);
     const onChange = (page) => {
@@ -42,6 +44,11 @@ function Home(label, key, icon, children, type) {
         setStartIndex(newStartIndex);
         setEndIndex(newEndIndex);
         setItems(card.slice(newStartIndex, newEndIndex));
+    };
+
+    if (card.length > 1 && number2 === 1) {
+        setNumberPagindo(card.length)
+        setNumber2(2)
     };
 
     //------------------------------Filtros----------------------------------------------------
@@ -122,6 +129,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
         }
         if (e.key === "2") {
 
@@ -134,6 +142,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "3") {
@@ -147,6 +156,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "4") {
@@ -160,6 +170,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "5") {
@@ -173,6 +184,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "6") {
@@ -186,6 +198,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
         }
         if (e.key === "7") {
 
@@ -198,6 +211,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
         }
         if (e.key === "8") {
 
@@ -210,6 +224,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "9") {
@@ -223,6 +238,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         // Filtros PS4 -----------------
@@ -237,6 +253,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "11") {
@@ -250,6 +267,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "12") {
@@ -263,6 +281,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "13") {
@@ -276,6 +295,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "14") {
@@ -289,6 +309,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "15") {
@@ -302,6 +323,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "16") {
@@ -315,6 +337,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "17") {
@@ -328,6 +351,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "18") {
@@ -341,6 +365,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         // Filtros PS5 -----------------
@@ -355,6 +380,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "20") {
@@ -368,6 +394,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "21") {
@@ -381,6 +408,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "22") {
@@ -394,6 +422,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "23") {
@@ -407,6 +436,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "24") {
@@ -420,6 +450,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "25") {
@@ -433,6 +464,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "26") {
@@ -446,6 +478,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         if (e.key === "27") {
@@ -459,6 +492,7 @@ function Home(label, key, icon, children, type) {
             }))
 
             setCurrent(1);
+            setNumberPagindo(1);
 
         }
         // Ver todos los juegos -----------------
@@ -467,6 +501,7 @@ function Home(label, key, icon, children, type) {
             setItems([...card].slice(0, 8));
 
             setCurrent(1);
+            setNumberPagindo(card.length);
 
         }
     };
@@ -539,7 +574,7 @@ function Home(label, key, icon, children, type) {
                             <Pagination
                                 current={current}
                                 onChange={onChange}
-                                total={card.length}
+                                total={numberPaginado}
                                 pageSize={pageSize}
                                 showSizeChanger={false} />
                         </div>
