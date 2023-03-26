@@ -36,6 +36,7 @@ function CardDetail() {
     };
 
     console.log(card);
+    console.log(id);
 
     if (card.length !== 0) {
 

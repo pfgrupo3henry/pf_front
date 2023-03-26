@@ -8,7 +8,6 @@ import { Slider } from "../Slider/Slider";
 import { Menu, Button } from "antd";
 //import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
 //import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
-import arrayAux from "../../Data/Data";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
@@ -31,7 +30,6 @@ function Home(label, key, icon, children, type) {
     const pageSize = 8; // Cantidad de elementos por página
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(pageSize);
-    const [elementsToShow, setElementsToShow] = useState(arrayAux.slice(startIndex, endIndex));
 
 
     const updateElementsToShow = (page) => {
@@ -250,7 +248,7 @@ function Home(label, key, icon, children, type) {
         }
         if (e.key === "13") {
 
-            setItems([...elementsToShow]);
+            setItems([...card].slice(0, 8));
 
             setCurrent(1);
 
@@ -266,7 +264,7 @@ function Home(label, key, icon, children, type) {
             .then((res) => {
                 console.log(res.data)
                 setCard([...res.data])
-                setItems([...res.data].slice(startIndex, endIndex))
+                setItems([...res.data].slice(0, 8))
 
             })
             .catch((err) => console.log(err))
