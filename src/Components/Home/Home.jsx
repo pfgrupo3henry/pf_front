@@ -1,122 +1,96 @@
 import React from "react";
-import { useState, useEffect } from "react";
-//import { Pagination } from 'antd';
+import { useState } from 'react';
+import { Pagination } from 'antd';
+import { PaginationHome } from "../Pagination/pagination";
 import { CardElement } from "../Card/card";
 //import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
 import { Menu, Button } from "antd";
 //import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
 //import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
-import arrayAux from "../../Data/Data";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
+import axios from "axios";
+import { Link } from 'react-router-dom';
+
 
 function Home(label, key, icon, children, type) {
-  useEffect(() => {
-    setCard([...arrayAux]);
-    setItems([...elementsToShow]);
-  }, []);
-  const [card, setCard] = useState([]);
-  const [items, setItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  var ITEMS_PER_PAGE = 8;
 
-  /*
+    const [card, setCard] = useState([]);
+    const [items, setItems] = useState([]);
+
     const [current, setCurrent] = useState(1);
     const onChange = (page) => {
         console.log(page);
         setCurrent(page);
+        updateElementsToShow(page);
     };
+
     const pageSize = 8; // Cantidad de elementos por página
-    const startIndex = (current - 1) * pageSize;
-    const endIndex = startIndex + pageSize;*/
-  const elementsToShow = arrayAux.slice(0, ITEMS_PER_PAGE);
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(pageSize);
 
-  const nextHandler = () => {
-    try {
-      const totalElementos = card.length;
 
-      const nextPage = currentPage + 1;
-
-      const firstIndex = nextPage * ITEMS_PER_PAGE;
-
-      if (
-        nextPage >= totalElementos / ITEMS_PER_PAGE ||
-        items.length >= 9 ||
-        items.length <= 7
-      )
-        return;
-
-      setItems([...card].splice(firstIndex, ITEMS_PER_PAGE));
-      setCurrentPage(nextPage);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const prevHandler = () => {
-    const prevPage = currentPage - 1;
-
-    if (items.length !== 3) {
-      if (prevPage < 0 || items.length >= 9 || items.length <= 7) return;
-    }
-
-    const firstIndex = prevPage * ITEMS_PER_PAGE;
-
-    setItems([...card].splice(firstIndex, ITEMS_PER_PAGE));
-    setCurrentPage(prevPage);
-  };
-
-  //------------------------------Filtros----------------------------------------------------
-
-  function getItem(label, key, icon, children, type) {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type,
+    const updateElementsToShow = (page) => {
+        const newStartIndex = (page - 1) * pageSize;
+        const newEndIndex = newStartIndex + pageSize;
+        setStartIndex(newStartIndex);
+        setEndIndex(newEndIndex);
+        setItems(card.slice(newStartIndex, newEndIndex));
     };
-  }
-  const items2 = [
-    getItem("See All", "sub4", null),
-    getItem("PS3", "sub1", null, [
-      getItem("Accion", "1"),
-      getItem("Aventura", "2"),
-      getItem("Deportes", "3"),
-      getItem("Multijugador", "4"),
-    ]),
-    getItem("PS4", "sub2", null, [
-      getItem("Accion", "5"),
-      getItem("Aventura", "6"),
-      getItem("Deportes", "7"),
-      getItem("Multijugador", "8"),
-    ]),
-    getItem("PS5", "sub3", null, [
-      getItem("Accion", "9"),
-      getItem("Aventura", "10"),
-      getItem("Deportes", "11"),
-      getItem("Multijugador", "12"),
-    ]),
-  ];
 
-  const rootSubmenuKeys = ["sub1", "sub2", "sub3", "sub4"];
+    //------------------------------Filtros----------------------------------------------------
 
-  const [openKeys, setOpenKeys] = useState(["sub1"]);
-  const onOpenChange = (keys) => {
-    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      setOpenKeys(keys);
-    } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    function getItem(label, key, icon, children, type) {
+
+
+
+        return {
+            key,
+            icon,
+            children,
+            label,
+            type,
+        };
     }
-  };
+    const items2 = [
+        getItem("See All", "13", null),
+        getItem("PS3", "sub1", null, [
+            getItem("Accion", "1"),
+            getItem("Aventura", "2"),
+            getItem("Deportes", "3"),
+            getItem("Multijugador", "4"),
+        ]),
+        getItem("PS4", "sub2", null, [
+            getItem("Accion", "5"),
+            getItem("Aventura", "6"),
+            getItem("Deportes", "7"),
+            getItem("Multijugador", "8"),
+        ]),
+        getItem("PS5", "sub3", null, [
+            getItem("Accion", "9"),
+            getItem("Aventura", "10"),
+            getItem("Deportes", "11"),
+            getItem("Multijugador", "12"),
+        ])
+    ];
 
-  const onClick = (e) => {
-    console.log("click ", e);
+    const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
 
-    if (e.key === "1") {
+    const [openKeys, setOpenKeys] = useState(["sub1"]);
+    const onOpenChange = (keys) => {
+        const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+        if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            setOpenKeys(keys);
+        } else {
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
+    };
+
+    const onClick = (e) => {
+        console.log("click ", e);
+ if (e.key === "1") {
       let PS3 = card.filter((card) => {
         return card.platform.includes("PS3");
       });
@@ -421,6 +395,7 @@ function Home(label, key, icon, children, type) {
       setCurrentPage(0);
     }
   };
+   
 
   console.log(items);
 
@@ -459,14 +434,75 @@ function Home(label, key, icon, children, type) {
               <Button onClick={prevHandler}>Prev</Button>
               <p className="current-page">{currentPage}</p>
               <Button onClick={nextHandler}>Next</Button>
+
+    // ------------------------------ axios ---------------------------------------
+
+    if (items.length === 0 && card.length === 0) {
+
+        axios.get("https://pfservidor-production.up.railway.app/videogames")
+            .then((res) => {
+                console.log(res.data)
+                setCard([...res.data])
+                setItems([...res.data].slice(0, 8))
+
+            })
+            .catch((err) => console.log(err))
+
+    };
+
+
+    if (card) {
+
+        const total = card.length;
+        return (
+
+            <div className="home-component">
+                <Slider />
+                <div className="homeContainerUltraMega">
+                    <div className="filterHome" >
+                        <Menu
+                            mode="inline"
+                            onClick={onClick}
+                            openKeys={openKeys}
+                            onOpenChange={onOpenChange}
+                            style={{
+                                width: 256,
+                            }}
+                            items={items2}
+                        />
+                    </div>
+                    <div className="containerExtreme">
+                        <div className="listCards">
+                            {items.map((e, i) => (
+                                <Link to={"/game/" + e.id}>
+                                    <CardElement
+                                        key={i}
+                                        title={e.title}
+                                        imgProvisoria={e.img[0]}
+                                        description="DIGITAL"
+                                        descriptionComplete={e.description}
+                                        price={e.price}
+                                        id={e.id}
+                                    />
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="paginationHomeStyle" >
+                            <Pagination
+                                current={current}
+                                onChange={onChange}
+                                total={card.length}
+                                pageSize={pageSize}
+                                showSizeChanger={false} />
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 
-export { Home };
+        );
 
-//linea de codigo al pedo
+    }
+
+};
+
+export { Home }
