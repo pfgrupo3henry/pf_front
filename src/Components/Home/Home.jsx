@@ -13,13 +13,16 @@ import "./Home.css";
 import "../Pagination/pagination.css";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-
-
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
 
 
 function Home(label, key, icon, children, type) {
+
+    const cards = useSelector(state => state.cards);
+    const filteredVideogames = useSelector(state => state.filteredCards);
+    const filterName = useSelector(state => state.nameFilter);
+    const dispatch = useDispatch();
 
     const [card, setCard] = useState([]);
     const [items, setItems] = useState([]);
@@ -43,7 +46,11 @@ function Home(label, key, icon, children, type) {
         const newEndIndex = newStartIndex + pageSize;
         setStartIndex(newStartIndex);
         setEndIndex(newEndIndex);
-        setItems(card.slice(newStartIndex, newEndIndex));
+        setItems(
+            filteredVideogames && filteredVideogames.length
+            ? filteredVideogames.slice(newStartIndex, newEndIndex)
+            : []
+            );
     };
 
     if (card.length > 1 && number2 === 1) {
@@ -66,9 +73,9 @@ function Home(label, key, icon, children, type) {
         };
     }
     const items2 = [
-        getItem("See All", "28", null),
-        getItem("PS3", "sub1", null, [
-            getItem("Accion", "1"),
+        getItem("See All", "All", null),
+        getItem("PS3", "PS3", null, [
+            getItem("Acción", "1"),
             getItem("Aventura", "2"),
             getItem("Combos", "3"),
             getItem("Conducción", "4"),
@@ -78,8 +85,8 @@ function Home(label, key, icon, children, type) {
             getItem("Multijugador", "8"),
             getItem("Rol", "9"),
         ]),
-        getItem("PS4", "sub2", null, [
-            getItem("Accion", "10"),
+        getItem("PS4", "PS4", null, [
+            getItem("Acción", "10"),
             getItem("Aventura", "11"),
             getItem("Combos", "12"),
             getItem("Conducción", "13"),
@@ -89,8 +96,8 @@ function Home(label, key, icon, children, type) {
             getItem("Multijugador", "17"),
             getItem("Rol", "18"),
         ]),
-        getItem("PS5", "sub3", null, [
-            getItem("Accion", "19"),
+        getItem("PS5", "PS5", null, [
+            getItem("Acción", "19"),
             getItem("Aventura", "20"),
             getItem("Combos", "21"),
             getItem("Conducción", "22"),
@@ -102,10 +109,12 @@ function Home(label, key, icon, children, type) {
         ])
     ];
 
-    const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
+    // const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
+    const rootSubmenuKeys = ["PS3", "PS4", "PS5"];
+    const [openKeys, setOpenKeys] = useState(["All"]);
 
-    const [openKeys, setOpenKeys] = useState(["sub1"]);
     const onOpenChange = (keys) => {
+        console.log(keys);
         const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
         if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
             setOpenKeys(keys);
@@ -115,7 +124,7 @@ function Home(label, key, icon, children, type) {
     };
 
 
-    const onClick = (e) => {
+    const onClick2 = (e) => {
         console.log("click ", e);
         // Filtros PS3 -----------------
         if (e.key === "1") {
@@ -506,28 +515,54 @@ function Home(label, key, icon, children, type) {
         }
     };
 
+    function eliminarDiacriticos(cadena) {
+        return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    const onClick = (e) => {
+        console.log(e);
+        console.log(e.domEvent.target.innerHTML);
+        console.log(e.keyPath[1]);
+
+        if (cards && cards.length) {
+            if (e.keyPath[0] === 'All') {
+                dispatch(setNameFilter(''));
+                dispatch(filterCards(cards));
+                setOpenKeys(["All"]);
+                // console.log('all cards');
+            } else {
+                const videojuegosFiltrados = cards.filter(el => {
+                    return eliminarDiacriticos(el.genre.toLowerCase()) === eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) && el.platform === e.keyPath[1] && eliminarDiacriticos(el.name.toLowerCase()).includes(eliminarDiacriticos(filterName.toLowerCase()));
+                });
+    
+                console.log(videojuegosFiltrados);
+                dispatch(filterCards(videojuegosFiltrados));
+            }
+        }
+    }
 
     // ------------------------------ axios ---------------------------------------
 
-    if (items.length === 0 && card.length === 0) {
+    // if (items.length === 0 && card.length === 0) {
 
-        axios.get("https://pfservidor-production.up.railway.app/videogames")
-            .then((res) => {
-                console.log(res.data)
-                setCard([...res.data])
-                setItems([...res.data].slice(0, 8))
+    //     axios.get("https://pfservidor-production.up.railway.app/videogames")
+    //         .then((res) => {
+    //             console.log(res.data)
+    //             setCard([...res.data])
+    //             setItems([...res.data].slice(0, 8))
 
-            })
-            .catch((err) => console.log(err))
+    //         })
+    //         .catch((err) => console.log(err))
+    // };
 
-    };
+    React.useEffect(() => {
+        setCurrent(1)
+        updateElementsToShow(1);
+    }, [filteredVideogames])
 
 
     if (card) {
-
-        const total = card.length;
         return (
-
             <div className="home-component">
                 <Slider />
                 <div className="homeContainerUltraMega">
@@ -574,7 +609,7 @@ function Home(label, key, icon, children, type) {
                             <Pagination
                                 current={current}
                                 onChange={onChange}
-                                total={numberPaginado}
+                                total={filteredVideogames.length}
                                 pageSize={pageSize}
                                 showSizeChanger={false} />
                         </div>
