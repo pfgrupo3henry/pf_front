@@ -556,7 +556,7 @@ function Home(label, key, icon, children, type) {
                             :
                             <div className="listCards">
                                 {items.map((e, i) => (
-                                    <Link to={"/game/" + e.id}>
+                                    <Link to={"/game/" + e.id} className="link-card">
                                         <CardElement
                                             key={i}
                                             title={e.title}
