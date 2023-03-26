@@ -120,163 +120,304 @@ function Home(label, key, icon, children, type) {
       let PS3 = card.filter((card) => {
         return card.platform.includes("PS3");
       });
-
       setItems(
         [...PS3].filter((card) => {
           return card.genre.includes("Acción");
         })
       );
-
       setCurrentPage(0);
     }
     if (e.key === "2") {
       let PS3 = card.filter((card) => {
         return card.platform.includes("PS3");
       });
-
       setItems(
         [...PS3].filter((card) => {
           return card.genre.includes("Aventura");
         })
       );
-
       setCurrentPage(0);
     }
     if (e.key === "3") {
       let PS3 = card.filter((card) => {
         return card.platform.includes("PS3");
       });
-
       setItems(
         [...PS3].filter((card) => {
-          return card.genre.includes("Deportes");
+          return card.genre.includes("Combos");
         })
       );
-
       setCurrentPage(0);
     }
     if (e.key === "4") {
       let PS3 = card.filter((card) => {
         return card.platform.includes("PS3");
       });
-
+      setItems(
+        [...PS3].filter((card) => {
+          return card.genre.includes("Conducción");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "5") {
+      let PS3 = card.filter((card) => {
+        return card.platform.includes("PS3");
+      });
+      setItems(
+        [...PS3].filter((card) => {
+          return card.genre.includes("Deportes");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "6") {
+      let PS3 = card.filter((card) => {
+        return card.platform.includes("PS3");
+      });
+      setItems(
+        [...PS3].filter((card) => {
+          return card.genre.includes("Estrategia");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "7") {
+      let PS3 = card.filter((card) => {
+        return card.platform.includes("PS3");
+      });
+      setItems(
+        [...PS3].filter((card) => {
+          return card.genre.includes("Infantiles");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "8") {
+      let PS3 = card.filter((card) => {
+        return card.platform.includes("PS3");
+      });
       setItems(
         [...PS3].filter((card) => {
           return card.genre.includes("Multijugador");
         })
       );
-
+      setCurrentPage(0);
+    }
+    if (e.key === "9") {
+      let PS3 = card.filter((card) => {
+        return card.platform.includes("PS3");
+      });
+      setItems(
+        [...PS3].filter((card) => {
+          return card.genre.includes("Rol");
+        })
+      );
       setCurrentPage(0);
     }
     //ps4
-    if (e.key === "5") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
-
-      setCurrentPage(0);
-    }
-    if (e.key === "6") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Aventura");
-        })
-      );
-
-      setCurrentPage(0);
-    }
-    if (e.key === "7") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Deportes");
-        })
-      );
-
-      setCurrentPage(0);
-    }
-    if (e.key === "8") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Multijugador");
-        })
-      );
-
-      setCurrentPage(0);
-    }
-    //ps5
-    if (e.key === "9") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
-
-      setCurrentPage(0);
-    }
     if (e.key === "10") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
       });
-
       setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Aventura");
+        [...PS4].filter((card) => {
+          return card.genre.includes("Acción");
         })
       );
-
       setCurrentPage(0);
     }
     if (e.key === "11") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Aventura");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "12") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Combos");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "13") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Conducción");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "14") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Deportes");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "15") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Estrategia");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "16") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Infantiles");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "17") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Multijugador");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "18") {
+      let PS4 = card.filter((card) => {
+        return card.platform.includes("PS4");
+      });
+      setItems(
+        [...PS4].filter((card) => {
+          return card.genre.includes("Rol");
+        })
+      );
+      setCurrentPage(0);
+    }
+    //ps5
+    if (e.key === "19") {
       let PS5 = card.filter((card) => {
         return card.platform.includes("PS5");
       });
-
+      setItems(
+        [...PS5].filter((card) => {
+          return card.genre.includes("Acción");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "20") {
+      let PS5 = card.filter((card) => {
+        return card.platform.includes("PS5");
+      });
+      setItems(
+        [...PS5].filter((card) => {
+          return card.genre.includes("Aventura");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "21") {
+      let PS5 = card.filter((card) => {
+        return card.platform.includes("PS5");
+      });
+      setItems(
+        [...PS5].filter((card) => {
+          return card.genre.includes("Combos");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "22") {
+      let PS5 = card.filter((card) => {
+        return card.platform.includes("PS5");
+      });
+      setItems(
+        [...PS5].filter((card) => {
+          return card.genre.includes("Conducción");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "23") {
+      let PS5 = card.filter((card) => {
+        return card.platform.includes("PS5");
+      });
       setItems(
         [...PS5].filter((card) => {
           return card.genre.includes("Deportes");
         })
       );
-
       setCurrentPage(0);
     }
-    if (e.key === "12") {
+    if (e.key === "24") {
       let PS5 = card.filter((card) => {
         return card.platform.includes("PS5");
       });
-
+      setItems(
+        [...PS5].filter((card) => {
+          return card.genre.includes("Estrategia");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "25") {
+      let PS5 = card.filter((card) => {
+        return card.platform.includes("PS5");
+      });
+      setItems(
+        [...PS5].filter((card) => {
+          return card.genre.includes("Infantiles");
+        })
+      );
+      setCurrentPage(0);
+    }
+    if (e.key === "26") {
+      let PS5 = card.filter((card) => {
+        return card.platform.includes("PS5");
+      });
       setItems(
         [...PS5].filter((card) => {
           return card.genre.includes("Multijugador");
         })
       );
-
       setCurrentPage(0);
     }
+    if (e.key === "27") {
+      let PS5 = card.filter((card) => {
+        return card.platform.includes("PS5");
+      });
+      setItems(
+        [...PS5].filter((card) => {
+          return card.genre.includes("Rol");
+        })
+      );
+      setCurrentPage(0);
+    }
+    //mostrat todos
     if (e.key === "sub4") {
       setItems([...elementsToShow]);
-
       setCurrentPage(0);
     }
   };
