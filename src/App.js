@@ -21,7 +21,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/game" element={<CardDetail />} />
+          <Route path="/game/:id" element={<CardDetail />} />
           <Route path="/profile" element={<UserInfo />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/status-payment" element={<FinishPayment />} />

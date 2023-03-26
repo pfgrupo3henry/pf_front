@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Pagination } from 'antd';
 import { PaginationHome } from "../Pagination/pagination";
 import { CardElement } from "../Card/card";
@@ -12,18 +12,15 @@ import arrayAux from "../../Data/Data";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
+import axios from "axios";
+import { Link } from 'react-router-dom';
 
 
 function Home(label, key, icon, children, type) {
 
-    useEffect(() => {
-        setCard([...arrayAux])
-        setItems([...elementsToShow])
-    }, []);
-
     const [card, setCard] = useState([]);
     const [items, setItems] = useState([]);
- 
+
     const [current, setCurrent] = useState(1);
     const onChange = (page) => {
         console.log(page);
@@ -31,13 +28,13 @@ function Home(label, key, icon, children, type) {
         updateElementsToShow(page);
     };
 
-      const pageSize = 8; // Cantidad de elementos por página
-      const [startIndex, setStartIndex] = useState(0);
-      const [endIndex, setEndIndex] = useState(pageSize);
-      const [elementsToShow, setElementsToShow] = useState(arrayAux.slice(startIndex, endIndex));
+    const pageSize = 8; // Cantidad de elementos por página
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(pageSize);
+    const [elementsToShow, setElementsToShow] = useState(arrayAux.slice(startIndex, endIndex));
 
 
-      const updateElementsToShow = (page) => {
+    const updateElementsToShow = (page) => {
         const newStartIndex = (page - 1) * pageSize;
         const newEndIndex = newStartIndex + pageSize;
         setStartIndex(newStartIndex);
@@ -49,7 +46,7 @@ function Home(label, key, icon, children, type) {
 
     function getItem(label, key, icon, children, type) {
 
-        
+
 
         return {
             key,
@@ -212,7 +209,7 @@ function Home(label, key, icon, children, type) {
             setCurrent(1);
 
         }
-        if (e.key === "11") {
+        if (e.key === "10") {
 
             let PS5 = card.filter((card) => {
                 return card.platform.includes("PS5")
@@ -261,6 +258,22 @@ function Home(label, key, icon, children, type) {
     };
 
 
+    // ------------------------------ axios ---------------------------------------
+
+    if (items.length === 0) {
+
+        axios.get("https://pfservidor-production.up.railway.app/videogames")
+            .then((res) => {
+                console.log(res.data)
+                setCard([...res.data])
+                setItems([...res.data].slice(startIndex, endIndex))
+
+            })
+            .catch((err) => console.log(err))
+
+    };
+
+
     if (card) {
 
         const total = card.length;
@@ -284,25 +297,27 @@ function Home(label, key, icon, children, type) {
                     <div className="containerExtreme">
                         <div className="listCards">
                             {items.map((e, i) => (
-                                <CardElement
-                                    key={i}
-                                    title={e.title}
-                                    imgProvisoria={e.img[0]}
-                                    description="DIGITAL"
-                                    descriptionComplete={e.description}
-                                    price={e.price}
-                                    id={e.id}
-                                />
+                                <Link to={"/game/" + e.id}>
+                                    <CardElement
+                                        key={i}
+                                        title={e.title}
+                                        imgProvisoria={e.img[0]}
+                                        description="DIGITAL"
+                                        descriptionComplete={e.description}
+                                        price={e.price}
+                                        id={e.id}
+                                    />
+                                </Link>
                             ))}
                         </div>
-                    <div className="paginationHomeStyle" >
-                    <Pagination 
-                            current={current}
-                            onChange={onChange}
-                            total={card.length}
-                            pageSize={pageSize}
-                            showSizeChanger={false} />
-                    </div>
+                        <div className="paginationHomeStyle" >
+                            <Pagination
+                                current={current}
+                                onChange={onChange}
+                                total={card.length}
+                                pageSize={pageSize}
+                                showSizeChanger={false} />
+                        </div>
                     </div>
                 </div>
             </div>
