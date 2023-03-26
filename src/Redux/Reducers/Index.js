@@ -1,7 +1,8 @@
-import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES } from "../Actions/Types";
+import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, POST_NEW_PRODUCT } from "../Actions/Types";
 
 const initialState = {
     allFavorites: [],
+    allGames:[],
     shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) ||[],
 }
 
@@ -14,12 +15,18 @@ const rootReducer = (state = initialState , action) => {
                 allFavorites: [...state.allFavorites, action.payload]
             }
 
-            case DELETE_FAVORITES:
-                const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload)
-                return{
-                    ...state,
-                    allFavorites: favoriteFIlter
-                }
+        case DELETE_FAVORITES:
+            const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload)
+            return{
+                ...state,
+                allFavorites: favoriteFIlter
+            }
+            
+        case POST_NEW_PRODUCT:
+            return{
+                ...state,
+                allGames: action.payload
+            }
 
         
         case ADD_ITEM_TO_CHART:
