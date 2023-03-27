@@ -174,7 +174,7 @@ function Home(label, key, icon, children, type) {
             ) : (
               <div className="listCards">
                 {items.map((e, i) => (
-                  <Link to={"/game/" + e.id} className="link-card">
+                  <a className="link-card">
                     <CardElement
                       key={i}
                       title={e.title}
@@ -184,7 +184,7 @@ function Home(label, key, icon, children, type) {
                       price={e.price}
                       id={e.id}
                     />
-                  </Link>
+                  </a>
                 ))}
               </div>
             )}
