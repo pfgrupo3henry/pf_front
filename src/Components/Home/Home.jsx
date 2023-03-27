@@ -175,17 +175,15 @@ function Home(label, key, icon, children, type) {
                             :
                             <div className="listCards">
                                 {items.map((e, i) => (
-                                    <Link to={"/game/" + e.id} className="link-card">
-                                        <CardElement
-                                            key={i}
-                                            title={e.title}
-                                            imgProvisoria={e.img[0]}
-                                            description="DIGITAL"
-                                            descriptionComplete={e.description}
-                                            price={e.price}
-                                            id={e.id}
-                                        />
-                                    </Link>
+                                    <CardElement
+                                        key={i}
+                                        title={e.name}
+                                        imgProvisoria={e.img[0]}
+                                        description="DIGITAL"
+                                        descriptionComplete={e.description}
+                                        price={e.price}
+                                        id={e.id}
+                                    />
                                 ))}
                             </div>
                         }
