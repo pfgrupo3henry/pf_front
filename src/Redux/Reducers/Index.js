@@ -1,30 +1,30 @@
-import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, GET_CARDS, FILTER_CARDS, GET_SEARCH, SET_NAME_FILTER } from "../Actions/Types";
+import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, GET_CARDS, FILTER_CARDS, GET_SEARCH, SET_NAME_FILTER, ORDER_BY_NAME, ORDER_BY_PRICE, ORDER_BY_RATE } from "../Actions/Types";
 
 const initialState = {
     allFavorites: [],
-    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) ||[],
+    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) || [],
     cards: [],
     filteredCards: [],
     nameFilter: '',
 }
 
-const rootReducer = (state = initialState , action) => {
-    switch(action.type){
+const rootReducer = (state = initialState, action) => {
+    switch (action.type) {
 
-        case POST_FAVORITES:   
-            return{
+        case POST_FAVORITES:
+            return {
                 ...state,
                 allFavorites: [...state.allFavorites, action.payload]
             }
 
         case DELETE_FAVORITES:
-            const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload)
-            return{
+            const favoriteFIlter = state.allFavorites.filter(e => e.id !== action.payload)
+            return {
                 ...state,
                 allFavorites: favoriteFIlter
             }
 
-        
+
         case ADD_ITEM_TO_CHART:
             let flag = false;
 
@@ -36,7 +36,7 @@ const rootReducer = (state = initialState , action) => {
 
             if (!flag) {
                 localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
-                return{
+                return {
                     ...state,
                     shoppingChart: [...state.shoppingChart, action.payload]
                 }
@@ -45,7 +45,7 @@ const rootReducer = (state = initialState , action) => {
                     return JSON.stringify(el) !== JSON.stringify(action.payload)
                 });
                 localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
-                return{
+                return {
                     ...state,
                     shoppingChart: [...filteredChart]
                 }
@@ -69,17 +69,56 @@ const rootReducer = (state = initialState , action) => {
                 ...state,
                 filteredCards: action.payload,
             }
-        
+
         case SET_NAME_FILTER:
             return {
                 ...state,
                 nameFilter: action.payload,
             }
 
-        default: 
-        return { ...state } 
-    }}
+        case ORDER_BY_NAME: {
+            let orderAz = [...state.filteredCards];
+            orderAz = orderAz.sort((a, b) => {
+                switch (action.payload) {
+                    case 1:
+                        if (a.name < b.name) {
+                            return -1;
+                        } else return 1
+                    case 2:
+                        if (a.name > b.name) {
+                            return -1;
+                        } else return 1
+                    default: return 0;
+                }
+            })
+            return {
+                ...state,
+                filteredCards: orderAz
+            }
+        }
+        case ORDER_BY_PRICE: {
+            let ordenAscendente = true;
+            let orderPrice = [...state.filteredCards];
+            if (ordenAscendente) {
+                orderPrice = orderPrice.sort((a, b) => a.price - b.price);
+                ordenAscendente = false
+            }
+            else {
+                orderPrice = orderPrice.sort((a, b) => b.price - a.price);
+                ordenAscendente = true
+            }
+            return { ...state, filteredCards: orderPrice }
+        }
+        // case ORDER_BY_RATE: {
+        //     let orderRate = [...state.filteredCards];
+        //     orderRate = orderRate.sort((a, b) => a.price - b.price)
+        //     return { ...state, filteredCards: orderRate }
+        // }
+        default:
+            return { ...state }
+    }
+}
 
-        
-          
+
+
 export default rootReducer; 

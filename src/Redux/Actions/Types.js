@@ -6,4 +6,7 @@ export const GET_CARDS = 'GET_CARDS';
 export const FILTER_CARDS = 'FILTER_CARDS';
 export const GET_SEARCH = 'GET_SEARCH';
 export const SET_NAME_FILTER = 'SET_NAME_FILTER';
+export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+export const ORDER_BY_PRICE = 'ORDER_BY_PRICE';
+export const ORDER_BY_RATE = 'ORDER_BY_RATE'
 

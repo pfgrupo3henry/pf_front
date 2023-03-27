@@ -7,6 +7,8 @@ import {
     FILTER_CARDS,
     GET_SEARCH,
     SET_NAME_FILTER,
+    ORDER_BY_NAME, ORDER_BY_PRICE,
+    ORDER_BY_RATE
 } from "./Types";
 
 export const postFavorites = (data) => {
@@ -20,14 +22,14 @@ export const postFavorites = (data) => {
 }
 
 export const deleteFavorites = (id) => {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch({
             type: DELETE_FAVORITES,
             payload: id
         })
     }
 
-} 
+}
 
 
 export const addItemToChart = (data) => {
@@ -40,12 +42,12 @@ export const addItemToChart = (data) => {
 }
 
 export const getCards = () => {
-    return async function(dispatch) {
+    return async function (dispatch) {
         try {
             const response = await fetch('https://pfservidor-production.up.railway.app/videogames');
             const data = await response.json();
             console.log(data);
-            dispatch ({
+            dispatch({
                 type: GET_CARDS,
                 payload: data,
             })
@@ -56,7 +58,7 @@ export const getCards = () => {
 }
 
 export const filterCards = (data) => {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch({
             type: FILTER_CARDS,
             payload: data,
@@ -65,7 +67,7 @@ export const filterCards = (data) => {
 }
 
 export const searchByName = (data) => {
-    return async function(dispatch) {
+    return async function (dispatch) {
         try {
             const response = await fetch(`https://pfservidor-production.up.railway.app/videogames?name=${data}`);
             const result = await response.json();
@@ -81,10 +83,38 @@ export const searchByName = (data) => {
 }
 
 export const setNameFilter = (data) => {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch({
             type: SET_NAME_FILTER,
             payload: data,
         })
     }
 }
+
+
+export const orderByName = (data) => {
+    return function (dispatch) {
+        dispatch({
+            type: ORDER_BY_NAME,
+            payload: data,
+        })
+    }
+}
+
+export const orderByPrice = (data) => {
+    return function (dispatch) {
+        dispatch({
+            type: ORDER_BY_PRICE,
+            payload: data,
+        })
+    }
+}
+
+// export const orderByRate = (data) => {
+//     return function (dispatch) {
+//         dispatch({
+//             type: ORDER_BY_RATE,
+//             payload: data,
+//         })
+//     }
+// }
