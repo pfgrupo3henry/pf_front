@@ -43,6 +43,7 @@ h1 {
 .userInfoContainer .menuOptions {
     border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
     box-shadow: 10px 0 5px -10px #00000020;
+    margin-top: 3rem;
 }
 
 .userInfoContainer {
