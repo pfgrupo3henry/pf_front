@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from 'react';
 import { Pagination, Alert } from 'antd';
-import { PaginationHome } from "../Pagination/pagination";
 import { CardElement } from "../Card/card";
 //import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
@@ -11,7 +10,6 @@ import { Menu, Button } from "antd";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
-import axios from "axios";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
@@ -26,8 +24,6 @@ function Home(label, key, icon, children, type) {
 
     const [card, setCard] = useState([]);
     const [items, setItems] = useState([]);
-    const [numberPaginado, setNumberPagindo] = useState(1);
-    const [number2, setNumber2] = useState(1);
 
     const [current, setCurrent] = useState(1);
     const onChange = (page) => {
@@ -48,14 +44,9 @@ function Home(label, key, icon, children, type) {
         setEndIndex(newEndIndex);
         setItems(
             filteredVideogames && filteredVideogames.length
-            ? filteredVideogames.slice(newStartIndex, newEndIndex)
-            : []
-            );
-    };
-
-    if (card.length > 1 && number2 === 1) {
-        setNumberPagindo(card.length)
-        setNumber2(2)
+                ? filteredVideogames.slice(newStartIndex, newEndIndex)
+                : []
+        );
     };
 
     //------------------------------Filtros----------------------------------------------------
@@ -147,20 +138,6 @@ function Home(label, key, icon, children, type) {
             }
         }
     }
-
-    // ------------------------------ axios ---------------------------------------
-
-    // if (items.length === 0 && card.length === 0) {
-
-    //     axios.get("https://pfservidor-production.up.railway.app/videogames")
-    //         .then((res) => {
-    //             console.log(res.data)
-    //             setCard([...res.data])
-    //             setItems([...res.data].slice(0, 8))
-
-    //         })
-    //         .catch((err) => console.log(err))
-    // };
 
     React.useEffect(() => {
         setCurrent(1)
