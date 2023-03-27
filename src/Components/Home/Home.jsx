@@ -149,7 +149,6 @@ function Home(label, key, icon, children, type) {
         <Slider />
         <div className="homeContainerUltraMega">
           <div className="filterHome">
-            <OrderMenu />
             <Menu
               mode="inline"
               onClick={onClick}
@@ -160,6 +159,7 @@ function Home(label, key, icon, children, type) {
               }}
               items={items2}
             />
+            <OrderMenu />
           </div>
           <div className="containerExtreme">
             {items.length === 0 ? (
