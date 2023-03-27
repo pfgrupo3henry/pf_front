@@ -9,8 +9,6 @@ function DropdownShoppingCartCard({ image, title, description, price, id }) {
 
   const dispatch = useDispatch();
 
-
-
   return (
     <div className='dropdown-shopping-cart-card-component'>
       <div style={{ backgroundImage: `url('${''}')` }} className='card-header'>

@@ -6,13 +6,23 @@
 
 .admin-component {
     min-height: calc(100vh - 45.2px);
-    max-width: 1300px;
-    margin: 0 auto 0;
+    margin: 0 auto;
+    margin-top: 45.2px;
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 
 .admin-component .forms-render {
     padding-top: 40px;
-    
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
+}
+
+.admin-component .userInfoContainer {
+    width: 100%;
+    max-width: 1300px;
 }
 
 .form-ant {
@@ -41,8 +51,15 @@ h1 {
 }
 
 .userInfoContainer .menuOptions {
+    background-color: #fff;
     border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
     box-shadow: 10px 0 5px -10px #00000020;
+    padding-top: 40px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px;
+    z-index: 1;
 }
 
 .userInfoContainer {
@@ -52,10 +69,7 @@ h1 {
 }
 
 .formCreateNewProduct{
-    margin-top: 3rem;
-    margin-left: 15rem;
-    margin-bottom: 3rem;
-    width: 25rem;
+    padding-top: 40px;
 }
 
 .buttonFormCreateProduct{
@@ -68,7 +82,6 @@ h1 {
 }
 
 .admin-component .searchUserListContainer{
-    margin-left: 15rem;
-    margin-top: 3rem;
+    padding-top: 40px;
 }
 
