@@ -175,6 +175,23 @@ function Home(label, key, icon, children, type) {
                             :
                             <div className="listCards">
                                 {items.map((e, i) => (
+                                    
+                                        <CardElement
+                                            key={i}
+                                            title={e.title}
+                                            imgProvisoria={e.img[0]}
+                                            description="DIGITAL"
+                                            descriptionComplete={e.description}
+                                            price={e.price}
+                                            id={e.id}
+                                        />
+                                   
+                                ))}
+                            </div>
+
+
+                      /*           <div className="listCards">
+                                {items.map((e, i) => (
                                     <Link to={"/game/" + e.id} className="link-card">
                                         <CardElement
                                             key={i}
@@ -187,7 +204,7 @@ function Home(label, key, icon, children, type) {
                                         />
                                     </Link>
                                 ))}
-                            </div>
+                                </div> */
                         }
                         <div className="paginationHomeStyle" >
                             <Pagination

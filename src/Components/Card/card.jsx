@@ -14,20 +14,18 @@ const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
 
 function CardElement({ title, imgProvisoria, description, price, descriptionComplete, id }) {
 
-  const [favorite, setFavorite] = useState(true);
   const [cart, setCart] = useState(true);
-
-  const allFavorites = useSelector(state => state.allFavorites);
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
-
   const [shoppingStringified, setShoppingStringified] = React.useState([]);
+  const [favoritePost, setfavoritePost] = React.useState([]);
+
 
 
 
   const handleFavorites = (title, description, imgProvisoria, descriptionComplete, price, id) => {
     console.log("valores", title, description, imgProvisoria)
-    setFavorite(!favorite)
+
     let valores = {
       title: title,
       description: descriptionComplete,
@@ -72,6 +70,15 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     setShoppingStringified(returnStringified);
   }, [shoppingChart])
 
+  
+
+  
+  React.useEffect(() => {
+    const returnStringified2 = favoritePost.map(e => {
+      return JSON.stringify(e);
+    });
+    setfavoritePost(returnStringified2);
+  }, [favoritePost])
 
   var precio = `$ ${price}`;
 
@@ -93,7 +100,13 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
         <div className='iconsCardHomeContainer'>
 
 
-          {favorite ?
+            {!favoritePost.includes(JSON.stringify({
+            title,
+            description,
+            img: imgProvisoria,
+            price,
+            id
+          })) ?
             <AiOutlineHeart
               className='favIconCardHome'
               onClick={() => {

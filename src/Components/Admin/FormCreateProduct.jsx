@@ -22,28 +22,28 @@
       const dispatch = useDispatch();
 
 
-   /*    const [fileList, setFileList] = useState([]);
+     const [fileList, setFileList] = useState([]);
 
       const handleFileListChange = ({ fileList }) => {
         setFileList(fileList);
-      }; */
+      }; 
           
      
 
 
-      const [formValues, setFormValues] = useState(
-        {
-            img: "",
-        }
-    )
 
+    const [formImage, setformImage] = useState(
+      {
+          img: "",
+      }
+  )
 
       const handleSubmit = (event) => {
           let data = {
             name: event.name,
             description: event.Description,
             quantity: event.quantity,
-            img: [formValues.img],
+            img: [fileList[0].thumbUrl],
             price: event.price,
             genre: event.genre,
             platform: event.console,
@@ -54,8 +54,11 @@
         
       };
 
+      const handleSubmit2 = (event) => {
+        setFileList(event.fileList);
+      }
 
-       const agregarFoto = (e) => {
+/*        const agregarFoto = (e) => {
         let file = e.target.files[0]
         const reader = new FileReader();
         if (file) {
@@ -66,7 +69,7 @@
             })
           };
         }
-      } 
+      }  */
 
       return (
         <>
@@ -173,15 +176,20 @@
 
             <Form.Item label="Upload" valuePropName="fileList" 
             name="upload"
-    /*         getValueFromEvent={handleFileListChange}
-            initialValue={fileList} */
+            getValueFromEvent={handleFileListChange}
+            initialValue={fileList} 
               rules={[
                 {
                 required: false,
                 message: "Upload a picture"
               },
             ]}>
- {/*              <Upload action="/upload.do" listType="picture-card">
+              <Upload 
+              action="/upload.do" 
+              listType="picture-card"
+              onChange={(event)=>{handleSubmit2(event)}}
+              >
+              
                 <div>
                   <PlusOutlined />
                   <div
@@ -192,9 +200,9 @@
                     Image
                   </div>
                 </div>
-              </Upload> */}
+              </Upload> 
 
-            <input type='file' onChange={agregarFoto} />
+            {/* <input type='file' onChange={agregarFoto} /> */}
 
             
             </Form.Item>

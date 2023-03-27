@@ -82,7 +82,7 @@ function UserInfo() {
            <div className="cardIndoUserInformation">
           <Card
                 className="cardInfoUser"
-                style={{ width: 300 , height: 400}}
+                style={{ width: 300 , height: 460}}
                 cover={
                     <img
                         style={{ width: 300 , height: 330}}
