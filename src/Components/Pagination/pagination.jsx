@@ -26,4 +26,4 @@ function PaginationHome () {
   )};
  
 
-export {PaginationHome}; */
+export {PaginationHome};  */

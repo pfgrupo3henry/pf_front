@@ -1,19 +1,19 @@
-.card-component{
+.card-component {
     margin-top: 3rem;
 }
 
-.card-component .favIconCardHome{
+.card-component .favIconCardHome {
     display: flex;
     margin-top: 1rem;
     margin-left: 0.5rem;
     font-size: 1.2rem;
 }
 
-.card-component .favIconCardHome:hover{
-    transform:scale(1.2)
+.card-component .favIconCardHome:hover {
+    transform: scale(1.2)
 }
 
-.card-component .iconsCardHomeContainer{
+.card-component .iconsCardHomeContainer {
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -22,4 +22,8 @@
 .card-component .ant-card-meta-description {
     font-weight: 500;
     color: black;
+}
+
+.img-card-home {
+    height: 230px;
 }

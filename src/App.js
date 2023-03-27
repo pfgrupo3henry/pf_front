@@ -1,63 +1,43 @@
+import React from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { Nav } from "./Components/Nav/nav"
 import { Home } from './Components/Home/Home';
-import { CardElement } from "./Components/Card/card"
-import { PaginationHome } from './Components/Pagination/pagination';
 import UserInfo from './Components/UserInfo/UserInfo2';
 import CardDetail from './Components/CardDetail/CardDetail';
 import Footer from './Components/Footer/Footer';
 import { Favorites } from './Components/Favorites/Favorites';
-import Filter from './Components/FilterHome/filterHome'
-import { Slider } from "./Components/Slider/Slider";
 import Admin from "./Components/Admin/Admin";
 import LandingPage from "./Components/LandingPage/LandinPage";
-
-
-
-
+import { FinishPayment } from "./Components/FinishPayment/FinishPayment";
+import { useDispatch } from "react-redux";
+import { getCards } from "./Redux/Actions/Index";
 
 function App() {
 
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getCards());
+  }, [])
+
   return (
-
     <div className="App">
-
       <BrowserRouter>
-
         <Nav />
-
         <Routes>
           <Route path="/" element={<LandingPage />} />
-        </Routes>
-
-        <Routes>
           <Route path="/home" element={<Home />} />
-        </Routes>
-
-        <Routes>
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/game/:id" element={<CardDetail />} />
+          <Route path="/profile" element={<UserInfo />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/status-payment" element={<FinishPayment />} />
         </Routes>
-
-        <Routes>
-          <Route exact path="/game" element={<CardDetail />} />
-        </Routes>
-
-        <Routes>
-          <Route exact path="/profile" element={<UserInfo />} />
-        </Routes>
-
-        <Routes>
-          <Route exact path="/admin" element={<Admin />} />
-        </Routes>
-
         <Footer />
-
       </BrowserRouter>
-
     </div>
   );
 }
 
-export default App
 
-
+export default App;

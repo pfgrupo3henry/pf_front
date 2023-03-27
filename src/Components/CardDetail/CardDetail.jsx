@@ -1,10 +1,11 @@
-import React from "react";
+import { useState } from 'react';
 import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Col, Row } from 'antd';
-
+import { useParams } from 'react-router-dom';
 import { Avatar, Button, Rate } from 'antd';
 import { Input } from 'antd';
+import axios from "axios";
 
 
 
@@ -16,183 +17,207 @@ const imgProvisoria = require("../Assets/a-way-out-ps5-retro.jpg")
 
 function CardDetail() {
 
-    const {user, isAuthenticated, isLoading} = useAuth0();
 
+    const [card, setCard] = useState([]);
+    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { id } = useParams();
 
     const { Meta } = Card;
 
+    if (!card.length) {
 
-    return (
+        axios.get(`https://pfservidor-production.up.railway.app/videogames/${id}`)
+            .then((res) => {
+                console.log(res.data)
+                setCard([res.data])
+            })
+            .catch((err) => console.log(err))
 
-        <div className="body-card card-detail-component">
+    };
 
-            <div className="cardsDetailsRates">
-            <div className="cardsContainer">
-            <div className="cardFormReview">
-            <Card
-                style={{ width: 350 , height: 525}}
-                cover={
-                    <img
-                        style={{ width: 350 , height: 400}}
-                        alt="Among Us"
-                        src={imgProvisoria}
-                    />
-                }
-            >
-            <Meta
-                title="Card title provisorio"
-                description="Texto a modo de ejemplo porque no se que 
-                carajo poner porque ya estoy re quemado"
-                />
-                <br></br>
-            </Card>
-            
-                <div className="rateForm">
-                    <Rate 
-                    className="rateAux"
-                    allowHalf defaultValue={2.5} />
+    console.log(card);
+    console.log(id);
 
-                <div className="inputButton">
-                    <Input
-                    className="form"
-                    placeholder="Leave your comment" bordered={false} />
+    if (card.length !== 0) {
 
-                    <Button 
-                    className="buttonAux"
-                    style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-                    type="primary" 
-                    >
-                        Send
-                    </Button>
-                </div>
-            </div>
-            </div>
-            
-            
-            <div className="detailNameInfo">
-            <div className="nameFormat">
-            <h3 className="title">Among Us</h3> 
-            <p className="title">DIGITAL</p>
-            </div>
-            <br></br>
-            <hr></hr>
-            <Card
-                className="cardDetailDescription"
-                title="Desde $2400"
-                bordered={false}
-                style={{
-                width: 300,
-                height:450  
-                }}
-                >
-                <p> Among Us​ es un videojuego de género party y multijugador en línea desarrollado por la compañía estadounidense Innersloth y distribuido entre junio y noviembre de 2018 para las plataformas Android, iOS y Windows.
-                </p>
+        var precio = `$ ${card[0].price}`
 
-                <br></br>
-                <br></br>
-                <p>
-                Peso: 18.55 GB
-                Español
-                Juego Original y Completo
-                -Descarga desde tu consola
-                -Incluye guía paso a paso
-                -Entrega inmediata
-                </p>
+        return (
 
-                <div className="buttonsContainer">
-                <Button 
-                className="buttonsCardDetail"
-                style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-                type="primary" 
-                >
-                    Buy
-                </Button>
+            <div className="body-card card-detail-component">
 
-                <Button
-                style={{ color: "rgba(9, 22, 29, 0.712)" }}
-                className="buttonsCardDetail"
-                >
-                    Add To Cart
-                </Button>
-                </div>
+                <div className="cardsDetailsRates">
+                    <div className="cardsContainer">
+                        <div className="cardFormReview">
+                            <Card
+                                style={{ width: 360, height: 580 }}
+                                cover={
+                                    <img
+                                        style={{ width: 360, height: 460 }}
+                                        alt="Among Us"
+                                        src={card[0].image[0]}
+                                    />
+                                }
+                            >
+                                <Meta
+                                    title={card[0].name}
+                                    description="Henry Game Store, the best console games, at the best market price"
+                                />
+                                <br></br>
+                            </Card>
 
-            </Card>
-            </div>
+                            <div className="rateForm">
+                                <Rate
+                                    className="rateAux"
+                                    allowHalf defaultValue={2.5} />
 
-                <div className="comentarios-card">
+                                <div className="inputButton">
+                                    <Input
+                                        className="form"
+                                        placeholder="Leave your comment" bordered={false} />
 
-                    
-                <div className="reviewsContainer">
-
-
-                        
-                        
-                        <Card title="" bordered={false}>
-                            <div className="nameComment">
-                                <div className="imgRate">
-                                {!isAuthenticated ? null : <Profile/> }
-                                <Rate 
-                                className="rate"
-                                disabled defaultValue={5} />
+                                    <Button
+                                        className="buttonAux"
+                                        style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                                        type="primary"
+                                    >
+                                        Send
+                                    </Button>
                                 </div>
-                                <p className="comment">
-                                ¡Great!, an incredible game, i love it
-                                </p>
-                                
                             </div>
-                        </Card>
-                        
-                        
-                        <Card title="" bordered={false}>
-                            <div className="nameComment">
-                                <div className="imgRate">
-                                {!isAuthenticated ? null : <Profile/> }
-                                <Rate 
-                                className="rate"
-                                disabled defaultValue={2} />
-                                </div>
-                                <p className="comment">
-                                ¡Great!, an incredible game, i love it
-                                </p>
-                                
-                            </div>
-                        </Card>
-                       
-                        
-                        <Card title="" bordered={false}>
-                            <div className="nameComment">
-                                <div className="imgRate">
-                                {!isAuthenticated ? null : <Profile/> }
-                                <Rate 
-                                className="rate"
-                                disabled defaultValue={4} />
-                                </div>
-                                <p className="comment">
-                                ¡Great!, an incredible game, i love it
-                                </p>
-                                
-                            </div>
-                        </Card>        
+                        </div>
 
-                     </div>
 
+                        <div className="detailNameInfo">
+                            <div className="nameFormat">
+                                <h3 className="title">{card[0].name}</h3>
+                                <p className="title">DIGITAL</p>
+                            </div>
+                            <br></br>
+                            <hr></hr>
+                            <Card
+                                className="cardDetailDescription"
+                                title={precio}
+                                bordered={false}
+                                style={{
+                                    width: 300,
+                                    height: 510
+                                }}
+                            >
+                                <p>
+                                    {card[0].description}
+                                </p>
+
+                                <br></br>
+                                <br></br>
+                                <p>Platforma: {card[0].platform}</p>
+                                <p>Genero: {card[0].genre}</p>
+
+                                <div className="buttonsContainer">
+                                    <Button
+                                        className="buttonsCardDetail"
+                                        style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                                        type="primary"
+                                    >
+                                        Buy
+                                    </Button>
+
+                                    <Button
+                                        style={{ color: "rgba(9, 22, 29, 0.712)" }}
+                                        className="buttonsCardDetail"
+                                    >
+                                        Add To Cart
+                                    </Button>
+                                </div>
+
+                            </Card>
+                        </div>
+
+                        <div className="comentarios-card">
+
+
+                            <div className="reviewsContainer">
+
+
+
+
+                                <Card title="" bordered={false}>
+                                    <div className="nameComment">
+                                        <div className="imgRate">
+                                            {!isAuthenticated ? null : <Profile />}
+                                            <Rate
+                                                className="rate"
+                                                disabled defaultValue={5} />
+                                        </div>
+                                        <p className="comment">
+                                            ¡Great!, an incredible game, i love it
+                                        </p>
+
+                                    </div>
+                                </Card>
+
+
+                                <Card title="" bordered={false}>
+                                    <div className="nameComment">
+                                        <div className="imgRate">
+                                            {!isAuthenticated ? null : <Profile />}
+                                            <Rate
+                                                className="rate"
+                                                disabled defaultValue={2} />
+                                        </div>
+                                        <p className="comment">
+                                            ¡Great!, an incredible game, i love it
+                                        </p>
+
+                                    </div>
+                                </Card>
+
+
+                                <Card title="" bordered={false}>
+                                    <div className="nameComment">
+                                        <div className="imgRate">
+                                            {!isAuthenticated ? null : <Profile />}
+                                            <Rate
+                                                className="rate"
+                                                disabled defaultValue={4} />
+                                        </div>
+                                        <p className="comment">
+                                            ¡Great!, an incredible game, i love it
+                                        </p>
+
+                                    </div>
+                                </Card>
+
+                            </div>
+
+                        </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+                <br></br>
+
+
+
             </div>
-            
+        );
+
+    } else {
 
 
+        return (
 
-               
+            <div>Loading...</div>
 
-            
+        );
 
-            <br></br>
-
-
-
-        </div>
-    );
+    };
 
 };
 
@@ -220,4 +245,4 @@ export default CardDetail;
 
                 <br></br> */}
 
-                {/* <h3>Rating: <Rate disabled allowHalf defaultValue={4.5} /></h3> */}
+{/* <h3>Rating: <Rate disabled allowHalf defaultValue={4.5} /></h3> */ }
