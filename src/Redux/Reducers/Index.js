@@ -2,9 +2,9 @@ import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, POS
 
 
 const initialState = {
-    allFavorites: [],
+    allFavorites: localStorage.getItem(`allFavorites`) && JSON.parse(localStorage.getItem('allFavorites')) || [],
+    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) || [],
     allGames:[],
-    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) ||[],
     cards: [],
     filteredCards: [],
     nameFilter: '',
@@ -13,14 +13,16 @@ const initialState = {
 const rootReducer = (state = initialState , action) => {
     switch(action.type){
 
-        case POST_FAVORITES:   
+        case POST_FAVORITES:  
+            localStorage.setItem('allFavorites', JSON.stringify([...state.allFavorites, action.payload])); 
             return{
                 ...state,
                 allFavorites: [...state.allFavorites, action.payload]
             }
 
         case DELETE_FAVORITES:
-            const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload)
+            const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload);
+            localStorage.setItem('allFavorites', JSON.stringify([...favoriteFIlter])); 
             return{
                 ...state,
                 allFavorites: favoriteFIlter

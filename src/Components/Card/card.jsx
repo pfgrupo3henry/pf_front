@@ -8,6 +8,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 const { Meta } = Card;
 
 const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
@@ -22,7 +23,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const dispatch = useDispatch();
 
   const [shoppingStringified, setShoppingStringified] = React.useState([]);
-
+  const [favsStringified, setFavsStringified] = React.useState([]);
+  const navigate = useNavigate();
 
 
   const handleFavorites = (title, description, imgProvisoria, descriptionComplete, price, id) => {
@@ -35,35 +37,23 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       price: price,
       id: id
     }
-
-
     dispatch(postFavorites(valores));
   }
 
-  const handleShoppingChart = (title, description, img, price, id) => {
-    if (!title || !description || !img || !price || !id) {
+  const handleShoppingChart = (title, description, imgProvisoria, price, id) => {
+
+    if (!title || !description || !imgProvisoria || !price || !id) {
       return null
     }
 
     dispatch(addItemToChart({
       title,
       description,
-      img,
+      img: imgProvisoria,
       price,
       id
     }))
   }
-
-  const handleCart = () => {
-    setCart(!cart);
-    handleShoppingChart(title, description, imgProvisoria, price, id)
-  }
-
-
-
-  /*    const deleteFavoritesCardHome = (id)=>{
-      dispatch(deleteFavorites(id))
-    } */
 
   React.useEffect(() => {
     const returnStringified = shoppingChart.map(el => {
@@ -72,13 +62,22 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     setShoppingStringified(returnStringified);
   }, [shoppingChart])
 
+  React.useEffect(() => {
+    const returnStringified = allFavorites.map(el => {
+      return JSON.stringify(el);
+    });
+    setFavsStringified(returnStringified);
+  }, [allFavorites])
+
 
   var precio = `$ ${price}`;
 
   return (
     <div className="card-component">
       <Card
-
+        onClick={(e) => {
+          e.target.tagName !== 'svg' && e.target.tagName !== 'path' && navigate(`/game/${id}`)
+        }}
         hoverable
         style={{
           width: 180,
@@ -89,11 +88,14 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           title={title}
           description={precio}
         />
-
         <div className='iconsCardHomeContainer'>
-
-
-          {favorite ?
+          {!favsStringified.includes(JSON.stringify({
+            title,
+            description: descriptionComplete,
+            img: imgProvisoria,
+            price,
+            id
+          })) ?
             <AiOutlineHeart
               className='favIconCardHome'
               onClick={() => {
@@ -101,10 +103,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 handleFavorites(title, description, imgProvisoria, descriptionComplete, price, id)
               }} />
             : <AiFillHeart
-              onClick={handleFavorites}
+              onClick={() => dispatch(deleteFavorites(id))}
               className='favIconCardHome' />}
-
-
           {!shoppingStringified.includes(JSON.stringify({
             title,
             description,
@@ -114,13 +114,11 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           })) ?
             <RiShoppingCartLine
               className='favIconCardHome'
-              onClick={handleCart} />
+              onClick={() => handleShoppingChart(title, description, imgProvisoria, price, id)} />
             : <RiShoppingCartFill
-              onClick={handleCart}
+              onClick={() => handleShoppingChart(title, description, imgProvisoria, price, id)}
               className='favIconCardHome' />}
-
         </div>
-
       </Card>
     </div>
   )
