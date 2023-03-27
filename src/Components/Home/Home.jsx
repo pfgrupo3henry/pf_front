@@ -1,26 +1,30 @@
 import React from "react";
-import { useState } from "react";
-import { Pagination, Alert, Typography } from "antd";
-import OrderMenu from "../OrderMenu/OrderMenu";
+import { useState } from 'react';
+import { Pagination, Alert } from 'antd';
 import { CardElement } from "../Card/card";
+//import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
-import { Menu } from "antd";
+import { Menu, Button } from "antd";
+//import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
+//import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
 
+
 function Home(label, key, icon, children, type) {
-  const cards = useSelector((state) => state.cards);
-  const filteredVideogames = useSelector((state) => state.filteredCards);
-  const filterName = useSelector((state) => state.nameFilter);
+
+  const cards = useSelector(state => state.cards);
+  const filteredVideogames = useSelector(state => state.filteredCards);
+  const filterName = useSelector(state => state.nameFilter);
   const dispatch = useDispatch();
+
   const [card, setCard] = useState([]);
   const [items, setItems] = useState([]);
-  const [numberPaginado, setNumberPagindo] = useState(1);
-  const [number2, setNumber2] = useState(1);
+
   const [current, setCurrent] = useState(1);
   const onChange = (page) => {
     console.log(page);
@@ -31,6 +35,7 @@ function Home(label, key, icon, children, type) {
   const pageSize = 8; // Cantidad de elementos por página
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(pageSize);
+
 
   const updateElementsToShow = (page) => {
     const newStartIndex = (page - 1) * pageSize;
@@ -44,19 +49,12 @@ function Home(label, key, icon, children, type) {
     );
   };
 
-  if (card.length > 1 && number2 === 1) {
-    setNumberPagindo(card.length);
-    setNumber2(2);
-  }
-
-  //*******************ordenamiento********************************** */
-  const { Text } = Typography;
-
-  //*******************ordenamiento********************************** */
-
   //------------------------------Filtros----------------------------------------------------
 
   function getItem(label, key, icon, children, type) {
+
+
+
     return {
       key,
       icon,
@@ -99,7 +97,7 @@ function Home(label, key, icon, children, type) {
       getItem("Infantiles", "25"),
       getItem("Multijugador", "26"),
       getItem("Rol", "27"),
-    ]),
+    ])
   ];
 
   // const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
@@ -116,398 +114,6 @@ function Home(label, key, icon, children, type) {
     }
   };
 
-  const onClick2 = (e) => {
-    console.log("click ", e);
-    // Filtros PS3 -----------------
-    if (e.key === "1") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "2") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Aventura");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "3") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Combos");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "4") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Conducción");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "5") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Deportes");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "6") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Estrategia");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "7") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Infantiles");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "8") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Multijugador");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "9") {
-      let PS3 = card.filter((card) => {
-        return card.platform.includes("PS3");
-      });
-
-      setItems(
-        [...PS3].filter((card) => {
-          return card.genre.includes("Rol");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    // Filtros PS4 -----------------
-    if (e.key === "10") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "11") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Aventura");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "12") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Combos");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "13") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Conducción");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "14") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Deportes");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "15") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Estrategia");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "16") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Infantiles");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "17") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Multijugador");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "18") {
-      let PS4 = card.filter((card) => {
-        return card.platform.includes("PS4");
-      });
-
-      setItems(
-        [...PS4].filter((card) => {
-          return card.genre.includes("Rol");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    // Filtros PS5 -----------------
-    if (e.key === "19") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Acción");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "20") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Aventura");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "21") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Combos");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "22") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Conducción");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "23") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Deportes");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "24") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Estrategia");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "25") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Infantiles");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "26") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Multijugador");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    if (e.key === "27") {
-      let PS5 = card.filter((card) => {
-        return card.platform.includes("PS5");
-      });
-
-      setItems(
-        [...PS5].filter((card) => {
-          return card.genre.includes("Rol");
-        })
-      );
-
-      setCurrent(1);
-      setNumberPagindo(1);
-    }
-    // Ver todos los juegos -----------------
-    if (e.key === "28") {
-      setItems([...card].slice(0, 8));
-
-      setCurrent(1);
-      setNumberPagindo(card.length);
-    }
-  };
-
   function eliminarDiacriticos(cadena) {
     return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
@@ -518,51 +124,33 @@ function Home(label, key, icon, children, type) {
     console.log(e.keyPath[1]);
 
     if (cards && cards.length) {
-      if (e.keyPath[0] === "All") {
-        dispatch(setNameFilter(""));
+      if (e.keyPath[0] === 'All') {
+        dispatch(setNameFilter(''));
         dispatch(filterCards(cards));
         setOpenKeys(["All"]);
         // console.log('all cards');
       } else {
-        dispatch(setNameFilter(""));
-        const videojuegosFiltrados = cards.filter((el) => {
-          return (
-            eliminarDiacriticos(el.genre.toLowerCase()) ===
-              eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) &&
-            el.platform === e.keyPath[1]
-          );
+        dispatch(setNameFilter(''));
+        const videojuegosFiltrados = cards.filter(el => {
+          return eliminarDiacriticos(el.genre.toLowerCase()) === eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) && el.platform === e.keyPath[1];
         });
         dispatch(filterCards(videojuegosFiltrados));
       }
     }
-  };
-
-  // ------------------------------ axios ---------------------------------------
-
-  // if (items.length === 0 && card.length === 0) {
-
-  //     axios.get("https://pfservidor-production.up.railway.app/videogames")
-  //         .then((res) => {
-  //             console.log(res.data)
-  //             setCard([...res.data])
-  //             setItems([...res.data].slice(0, 8))
-
-  //         })
-  //         .catch((err) => console.log(err))
-  // };
+  }
 
   React.useEffect(() => {
-    setCurrent(1);
+    setCurrent(1)
     updateElementsToShow(1);
-  }, [filteredVideogames]);
+  }, [filteredVideogames])
+
 
   if (card) {
     return (
       <div className="home-component">
         <Slider />
         <div className="homeContainerUltraMega">
-          <div className="filterHome">
-            <OrderMenu />
+          <div className="filterHome" >
             <Menu
               mode="inline"
               onClick={onClick}
@@ -575,7 +163,7 @@ function Home(label, key, icon, children, type) {
             />
           </div>
           <div className="containerExtreme">
-            {items.length === 0 ? (
+            {items.length === 0 ?
               <div className="alert-home">
                 <Alert
                   message="Por el momento no tenemos juegos de este genero"
@@ -584,37 +172,56 @@ function Home(label, key, icon, children, type) {
                   showIcon
                 />
               </div>
-            ) : (
+              :
               <div className="listCards">
                 {items.map((e, i) => (
-                  <Link to={"/game/" + e.id} className="link-card">
-                    <CardElement
-                      key={i}
-                      title={e.title}
-                      imgProvisoria={e.img[0]}
-                      description="DIGITAL"
-                      descriptionComplete={e.description}
-                      price={e.price}
-                      id={e.id}
-                    />
-                  </Link>
+
+                  <CardElement
+                    key={i}
+                    title={e.title}
+                    imgProvisoria={e.img[0]}
+                    description="DIGITAL"
+                    descriptionComplete={e.description}
+                    price={e.price}
+                    id={e.id}
+                  />
+
                 ))}
               </div>
-            )}
-            <div className="paginationHomeStyle">
+
+
+              /*           <div className="listCards">
+                        {items.map((e, i) => (
+                            <Link to={"/game/" + e.id} className="link-card">
+                                <CardElement
+                                    key={i}
+                                    title={e.title}
+                                    imgProvisoria={e.img[0]}
+                                    description="DIGITAL"
+                                    descriptionComplete={e.description}
+                                    price={e.price}
+                                    id={e.id}
+                                />
+                            </Link>
+                        ))}
+                        </div> */
+            }
+            <div className="paginationHomeStyle" >
               <Pagination
                 current={current}
                 onChange={onChange}
                 total={filteredVideogames.length}
                 pageSize={pageSize}
-                showSizeChanger={false}
-              />
+                showSizeChanger={false} />
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
-}
+      </div >
 
-export { Home };
+    );
+
+  }
+
+};
+
+export { Home }

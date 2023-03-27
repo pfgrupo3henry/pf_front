@@ -1,9 +1,9 @@
-import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, GET_CARDS, FILTER_CARDS, GET_SEARCH, SET_NAME_FILTER, ORDER_BY_NAME, ORDER_BY_PRICE, ORDER_BY_RATE } from "../Actions/Types";
+import { POST_NEW_PRODUCT, GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, GET_CARDS, FILTER_CARDS, GET_SEARCH, SET_NAME_FILTER, ORDER_BY_NAME, ORDER_BY_PRICE, ORDER_BY_RATE } from "../Actions/Types";
 
 const initialState = {
     allFavorites: localStorage.getItem(`allFavorites`) && JSON.parse(localStorage.getItem('allFavorites')) || [],
     shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) || [],
-    allGames:[],
+    allGames: [],
     cards: [],
     filteredCards: [],
     nameFilter: '',
@@ -13,30 +13,30 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
 
 
-        case POST_FAVORITES:  
-            localStorage.setItem('allFavorites', JSON.stringify([...state.allFavorites, action.payload])); 
-            return{
-               ...state,
+        case POST_FAVORITES:
+            localStorage.setItem('allFavorites', JSON.stringify([...state.allFavorites, action.payload]));
+            return {
+                ...state,
                 allFavorites: [...state.allFavorites, action.payload]
             }
 
         case DELETE_FAVORITES:
 
-            const favoriteFIlter = state.allFavorites.filter(e=> e.id !== action.payload);
-            localStorage.setItem('allFavorites', JSON.stringify([...favoriteFIlter])); 
-            return{
+            const favoriteFIlter = state.allFavorites.filter(e => e.id !== action.payload);
+            localStorage.setItem('allFavorites', JSON.stringify([...favoriteFIlter]));
+            return {
                 ...state,
                 allFavorites: favoriteFIlter
             }
 
-           
+
         case POST_NEW_PRODUCT:
-            return{
+            return {
                 ...state,
                 allGames: action.payload
             }
 
-        
+
         case ADD_ITEM_TO_CHART:
             let flag = false;
 
