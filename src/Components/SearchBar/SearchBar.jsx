@@ -1,18 +1,19 @@
 import "./search.css";
 import { Input, Space } from "antd";
-import React from "react";
+
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchByName, setNameFilter } from "../../Redux/Actions/Index";
 
 function SearchBar() {
-
   const { Search } = Input;
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState("");
+
   const onSearch = (value) => {
     dispatch(searchByName(value));
     dispatch(setNameFilter(value));
-    setValue('');
+    setValue("");
   };
 
   return (
@@ -28,7 +29,7 @@ function SearchBar() {
         }}
       />
     </Space>
-  )
+  );
 }
 
 export default SearchBar;
