@@ -40,5 +40,6 @@
 
 .cardIndoUserInformation{
     display: flex;
-    gap: 3rem
+    gap: 3rem;
+    margin-top: 3rem;
 }

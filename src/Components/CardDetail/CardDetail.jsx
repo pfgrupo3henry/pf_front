@@ -50,10 +50,10 @@ function CardDetail() {
                     <div className="cardsContainer">
                         <div className="cardFormReview">
                             <Card
-                                style={{ width: 350, height: 525 }}
+                                style={{ width: 360, height: 580 }}
                                 cover={
                                     <img
-                                        style={{ width: 350, height: 400 }}
+                                        style={{ width: 360, height: 460 }}
                                         alt="Among Us"
                                         src={card[0].image[0]}
                                     />
@@ -61,7 +61,7 @@ function CardDetail() {
                             >
                                 <Meta
                                     title={card[0].name}
-                                    description=""
+                                    description="Henry Game Store, the best console games, at the best market price"
                                 />
                                 <br></br>
                             </Card>
@@ -101,7 +101,7 @@ function CardDetail() {
                                 bordered={false}
                                 style={{
                                     width: 300,
-                                    height: 450
+                                    height: 510
                                 }}
                             >
                                 <p>
