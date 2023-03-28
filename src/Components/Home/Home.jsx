@@ -1,26 +1,31 @@
 import React from "react";
-import { useState } from "react";
-import { Pagination, Alert, Typography } from "antd";
-import OrderMenu from "../OrderMenu/OrderMenu";
+import { useState } from 'react';
+import { Pagination, Alert } from 'antd';
 import { CardElement } from "../Card/card";
+//import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
-import { Menu } from "antd";
+import { Menu, Button } from "antd";
+//import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
+//import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
+import OrderMenu from "../OrderMenu/OrderMenu";
+
 
 function Home(label, key, icon, children, type) {
-  const cards = useSelector((state) => state.cards);
-  const filteredVideogames = useSelector((state) => state.filteredCards);
-  const filterName = useSelector((state) => state.nameFilter);
-  const [loading, setLoading] = useState(true);
 
+  const cards = useSelector(state => state.cards);
+  const filteredVideogames = useSelector(state => state.filteredCards);
+  const filterName = useSelector(state => state.nameFilter);
   const dispatch = useDispatch();
+
   const [card, setCard] = useState([]);
   const [items, setItems] = useState([]);
+
   const [current, setCurrent] = useState(1);
   const onChange = (page) => {
     console.log(page);
@@ -31,6 +36,7 @@ function Home(label, key, icon, children, type) {
   const pageSize = 8; // Cantidad de elementos por página
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(pageSize);
+
 
   const updateElementsToShow = (page) => {
     const newStartIndex = (page - 1) * pageSize;
@@ -44,14 +50,12 @@ function Home(label, key, icon, children, type) {
     );
   };
 
-  //*******************ordenamiento********************************** */
-  const { Text } = Typography;
-
-  //*******************ordenamiento********************************** */
-
   //------------------------------Filtros----------------------------------------------------
 
   function getItem(label, key, icon, children, type) {
+
+
+
     return {
       key,
       icon,
@@ -63,38 +67,38 @@ function Home(label, key, icon, children, type) {
   const items2 = [
     getItem("See All", "All", null),
     getItem("PS3", "PS3", null, [
-      getItem("Action", "1"),
-      getItem("Adventure", "2"),
+      getItem("Acción", "1"),
+      getItem("Aventura", "2"),
       getItem("Combos", "3"),
-      getItem("Driving", "4"),
-      getItem("Sports", "5"),
-      getItem("Strategy", "6"),
-      getItem("Infantile", "7"),
-      getItem("Multiplayer", "8"),
-      getItem("Role", "9"),
+      getItem("Conducción", "4"),
+      getItem("Deportes", "5"),
+      getItem("Estrategia", "6"),
+      getItem("Infantiles", "7"),
+      getItem("Multijugador", "8"),
+      getItem("Rol", "9"),
     ]),
     getItem("PS4", "PS4", null, [
-      getItem("Action", "10"),
-      getItem("Adventure", "11"),
+      getItem("Acción", "10"),
+      getItem("Aventura", "11"),
       getItem("Combos", "12"),
-      getItem("Driving", "13"),
-      getItem("Sports", "14"),
-      getItem("Strategy", "15"),
-      getItem("Infantile", "16"),
-      getItem("Multiplayer", "17"),
-      getItem("Role", "18"),
+      getItem("Conducción", "13"),
+      getItem("Deportes", "14"),
+      getItem("Estrategia", "15"),
+      getItem("Infantiles", "16"),
+      getItem("Multijugador", "17"),
+      getItem("Rol", "18"),
     ]),
     getItem("PS5", "PS5", null, [
       getItem("Acción", "19"),
-      getItem("Adventure", "20"),
+      getItem("Aventura", "20"),
       getItem("Combos", "21"),
-      getItem("Driving", "22"),
-      getItem("Sports", "23"),
-      getItem("Strategy", "24"),
-      getItem("Infantile", "25"),
-      getItem("Multiplayer", "26"),
-      getItem("Role", "27"),
-    ]),
+      getItem("Conducción", "22"),
+      getItem("Deportes", "23"),
+      getItem("Estrategia", "24"),
+      getItem("Infantiles", "25"),
+      getItem("Multijugador", "26"),
+      getItem("Rol", "27"),
+    ])
   ];
 
   // const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
@@ -121,36 +125,33 @@ function Home(label, key, icon, children, type) {
     console.log(e.keyPath[1]);
 
     if (cards && cards.length) {
-      if (e.keyPath[0] === "All") {
-        dispatch(setNameFilter(""));
+      if (e.keyPath[0] === 'All') {
+        dispatch(setNameFilter(''));
         dispatch(filterCards(cards));
         setOpenKeys(["All"]);
         // console.log('all cards');
       } else {
-        dispatch(setNameFilter(""));
-        const videojuegosFiltrados = cards.filter((el) => {
-          return (
-            eliminarDiacriticos(el.genre.toLowerCase()) ===
-            eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) &&
-            el.platform === e.keyPath[1]
-          );
+        dispatch(setNameFilter(''));
+        const videojuegosFiltrados = cards.filter(el => {
+          return eliminarDiacriticos(el.genre.toLowerCase()) === eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) && el.platform === e.keyPath[1];
         });
         dispatch(filterCards(videojuegosFiltrados));
       }
     }
-  };
+  }
 
   React.useEffect(() => {
-    setCurrent(1);
+    setCurrent(1)
     updateElementsToShow(1);
-  }, [filteredVideogames]);
+  }, [filteredVideogames])
+
 
   if (card) {
     return (
       <div className="home-component">
         <Slider />
         <div className="homeContainerUltraMega">
-          <div className="filterHome">
+          <div className="filterHome" >
             <Menu
               mode="inline"
               onClick={onClick}
@@ -164,7 +165,7 @@ function Home(label, key, icon, children, type) {
             <OrderMenu />
           </div>
           <div className="containerExtreme">
-            {items.length === 0 ? (
+            {items.length === 0 ?
               <div className="alert-home">
                 <Alert
                   message="Por el momento no tenemos juegos de este genero"
@@ -173,38 +174,37 @@ function Home(label, key, icon, children, type) {
                   showIcon
                 />
               </div>
-            ) : (
+              :
               <div className="listCards">
                 {items.map((e, i) => (
-                  <a className="link-card">
-                    <CardElement
-                      key={i}
-                      title={e.title}
-                      imgProvisoria={e.img[0]}
-                      description="DIGITAL"
-                      descriptionComplete={e.description}
-                      price={e.price}
-                      id={e.id}
-                    />
-                  </a>
+                  <CardElement
+                    key={i}
+                    title={e.name}
+                    imgProvisoria={e.img[0]}
+                    description="DIGITAL"
+                    descriptionComplete={e.description}
+                    price={e.price}
+                    id={e.id}
+                  />
                 ))}
               </div>
-            )}
-            <div className="paginationHomeStyle">
+            }
+            <div className="paginationHomeStyle" >
               <Pagination
                 current={current}
                 onChange={onChange}
                 total={filteredVideogames.length}
                 pageSize={pageSize}
-                showSizeChanger={false}
-              />
+                showSizeChanger={false} />
             </div>
           </div>
         </div>
-      </div>
+      </div >
+
     );
+
   }
-}
 
+};
 
-export { Home };
+export { Home }
