@@ -1,4 +1,17 @@
-import { GET_FAVORITES, POST_FAVORITES, ADD_ITEM_TO_CHART, DELETE_FAVORITES, GET_CARDS, FILTER_CARDS, GET_SEARCH, SET_NAME_FILTER, ORDER_BY_NAME, ORDER_BY_PRICE, ORDER_BY_RATE } from "../Actions/Types";
+import { 
+    GET_FAVORITES, 
+    POST_FAVORITES, 
+    ADD_ITEM_TO_CHART, 
+    DELETE_FAVORITES,
+    GET_CARDS, 
+    FILTER_CARDS, 
+    GET_SEARCH, 
+    SET_NAME_FILTER,
+    ORDER_BY_NAME, 
+    ORDER_BY_PRICE, 
+    ORDER_BY_RATE,
+    POST_NEW_PRODUCT
+} from "../Actions/Types";
 
 const initialState = {
     allFavorites: localStorage.getItem(`allFavorites`) && JSON.parse(localStorage.getItem('allFavorites')) || [],
