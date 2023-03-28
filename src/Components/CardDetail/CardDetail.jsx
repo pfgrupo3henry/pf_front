@@ -44,6 +44,8 @@ function CardDetail() {
 
         return (
 
+            <div className='card-detail-component2'>
+
             <div className="body-card card-detail-component">
 
                 <div className="cardsDetailsRates">
@@ -205,6 +207,7 @@ function CardDetail() {
 
 
 
+            </div>
             </div>
         );
 

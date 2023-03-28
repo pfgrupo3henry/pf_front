@@ -16,6 +16,8 @@ function Home(label, key, icon, children, type) {
   const cards = useSelector((state) => state.cards);
   const filteredVideogames = useSelector((state) => state.filteredCards);
   const filterName = useSelector((state) => state.nameFilter);
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
   const [card, setCard] = useState([]);
   const [items, setItems] = useState([]);
@@ -61,37 +63,37 @@ function Home(label, key, icon, children, type) {
   const items2 = [
     getItem("See All", "All", null),
     getItem("PS3", "PS3", null, [
-      getItem("Acción", "1"),
-      getItem("Aventura", "2"),
+      getItem("Action", "1"),
+      getItem("Adventure", "2"),
       getItem("Combos", "3"),
-      getItem("Conducción", "4"),
-      getItem("Deportes", "5"),
-      getItem("Estrategia", "6"),
-      getItem("Infantiles", "7"),
-      getItem("Multijugador", "8"),
-      getItem("Rol", "9"),
+      getItem("Driving", "4"),
+      getItem("Sports", "5"),
+      getItem("Strategy", "6"),
+      getItem("Infantile", "7"),
+      getItem("Multiplayer", "8"),
+      getItem("Role", "9"),
     ]),
     getItem("PS4", "PS4", null, [
-      getItem("Acción", "10"),
-      getItem("Aventura", "11"),
+      getItem("Action", "10"),
+      getItem("Adventure", "11"),
       getItem("Combos", "12"),
-      getItem("Conducción", "13"),
-      getItem("Deportes", "14"),
-      getItem("Estrategia", "15"),
-      getItem("Infantiles", "16"),
-      getItem("Multijugador", "17"),
-      getItem("Rol", "18"),
+      getItem("Driving", "13"),
+      getItem("Sports", "14"),
+      getItem("Strategy", "15"),
+      getItem("Infantile", "16"),
+      getItem("Multiplayer", "17"),
+      getItem("Role", "18"),
     ]),
     getItem("PS5", "PS5", null, [
       getItem("Acción", "19"),
-      getItem("Aventura", "20"),
+      getItem("Adventure", "20"),
       getItem("Combos", "21"),
-      getItem("Conducción", "22"),
-      getItem("Deportes", "23"),
-      getItem("Estrategia", "24"),
-      getItem("Infantiles", "25"),
-      getItem("Multijugador", "26"),
-      getItem("Rol", "27"),
+      getItem("Driving", "22"),
+      getItem("Sports", "23"),
+      getItem("Strategy", "24"),
+      getItem("Infantile", "25"),
+      getItem("Multiplayer", "26"),
+      getItem("Role", "27"),
     ]),
   ];
 
