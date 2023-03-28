@@ -11,6 +11,7 @@ import LandingPage from "./Components/LandingPage/LandinPage";
 import { FinishPayment } from "./Components/FinishPayment/FinishPayment";
 import { useDispatch } from "react-redux";
 import { getCards } from "./Redux/Actions/Index";
+import SingUp from "./Components/Login/Sing-up";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/profile" element={<UserInfo />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/status-payment" element={<FinishPayment />} />
+          <Route path="/login" element={<SingUp />} />
         </Routes>
         <Footer />
       </BrowserRouter>
