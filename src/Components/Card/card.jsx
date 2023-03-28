@@ -82,7 +82,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
         style={{
           width: 180,
         }}
-        cover={<img alt="example" src={imgProvisoria} />}
+        cover={<img alt="example" src={imgProvisoria} className="img-card-home" />}
       >
         <Meta
           title={title}
