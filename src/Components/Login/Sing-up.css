@@ -1,0 +1,53 @@
+.form-login {
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0px 0px 0px;
+}
+
+.body-login {
+    min-height: 80vh;
+    width: 500px;
+    padding: 10px 80px;
+}
+
+.button-form-ir-a {
+    text-decoration: none;
+    background-color: white;
+    border: none;
+    color: blue;
+}
+
+.form-forgot {
+    padding: 0px 0px 0px 105px;
+}
+
+.body-sing-up {
+    min-height: 100vh;
+    padding: 0px;
+}
+
+.form-sing-up {
+    padding: 50px 100px;
+    float: left;
+}
+
+.buttons-sing-up-body {
+    display: inline-block;
+}
+
+.buttons-sing-up {
+    display: flex;
+    padding: 0px 900px 10px 0px;
+}
+
+.h1-sing-up {
+    padding: 0px 0px 0px 200px;
+}
+
+.p-error {
+    color: red;
+}
+
+.p-successful {
+    color: blue;
+}

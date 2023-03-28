@@ -69,7 +69,7 @@ function Nav() {
             isAuthenticated
               ? null
               : <li className={!isAuthenticated ? "rutasNavAux" : "rutasNavAlternativeAux2"}>
-                <Login />
+                <Link to="/login" className="rutasNav">Login</Link>
               </li>
           }
           <li>
@@ -110,8 +110,8 @@ function Nav() {
         </div>
         {
           shoppingCartRender
-          ? <DropdownShoppingCart />
-          : null
+            ? <DropdownShoppingCart />
+            : null
         }
       </div>
     </div>
