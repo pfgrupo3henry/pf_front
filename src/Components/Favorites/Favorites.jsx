@@ -41,11 +41,7 @@ function Favorites (props){
       },[allFavorites])
 
 
-/*       useEffect(() => {
-        dispatch(deleteFavorites(id));
-      }, [id, dispatch]); */
-      
-    
+
       const deleteFavorite = (id)=>{
         dispatch(deleteFavorites(id))
       }

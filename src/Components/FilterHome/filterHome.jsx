@@ -15,22 +15,22 @@ function getItem(label, key, icon, children, type) {
 }
 const items = [
   getItem("PS3", "sub1", null, [
-    getItem("Accion", "1"),
-    getItem("Aventura", "2"),
-    getItem("Deportes", "3"),
-    getItem("Multijugador", "4"),
+    getItem("Action", "1"),
+    getItem("Adventure", "2"),
+    getItem("Sports", "3"),
+    getItem("Multiplayer", "4"),
   ]),
   getItem("PS4", "sub2", null, [
-    getItem("Accion", "5"),
-    getItem("Aventura", "6"),
-    getItem("Deportes", "7"),
-    getItem("Multijugador", "8"),
+    getItem("Action", "5"),
+    getItem("Adventure", "6"),
+    getItem("Sports", "7"),
+    getItem("Multiplayer", "8"),
   ]),
   getItem("PS5", "sub3", null, [
-    getItem("Accion", "9"),
-    getItem("Aventura", "10"),
-    getItem("Deportes", "11"),
-    getItem("Multijugador", "12"),
+    getItem("Action", "9"),
+    getItem("Adventure", "10"),
+    getItem("Sports", "11"),
+    getItem("Multiplayer", "12"),
   ]),
 ];
 

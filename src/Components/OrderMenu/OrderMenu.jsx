@@ -28,8 +28,8 @@ const OrderMenu = () => {
   }
 
   const items2 = [
-    getItem("Ordena Por", "Ordena Por", null, [
-      getItem("Precio", "1"),
+    getItem("Order by", "Order by", null, [
+      getItem("Lower Price", "1"),
       getItem("A - Z", "2"),
       getItem("Z - A", "3")
     ])
