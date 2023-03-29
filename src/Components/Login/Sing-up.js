@@ -10,6 +10,9 @@ import axios from "axios";
 
 function SingUp() {
 
+    const [fileImagen, setFileImagen] = useState([{
+        imagen: []
+    }]);
     const [fileList, setFileList] = useState([]);
     const [fileList2, setFileList2] = useState("vacio");
     const [alert, setAlert] = useState("");
@@ -25,7 +28,7 @@ function SingUp() {
         email: "",
         password: "",
         mobile: "",
-        imagen: [],
+        imagen: "",
         nacionalidad: ""
     });
 
@@ -41,22 +44,38 @@ function SingUp() {
                 email: "",
                 password: "",
                 mobile: "",
-                imagen: [],
+                imagen: "",
                 nacionalidad: ""
             })
         }
     };
 
     if (fileList.length > 0 && fileList2 === "vacio") {
-        console.log(fileList[0])
         setFileList2("lleno")
-        setInput(
+        setFileImagen(
             {
-                ...input,
+                ...fileImagen,
                 imagen: [fileList[0]]
             }
         );
     };
+
+    if (fileImagen.imagen) {
+
+        if (fileImagen.imagen.length > 0 && fileList2 === "lleno") {
+            setInput(
+                {
+                    ...input,
+                    imagen: fileImagen.imagen[0].thumbUrl
+                }
+            );
+            setFileList2("completo");
+            console.log(input);
+            console.log(fileImagen.imagen[0])
+        };
+
+    };
+
 
     if (state === "login") {
 
@@ -413,7 +432,6 @@ function SingUp() {
                     <Form.Item label="Upload" valuePropName="fileList"
                         name="upload"
                         getValueFromEvent={handleFileListChange}
-                        initialValue={fileList}
                         size={10}
                         rules={[
                             {
