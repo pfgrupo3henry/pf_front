@@ -10,6 +10,8 @@ import axios from "axios";
 
 function SingUp() {
 
+    const [fileList, setFileList] = useState([]);
+    const [fileList2, setFileList2] = useState("vacio");
     const [alert, setAlert] = useState("");
     const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
@@ -45,7 +47,16 @@ function SingUp() {
         }
     };
 
-
+    if (fileList.length > 0 && fileList2 === "vacio") {
+        console.log(fileList[0])
+        setFileList2("lleno")
+        setInput(
+            {
+                ...input,
+                imagen: [fileList[0]]
+            }
+        );
+    };
 
     if (state === "login") {
 
@@ -77,8 +88,6 @@ function SingUp() {
             };
 
         };
-
-
 
         return (
 
@@ -204,14 +213,12 @@ function SingUp() {
         };
 
         const onChangeInputImage = (e) => {
-            setInput({
-                ...input,
-                imagen: input.imagen.push(e.uid)
-            });
-
+            setFileList(e.fileList);
             setAlert("");
-            console.log(input);
-            console.log(e);
+        };
+
+        const handleFileListChange = ({ fileList }) => {
+            setFileList(fileList);
         };
 
         const handleSubmit = () => {
@@ -403,18 +410,38 @@ function SingUp() {
                         }
                     </Form.Item>
 
-                    <Form.Item label="Imagen" valuePropName="fileList">
-                        <Upload listType="picture-card" name="imagen" action={onChangeInputImage}>
+                    <Form.Item label="Upload" valuePropName="fileList"
+                        name="upload"
+                        getValueFromEvent={handleFileListChange}
+                        initialValue={fileList}
+                        size={10}
+                        rules={[
+                            {
+                                required: false,
+                                message: "Upload a picture"
+                            },
+                        ]}>
+                        <Upload
+                            action="/upload.do"
+                            listType="picture-card"
+                            onChange={(e) => { onChangeInputImage(e) }}
+                        >
+
                             <div>
                                 <PlusOutlined />
-                                <div style={{ marginTop: 8 }}>Upload</div>
+                                <div
+                                    style={{
+                                        marginTop: 8,
+                                    }}
+                                >
+                                    Image
+                                </div>
                             </div>
                         </Upload>
-                        {sImagen ?
-                            <p className="p-successful">successful</p>
-                            :
-                            <p></p>
-                        }
+
+                        {/* <input type='file' onChange={agregarFoto} /> */}
+
+
                     </Form.Item>
 
 
