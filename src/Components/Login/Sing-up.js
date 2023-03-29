@@ -10,9 +10,7 @@ import axios from "axios";
 
 function SingUp() {
 
-    const [fileImagen, setFileImagen] = useState([{
-        imagen: []
-    }]);
+    const [fileImagen, setFileImagen] = useState([]);
     const [fileList, setFileList] = useState([]);
     const [fileList2, setFileList2] = useState("vacio");
     const [alert, setAlert] = useState("");
@@ -28,7 +26,7 @@ function SingUp() {
         email: "",
         password: "",
         mobile: "",
-        imagen: "",
+        imagen: [],
         nacionalidad: ""
     });
 
@@ -44,7 +42,7 @@ function SingUp() {
                 email: "",
                 password: "",
                 mobile: "",
-                imagen: "",
+                imagen: [],
                 nacionalidad: ""
             })
         }
@@ -66,14 +64,11 @@ function SingUp() {
             setInput(
                 {
                     ...input,
-                    imagen: fileImagen.imagen[0].thumbUrl
+                    imagen: [fileImagen.imagen[0]]
                 }
             );
             setFileList2("completo");
-            console.log(input);
-            console.log(fileImagen.imagen[0])
         };
-
     };
 
 
@@ -225,6 +220,17 @@ function SingUp() {
                     [e.target.name]: e.target.value
                 }
             );
+
+            if (input.imagen.length && fileList2 === "completo") {
+                setInput(
+                    {
+                        ...input,
+                        imagen: [input.imagen[0].thumbUrl]
+                    }
+                );
+                setFileList2("terminado")
+            };
+
 
             setAlert("");
             console.log(input);
@@ -432,6 +438,7 @@ function SingUp() {
                     <Form.Item label="Upload" valuePropName="fileList"
                         name="upload"
                         getValueFromEvent={handleFileListChange}
+                        initialValue={fileList[0]}
                         size={10}
                         rules={[
                             {
