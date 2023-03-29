@@ -276,7 +276,7 @@ function SingUp() {
                         name="nacionalidad"
                     >
                         <select className="select-sing-up" name="nacionalidad" onChange={handleInputChange}>
-                            <option value="">Encontra tu pais</option>
+                            <option className="option-sing-up">Encontra tu pais</option>
 
                             {options && options.map((n) => {
                                 return (
