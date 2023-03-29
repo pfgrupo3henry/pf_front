@@ -19,7 +19,12 @@ const { Option } = Select;
 function SingUp() {
 
     const [alert, setAlert] = useState("");
+    const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
+    const [login, setLogin] = useState({
+        email: "",
+        password: ""
+    });
     const [input, setInput] = useState({
         name: "",
         lastName: "",
@@ -52,72 +57,146 @@ function SingUp() {
 
     if (state === "login") {
 
+        const users = [{
+            email: "felipe@gmail.com",
+            password: "22felipe05"
+        }];
+
+        const handleLogin = (e) => {
+            setLogin({
+                ...login,
+                [e.target.name]: e.target.value
+            });
+
+
+            console.log(login);
+        };
+
+        const loginSubmit = () => {
+
+
+            for (let i = 0; i < users.length; i++) {
+
+                if (users[i].email === login.email && users[i].password === login.password) {
+                    setAlertLogin("login")
+                } else {
+                    setAlertLogin("error")
+                };
+            };
+
+        };
+
+
+
         return (
 
            <div className="loginForm-component">
             <Form
-      name="normal_login"
-      className="login-form"
-      initialValues={{
-        remember: true,
-      }}
-      onFinish=""
-    >
-      <Form.Item
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Username!',
-          },
-        ]}
-      >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Password!',
-          },
-        ]}
-      >
-        <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-        />
-      </Form.Item>
-      <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+            name="normal_login"
+            className="login-form"
+            initialValues={{ remember: true }}
+            onChange={(e) => handleLogin(e)}
+           
+         
+            >
+            <Form.Item
+                name="username"
+                rules={[
+                {
+                    required: true,
+                    message: 'Please input your Username!',
+                },
+                ]}
+            >
+                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+            </Form.Item>
+            <Form.Item
+                name="password"
+                rules={[
+                {
+                    required: true,
+                    message: 'Please input your Password!',
+                },
+                ]}
+            >
+                <Input
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Password"
+                />
+            </Form.Item>
+            <Form.Item>
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+                
+                <a className="login-form-forgot" href="">
+                Forgot password
+                </a>
+            </Form.Item>    
 
-        <a className="login-form-forgot" href="">
-          Forgot password
-        </a>
-      </Form.Item>
-
-      <Form.Item>
-        <div className="buttonOrRegister">
-        <Button 
-        type="primary" 
-        htmlType="submit" 
-        onClick={onClickState}
-        className="login-form-button button">
-          Log in
-        </Button>
-        </div>
-      </Form.Item>
-      <FormItem>
-      Or  <a href="">register now!</a>
-      </FormItem>
         
-    </Form>
+
+            <Form.Item>
+            <div className="buttonOrRegister">
+            <Button 
+            type="primary" 
+            htmlType="submit" 
+            onClick={loginSubmit}
+            className="login-form-button button">
+            Log in
+            </Button>
+            </div>
+            </Form.Item>
+            <FormItem>
+            Or  <a href="">register now!</a>
+
+            <Form.Item>
+                        {alertLogin === "login" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Success Tips"
+                                    description="El usuario se ha logeado correctamente"
+                                    type="success"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
+                        {alertLogin === "error" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Error"
+                                    description="Usuario o contraseña incorrectos"
+                                    type="error"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
+                    </Form.Item> 
+
+
+
+            </FormItem>
+
+        </Form>
         </div>
 
-        );
+     );           
+
+
+         
+
+
+              
+
+            
+
+
+     
 
     } else if (state === "sing-up") {
 
@@ -294,8 +373,11 @@ function SingUp() {
                         label="Nacionalidad"
                         name="nacionalidad"
                     >
+
                         <Select className="select-sing-up" name="nacionalidad" onChange={handleInputChange}>
                             <option value="">Encontra tu pais</option>
+
+
 
                             {options && options.map((n) => {
                                 return (
