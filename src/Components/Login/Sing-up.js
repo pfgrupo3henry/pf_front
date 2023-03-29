@@ -11,7 +11,12 @@ import axios from "axios";
 function SingUp() {
 
     const [alert, setAlert] = useState("");
+    const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
+    const [login, setLogin] = useState({
+        email: "",
+        password: ""
+    });
     const [input, setInput] = useState({
         name: "",
         lastName: "",
@@ -44,6 +49,37 @@ function SingUp() {
 
     if (state === "login") {
 
+        const users = [{
+            email: "felipe@gmail.com",
+            password: "22felipe05"
+        }];
+
+        const handleLogin = (e) => {
+            setLogin({
+                ...login,
+                [e.target.name]: e.target.value
+            });
+
+
+            console.log(login);
+        };
+
+        const loginSubmit = () => {
+
+
+            for (let i = 0; i < users.length; i++) {
+
+                if (users[i].email === login.email && users[i].password === login.password) {
+                    setAlertLogin("login")
+                } else {
+                    setAlertLogin("error")
+                };
+            };
+
+        };
+
+
+
         return (
 
             <div className="form-login">
@@ -52,6 +88,7 @@ function SingUp() {
                     name="normal_login"
                     className="login-form"
                     initialValues={{ remember: true }}
+                    onChange={(e) => handleLogin(e)}
                 >
 
                     <Form.Item
@@ -60,9 +97,9 @@ function SingUp() {
                     </Form.Item>
 
                     <Form.Item
-                        name="username"
+                        name="email"
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
 
                     <Form.Item
@@ -72,6 +109,7 @@ function SingUp() {
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
                             placeholder="Password"
+                            name="password"
                         />
                     </Form.Item>
 
@@ -86,7 +124,8 @@ function SingUp() {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button"
+                            onClick={loginSubmit}>
                             Log in
                         </Button>
                         <Button onClick={onClickState}
@@ -96,6 +135,33 @@ function SingUp() {
 
                     <Form.Item>
                         <Login />
+                    </Form.Item>
+
+                    <Form.Item>
+                        {alertLogin === "login" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Success Tips"
+                                    description="El usuario se ha logeado correctamente"
+                                    type="success"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
+                        {alertLogin === "error" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Error"
+                                    description="Usuario o contraseña incorrectos"
+                                    type="error"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
                     </Form.Item>
 
                 </Form>
