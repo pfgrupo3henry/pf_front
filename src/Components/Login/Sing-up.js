@@ -10,7 +10,7 @@ import "./Login.css"
 import {
 
     Select,
-  } from 'antd';
+} from 'antd';
 import GoogleButton from "react-google-button";
 
 
@@ -18,6 +18,7 @@ const { Option } = Select;
 
 
 function SingUp() {
+
     const [alert, setAlert] = useState("");
     const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
@@ -51,7 +52,8 @@ function SingUp() {
                 nacionalidad: ""
             })
         }
-    };  
+    };
+
 
 
     if (state === "login") {
@@ -89,137 +91,137 @@ function SingUp() {
 
         return (
 
-           <div className="loginForm-component">
-            <Form
-            name="normal_login"
-            className="login-form"
-            initialValues={{ remember: true }}
-            onChange={(e) => handleLogin(e)}
-           
-         
-            >
-            <Form.Item
-                name="username"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your Username!',
-                },
-                ]}
-            >
-                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your Password!',
-                },
-                ]}
-            >
-                <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-                />
-            </Form.Item>
-            <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-                
-                <a className="login-form-forgot" href="">
-                Forgot password
-                </a>
-            </Form.Item>    
+            <div className="loginForm-component">
+                <Form
+                    name="normal_login"
+                    className="login-form"
+                    initialValues={{ remember: true }}
+                    onChange={(e) => handleLogin(e)}
 
-        
 
-            <Form.Item>
-            <div className="buttonOrRegister">
-            <Button 
-            type="primary" 
-            htmlType="submit" 
-            onClick={loginSubmit}
-            className="login-form-button button">
-            Log in
-            </Button>
+                >
+                    <Form.Item
+                        name="username"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your Username!',
+                            },
+                        ]}
+                    >
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                    </Form.Item>
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your Password!',
+                            },
+                        ]}
+                    >
+                        <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
+
+                        <a className="login-form-forgot" href="">
+                            Forgot password
+                        </a>
+                    </Form.Item>
+
+
+
+                    <Form.Item>
+                        <div className="buttonOrRegister">
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                onClick={loginSubmit}
+                                className="login-form-button button">
+                                Log in
+                            </Button>
+                        </div>
+                    </Form.Item>
+                    <Form.Item>
+
+                        <div
+                            onClick={onClickState}
+                            className="button-form-ir-a">
+                            Or register now!
+                        </div>
+
+                        <Form.Item>
+                            <GoogleButton
+                                className="googleButton" />
+                        </Form.Item>
+
+
+                        <Form.Item>
+                            {alertLogin === "login" ?
+                                <div className="alert">
+                                    <Alert
+                                        message="Success Tips"
+                                        description="El usuario se ha logeado correctamente"
+                                        type="success"
+                                        showIcon
+                                    />
+                                </div>
+                                :
+                                <div></div>
+                            }
+                            {alertLogin === "error" ?
+                                <div className="alert">
+                                    <Alert
+                                        message="Error"
+                                        description="Usuario o contraseña incorrectos"
+                                        type="error"
+                                        showIcon
+                                    />
+                                </div>
+                                :
+                                <div></div>
+                            }
+                        </Form.Item>
+
+
+
+                    </Form.Item>
+
+                </Form>
             </div>
-            </Form.Item>
-            <Form.Item>
 
-            <div 
-            onClick={onClickState}
-            className="button-form-ir-a">
-            Or register now!
-            </div>
-
-            <Form.Item>
-                <GoogleButton
-                className="googleButton"/>
-            </Form.Item>
-            
-  
-            <Form.Item>
-                        {alertLogin === "login" ?
-                            <div className="alert">
-                                <Alert
-                                    message="Success Tips"
-                                    description="El usuario se ha logeado correctamente"
-                                    type="success"
-                                    showIcon
-                                />
-                            </div>
-                            :
-                            <div></div>
-                        }
-                        {alertLogin === "error" ?
-                            <div className="alert">
-                                <Alert
-                                    message="Error"
-                                    description="Usuario o contraseña incorrectos"
-                                    type="error"
-                                    showIcon
-                                />
-                            </div>
-                            :
-                            <div></div>
-                        }
-                    </Form.Item> 
+        );
 
 
 
-            </Form.Item>
-
-        </Form>
-        </div>
-
-     );           
 
 
-         
 
 
-              
-
-            
 
 
-     
+
+
 
     } else if (state === "sing-up") {
 
         const prefixSelector = (
             <Form.Item name="prefix" noStyle>
-              <Select style={{ width: 70 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-                <Option value="54">+54</Option>
+                <Select style={{ width: 70 }}>
+                    <Option value="86">+86</Option>
+                    <Option value="87">+87</Option>
+                    <Option value="54">+54</Option>
 
-              </Select>
+                </Select>
             </Form.Item>
-          );
+        );
 
         const options = ["Argentina", "Brasil", "Uruguay", "Paraguay", "Chile",
             "Bolivia", "Colombia", "Venezuela", "Mexico", "Cuba",
@@ -246,17 +248,6 @@ function SingUp() {
                     [e.target.name]: e.target.value
                 }
             );
-
-            if (input.imagen.length && fileList2 === "completo") {
-                setInput(
-                    {
-                        ...input,
-                        imagen: [input.imagen[0].thumbUrl]
-                    }
-                );
-                setFileList2("terminado")
-            };
-
 
             setAlert("");
             console.log(input);
@@ -345,18 +336,18 @@ function SingUp() {
         };
 
         return (
-            
+
             <div className="registerComponent">
 
-                    <Form
-                        name="basic"
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ maxWidth: 1200}}
-                        initialValues={{ remember: true, prefix: '54' }}
-                        autoComplete="off"
-                        onChange={(e) => handleInputChange(e)}
-                    >
+                <Form
+                    name="basic"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ maxWidth: 1200 }}
+                    initialValues={{ remember: true, prefix: '54' }}
+                    autoComplete="off"
+                    onChange={(e) => handleInputChange(e)}
+                >
 
 
 
@@ -386,7 +377,7 @@ function SingUp() {
                             <p></p>
                         }
 
-                        
+
                     </Form.Item>
 
                     <Form.Item
@@ -406,23 +397,23 @@ function SingUp() {
                                         {n}
                                     </option>
                                 );
-                            })} 
+                            })}
                         </Select>
-  
+
                     </Form.Item>
 
                     <Form.Item
-                     rules={[{ required: true, message: 'Email is necessary for register' }]}
+                        rules={[{ required: true, message: 'Email is necessary for register' }]}
                         label="Email"
                         name="email"
                     >
                         <Input
-                        type="Email"
-                        name="email" />
+                            type="Email"
+                            name="email" />
                     </Form.Item>
 
                     <Form.Item
-                         rules={[{ required: true, message: 'Password is required' }]}
+                        rules={[{ required: true, message: 'Password is required' }]}
                         label="Password"
                         name="password"
                     >
@@ -443,17 +434,26 @@ function SingUp() {
                             <p></p>
                         }
 
+                    </Form.Item>
+                    <FormItem
+                        label="Confirm Password"
+                        className="inputAux"
+                        rules={[{ required: true, message: 'Confirm your pass' }]}>
+                        <Input.Password
 
-                    <Form.Item 
-                    label="Imagen" 
-                    valuePropName="fileList">
+                        />
+                    </FormItem>
+
+                    <Form.Item
+                        label="Imagen"
+                        valuePropName="fileList">
                         <Upload listType="picture-card" name="imagen" action={onChangeInputImage}>
                             <div>
                                 <PlusOutlined />
                                 <div style={{ marginTop: 8 }}>Upload</div>
                             </div>
                         </Upload>
-    
+
                     </Form.Item>
 
 
@@ -461,14 +461,14 @@ function SingUp() {
                         label="Celular"
                         name="mobile"
                     >
-                        <Input 
-                        addonBefore={prefixSelector} style={{ width: '100%' }} name="mobile" />
+                        <Input
+                            addonBefore={prefixSelector} style={{ width: '100%' }} name="mobile" />
                         {errorMobile ?
                             <p className="p-error">Celular debe tener minimo 10 numeros</p>
                             :
                             <p></p>
                         }
-  
+
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
