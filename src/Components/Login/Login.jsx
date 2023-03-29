@@ -3,6 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 import "./Login.css"
 import FormItem from "antd/es/form/FormItem";
+import GoogleButton from "react-google-button";
 
 function LoginForm (){
 
@@ -100,8 +101,8 @@ function LoginForm (){
       <FormItem>
       Or  <a href="">register now!</a>
       </FormItem>
-        
-    </Form>
+      <GoogleButton/>
+    </Form> 
         </div>
     )
 

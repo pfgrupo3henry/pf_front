@@ -1,4 +1,4 @@
- .form-login {
+.form-login {
     align-items: center;
     justify-content: center;
     padding: 50px 0px 0px 0px;
@@ -7,7 +7,7 @@
 .body-login {
     min-height: 80vh;
     width: 500px;
-    padding: 10px 80px;
+    padding: 50px 50px;
 }
 
 .button-form-ir-a {
@@ -18,30 +18,19 @@
 }
 
 .form-forgot {
-    padding: 0px 0px 0px 105px;
-}
-
-.body-sing-up {
-    min-height: 100vh;
-    padding: 0px;
+    padding: 0px 0px 0px 160px;
 }
 
 .form-sing-up {
-    padding: 50px 100px;
-    float: left;
+    padding: 50px 0px 0px 0px;
 }
 
-.buttons-sing-up-body {
-    display: inline-block;
-}
-
-.buttons-sing-up {
-    display: flex;
-    padding: 0px 900px 10px 0px;
-}
-
-.h1-sing-up {
-    padding: 0px 0px 0px 200px;
+.select-sing-up {
+    height: 38px;
+    width: 100%;
+    border-radius: 7px;
+    border-color: rgb(190, 182, 204);
+    color: rgb(100, 94, 87);
 }
 
 .p-error {
@@ -50,4 +39,4 @@
 
 .p-successful {
     color: blue;
-} 
+}

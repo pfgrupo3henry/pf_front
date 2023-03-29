@@ -16,3 +16,16 @@
     display: flex;
     flex-direction: column;
 }
+
+.registerComponent{
+    display: flex;
+    width: 100%;
+    margin-top: 5rem;
+    justify-content: center;
+    align-items: center ;
+    min-height: 30rem
+}
+
+.inputAux{
+    width: 40rem;
+}
