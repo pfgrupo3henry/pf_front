@@ -13,6 +13,7 @@ import "../Pagination/pagination.css";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
+import OrderMenu from "../OrderMenu/OrderMenu";
 
 
 function Home(label, key, icon, children, type) {
@@ -161,6 +162,7 @@ function Home(label, key, icon, children, type) {
               }}
               items={items2}
             />
+            <OrderMenu />
           </div>
           <div className="containerExtreme">
             {items.length === 0 ?
@@ -175,36 +177,17 @@ function Home(label, key, icon, children, type) {
               :
               <div className="listCards">
                 {items.map((e, i) => (
-
                   <CardElement
                     key={i}
-                    title={e.title}
+                    title={e.name}
                     imgProvisoria={e.img[0]}
                     description="DIGITAL"
                     descriptionComplete={e.description}
                     price={e.price}
                     id={e.id}
                   />
-
                 ))}
               </div>
-
-
-              /*           <div className="listCards">
-                        {items.map((e, i) => (
-                            <Link to={"/game/" + e.id} className="link-card">
-                                <CardElement
-                                    key={i}
-                                    title={e.title}
-                                    imgProvisoria={e.img[0]}
-                                    description="DIGITAL"
-                                    descriptionComplete={e.description}
-                                    price={e.price}
-                                    id={e.id}
-                                />
-                            </Link>
-                        ))}
-                        </div> */
             }
             <div className="paginationHomeStyle" >
               <Pagination

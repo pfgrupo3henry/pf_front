@@ -1,4 +1,4 @@
-import { Radio, Typography, Button } from "antd";
+import { Radio, Typography, Button, Menu } from "antd";
 import { useState } from "react";
 import {
   orderByName,
@@ -6,37 +6,83 @@ import {
   orderByRate,
 } from "../../Redux/Actions/Index";
 import { useDispatch } from "react-redux";
+import "./OrdenMenu.css";
 
 const OrderMenu = () => {
   const [value, setValue] = useState(1);
 
   const dispatch = useDispatch();
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const onChange = (n) => {
+    setValue(n);
     dispatch(orderByName(value));
   };
 
+  function getItem(label, key, icon, children, type) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+      type,
+    };
+  }
+
+  const items2 = [
+    getItem("Order by", "Order by", null, [
+      getItem("Lower Price", "1"),
+      getItem("A - Z", "2"),
+      getItem("Z - A", "3")
+    ])
+  ];
+
+  const [openKeys, setOpenKeys] = useState(["All"]);
+
+  const onOpenChange = (keys) => {
+    console.log(keys);
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  };
+
+  const rootSubmenuKeys = ["Ordena Por"];
+
+  const onClickOrden = (e) => {
+
+    if (e.key === "1") {
+      dispatch(orderByPrice("ORDENAR POR PRECIO"))
+      console.log("1")
+    }
+
+    if (e.key === "2") {
+      onChange(2)
+      console.log("2")
+    }
+
+    if (e.key === "3") {
+      onChange(1)
+      console.log("3")
+    }
+
+  };
+
   return (
-    <>
-      <Typography.Title
-        secondary
-        level={5}
+    <div className="menu-ordenamiento">
+
+      <Menu
+        mode="inline"
+        onClick={onClickOrden}
+        openKeys={openKeys}
+        onOpenChange={onOpenChange}
         style={{
-          margin: 0,
-        }}>
-        ORDENAR ALFABETICAMENTE
-      </Typography.Title>
-      <Radio.Group onChange={onChange} value={value}>
-        <Radio value={2}>ASCENTENTE</Radio>
-        <Radio value={1}>DESCENDENTE</Radio>
-      </Radio.Group>
-      {/* <Button onClick={(e) => dispatch(orderByRate(e.target.value))}>
-        ORDENAR POR RATING
-      </Button> */}
-      <Button onClick={(e) => dispatch(orderByPrice(e.target.value))}>
-        ORDENAR POR PRECIO
-      </Button>
-    </>
+          width: 256,
+        }}
+        items={items2}
+      />
+
+    </div >
   );
 };
 export default OrderMenu;
