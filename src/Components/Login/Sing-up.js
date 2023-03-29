@@ -18,7 +18,6 @@ const { Option } = Select;
 
 
 function SingUp() {
-
     const [alert, setAlert] = useState("");
     const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
@@ -52,8 +51,7 @@ function SingUp() {
                 nacionalidad: ""
             })
         }
-    };
-
+    };  
 
 
     if (state === "login") {
@@ -249,6 +247,17 @@ function SingUp() {
                 }
             );
 
+            if (input.imagen.length && fileList2 === "completo") {
+                setInput(
+                    {
+                        ...input,
+                        imagen: [input.imagen[0].thumbUrl]
+                    }
+                );
+                setFileList2("terminado")
+            };
+
+
             setAlert("");
             console.log(input);
 
@@ -434,15 +443,6 @@ function SingUp() {
                             <p></p>
                         }
 
-                    </Form.Item>
-                    <FormItem
-                    label="Confirm Password"
-                    className="inputAux"
-                     rules={[{ required: true, message: 'Confirm your pass' }]}>
-                        <Input.Password
-                        
-                        />
-                    </FormItem>
 
                     <Form.Item 
                     label="Imagen" 
