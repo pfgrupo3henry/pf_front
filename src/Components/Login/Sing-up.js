@@ -4,17 +4,21 @@ import { Button, Form, Input, Checkbox, Upload, Alert } from 'antd';
 import { Login } from "../Auth0/login";
 import { LockOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from "axios";
+import FormItem from "antd/es/form/FormItem";
+import "./Login.css"
+
+import {
+
+    Select,
+  } from 'antd';
+import GoogleButton from "react-google-button";
 
 
+const { Option } = Select;
 
 
 function SingUp() {
 
-    const [fileImagen, setFileImagen] = useState([{
-        imagen: []
-    }]);
-    const [fileList, setFileList] = useState([]);
-    const [fileList2, setFileList2] = useState("vacio");
     const [alert, setAlert] = useState("");
     const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
@@ -28,7 +32,7 @@ function SingUp() {
         email: "",
         password: "",
         mobile: "",
-        imagen: "",
+        imagen: [],
         nacionalidad: ""
     });
 
@@ -44,37 +48,12 @@ function SingUp() {
                 email: "",
                 password: "",
                 mobile: "",
-                imagen: "",
+                imagen: [],
                 nacionalidad: ""
             })
         }
     };
 
-    if (fileList.length > 0 && fileList2 === "vacio") {
-        setFileList2("lleno")
-        setFileImagen(
-            {
-                ...fileImagen,
-                imagen: [fileList[0]]
-            }
-        );
-    };
-
-    if (fileImagen.imagen) {
-
-        if (fileImagen.imagen.length > 0 && fileList2 === "lleno") {
-            setInput(
-                {
-                    ...input,
-                    imagen: fileImagen.imagen[0].thumbUrl
-                }
-            );
-            setFileList2("completo");
-            console.log(input);
-            console.log(fileImagen.imagen[0])
-        };
-
-    };
 
 
     if (state === "login") {
@@ -108,64 +87,83 @@ function SingUp() {
 
         };
 
+
+
         return (
 
-            <div className="form-login">
+           <div className="loginForm-component">
+            <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{ remember: true }}
+            onChange={(e) => handleLogin(e)}
+           
+         
+            >
+            <Form.Item
+                name="username"
+                rules={[
+                {
+                    required: true,
+                    message: 'Please input your Username!',
+                },
+                ]}
+            >
+                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+            </Form.Item>
+            <Form.Item
+                name="password"
+                rules={[
+                {
+                    required: true,
+                    message: 'Please input your Password!',
+                },
+                ]}
+            >
+                <Input
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Password"
+                />
+            </Form.Item>
+            <Form.Item>
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+                
+                <a className="login-form-forgot" href="">
+                Forgot password
+                </a>
+            </Form.Item>    
 
-                <Form
-                    name="normal_login"
-                    className="login-form"
-                    initialValues={{ remember: true }}
-                    onChange={(e) => handleLogin(e)}
-                >
+        
 
-                    <Form.Item
-                    >
-                        <h1>Login</h1>
-                    </Form.Item>
+            <Form.Item>
+            <div className="buttonOrRegister">
+            <Button 
+            type="primary" 
+            htmlType="submit" 
+            onClick={loginSubmit}
+            className="login-form-button button">
+            Log in
+            </Button>
+            </div>
+            </Form.Item>
+            <Form.Item>
 
-                    <Form.Item
-                        name="email"
-                    >
-                        <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                    </Form.Item>
+            <div 
+            onClick={onClickState}
+            className="button-form-ir-a">
+            Or register now!
+            </div>
 
-                    <Form.Item
-                        name="password"
-                    >
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                        />
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Remember me</Checkbox>
-                        </Form.Item>
-
-                        <a className="login-form-forgot form-forgot" href="">
-                            Forgot password
-                        </a>
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button"
-                            onClick={loginSubmit}>
-                            Log in
-                        </Button>
-                        <Button onClick={onClickState}
-                            className="button-form-ir-a">
-                            Or register now!</Button>
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Login />
-                    </Form.Item>
-
-                    <Form.Item>
+            <Form.Item>
+                <GoogleButton
+                className="googleButton"/>
+            </Form.Item>
+            
+  
+            <Form.Item>
                         {alertLogin === "login" ?
                             <div className="alert">
                                 <Alert
@@ -190,15 +188,40 @@ function SingUp() {
                             :
                             <div></div>
                         }
-                    </Form.Item>
+                    </Form.Item> 
 
-                </Form>
 
-            </div>
 
-        );
+            </Form.Item>
+
+        </Form>
+        </div>
+
+     );           
+
+
+         
+
+
+              
+
+            
+
+
+     
 
     } else if (state === "sing-up") {
+
+        const prefixSelector = (
+            <Form.Item name="prefix" noStyle>
+              <Select style={{ width: 70 }}>
+                <Option value="86">+86</Option>
+                <Option value="87">+87</Option>
+                <Option value="54">+54</Option>
+
+              </Select>
+            </Form.Item>
+          );
 
         const options = ["Argentina", "Brasil", "Uruguay", "Paraguay", "Chile",
             "Bolivia", "Colombia", "Venezuela", "Mexico", "Cuba",
@@ -232,12 +255,14 @@ function SingUp() {
         };
 
         const onChangeInputImage = (e) => {
-            setFileList(e.fileList);
-            setAlert("");
-        };
+            setInput({
+                ...input,
+                imagen: input.imagen.push(e.uid)
+            });
 
-        const handleFileListChange = ({ fileList }) => {
-            setFileList(fileList);
+            setAlert("");
+            console.log(input);
+            console.log(e);
         };
 
         const handleSubmit = () => {
@@ -311,25 +336,23 @@ function SingUp() {
         };
 
         return (
+            
+            <div className="registerComponent">
 
-            <div className="form-sing-up">
-
-                <Form
-                    name="basic"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    style={{ width: 600 }}
-                    initialValues={{ remember: true }}
-                    autoComplete="off"
-                    onChange={(e) => handleInputChange(e)}
-                >
-
-                    <Form.Item
-                        label={<h2>Sing-Up</h2>}
+                    <Form
+                        name="basic"
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        style={{ maxWidth: 1200}}
+                        initialValues={{ remember: true, prefix: '54' }}
+                        autoComplete="off"
+                        onChange={(e) => handleInputChange(e)}
                     >
-                    </Form.Item>
+
+
 
                     <Form.Item
+                        rules={[{ required: true, message: 'Enter your name' }]}
                         label="Nombre"
                         name="name"
                     >
@@ -339,14 +362,11 @@ function SingUp() {
                             :
                             <p></p>
                         }
-                        {sName ?
-                            <p className="p-successful">successful</p>
-                            :
-                            <p></p>
-                        }
+
                     </Form.Item>
 
                     <Form.Item
+                        rules={[{ required: true, message: 'Enter a price per unit' }]}
                         label="Apellido"
                         name="lastName"
                     >
@@ -356,19 +376,20 @@ function SingUp() {
                             :
                             <p></p>
                         }
-                        {sLastName ?
-                            <p className="p-successful">successful</p>
-                            :
-                            <p></p>
-                        }
+
+                        
                     </Form.Item>
 
                     <Form.Item
+                        rules={[{ required: true, message: 'Enter a price per unit' }]}
                         label="Nacionalidad"
                         name="nacionalidad"
                     >
-                        <select className="select-sing-up" name="nacionalidad" onChange={handleInputChange}>
-                            <option className="option-sing-up">Encontra tu pais</option>
+
+                        <Select className="select-sing-up" name="nacionalidad" onChange={handleInputChange}>
+                            <option value="">Encontra tu pais</option>
+
+
 
                             {options && options.map((n) => {
                                 return (
@@ -376,37 +397,27 @@ function SingUp() {
                                         {n}
                                     </option>
                                 );
-                            })}
-                        </select>
-                        {sNacionalidad ?
-                            <p className="p-successful">successful</p>
-                            :
-                            <p></p>
-                        }
+                            })} 
+                        </Select>
+  
                     </Form.Item>
 
                     <Form.Item
+                     rules={[{ required: true, message: 'Email is necessary for register' }]}
                         label="Email"
                         name="email"
                     >
-                        <Input name="email" />
-                        {errorEmail ?
-                            <p className="p-error">Email incorrecto</p>
-                            :
-                            <p></p>
-                        }
-                        {sEmail ?
-                            <p className="p-successful">successful</p>
-                            :
-                            <p></p>
-                        }
+                        <Input
+                        type="Email"
+                        name="email" />
                     </Form.Item>
 
                     <Form.Item
+                         rules={[{ required: true, message: 'Password is required' }]}
                         label="Password"
                         name="password"
                     >
-                        <Input name="password" />
+                        <Input.Password name="password" />
                         {errorPassword ?
                             <div>
                                 <p className="p-error">
@@ -422,44 +433,27 @@ function SingUp() {
                             :
                             <p></p>
                         }
-                        {sPassword ?
-                            <p className="p-successful">successful</p>
-                            :
-                            <p></p>
-                        }
+
                     </Form.Item>
+                    <FormItem
+                    label="Confirm Password"
+                    className="inputAux"
+                     rules={[{ required: true, message: 'Confirm your pass' }]}>
+                        <Input.Password
+                        
+                        />
+                    </FormItem>
 
-                    <Form.Item label="Upload" valuePropName="fileList"
-                        name="upload"
-                        getValueFromEvent={handleFileListChange}
-                        size={10}
-                        rules={[
-                            {
-                                required: false,
-                                message: "Upload a picture"
-                            },
-                        ]}>
-                        <Upload
-                            action="/upload.do"
-                            listType="picture-card"
-                            onChange={(e) => { onChangeInputImage(e) }}
-                        >
-
+                    <Form.Item 
+                    label="Imagen" 
+                    valuePropName="fileList">
+                        <Upload listType="picture-card" name="imagen" action={onChangeInputImage}>
                             <div>
                                 <PlusOutlined />
-                                <div
-                                    style={{
-                                        marginTop: 8,
-                                    }}
-                                >
-                                    Image
-                                </div>
+                                <div style={{ marginTop: 8 }}>Upload</div>
                             </div>
                         </Upload>
-
-                        {/* <input type='file' onChange={agregarFoto} /> */}
-
-
+    
                     </Form.Item>
 
 
@@ -467,17 +461,14 @@ function SingUp() {
                         label="Celular"
                         name="mobile"
                     >
-                        <Input name="mobile" />
+                        <Input 
+                        addonBefore={prefixSelector} style={{ width: '100%' }} name="mobile" />
                         {errorMobile ?
                             <p className="p-error">Celular debe tener minimo 10 numeros</p>
                             :
                             <p></p>
                         }
-                        {sMobile ?
-                            <p className="p-successful">successful</p>
-                            :
-                            <p></p>
-                        }
+  
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -497,7 +488,7 @@ function SingUp() {
                                 />
                             </div>
                             :
-                            <div></div>
+                            null
                         }
                         {alert === "incompleto" ?
                             <div className="alert">
@@ -509,7 +500,7 @@ function SingUp() {
                                 />
                             </div>
                             :
-                            <div></div>
+                            null
                         }
                         {alert === "create" ?
                             <div className="alert">
@@ -521,7 +512,7 @@ function SingUp() {
                                 />
                             </div>
                             :
-                            <div></div>
+                            null
                         }
                     </Form.Item>
 
