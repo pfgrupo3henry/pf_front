@@ -11,6 +11,7 @@ import {
 
     Select,
   } from 'antd';
+import GoogleButton from "react-google-button";
 
 
 const { Option } = Select;
@@ -148,9 +149,20 @@ function SingUp() {
             </Button>
             </div>
             </Form.Item>
-            <FormItem>
-            Or  <a href="">register now!</a>
+            <Form.Item>
 
+            <div 
+            onClick={onClickState}
+            className="button-form-ir-a">
+            Or register now!
+            </div>
+
+            <Form.Item>
+                <GoogleButton
+                className="googleButton"/>
+            </Form.Item>
+            
+  
             <Form.Item>
                         {alertLogin === "login" ?
                             <div className="alert">
@@ -180,7 +192,7 @@ function SingUp() {
 
 
 
-            </FormItem>
+            </Form.Item>
 
         </Form>
         </div>

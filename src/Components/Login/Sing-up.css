@@ -11,10 +11,11 @@
 }
 
 .button-form-ir-a {
+    cursor: pointer;;
     text-decoration: none;
     background-color: white;
     border: none;
-    color: blue;
+    color: rgb(0, 140, 255);
 }
 
 .form-forgot {
@@ -51,3 +52,7 @@
 .p-successful {
     color: blue;
 }
+
+.googleButton{
+    width: 16rem;
+}       
