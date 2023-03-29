@@ -25,6 +25,17 @@
     border-radius: 7px;
     border-color: rgb(190, 182, 204);
     color: rgb(100, 94, 87);
+    font-size: 15px;
+    Overflow: hidden;
+}
+
+.select-sing-up::-webkit-scrollbar {
+    display: none;
+}
+
+.option-sing-up {
+    color: rgb(100, 94, 87);
+    font-size: 15px;
 }
 
 .p-error {
