@@ -30,6 +30,7 @@ function SingUp() {
         img: [],
         nationality: ""
     });
+    const Swal = require('sweetalert2');
 
     const onClickState = () => {
 
@@ -70,8 +71,6 @@ function SingUp() {
                 .catch((err) => console.log(err))
 
         };
-
-
 
         const handleLogin = (e) => {
             setUsers({
@@ -245,14 +244,24 @@ function SingUp() {
             } else {
 
                 Axios.post("http://localhost:3001/user/register", input)
-                    .then((res) => console.log(res))
-                    .catch((err) => console.log(err))
+                    .then((res) => {
+                        console.log(res);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
 
-                window.alert("Usuario Registrado");
+                Swal.fire({
+                    title: "Success!",
+                    text: 'Usuario creado correctamente',
+                    icon: "success",
+                    confirmButtonText: 'Ok'
+                }).then((res) => {
+                    window.location.reload();
+                });
 
-                window.location.reload();
+            };
 
-            }
         };
 
         if (input.firstname.length !== 0) {
@@ -498,9 +507,6 @@ function SingUp() {
                     <Button type="primary" htmlType="submit" onClick={handleSubmit}>
                         Submit
                     </Button>
-                </Form.Item>
-
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     {alert === "error" ?
                         <div className="alert">
                             <Alert
