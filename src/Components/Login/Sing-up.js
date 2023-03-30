@@ -12,6 +12,7 @@ function SingUp() {
 
     const [fileList, setFileList] = useState([]);
     const [fileList2, setFileList2] = useState("vacio");
+    const [imagenFile, setImagenFile2] = useState("vacio");
     const [alert, setAlert] = useState("");
     const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
@@ -203,6 +204,16 @@ function SingUp() {
                 }
             );
 
+            if (input.imagen.length > 0 && imagenFile === "vacio") {
+                setInput(
+                    {
+                        ...input,
+                        imagen: [input.imagen[0].thumbUrl]
+                    }
+                );
+                setImagenFile2("completo")
+            };
+
             setAlert("");
             console.log(input);
 
@@ -291,11 +302,8 @@ function SingUp() {
 
             <Form
                 className="form-sing-up"
-                name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                initialValues={{ remember: true }}
-                autoComplete="off"
                 onChange={(e) => handleInputChange(e)}
             >
 
@@ -305,7 +313,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Escriba el nombre"
+                            message: input.name.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
                         },
                     ]}
                 >
@@ -323,7 +331,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Escriba el apellido"
+                            message: input.lastName.length === 0 ? <p className="p-error">Completar el apellido</p> : <p></p>
                         },
                     ]}
                 >
@@ -341,7 +349,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Completa la nacionalidad"
+                            message: input.nacionalidad.length === 0 ? <p className="p-error">Completar la nacionalidad</p> : <p></p>
                         },
                     ]}
                 >
@@ -364,7 +372,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Completa el email"
+                            message: input.email.length === 0 ? <p className="p-error">Completar el email</p> : <p></p>
                         },
                     ]}
                 >
@@ -384,7 +392,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Carga la imagen"
+                            message: input.imagen.length === 0 ? <p className="p-error">Carga la imagen</p> : <p></p>
                         },
                     ]}
                 >
@@ -417,7 +425,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Completa el password"
+                            message: input.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
                         },
                     ]}
                 >
@@ -445,7 +453,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Completa el password"
+                            message: input.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
                         },
                     ]}
                 >
@@ -466,7 +474,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: "Completa el celular"
+                            message: input.mobile.length === 0 ? <p className="p-error">Completar el celular</p> : <p></p>
                         },
                     ]}
                 >
@@ -523,7 +531,7 @@ function SingUp() {
                     }
                 </Form.Item>
 
-            </Form>
+            </Form >
 
         );
 
