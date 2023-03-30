@@ -557,3 +557,4 @@ function SingUp() {
 
 
 export default SingUp;
+
