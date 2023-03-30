@@ -1,21 +1,14 @@
 .form-login {
-    align-items: center;
-    justify-content: center;
-    padding: 50px 0px 0px 0px;
-}
-
-.body-login {
     min-height: 80vh;
     width: 500px;
     padding: 50px 50px;
 }
 
 .button-form-ir-a {
-    cursor: pointer;;
     text-decoration: none;
     background-color: white;
     border: none;
-    color: rgb(0, 140, 255);
+    color: blue;
 }
 
 .form-forgot {
@@ -53,6 +46,11 @@
     color: blue;
 }
 
-.googleButton{
-    width: 16rem;
+.p-complete {
+    color: rgb(52, 165, 86);
+}
+
+.alert {
+    height: 120px;
+    width: 300px;
 }       
