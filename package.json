@@ -23,6 +23,7 @@
     "redux-thunk": "^2.4.2",
     "sass": "^1.59.3",
     "sweetalert2": "^11.7.3",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -13,6 +13,13 @@ export const Logout = () => {
     const { user } = useAuth0();
     const [color, setColor] = React.useState('rgba(9, 22, 29, 1)');
 
+    function eliminarCookies() {
+        document.cookie.split(";").forEach(function (c) {
+            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+        logout();
+    };
+
 
     // const sendEmail = (e) => {
     //     e.preventDefault();
@@ -30,7 +37,7 @@ export const Logout = () => {
     return (
 
         <Space wrap>
-            <div onClick={() => logout({ returnTo: window.location.origin })} type="primary">Salir</div>
+            <div onClick={() => eliminarCookies()} type="primary">Salir</div>
         </Space>
 
         // <form ref={form} onSubmit={sendEmail} className="form-email">
