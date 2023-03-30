@@ -10,11 +10,14 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space } from "antd";
+import Cookies from "universal-cookie";
 
 function Nav() {
 
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
+  const cookie = new Cookies();
+  const cookieId = cookie.get("firstname");
 
   const handleLoginClick = () => {
     loginWithPopup({
@@ -59,21 +62,21 @@ function Nav() {
   ];
 
   return (
-    <div className={`nav-component ${isAuthenticated ? "nav" : "navAux"}`}>
+    <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
       <div className="rutasNavContainer">
         <ul>
-          <li className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}>
+          <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
             <Link to="/home" className="rutasNav">Home</Link>
           </li>
           {
-            isAuthenticated
+            isAuthenticated || cookieId
               ? null
-              : <li className={!isAuthenticated ? "rutasNavAux" : "rutasNavAlternativeAux2"}>
+              : <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux2" : "rutasNavAux"}>
                 <Link to="/login" className="rutasNav">Login</Link>
               </li>
           }
           <li>
-            <Dropdown className={!isAuthenticated ? "rutasNav2AuxUltimate" : "rutasNav2Aux"}
+            <Dropdown className={isAuthenticated || cookieId ? "rutasNav2Aux" : "rutasNav2AuxUltimate"}
               menu={{
                 items: inboxOptions,
               }}>
@@ -85,14 +88,14 @@ function Nav() {
               </a>
             </Dropdown>
           </li>
-          <li className={!isAuthenticated ? "buscador" : "buscadorAux"}>
+          <li className={isAuthenticated || cookieId ? "buscadorAux" : "buscador"}>
             <SearchBar />
           </li>
         </ul>
-        <div className={!isAuthenticated ? "rutasNav" : "rutasNavAlternativeAux"}></div>
+        <div className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}></div>
         <div className="rutasNav3">
           <div className="profileNav">
-            {!isAuthenticated ? null : (
+            {isAuthenticated ?
               <Dropdown
                 className=""
                 menu={{
@@ -103,10 +106,28 @@ function Nav() {
                     <Profile />
                   </Space>
                 </a>
-              </Dropdown>
-            )}
-            <RiShoppingCartLine onClick={() => { isAuthenticated ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated ? "cartAux" : "cart"} />
+              </Dropdown> :
+              null
+            }
+            <div>
+              {cookieId ?
+                <Dropdown
+                  className=""
+                  menu={{
+                    items: profileOptions,
+                  }}>
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <img className="imgProfile" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" alt="profile"></img>
+                    </Space>
+                  </a>
+                </Dropdown> :
+                null
+              }
+            </div>
+            <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
           </div>
+
         </div>
         {
           shoppingCartRender
