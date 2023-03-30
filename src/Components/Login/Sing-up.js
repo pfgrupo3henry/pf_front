@@ -248,6 +248,10 @@ function SingUp() {
                     .then((res) => console.log(res))
                     .catch((err) => console.log(err))
 
+                window.alert("Usuario Registrado");
+
+                window.location.reload();
+
             }
         };
 
