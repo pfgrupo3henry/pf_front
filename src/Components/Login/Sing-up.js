@@ -4,6 +4,7 @@ import { Button, Form, Input, Checkbox, Upload, Alert } from 'antd';
 import { Login } from "../Auth0/login";
 import { LockOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import Axios from "axios";
+import Cookies from "universal-cookie";
 
 
 
@@ -64,11 +65,29 @@ function SingUp() {
 
     if (state === "login") {
 
+        const cookie = new Cookies();
+
         const submitUser = () => {
 
             Axios.post("http://localhost:3001/user/login", users)
-                .then((res) => console.log(res))
+                .then((res) => {
+                    console.log(res)
+                    cookie.set("id", res.data._id)
+                    cookie.set("firstname", res.data.firstname)
+                    cookie.set("lastname", res.data.lastname)
+                    cookie.set("email", res.data.email)
+                    cookie.set("token", res.data.token)
+                })
                 .catch((err) => console.log(err))
+
+            Swal.fire({
+                title: "Success!",
+                text: 'Usuario logeado correctamente',
+                icon: "success",
+                confirmButtonText: 'Ok'
+            }).then((res) => {
+                window.location.href = `/home`
+            });
 
         };
 
