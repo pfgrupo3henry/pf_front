@@ -248,6 +248,10 @@ function SingUp() {
                     .then((res) => console.log(res))
                     .catch((err) => console.log(err))
 
+                window.alert("Usuario Registrado");
+
+                window.location.reload();
+
             }
         };
 
@@ -380,7 +384,7 @@ function SingUp() {
                         },
                     ]}
                 >
-                    <Input name="email" />
+                    <Input name="email" type="email" />
                     {errorEmail ?
                         <p className="p-error">Email incorrecto</p>
                         :
@@ -433,7 +437,7 @@ function SingUp() {
                         },
                     ]}
                 >
-                    <Input name="password" type="password" />
+                    <Input.Password name="password" />
                     {errorPassword ?
                         <div>
                             <p className="p-error">
@@ -461,7 +465,7 @@ function SingUp() {
                         },
                     ]}
                 >
-                    <Input name="password2" type="password" />
+                    <Input.Password name="password2" />
                     {errorPassword ?
                         <p className="p-error">
                             Debe ser igual al password
@@ -482,7 +486,7 @@ function SingUp() {
                         },
                     ]}
                 >
-                    <Input name="mobile" />
+                    <Input name="mobile" addonBefore="+54" />
                     {errorMobile ?
                         <p className="p-error">Celular debe tener minimo 10 numeros</p>
                         :
@@ -557,3 +561,4 @@ function SingUp() {
 
 
 export default SingUp;
+
