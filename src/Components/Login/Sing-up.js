@@ -3,31 +3,32 @@ import "./Sing-up.css";
 import { Button, Form, Input, Checkbox, Upload, Alert } from 'antd';
 import { Login } from "../Auth0/login";
 import { LockOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
-import axios from "axios";
+import Axios from "axios";
 
 
 
 
 function SingUp() {
 
+    const [users, setUsers] = useState({
+        email: "",
+        password: ""
+    });
     const [fileList, setFileList] = useState([]);
     const [fileList2, setFileList2] = useState("vacio");
     const [imagenFile, setImagenFile2] = useState("vacio");
     const [alert, setAlert] = useState("");
     const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
-    const [login, setLogin] = useState({
-        email: "",
-        password: ""
-    });
     const [input, setInput] = useState({
-        name: "",
-        lastName: "",
+        firstname: "",
+        lastname: "",
         email: "",
         password: "",
+        password2: "",
         mobile: "",
-        imagen: [],
-        nacionalidad: ""
+        img: [],
+        nationality: ""
     });
 
     const onClickState = () => {
@@ -37,13 +38,14 @@ function SingUp() {
         } else if (state === "sing-up") {
             setState("login")
             setInput({
-                name: "",
-                lastName: "",
+                firstname: "",
+                lastname: "",
                 email: "",
                 password: "",
+                password2: "",
                 mobile: "",
-                imagen: [],
-                nacionalidad: ""
+                img: [],
+                nationality: ""
             })
         }
     };
@@ -54,40 +56,36 @@ function SingUp() {
         setInput(
             {
                 ...input,
-                imagen: [fileList[0]]
+                img: [fileList[0]]
             }
         );
     };
 
     if (state === "login") {
 
-        const users = [{
-            email: "felipe@gmail.com",
-            password: "22felipe05"
-        }];
+        const submitUser = () => {
+
+            Axios.post("http://localhost:3001/user/login", users)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err))
+
+        };
+
+
 
         const handleLogin = (e) => {
-            setLogin({
-                ...login,
+            setUsers({
+                ...users,
                 [e.target.name]: e.target.value
             });
 
 
-            console.log(login);
+            console.log(users);
         };
 
         const loginSubmit = () => {
-
-
-            for (let i = 0; i < users.length; i++) {
-
-                if (users[i].email === login.email && users[i].password === login.password) {
-                    setAlertLogin("login")
-                } else {
-                    setAlertLogin("error")
-                };
-            };
-
+            setAlertLogin("login")
+            setAlertLogin("error")
         };
 
         return (
@@ -128,7 +126,7 @@ function SingUp() {
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="login-form-button"
-                        onClick={loginSubmit}>
+                        onClick={submitUser}>
                         Log in
                     </Button>
                 </Form.Item>
@@ -204,11 +202,11 @@ function SingUp() {
                 }
             );
 
-            if (input.imagen.length > 0 && imagenFile === "vacio") {
+            if (input.img.length > 0 && imagenFile === "vacio") {
                 setInput(
                     {
                         ...input,
-                        imagen: [input.imagen[0].thumbUrl]
+                        img: [input.img[0].thumbUrl]
                     }
                 );
                 setImagenFile2("completo")
@@ -230,8 +228,8 @@ function SingUp() {
 
         const handleSubmit = () => {
 
-            if (!input.name || !input.lastName || !input.email || !input.password ||
-                !input.nacionalidad || input.imagen.length === 0 || !input.mobile) {
+            if (!input.firstname || !input.lastname || !input.email || !input.password ||
+                !input.nationality || input.img.length === 0 || !input.mobile) {
 
                 setAlert("incompleto");
 
@@ -240,23 +238,29 @@ function SingUp() {
 
                 setAlert("error");
 
+            } else if (input.password !== input.password2) {
+
+                setAlert("errorPassword");
+
             } else {
 
-                setAlert("create");
+                Axios.post("http://localhost:3001/user/register", input)
+                    .then((res) => console.log(res))
+                    .catch((err) => console.log(err))
 
             }
         };
 
-        if (input.name.length !== 0) {
-            if (input.name.length < 3) {
+        if (input.firstname.length !== 0) {
+            if (input.firstname.length < 3) {
                 var errorName = "error";
             } else {
                 var sName = "finish"
             }
         };
 
-        if (input.lastName.length !== 0) {
-            if (input.lastName.length < 3) {
+        if (input.lastname.length !== 0) {
+            if (input.lastname.length < 3) {
                 var errorLastName = "error";
             } else {
                 var sLastName = "finish"
@@ -290,11 +294,11 @@ function SingUp() {
             }
         };
 
-        if (input.nacionalidad.length !== 0) {
+        if (input.nationality.length !== 0) {
             var sNacionalidad = "finish"
         };
 
-        if (input.imagen.length !== 0) {
+        if (input.img.length !== 0) {
             var sImagen = "finish"
         };
 
@@ -309,15 +313,15 @@ function SingUp() {
 
                 <Form.Item
                     label="Nombre"
-                    name="name"
+                    name="firstname"
                     rules={[
                         {
                             required: true,
-                            message: input.name.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                            message: input.firstname.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
                         },
                     ]}
                 >
-                    <Input name="name" />
+                    <Input name="firstname" />
                     {errorName ?
                         <p className="p-error">Nombre debe tener minimo 3 letras</p>
                         :
@@ -327,15 +331,15 @@ function SingUp() {
 
                 <Form.Item
                     label="Apellido"
-                    name="lastName"
+                    name="lastname"
                     rules={[
                         {
                             required: true,
-                            message: input.lastName.length === 0 ? <p className="p-error">Completar el apellido</p> : <p></p>
+                            message: input.lastname.length === 0 ? <p className="p-error">Completar el apellido</p> : <p></p>
                         },
                     ]}
                 >
-                    <Input name="lastName" />
+                    <Input name="lastname" />
                     {errorLastName ?
                         <p className="p-error">Apellido debe tener minimo 3 letras</p>
                         :
@@ -345,15 +349,15 @@ function SingUp() {
 
                 <Form.Item
                     label="Nacionalidad"
-                    name="nacionalidad"
+                    name="nationality"
                     rules={[
                         {
                             required: true,
-                            message: input.nacionalidad.length === 0 ? <p className="p-error">Completar la nacionalidad</p> : <p></p>
+                            message: input.nationality.length === 0 ? <p className="p-error">Completar la nacionalidad</p> : <p></p>
                         },
                     ]}
                 >
-                    <select className="select-sing-up" name="nacionalidad" onChange={handleInputChange}>
+                    <select className="select-sing-up" name="nationality" onChange={handleInputChange}>
                         <option className="option-sing-up">Encontra tu pais</option>
 
                         {options && options.map((n) => {
@@ -392,7 +396,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: input.imagen.length === 0 ? <p className="p-error">Carga la imagen</p> : <p></p>
+                            message: input.img.length === 0 ? <p className="p-error">Carga la imagen</p> : <p></p>
                         },
                     ]}
                 >
@@ -453,7 +457,7 @@ function SingUp() {
                     rules={[
                         {
                             required: true,
-                            message: input.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
+                            message: input.password2.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
                         },
                     ]}
                 >
@@ -498,6 +502,18 @@ function SingUp() {
                             <Alert
                                 message="Error"
                                 description="Error en alguno de los datos provistos"
+                                type="error"
+                                showIcon
+                            />
+                        </div>
+                        :
+                        <div></div>
+                    }
+                    {alert === "errorPassword" ?
+                        <div className="alert">
+                            <Alert
+                                message="Error"
+                                description="Las contraseñas no son iguales"
                                 type="error"
                                 showIcon
                             />
