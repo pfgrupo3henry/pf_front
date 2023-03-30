@@ -1,4 +1,4 @@
-
+.login-form {
     min-height: 80vh;
     width: 900px;
     padding: 110px 0px 0px 500px;
@@ -9,6 +9,11 @@
     background-color: white;
     border: none;
     color: blue;
+}
+
+.login-form-button {
+    width: 400px;
+}
 
 .form-forgot {
     padding: 0px 0px 0px 160px;
@@ -53,3 +58,4 @@
 .alert {
     height: 120px;
     width: 300px;
+}
