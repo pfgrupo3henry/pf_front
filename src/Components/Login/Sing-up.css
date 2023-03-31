@@ -19,10 +19,16 @@
     padding: 0px 0px 0px 160px;
 }
 
+.div-singup-principal {
+    align-items: center;
+    justify-content: center;
+}
+
 .form-sing-up {
-    width: 1000px;
-    padding: 70px 0px 0px 250px;
-    min-height: 110vh;
+    padding: 60px 0px 0px 0px;
+    width: 900px;
+    align-items: center;
+    justify-content: center;
 }
 
 .select-sing-up {
@@ -59,5 +65,20 @@
 .alert {
     max-height: 70px;
     max-width: 420px;
-    padding: 0px 0px 0px 120px;
+}
+
+.button-sing-up-body {
+    align-items: center;
+    justify-content: center;
+    padding: 0px 0px 0px 300px;
+    width: 400px;
+}
+
+.Button-sing-up-submit {
+    background-color: rgb(155, 64, 240);
+    color: white;
+}
+
+.buttonsing-up-none {
+    display: none;
 }

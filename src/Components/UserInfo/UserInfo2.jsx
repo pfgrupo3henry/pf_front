@@ -1,17 +1,14 @@
 import React from "react";
 import { Card } from 'antd';
-import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { AppstoreOutlined } from '@ant-design/icons';
 import { Descriptions } from 'antd';
-
 import { Menu } from 'antd';
 import { useState } from 'react';
 import "./UserInfo.css";
 import "../CardDetail/CardDetail.css";
-
-import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
-
-const imgProvisoria = require("../Assets/a-way-out-ps5-retro.jpg")
+import axios from "axios";
+import Cookies from "universal-cookie";
 
 const { Meta } = Card;
 
@@ -30,34 +27,41 @@ function getItem(label, key, icon, children, type) {
 
 
 const items = [
-  getItem('Dashboard', null, <MailOutlined />, [
-    getItem('Analytics finance', '1'),
-  ]),
-
-  getItem('Articles', 'sub2', <AppstoreOutlined />, [
-    getItem('New Product', '1'),
-    getItem('Modify User', '2'),
-    getItem('Modify Games', '3'),
-    getItem('List Products', '4'),
-    getItem('See Payments ', '5'),
-    getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+  getItem('Menu', 'sub2', <AppstoreOutlined />, [
+    getItem('Cambiar Informacion', '1'),
+    getItem('Ver Compras', '2'),
   ])
 
 ];
 
 function UserInfo() {
-  const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
 
+  const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
   const [theme, setTheme] = useState('ligth');
   const [current, setCurrent] = useState('1');
+  const [newUser, setNewUser] = useState([]);
 
   const onClick = (e) => {
     console.log('click ', e);
     setCurrent(e.key);
   };
 
+  const cookie = new Cookies();
+  const id = cookie.get("id");
 
 
+  if (newUser.length === 0) {
+
+    axios.get(`http://localhost:3001/user/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setNewUser([res.data]);
+      })
+      .catch((err) => console.log(err))
+
+  };
+
+  console.log(newUser);
 
   return (
 
@@ -87,30 +91,25 @@ function UserInfo() {
             <img
               style={{ width: 300, height: 330 }}
               alt="Among Us"
-              src={!user ? "https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" : user.picture}
+              src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
             />
           }
         >
           <Meta
             title="Felipe Blaksley"
-            description="Texto a modo de ejemplo porque no se que 
-                carajo poner porque ya estoy re quemado"
+            description=""
           />
           <br></br>
         </Card>
 
-        <Descriptions className="infoUserDetail" title="Information">
-          <Descriptions.Item className="infoUserDetail" label="UserName">
-            @dylan.sebastian
-          </Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Telephone">1122533256</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Email">dylan.sebastianmte@gmail.com</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="User Status">Admin</Descriptions.Item>
+        <Descriptions className="infoUserDetail" title="Informacion">
+          <Descriptions.Item className="infoUserDetail" label="Nombre">{newUser[0] ? newUser[0].firstname : "Error"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Apellido">{newUser[0] ? newUser[0].lastname : "Error"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Celular">{newUser[0] ? newUser[0].mobile : "Error"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Email">{newUser[0] ? newUser[0].email : "Error"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Nacionalidad">{newUser[0] ? newUser[0].nationality : "Error"}</Descriptions.Item>
         </Descriptions>
       </div>
-
-
-
 
     </div>
 
