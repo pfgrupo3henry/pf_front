@@ -19,7 +19,6 @@ function SingUp() {
     const [fileList2, setFileList2] = useState("vacio");
     const [imagenFile, setImagenFile2] = useState("vacio");
     const [alert, setAlert] = useState("");
-    const [alertLogin, setAlertLogin] = useState("");
     const [state, setState] = useState("login");
     const [input, setInput] = useState({
         firstname: "",
@@ -69,25 +68,38 @@ function SingUp() {
 
         const submitUser = () => {
 
+            if (users.email.length === 0 || users.password.length === 0) {
+                return;
+            };
+
             Axios.post("http://localhost:3001/user/login", users)
                 .then((res) => {
-                    console.log(res)
-                    cookie.set("id", res.data._id)
-                    cookie.set("firstname", res.data.firstname)
-                    cookie.set("lastname", res.data.lastname)
-                    cookie.set("email", res.data.email)
-                    cookie.set("token", res.data.token)
+                    console.log(res);
+                    cookie.set("id", res.data._id);
+                    cookie.set("firstname", res.data.firstname);
+                    cookie.set("lastname", res.data.lastname);
+                    cookie.set("email", res.data.email);
+                    cookie.set("token", res.data.token);
+                    Swal.fire({
+                        title: "Success!",
+                        text: 'Usuario logeado correctamente',
+                        icon: "success",
+                        confirmButtonText: 'Ok'
+                    }).then((res) => {
+                        window.location.href = `/home`
+                    });
                 })
-                .catch((err) => console.log(err))
-
-            Swal.fire({
-                title: "Success!",
-                text: 'Usuario logeado correctamente',
-                icon: "success",
-                confirmButtonText: 'Ok'
-            }).then((res) => {
-                window.location.href = `/home`
-            });
+                .catch((err) => {
+                    console.log(err);
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Usuario o contraseña incorrectos',
+                        icon: "error",
+                        confirmButtonText: 'Ok'
+                    }).then((res) => {
+                        window.location.reload();
+                    });
+                })
 
         };
 
@@ -101,11 +113,6 @@ function SingUp() {
             console.log(users);
         };
 
-        const loginSubmit = () => {
-            setAlertLogin("login")
-            setAlertLogin("error")
-        };
-
         return (
 
             <Form
@@ -117,12 +124,24 @@ function SingUp() {
 
                 <Form.Item
                     name="email"
+                    rules={[
+                        {
+                            required: true,
+                            message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                        },
+                    ]}
                 >
                     <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                 </Form.Item>
 
                 <Form.Item
                     name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: users.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
+                        },
+                    ]}
                 >
                     <Input
                         prefix={<LockOutlined className="site-form-item-icon" />}
@@ -159,33 +178,6 @@ function SingUp() {
 
                 <Form.Item>
                     <Login />
-                </Form.Item>
-
-                <Form.Item>
-                    {alertLogin === "login" ?
-                        <div className="alert">
-                            <Alert
-                                message="Success Tips"
-                                description="El usuario se ha logeado correctamente"
-                                type="success"
-                                showIcon
-                            />
-                        </div>
-                        :
-                        <div></div>
-                    }
-                    {alertLogin === "error" ?
-                        <div className="alert">
-                            <Alert
-                                message="Error"
-                                description="Usuario o contraseña incorrectos"
-                                type="error"
-                                showIcon
-                            />
-                        </div>
-                        :
-                        <div></div>
-                    }
                 </Form.Item>
 
             </Form>
@@ -265,19 +257,26 @@ function SingUp() {
                 Axios.post("http://localhost:3001/user/register", input)
                     .then((res) => {
                         console.log(res);
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Usuario creado correctamente',
+                            icon: "success",
+                            confirmButtonText: 'Ok'
+                        }).then((res) => {
+                            window.location.reload();
+                        });
                     })
                     .catch((err) => {
                         console.log(err);
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'Error en la carga del ususario',
+                            icon: "error",
+                            confirmButtonText: 'Ok'
+                        }).then((res) => {
+                            window.location.reload();
+                        });
                     });
-
-                Swal.fire({
-                    title: "Success!",
-                    text: 'Usuario creado correctamente',
-                    icon: "success",
-                    confirmButtonText: 'Ok'
-                }).then((res) => {
-                    window.location.reload();
-                });
 
             };
 

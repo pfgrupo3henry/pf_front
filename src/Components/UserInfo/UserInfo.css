@@ -12,7 +12,7 @@
     color: blue;
 }
 
-.menuProfileInfo{
+.menuProfileInfo {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -24,7 +24,7 @@
 .menuProfileInfo .ant-descriptions .ant-descriptions-header,
 .menuProfileInfo .ant-descriptions .ant-descriptions-view,
 .menuProfileInfo .ant-descriptions .ant-descriptions-view table {
-    width: fit-content;
+    width: 300px;
 }
 
 .menuProfileInfo .menuOptions {
@@ -39,24 +39,24 @@
     z-index: 1;
 }
 
-.cardUserInfoDescription{
+.cardUserInfoDescription {
     flex-direction: row;
     gap: 3rem;
 }
 
-.infoUserDetail{
-    display: flex;    
+.infoUserDetail {
+    display: flex;
     flex-direction: column;
     font-style: oblique;
     width: fit-content;
 }
 
-.cardInfoUser{
+.cardInfoUser {
     margin-bottom: 5rem;
 
 }
 
-.cardIndoUserInformation{
+.cardIndoUserInformation {
     padding-top: 80px;
     max-width: 1300px;
     padding-left: 256px;
@@ -64,4 +64,5 @@
     display: flex;
     gap: 40px;
     justify-content: center;
+    background-color: white;
 }
