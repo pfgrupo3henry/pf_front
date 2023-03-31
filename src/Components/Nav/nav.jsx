@@ -15,15 +15,15 @@ import Cookies from "universal-cookie";
 function Nav() {
 
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
-  const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const cookie = new Cookies();
   const cookieId = cookie.get("firstname");
 
   const handleLoginClick = () => {
-    loginWithPopup({
+    loginWithRedirect({
       height: 600,
       width: 400,
-      timeoutInSeconds: 10,
+      //timeoutInSeconds: 10,
     });
   }
 
