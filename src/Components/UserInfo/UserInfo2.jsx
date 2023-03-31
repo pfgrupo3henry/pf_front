@@ -47,21 +47,36 @@ function UserInfo() {
   };
 
   const cookie = new Cookies();
-  const id = cookie.get("id");
+  const email = cookie.get("email");
+  const emailAuth0 = user.email;
 
 
   if (newUser.length === 0) {
 
-    axios.get(`http://localhost:3001/user/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        setNewUser([res.data]);
-      })
-      .catch((err) => console.log(err))
+    if (email) {
+
+      axios.get(`http://localhost:3001/user/${email}`)
+        .then((res) => {
+          console.log(res.data);
+          setNewUser([res.data]);
+        })
+        .catch((err) => console.log(err))
+
+    } else if (emailAuth0) {
+
+      axios.get(`http://localhost:3001/user/${emailAuth0}`)
+        .then((res) => {
+          console.log(res.data);
+          setNewUser([res.data]);
+        })
+        .catch((err) => console.log(err))
+
+    }
 
   };
 
   console.log(newUser);
+  console.log(emailAuth0);
 
   return (
 
@@ -96,18 +111,18 @@ function UserInfo() {
           }
         >
           <Meta
-            title="Felipe Blaksley"
+            title={newUser[0] ? newUser[0].firstname : "Incompleto"}
             description=""
           />
           <br></br>
         </Card>
 
         <Descriptions className="infoUserDetail" title="Informacion">
-          <Descriptions.Item className="infoUserDetail" label="Nombre">{newUser[0] ? newUser[0].firstname : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Apellido">{newUser[0] ? newUser[0].lastname : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Celular">{newUser[0] ? newUser[0].mobile : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Email">{newUser[0] ? newUser[0].email : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Nacionalidad">{newUser[0] ? newUser[0].nationality : "Error"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Nombre">{newUser[0] ? newUser[0].firstname : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Apellido">{newUser[0] ? newUser[0].lastname : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Celular">{newUser[0] ? newUser[0].mobile : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Email">{newUser[0] ? newUser[0].email : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Nacionalidad">{newUser[0] ? newUser[0].nationality : "Incompleto"}</Descriptions.Item>
         </Descriptions>
       </div>
 

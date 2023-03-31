@@ -350,7 +350,7 @@ function SingUp() {
                     handleSubmit();
                     setTimeout(() => {
                         window.location.reload();
-                    }, 5000);
+                    }, 3000);
                 }, (error) => {
                     console.log(error.text);
                 });
