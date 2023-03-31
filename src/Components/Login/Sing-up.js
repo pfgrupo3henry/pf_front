@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./Sing-up.css";
 import { Button, Form, Input, Checkbox, Upload, Alert } from 'antd';
 import { Login } from "../Auth0/login";
 import { LockOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import Cookies from "universal-cookie";
-
+import emailjs from '@emailjs/browser';
 
 
 
@@ -31,6 +31,8 @@ function SingUp() {
         nationality: ""
     });
     const Swal = require('sweetalert2');
+    const form = useRef();
+
 
     const onClickState = () => {
 
@@ -263,7 +265,7 @@ function SingUp() {
                             icon: "success",
                             confirmButtonText: 'Ok'
                         }).then((res) => {
-                            window.location.reload();
+                            sendEmail();
                         });
                     })
                     .catch((err) => {
@@ -333,249 +335,226 @@ function SingUp() {
             var sImagen = "finish"
         };
 
+        if (input.password2.length !== 0) {
+            if (input.password2 !== input.password) {
+                var errorPassword2 = "error";
+            }
+        };
+
+        const sendEmail = (e) => {
+            e.preventDefault();
+
+            emailjs.sendForm('service_p04zgza', 'template_sque1s9', e.target, 'PvHbawws_-6fNNwSb')
+                .then((result) => {
+                    console.log(result.text);
+                    handleSubmit();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 5000);
+                }, (error) => {
+                    console.log(error.text);
+                });
+
+        };
+
         return (
 
-            <Form
-                className="form-sing-up"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                onChange={(e) => handleInputChange(e)}
-            >
+            <div className="div-singup-principal">
 
-                <Form.Item
-                    label="Nombre"
-                    name="firstname"
-                    rules={[
-                        {
-                            required: true,
-                            message: input.firstname.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
-                        },
-                    ]}
+                <Form
+                    className="form-sing-up"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    onChange={(e) => handleInputChange(e)}
                 >
-                    <Input name="firstname" />
-                    {errorName ?
-                        <p className="p-error">Nombre debe tener minimo 3 letras</p>
-                        :
-                        <p></p>
-                    }
-                </Form.Item>
 
-                <Form.Item
-                    label="Apellido"
-                    name="lastname"
-                    rules={[
-                        {
-                            required: true,
-                            message: input.lastname.length === 0 ? <p className="p-error">Completar el apellido</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <Input name="lastname" />
-                    {errorLastName ?
-                        <p className="p-error">Apellido debe tener minimo 3 letras</p>
-                        :
-                        <p></p>
-                    }
-                </Form.Item>
-
-                <Form.Item
-                    label="Nacionalidad"
-                    name="nationality"
-                    rules={[
-                        {
-                            required: true,
-                            message: input.nationality.length === 0 ? <p className="p-error">Completar la nacionalidad</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <select className="select-sing-up" name="nationality" onChange={handleInputChange}>
-                        <option className="option-sing-up">Encontra tu pais</option>
-
-                        {options && options.map((n) => {
-                            return (
-                                <option className="option-sing-up">
-                                    {n}
-                                </option>
-                            );
-                        })}
-                    </select>
-                </Form.Item>
-
-                <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[
-                        {
-                            required: true,
-                            message: input.email.length === 0 ? <p className="p-error">Completar el email</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <Input name="email" type="email" />
-                    {errorEmail ?
-                        <p className="p-error">Email incorrecto</p>
-                        :
-                        <p></p>
-                    }
-                </Form.Item>
-
-                <Form.Item label="Upload" valuePropName="fileList"
-                    initialValue={fileList[0]}
-                    name="upload"
-                    getValueFromEvent={handleFileListChange}
-                    size={10}
-                    rules={[
-                        {
-                            required: true,
-                            message: input.img.length === 0 ? <p className="p-error">Carga la imagen</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <Upload
-                        action="/upload.do"
-                        listType="picture-card"
-                        onChange={(e) => { onChangeInputImage(e) }}
+                    <Form.Item
+                        label="Nombre"
+                        name="firstname"
+                        rules={[
+                            {
+                                required: true,
+                                message: input.firstname.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                            },
+                        ]}
                     >
+                        <Input name="firstname" />
+                        {errorName ?
+                            <p className="p-error">Nombre debe tener minimo 3 letras</p>
+                            :
+                            <p></p>
+                        }
+                    </Form.Item>
 
-                        <div>
-                            <PlusOutlined />
-                            <div
-                                style={{
-                                    marginTop: 8,
-                                }}
-                            >
-                                Image
+                    <Form.Item
+                        label="Apellido"
+                        name="lastname"
+                        rules={[
+                            {
+                                required: true,
+                                message: input.lastname.length === 0 ? <p className="p-error">Completar el apellido</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Input name="lastname" />
+                        {errorLastName ?
+                            <p className="p-error">Apellido debe tener minimo 3 letras</p>
+                            :
+                            <p></p>
+                        }
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Nacionalidad"
+                        name="nationality"
+                        rules={[
+                            {
+                                required: true,
+                                message: input.nationality.length === 0 ? <p className="p-error">Completar la nacionalidad</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <select className="select-sing-up" name="nationality" onChange={handleInputChange}>
+                            <option className="option-sing-up">Encontra tu pais</option>
+
+                            {options && options.map((n) => {
+                                return (
+                                    <option className="option-sing-up">
+                                        {n}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: input.email.length === 0 ? <p className="p-error">Completar el email</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Input name="email" type="email" />
+                        {errorEmail ?
+                            <p className="p-error">Email incorrecto</p>
+                            :
+                            <p></p>
+                        }
+                    </Form.Item>
+
+                    <Form.Item label="Upload" valuePropName="fileList"
+                        initialValue={fileList[0]}
+                        name="upload"
+                        getValueFromEvent={handleFileListChange}
+                        size={10}
+                        rules={[
+                            {
+                                required: true,
+                                message: input.img.length === 0 ? <p className="p-error">Carga la imagen</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Upload
+                            action="/upload.do"
+                            listType="picture-card"
+                            onChange={(e) => { onChangeInputImage(e) }}
+                        >
+
+                            <div>
+                                <PlusOutlined />
+                                <div
+                                    style={{
+                                        marginTop: 8,
+                                    }}
+                                >
+                                    Image
+                                </div>
                             </div>
-                        </div>
-                    </Upload>
+                        </Upload>
 
-                    {/* <input type='file' onChange={agregarFoto} /> */}
+                        {/* <input type='file' onChange={agregarFoto} /> */}
 
 
-                </Form.Item>
+                    </Form.Item>
 
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: input.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <Input.Password name="password" />
-                    {errorPassword ?
-                        <div>
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: input.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Input.Password name="password" />
+                        {errorPassword ?
+                            <div>
+                                <p className="p-error">
+                                    Password debe  empezar y terminar con numeros
+                                </p>
+                                <p className="p-error">
+                                    Contener letras
+                                </p>
+                                <p className="p-error">
+                                    Contener minimo 8 caracrteres
+                                </p>
+                            </div>
+                            :
+                            <p></p>
+                        }
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Repet Password"
+                        name="password2"
+                        rules={[
+                            {
+                                required: true,
+                                message: input.password2.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Input.Password name="password2" />
+                        {errorPassword2 ?
                             <p className="p-error">
-                                Password debe  empezar y terminar con numeros
+                                Debe ser igual al password
                             </p>
-                            <p className="p-error">
-                                Contener letras
-                            </p>
-                            <p className="p-error">
-                                Contener minimo 8 caracrteres
-                            </p>
-                        </div>
-                        :
-                        <p></p>
-                    }
-                </Form.Item>
+                            :
+                            <p></p>
+                        }
+                    </Form.Item>
 
-                <Form.Item
-                    label="Repet Password"
-                    name="password2"
-                    rules={[
-                        {
-                            required: true,
-                            message: input.password2.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <Input.Password name="password2" />
-                    {errorPassword ?
-                        <p className="p-error">
-                            Debe ser igual al password
-                        </p>
-                        :
-                        <p></p>
-                    }
-                </Form.Item>
+                    <Form.Item
+                        label="Celular"
+                        name="mobile"
+                        rules={[
+                            {
+                                required: true,
+                                message: input.mobile.length === 0 ? <p className="p-error">Completar el celular</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Input name="mobile" addonBefore="+54" />
+                        {errorMobile ?
+                            <p className="p-error">Celular debe tener minimo 10 numeros</p>
+                            :
+                            <p></p>
+                        }
+                    </Form.Item>
 
+                </Form >
 
-                <Form.Item
-                    label="Celular"
-                    name="mobile"
-                    rules={[
-                        {
-                            required: true,
-                            message: input.mobile.length === 0 ? <p className="p-error">Completar el celular</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <Input name="mobile" addonBefore="+54" />
-                    {errorMobile ?
-                        <p className="p-error">Celular debe tener minimo 10 numeros</p>
-                        :
-                        <p></p>
-                    }
-                </Form.Item>
+                <form ref={form} onSubmit={sendEmail} className="button-sing-up-body">
+                    <Input type="submit" value="Submit" className="Button-sing-up-submit" />
+                    <input type="text" name="user_name" value={input.firstname} className="buttonsing-up-none" />
+                    <input type="text" name="user_email" value={input.email} className="buttonsing-up-none" />
+                </form >
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                        Submit
-                    </Button>
-                    {alert === "error" ?
-                        <div className="alert">
-                            <Alert
-                                message="Error"
-                                description="Error en alguno de los datos provistos"
-                                type="error"
-                                showIcon
-                            />
-                        </div>
-                        :
-                        <div></div>
-                    }
-                    {alert === "errorPassword" ?
-                        <div className="alert">
-                            <Alert
-                                message="Error"
-                                description="Las contraseñas no son iguales"
-                                type="error"
-                                showIcon
-                            />
-                        </div>
-                        :
-                        <div></div>
-                    }
-                    {alert === "incompleto" ?
-                        <div className="alert">
-                            <Alert
-                                message="Error"
-                                description="Falta enviar datos obligatorios"
-                                type="error"
-                                showIcon
-                            />
-                        </div>
-                        :
-                        <div></div>
-                    }
-                    {alert === "create" ?
-                        <div className="alert">
-                            <Alert
-                                message="Success Tips"
-                                description="El usuario se ha creado correctamente"
-                                type="success"
-                                showIcon
-                            />
-                        </div>
-                        :
-                        <div></div>
-                    }
-                </Form.Item>
-
-            </Form >
+            </div>
 
         );
 
@@ -585,4 +564,56 @@ function SingUp() {
 
 
 export default SingUp;
+
+
+/*
+{alert === "error" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Error"
+                                    description="Error en alguno de los datos provistos"
+                                    type="error"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
+                        {alert === "errorPassword" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Error"
+                                    description="Las contraseñas no son iguales"
+                                    type="error"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
+                        {alert === "incompleto" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Error"
+                                    description="Falta enviar datos obligatorios"
+                                    type="error"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
+                        {alert === "create" ?
+                            <div className="alert">
+                                <Alert
+                                    message="Success Tips"
+                                    description="El usuario se ha creado correctamente"
+                                    type="success"
+                                    showIcon
+                                />
+                            </div>
+                            :
+                            <div></div>
+                        }
+*/
 
