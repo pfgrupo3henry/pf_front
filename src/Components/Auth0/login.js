@@ -7,14 +7,14 @@ import GoogleButton from 'react-google-button';
 export const Login = () => {
 
 
-/*     const {loginWithRedirect} = useAuth0();
- */    const { loginWithPopup } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
+  //    const { loginWithPopup } = useAuth0();
 
   const handleLoginClick = () => {
-    loginWithPopup({
+    loginWithRedirect({
       height: 600,
       width: 400,
-      timeoutInSeconds: 10,
+      //timeoutInSeconds: 10,
 
     });
   }

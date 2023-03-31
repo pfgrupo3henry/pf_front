@@ -1,14 +1,16 @@
-import React from "react";
-import { Card } from 'antd';
 import { AppstoreOutlined } from '@ant-design/icons';
 import { Descriptions } from 'antd';
-import { Menu } from 'antd';
+import { Menu, Button, Form, Input, Card } from 'antd';
 import { useState } from 'react';
 import "./UserInfo.css";
 import "../CardDetail/CardDetail.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import Cookies from "universal-cookie";
+
+
+
+
 
 const { Meta } = Card;
 
@@ -37,31 +39,90 @@ const items = [
 function UserInfo() {
 
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
+  const [email3, setEmail3] = useState("vacio")
   const [theme, setTheme] = useState('ligth');
   const [current, setCurrent] = useState('1');
   const [newUser, setNewUser] = useState([]);
+  const [input, setInput] = useState({
+    firstname: "",
+    lastname: "",
+    nationality: "",
+    mobile: "",
+    password: ""
+  });
 
   const onClick = (e) => {
     console.log('click ', e);
     setCurrent(e.key);
   };
 
-  const cookie = new Cookies();
-  const id = cookie.get("id");
 
+  if (!user && email3 === "vacio") {
 
-  if (newUser.length === 0) {
+    const cookie = new Cookies();
+    const email = cookie.get("email");
 
-    axios.get(`http://localhost:3001/user/${id}`)
+    if (newUser.length === 0) {
+
+      if (email) {
+
+        axios.get(`http://localhost:3001/user/${email}`)
+          .then((res) => {
+            console.log(res.data);
+            setNewUser([res.data]);
+            setEmail3(email);
+          })
+          .catch((err) => console.log(err))
+
+      }
+
+    }
+  } else {
+
+    const emailAuth0 = user.email;
+
+    if (newUser.length === 0) {
+
+      if (emailAuth0) {
+
+        axios.get(`http://localhost:3001/user/${emailAuth0}`)
+          .then((res) => {
+            console.log(res.data);
+            setNewUser([res.data]);
+            setEmail3(emailAuth0);
+          })
+          .catch((err) => console.log(err))
+
+      }
+
+    };
+
+  };
+
+  const modifyUserSubmit = () => {
+
+    axios.put(`http://localhost:3001/user/modify/pipe.blaksley@gmail.com`, input)
       .then((res) => {
         console.log(res.data);
-        setNewUser([res.data]);
+        window.location.reload();
       })
       .catch((err) => console.log(err))
 
   };
 
+  const handelInputChange = (e) => {
+
+    setInput(
+      {
+        ...input,
+        [e.target.name]: e.target.value
+      }
+    );
+    console.log(input);
+  };
+
   console.log(newUser);
+  console.log(email3);
 
   return (
 
@@ -70,6 +131,7 @@ function UserInfo() {
 
         <br />
         <br />
+
         <Menu
           theme={theme}
           onClick={onClick}
@@ -81,6 +143,45 @@ function UserInfo() {
           mode="inline"
           items={items}
         />
+
+        <div>
+          <Form
+            name="wrap"
+            labelCol={{ flex: '110px' }}
+            labelAlign="left"
+            labelWrap
+            wrapperCol={{ flex: 1 }}
+            colon={false}
+            style={{ maxWidth: 600 }}
+            onChange={handelInputChange}
+          >
+            <Form.Item label="Nombre" name="firstname" rules={[{ required: true }]}>
+              <Input name="firstname" />
+            </Form.Item>
+
+            <Form.Item label="Apellido" name="lastname" rules={[{ required: true }]}>
+              <Input name="lastname" />
+            </Form.Item>
+
+            <Form.Item label="Nacionalidad" name="nationality" rules={[{ required: true }]}>
+              <Input name="nationality" />
+            </Form.Item>
+
+            <Form.Item label="Celular" name="mobile" rules={[{ required: true }]}>
+              <Input name="mobile" />
+            </Form.Item>
+
+            <Form.Item label="Password" name="password" rules={[{ required: true }]}>
+              <Input.Password name="password" />
+            </Form.Item>
+
+            <Form.Item label=" ">
+              <Button type="primary" htmlType="submit" onClick={modifyUserSubmit}>
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
 
       <div className="cardIndoUserInformation">
@@ -96,18 +197,18 @@ function UserInfo() {
           }
         >
           <Meta
-            title="Felipe Blaksley"
+            title={newUser[0] ? newUser[0].firstname : "Incompleto"}
             description=""
           />
           <br></br>
         </Card>
 
         <Descriptions className="infoUserDetail" title="Informacion">
-          <Descriptions.Item className="infoUserDetail" label="Nombre">{newUser[0] ? newUser[0].firstname : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Apellido">{newUser[0] ? newUser[0].lastname : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Celular">{newUser[0] ? newUser[0].mobile : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Email">{newUser[0] ? newUser[0].email : "Error"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Nacionalidad">{newUser[0] ? newUser[0].nationality : "Error"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Nombre">{newUser[0] ? newUser[0].firstname : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Apellido">{newUser[0] ? newUser[0].lastname : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Celular">{newUser[0] ? newUser[0].mobile : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Email">{newUser[0] ? newUser[0].email : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Nacionalidad">{newUser[0] ? newUser[0].nationality : "Incompleto"}</Descriptions.Item>
         </Descriptions>
       </div>
 
