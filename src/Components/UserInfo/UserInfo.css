@@ -17,7 +17,7 @@
     justify-content: center;
     flex-direction: row;
     margin-top: 45.2px;
-    min-height: calc(100vh - 45.2px);
+    min-height: 100vh;
     position: relative;
 }
 

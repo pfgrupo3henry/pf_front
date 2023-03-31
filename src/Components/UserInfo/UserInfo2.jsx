@@ -39,22 +39,19 @@ const items = [
 function UserInfo() {
 
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
-  const [email3, setEmail3] = useState("vacio")
+  const [email3, setEmail3] = useState("vacio");
+  const [verFrom, setVerForm] = useState("vacio");
   const [theme, setTheme] = useState('ligth');
   const [current, setCurrent] = useState('1');
   const [newUser, setNewUser] = useState([]);
+  const [titulo, setTitulo] = useState("");
   const [input, setInput] = useState({
     firstname: "",
     lastname: "",
     nationality: "",
     mobile: "",
-    password: ""
+    password: "22felipe05"
   });
-
-  const onClick = (e) => {
-    console.log('click ', e);
-    setCurrent(e.key);
-  };
 
 
   if (!user && email3 === "vacio") {
@@ -71,6 +68,7 @@ function UserInfo() {
             console.log(res.data);
             setNewUser([res.data]);
             setEmail3(email);
+            setTitulo(`${res.data.firstname} ${res.data.lastname}`);
           })
           .catch((err) => console.log(err))
 
@@ -90,6 +88,7 @@ function UserInfo() {
             console.log(res.data);
             setNewUser([res.data]);
             setEmail3(emailAuth0);
+            setTitulo(`${res.data.firstname} ${res.data.lastname}`);
           })
           .catch((err) => console.log(err))
 
@@ -121,6 +120,16 @@ function UserInfo() {
     console.log(input);
   };
 
+  const onClick = (e) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+
+    if (e.key === "1") {
+      setVerForm("ver");
+    };
+  };
+
+
   console.log(newUser);
   console.log(email3);
 
@@ -128,9 +137,6 @@ function UserInfo() {
 
     <div className="menuProfileInfo">
       <div className="menuOptions">
-
-        <br />
-        <br />
 
         <Menu
           theme={theme}
@@ -145,42 +151,45 @@ function UserInfo() {
         />
 
         <div>
-          <Form
-            name="wrap"
-            labelCol={{ flex: '110px' }}
-            labelAlign="left"
-            labelWrap
-            wrapperCol={{ flex: 1 }}
-            colon={false}
-            style={{ maxWidth: 600 }}
-            onChange={handelInputChange}
-          >
-            <Form.Item label="Nombre" name="firstname" rules={[{ required: true }]}>
-              <Input name="firstname" />
-            </Form.Item>
+          {
+            verFrom === "ver" ?
 
-            <Form.Item label="Apellido" name="lastname" rules={[{ required: true }]}>
-              <Input name="lastname" />
-            </Form.Item>
+              <Form
+                name="wrap"
+                labelCol={{ flex: '110px' }}
+                labelAlign="left"
+                labelWrap
+                wrapperCol={{ flex: 1 }}
+                colon={false}
+                style={{ maxWidth: 600 }}
+                onChange={handelInputChange}
+              >
+                <Form.Item label="Nombre" name="firstname" rules={[{ required: true }]}>
+                  <Input name="firstname" />
+                </Form.Item>
 
-            <Form.Item label="Nacionalidad" name="nationality" rules={[{ required: true }]}>
-              <Input name="nationality" />
-            </Form.Item>
+                <Form.Item label="Apellido" name="lastname" rules={[{ required: true }]}>
+                  <Input name="lastname" />
+                </Form.Item>
 
-            <Form.Item label="Celular" name="mobile" rules={[{ required: true }]}>
-              <Input name="mobile" />
-            </Form.Item>
+                <Form.Item label="Nacionalidad" name="nationality" rules={[{ required: true }]}>
+                  <Input name="nationality" />
+                </Form.Item>
 
-            <Form.Item label="Password" name="password" rules={[{ required: true }]}>
-              <Input.Password name="password" />
-            </Form.Item>
+                <Form.Item label="Celular" name="mobile" rules={[{ required: true }]}>
+                  <Input name="mobile" />
+                </Form.Item>
 
-            <Form.Item label=" ">
-              <Button type="primary" htmlType="submit" onClick={modifyUserSubmit}>
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
+                <Form.Item label=" ">
+                  <Button type="primary" htmlType="submit" onClick={modifyUserSubmit}>
+                    Submit
+                  </Button>
+                </Form.Item>
+              </Form>
+
+              :
+              null
+          }
         </div>
       </div>
 
@@ -197,7 +206,7 @@ function UserInfo() {
           }
         >
           <Meta
-            title={newUser[0] ? newUser[0].firstname : "Incompleto"}
+            title={titulo ? titulo : "Incompleto"}
             description=""
           />
           <br></br>
