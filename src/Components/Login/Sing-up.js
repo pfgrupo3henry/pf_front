@@ -16,7 +16,6 @@ function SingUp() {
         password: ""
     });
     const [fileList, setFileList] = useState([]);
-    const [fileList2, setFileList2] = useState("vacio");
     const [imagenFile, setImagenFile2] = useState("vacio");
     const [alert, setAlert] = useState("");
     const [state, setState] = useState("login");
@@ -51,17 +50,6 @@ function SingUp() {
                 nationality: ""
             })
         }
-    };
-
-    if (fileList.length > 0 && fileList2 === "vacio") {
-        console.log(fileList[0])
-        setFileList2("lleno")
-        setInput(
-            {
-                ...input,
-                img: [fileList[0]]
-            }
-        );
     };
 
     if (state === "login") {
@@ -224,18 +212,22 @@ function SingUp() {
                 setImagenFile2("completo")
             };
 
-            setAlert("");
             console.log(input);
 
         };
 
         const onChangeInputImage = (e) => {
             setFileList(e.fileList);
-            setAlert("");
         };
 
         const handleFileListChange = ({ fileList }) => {
             setFileList(fileList);
+            setInput(
+                {
+                    ...input,
+                    img: [...fileList]
+                }
+            );
         };
 
         const handleSubmit = () => {
