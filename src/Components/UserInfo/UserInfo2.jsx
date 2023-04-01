@@ -39,7 +39,6 @@ const items = [
 function UserInfo() {
 
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
-  const [email3, setEmail3] = useState("vacio");
   const [verFrom, setVerForm] = useState("vacio");
   const [theme, setTheme] = useState('ligth');
   const [current, setCurrent] = useState('1');
@@ -49,50 +48,41 @@ function UserInfo() {
     firstname: "",
     lastname: "",
     nationality: "",
-    mobile: "",
-    password: "22felipe05"
+    mobile: ""
   });
 
 
-  if (!user && email3 === "vacio") {
+  if (!user && newUser.length === 0) {
 
     const cookie = new Cookies();
     const email = cookie.get("email");
+    console.log(email);
 
     if (newUser.length === 0) {
 
-      if (email) {
-
-        axios.get(`http://localhost:3001/user/${email}`)
-          .then((res) => {
-            console.log(res.data);
-            setNewUser([res.data]);
-            setEmail3(email);
-            setTitulo(`${res.data.firstname} ${res.data.lastname}`);
-          })
-          .catch((err) => console.log(err))
-
-      }
+      axios.get(`http://localhost:3001/user/${email}`)
+        .then((res) => {
+          console.log(res.data);
+          setNewUser([res.data]);
+          setTitulo(`${res.data.firstname} ${res.data.lastname}`);
+        })
+        .catch((err) => console.log(err))
 
     }
-  } else {
+
+  } else if (user && newUser.length === 0) {
 
     const emailAuth0 = user.email;
 
     if (newUser.length === 0) {
 
-      if (emailAuth0) {
-
-        axios.get(`http://localhost:3001/user/${emailAuth0}`)
-          .then((res) => {
-            console.log(res.data);
-            setNewUser([res.data]);
-            setEmail3(emailAuth0);
-            setTitulo(`${res.data.firstname} ${res.data.lastname}`);
-          })
-          .catch((err) => console.log(err))
-
-      }
+      axios.get(`http://localhost:3001/user/${emailAuth0}`)
+        .then((res) => {
+          console.log(res.data);
+          setNewUser([res.data]);
+          setTitulo(`${res.data.firstname} ${res.data.lastname}`);
+        })
+        .catch((err) => console.log(err))
 
     };
 
@@ -100,7 +90,7 @@ function UserInfo() {
 
   const modifyUserSubmit = () => {
 
-    axios.put(`http://localhost:3001/user/modify/pipe.blaksley@gmail.com`, input)
+    axios.put(`http://localhost:3001/user/modify/${newUser[0].email}`, input)
       .then((res) => {
         console.log(res.data);
         window.location.reload();
@@ -131,7 +121,6 @@ function UserInfo() {
 
 
   console.log(newUser);
-  console.log(email3);
 
   return (
 

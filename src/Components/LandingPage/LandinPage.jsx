@@ -21,8 +21,7 @@ function LandingPage() {
     if (isAuthenticated) {
 
         const userAuth0 = {
-            email: user.email,
-            password: "22felipe05"
+            email: user.email
         }
 
         axios.post("http://localhost:3001/user/auth0", userAuth0)
