@@ -21,7 +21,8 @@ function LandingPage() {
     if (isAuthenticated) {
 
         const userAuth0 = {
-            email: user.email
+            email: user.email,
+            img: ["https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"]
         }
 
         axios.post("http://localhost:3001/user/auth0", userAuth0)
