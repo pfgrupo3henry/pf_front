@@ -11,21 +11,41 @@ import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space } from "antd";
 import Cookies from "universal-cookie";
+import axios from "axios";
+
+
+
 
 function Nav() {
 
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
-  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
   const cookie = new Cookies();
   const cookieId = cookie.get("firstname");
 
+  if (isAuthenticated) {
+
+    const userAuth0 = {
+      email: user.email,
+      img: ["https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"]
+    }
+
+    axios.post("http://localhost:3001/user/auth0", userAuth0)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+  };
+
   const handleLoginClick = () => {
-    loginWithRedirect({
+    loginWithPopup({
       height: 600,
       width: 400,
-      //timeoutInSeconds: 10,
-    });
-  }
+      timeoutInSeconds: 10,
+    }).then((res) => {
+      window.location.href = "http://localhost:3000/home";
+    })
+
+  };
 
   const inboxOptions = [
     {
