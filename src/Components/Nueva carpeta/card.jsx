@@ -71,23 +71,12 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     dispatch(postFavorites(valores));
   }
 
-  const handleShoppingChart = (id) => {
+  const handleShoppingChart = () => {
 
-    const user_id = filterUser();
-    const product_id = id;
-    const product_quantity = quantity
-    const products= []
-    const put ={
-      userId: user_id,
-      products:[
-      { 
-        id: product_id,
-        quantity: 1
-      }
-    ]}
+    const userId = filterUser();
 
-    dispatch(addItemToChart(put))
-    console.log("obj", put)
+    dispatch(addItemToChart(userId))
+    
   }
 
 /*   React.useEffect(() => {

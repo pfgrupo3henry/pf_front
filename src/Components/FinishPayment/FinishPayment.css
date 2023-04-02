@@ -1,12 +1,18 @@
 .finishPayment-component{
-     min-height: 80vh;
+    margin-top: 10rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    min-height: 80vh;
     width: 100%;
+    gap: 4rem;
 }
 
-.statusPayment{
-    display: flex;
-    margin-top: 3rem;
-    margin-left: 20rem;
+.checkout{
     width: 50rem;
-    
+}
+
+.quantity-delete{
+    display: flex;
+    flex-direction: row;
 }

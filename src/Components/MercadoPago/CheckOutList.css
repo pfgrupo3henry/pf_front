@@ -1,0 +1,10 @@
+.checkOutList-component{
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 45.2px);
+    
+}
+
+.cartItems{
+    margin-top: 7rem;
+}
