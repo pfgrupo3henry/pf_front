@@ -53,7 +53,11 @@ function LandingPage() {
 
     } else if (isLoading) {
 
-        return (<div>Loading...</div>);
+        return (
+            <div className="loader-landing">
+                <div className="letter-loading-landing">Loading...</div>
+            </div>
+        );
 
     } else {
 
