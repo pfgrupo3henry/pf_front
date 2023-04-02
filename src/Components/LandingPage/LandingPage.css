@@ -136,3 +136,17 @@
         padding: 25px;
     }
 }
+
+.loader-landing {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+}
+
+.letter-loading-landing {
+    padding: 300px 0px;
+    font-size: 40px;
+}
