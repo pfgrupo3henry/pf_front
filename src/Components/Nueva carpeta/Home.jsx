@@ -185,8 +185,8 @@ function Home(label, key, icon, children, type) {
                     descriptionComplete={e.description}
                     price={e.price}
                     id={e.id}
-                    
-                    
+                    quantity= {e.quantity}
+
                   />
                 ))}
               </div>
