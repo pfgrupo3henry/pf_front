@@ -3,7 +3,9 @@ import "./LandingPage.css";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
 
+
 function LandingPage() {
+
     React.useEffect(() => {
         document.querySelector('.nav-component').style.display = 'none';
         document.querySelector('.footer').style.display = 'none';
@@ -12,6 +14,7 @@ function LandingPage() {
             document.querySelector('.footer').style.display = '';
         }
     })
+
     return (
         <div className="landing-page-component container">
             <div className="row">
@@ -20,7 +23,7 @@ function LandingPage() {
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     <Link to="/home">
                         <Button>Ingresar</Button>
-                     </Link>
+                    </Link>
                 </div>
                 <div className="col cards-col">
                     <div className="card card1"></div>
@@ -33,6 +36,7 @@ function LandingPage() {
             </div>
         </div>
     );
+
 };
 
 export default LandingPage;

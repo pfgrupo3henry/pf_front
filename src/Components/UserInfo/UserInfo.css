@@ -17,7 +17,7 @@
     justify-content: center;
     flex-direction: row;
     margin-top: 45.2px;
-    min-height: calc(100vh - 45.2px);
+    min-height: 105vh;
     position: relative;
 }
 
@@ -31,12 +31,14 @@
     background-color: #fff;
     border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
     box-shadow: 10px 0 5px -10px #00000020;
-    padding-top: 40px;
+    padding-top: 30px;
+    padding-right: 10px;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 40px;
     z-index: 1;
+    width: 400px;
 }
 
 .cardUserInfoDescription {

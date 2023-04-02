@@ -16,7 +16,6 @@ function SingUp() {
         password: ""
     });
     const [fileList, setFileList] = useState([]);
-    const [fileList2, setFileList2] = useState("vacio");
     const [imagenFile, setImagenFile2] = useState("vacio");
     const [alert, setAlert] = useState("");
     const [state, setState] = useState("login");
@@ -51,17 +50,6 @@ function SingUp() {
                 nationality: ""
             })
         }
-    };
-
-    if (fileList.length > 0 && fileList2 === "vacio") {
-        console.log(fileList[0])
-        setFileList2("lleno")
-        setInput(
-            {
-                ...input,
-                img: [fileList[0]]
-            }
-        );
     };
 
     if (state === "login") {
@@ -224,63 +212,47 @@ function SingUp() {
                 setImagenFile2("completo")
             };
 
-            setAlert("");
             console.log(input);
 
         };
 
         const onChangeInputImage = (e) => {
             setFileList(e.fileList);
-            setAlert("");
         };
 
         const handleFileListChange = ({ fileList }) => {
             setFileList(fileList);
+            setInput(
+                {
+                    ...input,
+                    img: [...fileList]
+                }
+            );
         };
 
         const handleSubmit = () => {
 
-            if (!input.firstname || !input.lastname || !input.email || !input.password ||
-                !input.nationality || input.img.length === 0 || !input.mobile) {
-
-                setAlert("incompleto");
-
-            } else if (!sName || !sLastName || !sName || !sPassword || !sNacionalidad ||
-                !sImagen || !sMobile) {
-
-                setAlert("error");
-
-            } else if (input.password !== input.password2) {
-
-                setAlert("errorPassword");
-
-            } else {
-
-                Axios.post("http://localhost:3001/user/register", input)
-                    .then((res) => {
-                        console.log(res);
-                        Swal.fire({
-                            title: "Success!",
-                            text: 'Usuario creado correctamente',
-                            icon: "success",
-                            confirmButtonText: 'Ok'
-                        }).then((res) => {
-                            sendEmail();
-                        });
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        Swal.fire({
-                            title: "Error!",
-                            text: 'Error en la carga del ususario',
-                            icon: "error",
-                            confirmButtonText: 'Ok'
-                        }).then((res) => {
-                            window.location.reload();
-                        });
+            Axios.post("http://localhost:3001/user/register", input)
+                .then((res) => {
+                    console.log(res);
+                    Swal.fire({
+                        title: "Success!",
+                        text: 'Usuario creado correctamente',
+                        icon: "success",
+                        confirmButtonText: 'Ok'
+                    }).then((res) => {
+                        window.location.reload();
                     });
-
-            };
+                })
+                .catch((err) => {
+                    console.log(err);
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Error en la carga del ususario',
+                        icon: "error",
+                        confirmButtonText: 'Ok'
+                    })
+                });
 
         };
 
@@ -338,22 +310,42 @@ function SingUp() {
         if (input.password2.length !== 0) {
             if (input.password2 !== input.password) {
                 var errorPassword2 = "error";
+            } else {
+                var sPassword2 = "finish"
             }
         };
 
         const sendEmail = (e) => {
             e.preventDefault();
 
-            emailjs.sendForm('service_p04zgza', 'template_sque1s9', e.target, 'PvHbawws_-6fNNwSb')
-                .then((result) => {
-                    console.log(result.text);
-                    handleSubmit();
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 5000);
-                }, (error) => {
-                    console.log(error.text);
+            if (!sEmail || !sName || !sLastName || !sPassword || !sPassword2
+                || !sNacionalidad || !sMobile) {
+                setAlert("alert");
+                Swal.fire({
+                    title: "Error!",
+                    text: 'Falta cargar datos obligatorios',
+                    icon: "error",
+                    confirmButtonText: 'Ok'
                 });
+            } else if (!sImagen) {
+                Swal.fire({
+                    title: "Error!",
+                    text: 'Falta cargar la imagen',
+                    icon: "error",
+                    confirmButtonText: 'Ok'
+                });
+            } else {
+
+                emailjs.sendForm('service_p04zgza', 'template_sque1s9', e.target, 'PvHbawws_-6fNNwSb')
+                    .then((result) => {
+                        handleSubmit();
+                        console.log(result.text);
+                    }, (error) => {
+                        handleSubmit();
+                        console.log(error.text);
+                    });
+
+            };
 
         };
 
@@ -371,12 +363,6 @@ function SingUp() {
                     <Form.Item
                         label="Nombre"
                         name="firstname"
-                        rules={[
-                            {
-                                required: true,
-                                message: input.firstname.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
-                            },
-                        ]}
                     >
                         <Input name="firstname" />
                         {errorName ?
@@ -384,17 +370,12 @@ function SingUp() {
                             :
                             <p></p>
                         }
+                        {input.firstname.length === 0 && alert ? <p className="p-error">Completar el nombre</p> : <p></p>}
                     </Form.Item>
 
                     <Form.Item
                         label="Apellido"
                         name="lastname"
-                        rules={[
-                            {
-                                required: true,
-                                message: input.lastname.length === 0 ? <p className="p-error">Completar el apellido</p> : <p></p>
-                            },
-                        ]}
                     >
                         <Input name="lastname" />
                         {errorLastName ?
@@ -402,17 +383,12 @@ function SingUp() {
                             :
                             <p></p>
                         }
+                        {input.lastname.length === 0 && alert ? <p className="p-error">Completar el apellido</p> : <p></p>}
                     </Form.Item>
 
                     <Form.Item
                         label="Nacionalidad"
                         name="nationality"
-                        rules={[
-                            {
-                                required: true,
-                                message: input.nationality.length === 0 ? <p className="p-error">Completar la nacionalidad</p> : <p></p>
-                            },
-                        ]}
                     >
                         <select className="select-sing-up" name="nationality" onChange={handleInputChange}>
                             <option className="option-sing-up">Encontra tu pais</option>
@@ -425,17 +401,12 @@ function SingUp() {
                                 );
                             })}
                         </select>
+                        {input.nationality.length === 0 && alert ? <p className="p-error">Completar la nacionalidad</p> : <p></p>}
                     </Form.Item>
 
                     <Form.Item
                         label="Email"
                         name="email"
-                        rules={[
-                            {
-                                required: true,
-                                message: input.email.length === 0 ? <p className="p-error">Completar el email</p> : <p></p>
-                            },
-                        ]}
                     >
                         <Input name="email" type="email" />
                         {errorEmail ?
@@ -443,6 +414,7 @@ function SingUp() {
                             :
                             <p></p>
                         }
+                        {input.email.length === 0 && alert ? <p className="p-error">Completar el email</p> : <p></p>}
                     </Form.Item>
 
                     <Form.Item label="Upload" valuePropName="fileList"
@@ -450,12 +422,6 @@ function SingUp() {
                         name="upload"
                         getValueFromEvent={handleFileListChange}
                         size={10}
-                        rules={[
-                            {
-                                required: true,
-                                message: input.img.length === 0 ? <p className="p-error">Carga la imagen</p> : <p></p>
-                            },
-                        ]}
                     >
                         <Upload
                             action="/upload.do"
@@ -477,18 +443,11 @@ function SingUp() {
 
                         {/* <input type='file' onChange={agregarFoto} /> */}
 
-
                     </Form.Item>
 
                     <Form.Item
                         label="Password"
                         name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: input.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
-                            },
-                        ]}
                     >
                         <Input.Password name="password" />
                         {errorPassword ?
@@ -506,17 +465,12 @@ function SingUp() {
                             :
                             <p></p>
                         }
+                        {input.password.length === 0 && alert ? <p className="p-error">Completar el password</p> : <p></p>}
                     </Form.Item>
 
                     <Form.Item
                         label="Repet Password"
                         name="password2"
-                        rules={[
-                            {
-                                required: true,
-                                message: input.password2.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
-                            },
-                        ]}
                     >
                         <Input.Password name="password2" />
                         {errorPassword2 ?
@@ -526,17 +480,12 @@ function SingUp() {
                             :
                             <p></p>
                         }
+                        {input.password2.length === 0 && alert ? <p className="p-error">Completar el password</p> : <p></p>}
                     </Form.Item>
 
                     <Form.Item
                         label="Celular"
                         name="mobile"
-                        rules={[
-                            {
-                                required: true,
-                                message: input.mobile.length === 0 ? <p className="p-error">Completar el celular</p> : <p></p>
-                            },
-                        ]}
                     >
                         <Input name="mobile" addonBefore="+54" />
                         {errorMobile ?
@@ -544,12 +493,13 @@ function SingUp() {
                             :
                             <p></p>
                         }
+                        {input.mobile.length === 0 && alert ? <p className="p-error">Completar el celular</p> : <p></p>}
                     </Form.Item>
 
                 </Form >
 
                 <form ref={form} onSubmit={sendEmail} className="button-sing-up-body">
-                    <Input type="submit" value="Submit" className="Button-sing-up-submit" />
+                    <Input type="submit" value="Submit" className="Button-sing-up-submit" id="button-loading" />
                     <input type="text" name="user_name" value={input.firstname} className="buttonsing-up-none" />
                     <input type="text" name="user_email" value={input.email} className="buttonsing-up-none" />
                 </form >
