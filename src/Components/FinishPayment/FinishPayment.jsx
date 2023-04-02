@@ -20,7 +20,7 @@ function FinishPayment (){
     const [position, setPosition] = useState('bottom');
     const [align, setAlign] = useState('center');
     const [products, setProducts] = useState(allProducts);
-    const [totalPrice, settotalPrice] = useState("")
+    const [totalPrice, settotalPrice] = useState(products.reduce((acc, product) => acc + product.unit_price * product.quantity, 0))
 
     const handleQuantity = (value, id) => {
         const newProducts = products.map(product => {
@@ -33,6 +33,7 @@ function FinishPayment (){
           return product;
         });
         setProducts(newProducts);
+        settotalPrice()
       };
       
 
@@ -74,7 +75,7 @@ function FinishPayment (){
                         />
                         <AiOutlineDelete className='deleteIcon'/>
                         <div className='unit-price'>
-                            {item.unit_price * item.quantity}
+                            ${item.unit_price * item.quantity}
                         </div>
                         </div>
                         </div>
@@ -100,7 +101,7 @@ function FinishPayment (){
                             Total:  
                         </div>
                         <div>
-                            ${products.reduce((acc, product) => acc + product.unit_price * product.quantity, 0)}
+                            ${totalPrice}
                         </div>                 
                         </div>
                     }
@@ -116,7 +117,7 @@ function FinishPayment (){
                         <br></br>
                         <Button
                             onClick={()=>{
-                                axios.post("http://localhost:3001/payment", products)
+                                axios.post("http://localhost:3001/payment", {totalPrice})
                                     .then((res) => {
                                         window.location.href = res.data.response.body.init_point;
                                     })
