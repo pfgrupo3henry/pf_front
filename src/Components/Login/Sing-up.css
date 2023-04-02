@@ -1,7 +1,7 @@
-.form-login {
+.login-form {
     min-height: 80vh;
-    width: 500px;
-    padding: 50px 50px;
+    width: 900px;
+    padding: 110px 0px 0px 500px;
 }
 
 .button-form-ir-a {
@@ -11,19 +11,31 @@
     color: blue;
 }
 
+.login-form-button {
+    width: 400px;
+}
+
 .form-forgot {
     padding: 0px 0px 0px 160px;
 }
 
+.div-singup-principal {
+    align-items: center;
+    justify-content: center;
+}
+
 .form-sing-up {
-    padding: 50px 0px 0px 0px;
+    padding: 60px 0px 0px 0px;
+    width: 900px;
+    align-items: center;
+    justify-content: center;
 }
 
 .select-sing-up {
     height: 38px;
     width: 100%;
     border-radius: 7px;
-    border-color: rgb(190, 182, 204);
+    border-color: rgb(216, 209, 226);
     color: rgb(100, 94, 87);
     font-size: 15px;
     Overflow: hidden;
@@ -51,6 +63,22 @@
 }
 
 .alert {
-    height: 120px;
-    width: 300px;
+    max-height: 70px;
+    max-width: 420px;
+}
+
+.button-sing-up-body {
+    align-items: center;
+    justify-content: center;
+    padding: 0px 0px 0px 300px;
+    width: 400px;
+}
+
+.Button-sing-up-submit {
+    background-color: rgb(155, 64, 240);
+    color: white;
+}
+
+.buttonsing-up-none {
+    display: none;
 }
