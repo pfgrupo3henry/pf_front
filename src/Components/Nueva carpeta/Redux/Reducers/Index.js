@@ -16,13 +16,12 @@ import {
 
 const initialState = {
     allFavorites: localStorage.getItem(`allFavorites`) && JSON.parse(localStorage.getItem('allFavorites')) || [],
-    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) || [],
+    shoppingChart: [], /* localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) || [], */
     allGames: [],
     cards: [],
     filteredCards: [],
     nameFilter: '',
     allUsers: []
-
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -60,22 +59,11 @@ const rootReducer = (state = initialState, action) => {
 
             }
 
+            
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-      /*       let flag = false;
+/*             let flag = false;
 
             state.shoppingChart.length && state.shoppingChart.forEach(el => {
                 if (JSON.stringify(el) === JSON.stringify(action.payload)) {
@@ -106,14 +94,14 @@ const rootReducer = (state = initialState, action) => {
                 cards: action.payload,
                 filteredCards: action.payload,
             }
-
-
+        
             case GET_ALL_USERS:
                 return {
                     ...state,
                     allUsers: action.payload,
                     
                 }
+
 
         case FILTER_CARDS:
             return {
