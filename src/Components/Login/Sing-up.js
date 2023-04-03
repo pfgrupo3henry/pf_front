@@ -62,7 +62,7 @@ function SingUp() {
                 return;
             };
 
-            Axios.post("http://localhost:3001/user/login", users)
+            Axios.post("https://pfservidor-production.up.railway.app/user/login", users)
                 .then((res) => {
                     console.log(res);
                     cookie.set("id", res.data._id);
@@ -232,7 +232,7 @@ function SingUp() {
 
         const handleSubmit = () => {
 
-            Axios.post("http://localhost:3001/user/register", input)
+            Axios.post("https://pfservidor-production.up.railway.app/user/register", input)
                 .then((res) => {
                     console.log(res);
                     Swal.fire({
