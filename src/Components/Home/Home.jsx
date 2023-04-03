@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect}from "react";
 import { useState } from 'react';
 import { Pagination, Alert } from 'antd';
 import { CardElement } from "../Card/card";
@@ -11,12 +11,14 @@ import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
+import {  useDispatch, useSelector } from "react-redux";
+import { filterCards, getUsers, setNameFilter } from "../../Redux/Actions/Index";
 import OrderMenu from "../OrderMenu/OrderMenu";
 
 
 function Home(label, key, icon, children, type) {
+
+ 
 
   const cards = useSelector(state => state.cards);
   const filteredVideogames = useSelector(state => state.filteredCards);
@@ -139,6 +141,9 @@ function Home(label, key, icon, children, type) {
       }
     }
   }
+
+
+  
 
   React.useEffect(() => {
     setCurrent(1)

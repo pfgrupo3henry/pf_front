@@ -31,10 +31,10 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const allFavorites = useSelector(state => state.allFavorites);
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
-  const allUsers = useSelector(state => state.allUsers);
 
   const [shoppingStringified, setShoppingStringified] = useState([]);
   const [favsStringified, setFavsStringified] = useState([]);
+
 
   const [idUserAUth0, setIdUserAuth0] = useState([]);
   const [idManuelUser, setIdManuelUser] = useState("");
