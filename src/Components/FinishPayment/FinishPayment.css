@@ -1,12 +1,58 @@
 .finishPayment-component{
-     min-height: 80vh;
+    margin-top: 8rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    min-height: 80vh;
     width: 100%;
+    gap: 4rem;
+    padding-left: 7rem;
+    padding-right: 7rem;
+
 }
 
-.statusPayment{
-    display: flex;
-    margin-top: 3rem;
-    margin-left: 20rem;
+.checkout{
     width: 50rem;
-    
+}
+
+.quantity-delete{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.deleteIcon{
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+.deleteIcon:hover{
+    transform: scale(1.2);
+}
+.unit-price{
+    display: flex;
+    margin-left: 3rem;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bolder;
+
+}
+
+.card-payment-imgMercadoPago{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.container-aux{
+    display: flex;
+    flex-direction: row;
+    gap: 14rem;
+}
+
+.infoAux{
+    width: 14rem;
+}
+
+.buttonsCardDetail{
+    width: 22rem;
 }
