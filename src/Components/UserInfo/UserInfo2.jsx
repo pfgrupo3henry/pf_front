@@ -93,7 +93,7 @@ function UserInfo() {
 
   const modifyUserSubmit = () => {
 
-    axios.put(`http://localhost:3001/user/modify/${newUser[0].email}`, input)
+    axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
       .then((res) => {
         console.log(res.data);
         window.location.reload();

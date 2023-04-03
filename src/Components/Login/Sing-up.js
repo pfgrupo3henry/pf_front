@@ -248,7 +248,7 @@ function SingUp() {
                     console.log(err);
                     Swal.fire({
                         title: "Error!",
-                        text: 'Error en la carga del ususario',
+                        text: 'Error el usuario ya existe',
                         icon: "error",
                         confirmButtonText: 'Ok'
                     })
