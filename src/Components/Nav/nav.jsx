@@ -9,8 +9,13 @@ import { Link } from "react-router-dom";
 import { RiShoppingCartLine } from "react-icons/ri";
 import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
 import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, message, Space } from "antd";
+import { Dropdown, message, Space, Badge } from "antd";
 import Cookies from "universal-cookie";
+import { useSelector } from "react-redux";
+
+function Nav() {
+  const [shoppingCartRender, setShoppingCartRender] = React.useState(false);
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 import axios from "axios";
 
 
@@ -22,6 +27,7 @@ function Nav() {
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
   const cookie = new Cookies();
   const cookieId = cookie.get("firstname");
+  const cards = useSelector((state) => state.shoppingChart);
 
   if (isAuthenticated) {
 
@@ -40,7 +46,7 @@ function Nav() {
     loginWithPopup({
       height: 600,
       width: 400,
-      timeoutInSeconds: 10,
+     timeoutInSeconds: 10,
     }).then((res) => {
       window.location.href = "http://localhost:3000/home";
     })
@@ -72,7 +78,11 @@ function Nav() {
       key: "2",
     },
     {
-      label: <Link to="/admin" className="rutasNav">Admin</Link>,
+      label: (
+        <Link to="/admin" className="rutasNav">
+          Admin
+        </Link>
+      ),
       key: "3",
     },
     {
@@ -82,21 +92,41 @@ function Nav() {
   ];
 
   return (
-    <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
+    <div
+      className={`nav-component ${
+        isAuthenticated || cookieId ? "nav" : "navAux"
+      }`}>
       <div className="rutasNavContainer">
         <ul>
-          <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
-            <Link to="/home" className="rutasNav">Home</Link>
+          <li
+            className={
+              isAuthenticated || cookieId
+                ? "rutasNavAlternativeAux"
+                : "rutasNav"
+            }>
+            <Link to="/home" className="rutasNav">
+              Home
+            </Link>
           </li>
-          {
-            isAuthenticated || cookieId
-              ? null
-              : <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux2" : "rutasNavAux"}>
-                <Link to="/login" className="rutasNav">Login</Link>
-              </li>
-          }
+          {isAuthenticated || cookieId ? null : (
+            <li
+              className={
+                isAuthenticated || cookieId
+                  ? "rutasNavAlternativeAux2"
+                  : "rutasNavAux"
+              }>
+              <Link to="/login" className="rutasNav">
+                Login
+              </Link>
+            </li>
+          )}
           <li>
-            <Dropdown className={isAuthenticated || cookieId ? "rutasNav2Aux" : "rutasNav2AuxUltimate"}
+            <Dropdown
+              className={
+                isAuthenticated || cookieId
+                  ? "rutasNav2Aux"
+                  : "rutasNav2AuxUltimate"
+              }
               menu={{
                 items: inboxOptions,
               }}>
@@ -108,14 +138,20 @@ function Nav() {
               </a>
             </Dropdown>
           </li>
-          <li className={isAuthenticated || cookieId ? "buscadorAux" : "buscador"}>
+          <li
+            className={
+              isAuthenticated || cookieId ? "buscadorAux" : "buscador"
+            }>
             <SearchBar />
           </li>
         </ul>
-        <div className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}></div>
+        <div
+          className={
+            isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"
+          }></div>
         <div className="rutasNav3">
           <div className="profileNav">
-            {isAuthenticated ?
+            {isAuthenticated ? (
               <Dropdown
                 className=""
                 menu={{
@@ -126,11 +162,10 @@ function Nav() {
                     <Profile />
                   </Space>
                 </a>
-              </Dropdown> :
-              null
-            }
+              </Dropdown>
+            ) : null}
             <div>
-              {cookieId ?
+              {cookieId ? (
                 <Dropdown
                   className=""
                   menu={{
@@ -138,22 +173,32 @@ function Nav() {
                   }}>
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
-                      <img className="imgProfile" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" alt="profile"></img>
+                      <img
+                        className="imgProfile"
+                        src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
+                        alt="profile"></img>
                     </Space>
                   </a>
-                </Dropdown> :
-                null
-              }
+                </Dropdown>
+              ) : null}
             </div>
-            <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
-          </div>
 
+            <Badge
+              count={cards.length}
+              size="small"
+              style={{ backgroundColor: "#1976D2" }}>
+              <RiShoppingCartLine
+                className={!isAuthenticated && !cookieId ? "cartAux" : "cart"}
+                onClick={() => {
+                  isAuthenticated || cookieId
+                    ? setShoppingCartRender(!shoppingCartRender)
+                    : handleLoginClick();
+                }}
+              />
+            </Badge>
+          </div>
         </div>
-        {
-          shoppingCartRender
-            ? <DropdownShoppingCart />
-            : null
-        }
+        {shoppingCartRender ? <DropdownShoppingCart /> : null}
       </div>
     </div>
   );
