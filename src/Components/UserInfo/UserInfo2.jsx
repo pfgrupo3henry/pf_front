@@ -1,6 +1,6 @@
-import { AppstoreOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, PlusOutlined } from '@ant-design/icons';
 import { Descriptions } from 'antd';
-import { Menu, Button, Form, Input, Card } from 'antd';
+import { Menu, Button, Form, Input, Card, Upload } from 'antd';
 import { useState } from 'react';
 import "./UserInfo.css";
 import "../CardDetail/CardDetail.css";
@@ -48,8 +48,11 @@ function UserInfo() {
     firstname: "",
     lastname: "",
     nationality: "",
-    mobile: ""
+    mobile: "",
+    img: []
   });
+  const [fileList, setFileList] = useState([]);
+  const [imagenFile, setImagenFile2] = useState("vacio");
 
 
   if (!user && newUser.length === 0) {
@@ -60,7 +63,7 @@ function UserInfo() {
 
     if (newUser.length === 0) {
 
-      axios.get(`http://localhost:3001/user/${email}`)
+      axios.get(`https://pfservidor-production.up.railway.app/user/${email}`)
         .then((res) => {
           console.log(res.data);
           setNewUser([res.data]);
@@ -76,7 +79,7 @@ function UserInfo() {
 
     if (newUser.length === 0) {
 
-      axios.get(`http://localhost:3001/user/${emailAuth0}`)
+      axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
         .then((res) => {
           console.log(res.data);
           setNewUser([res.data]);
@@ -90,7 +93,7 @@ function UserInfo() {
 
   const modifyUserSubmit = () => {
 
-    axios.put(`http://localhost:3001/user/modify/${newUser[0].email}`, input)
+    axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
       .then((res) => {
         console.log(res.data);
         window.location.reload();
@@ -107,6 +110,17 @@ function UserInfo() {
         [e.target.name]: e.target.value
       }
     );
+
+    if (imagenFile === "enCamino") {
+      setInput(
+        {
+          ...input,
+          img: [input.img[0].thumbUrl]
+        }
+      );
+      setImagenFile2("completo")
+    };
+
     console.log(input);
   };
 
@@ -119,8 +133,24 @@ function UserInfo() {
     };
   };
 
+  const onChangeInputImage = (e) => {
+    setFileList(e.fileList);
+  };
+
+  const handleFileListChange = ({ fileList }) => {
+    setFileList(fileList);
+    setImagenFile2("enCamino");
+    setInput(
+      {
+        ...input,
+        img: [...fileList]
+      }
+    );
+  };
+
 
   console.log(newUser);
+  console.log(fileList[0]);
 
   return (
 
@@ -161,6 +191,41 @@ function UserInfo() {
                   <Input name="lastname" />
                 </Form.Item>
 
+                <Form.Item label="Upload" valuePropName="fileList"
+                  initialValue={fileList[0]}
+                  name="upload"
+                  getValueFromEvent={handleFileListChange}
+                  size={10}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Cargar la imagen"
+                    },
+                  ]}
+                >
+                  <Upload
+                    action="/upload.do"
+                    listType="picture-card"
+                    onChange={(e) => { onChangeInputImage(e) }}
+                  >
+
+                    <div>
+                      <PlusOutlined />
+                      <div
+                        style={{
+                          marginTop: 8,
+                        }}
+                      >
+                        Image
+                      </div>
+                    </div>
+                  </Upload>
+
+                  {/* <input type='file' onChange={agregarFoto} /> */}
+
+
+                </Form.Item>
+
                 <Form.Item label="Nacionalidad" name="nationality" rules={[{ required: true }]}>
                   <Input name="nationality" />
                 </Form.Item>
@@ -190,7 +255,7 @@ function UserInfo() {
             <img
               style={{ width: 300, height: 330 }}
               alt="Among Us"
-              src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
+              src={newUser[0] ? newUser[0].img[0] : "Incompleto"}
             />
           }
         >

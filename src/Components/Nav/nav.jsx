@@ -16,16 +16,41 @@ import { useSelector } from "react-redux";
 function Nav() {
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false);
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+import axios from "axios";
+
+
+
+
+function Nav() {
+
+  const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
+  const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
   const cookie = new Cookies();
   const cookieId = cookie.get("firstname");
   const cards = useSelector((state) => state.shoppingChart);
 
+  if (isAuthenticated) {
+
+    const userAuth0 = {
+      email: user.email,
+      img: ["https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"]
+    }
+
+    axios.post("https://pfservidor-production.up.railway.app/user/auth0", userAuth0)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+  };
+
   const handleLoginClick = () => {
-    loginWithRedirect({
+    loginWithPopup({
       height: 600,
       width: 400,
-      //timeoutInSeconds: 10,
-    });
+     timeoutInSeconds: 10,
+    }).then((res) => {
+      window.location.href = "http://localhost:3000/home";
+    })
+
   };
 
   const inboxOptions = [

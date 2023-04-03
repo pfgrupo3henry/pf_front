@@ -54,30 +54,21 @@ export const addItemToChart = (payload) => {
 
 }
 
-
-
-
-export const getUsers =()=> {
-    try {
-        return async function(dispatch){
-            let json = await axios.get('https://pfservidor-production.up.railway.app/user/all-users');
-            console.log(json)
-            return dispatch({
+export const getUsers = () => {
+    return async function (dispatch) {s
+        try {
+            const response = await fetch('https://pfservidor-production.up.railway.app/user/all-users');
+            const data = await response.json();
+            console.log(data);
+            dispatch({
                 type: GET_ALL_USERS,
-                payload: json.data
+                payload: data,
             })
+        } catch (error) {
+            console.error(error);
         }
-        
-    } catch (error) {
-        console.log(error)
-        
     }
-    
-
 }
-
-
-
 
 export const getCards = () => {
     return async function (dispatch) {
