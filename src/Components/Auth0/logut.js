@@ -37,7 +37,7 @@ export const Logout = () => {
     return (
 
         <Space wrap>
-            <div onClick={() => eliminarCookies()} type="primary">Salir</div>
+            <div onClick={() => eliminarCookies()} type="primary">Logout</div>
         </Space>
 
         // <form ref={form} onSubmit={sendEmail} className="form-email">

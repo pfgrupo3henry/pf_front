@@ -63,7 +63,7 @@ function UserInfo() {
 
     if (newUser.length === 0) {
 
-      axios.get(`http://localhost:3001/user/${email}`)
+      axios.get(`https://pfservidor-production.up.railway.app/user/${email}`)
         .then((res) => {
           console.log(res.data);
           setNewUser([res.data]);
@@ -79,7 +79,7 @@ function UserInfo() {
 
     if (newUser.length === 0) {
 
-      axios.get(`http://localhost:3001/user/${emailAuth0}`)
+      axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
         .then((res) => {
           console.log(res.data);
           setNewUser([res.data]);
@@ -93,7 +93,7 @@ function UserInfo() {
 
   const modifyUserSubmit = () => {
 
-    axios.put(`http://localhost:3001/user/modify/${newUser[0].email}`, input)
+    axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
       .then((res) => {
         console.log(res.data);
         window.location.reload();

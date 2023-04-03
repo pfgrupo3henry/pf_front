@@ -30,7 +30,7 @@ function Nav() {
       img: ["https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"]
     }
 
-    axios.post("http://localhost:3001/user/auth0", userAuth0)
+    axios.post("https://pfservidor-production.up.railway.app/user/auth0", userAuth0)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
