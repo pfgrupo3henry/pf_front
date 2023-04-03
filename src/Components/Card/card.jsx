@@ -90,6 +90,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     console.log("obj", put)
   }
 
+  //linea inutil
+
 /*   React.useEffect(() => {
     const returnStringified = shoppingChart.map(el => {
       return JSON.stringify(el);
