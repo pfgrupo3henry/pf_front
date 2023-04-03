@@ -46,19 +46,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
   if (isAuthenticated) {
 
-    if (!user) {
-
-      if (idManuelUser === "") {
-
-        const cookie = new Cookies();
-        const idCoockie = cookie.get("id");
-        console.log(idCoockie);
-
-        setIdManuelUser(idCoockie);
-
-      }
-
-    } else if (user) {
+    if (user) {
 
       const emailAuth0 = user.email;
 
@@ -81,7 +69,19 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     console.log(idUserAUth0[0].id);
   };
 
+  if (!user) {
 
+    if (idManuelUser === "") {
+
+      const cookie = new Cookies();
+      const idCoockie = cookie.get("id");
+      console.log(idCoockie);
+
+      setIdManuelUser(idCoockie);
+
+    }
+
+  };
 
   /*const cookie = new Cookies();
   const idCookie = cookie.get("id");
