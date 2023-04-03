@@ -54,9 +54,8 @@ export const addItemToChart = (payload) => {
 
 }
 
-
 export const getUsers = () => {
-    return async function (dispatch) {
+    return async function (dispatch) {s
         try {
             const response = await fetch('https://pfservidor-production.up.railway.app/user/all-users');
             const data = await response.json();
@@ -70,8 +69,6 @@ export const getUsers = () => {
         }
     }
 }
-
-
 
 export const getCards = () => {
     return async function (dispatch) {
