@@ -79,7 +79,7 @@ function UserInfo() {
 
     if (newUser.length === 0) {
 
-      axios.get(`http://localhost:3001/user/${emailAuth0}`)
+      axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
         .then((res) => {
           console.log(res.data);
           setNewUser([res.data]);
