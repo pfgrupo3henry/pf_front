@@ -126,12 +126,12 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       const products = []
       const put = {
         userId: idUserAUth0[0].id,
-        products: [
+        products: 
           {
             id: product_id,
             quantity: 1
           }
-        ]
+        
       }
 
       dispatch(addItemToChart(put));
@@ -153,12 +153,12 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       const products = []
       const put = {
         userId: idManuelUser,
-        products: [
+        products: 
           {
             id: product_id,
             quantity: 1
           }
-        ]
+        
       }
 
       dispatch(addItemToChart(put))
