@@ -17,7 +17,9 @@ export const Logout = () => {
         document.cookie.split(";").forEach(function (c) {
             document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
-        logout();
+        logout().then((res) => {
+            window.location.href = "https://pf-front-y72g-git-develop-pfgrupo3henry.vercel.app";
+        })
     };
 
 
