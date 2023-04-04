@@ -78,13 +78,13 @@ function FinishPayment() {
     };
 
 
-    if (idManuelUser) {
+    if (idManuelUser && string === "hola") {
 
         axios.get(`https://pfservidor-production.up.railway.app/cart/${idManuelUser}`)
             .then((res) => {
                 console.log(res.data);
                 setProducts([res.data]);
-                settotalPrice()
+                setString("chau");
             })
             .catch((err) => console.log(err))
 
@@ -94,7 +94,7 @@ function FinishPayment() {
             .then((res) => {
                 console.log(res.data);
                 setProducts([res.data]);
-                setString("chau")
+                setString("chau");
             })
             .catch((err) => console.log(err))
 
