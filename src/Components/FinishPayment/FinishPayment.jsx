@@ -92,7 +92,6 @@ function FinishPayment() {
                 console.log(res.data);
                 setProducts([res.data]);
                 setString("chau");
-                settotalPrice(res.data[0].reduce((acc, product) => acc + res.data.price * product.quantity, 0))
             })
             .catch((err) => console.log(err))
 
@@ -103,7 +102,6 @@ function FinishPayment() {
                 console.log(res.data);
                 setProducts([res.data]);
                 setString("chau");
-                settotalPrice(res.data[0].reduce((acc, product) => acc + product.price * product.quantity, 0))
             })
             .catch((err) => console.log(err))
 
