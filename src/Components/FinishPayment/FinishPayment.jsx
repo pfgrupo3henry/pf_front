@@ -9,7 +9,7 @@ import "./FinishPayment.css"
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import Item from 'antd/es/list/Item';
-
+import Swal from 'sweetalert2';
 
 
 
@@ -28,7 +28,6 @@ function FinishPayment() {
     const [idUserAUth0, setIdUserAuth0] = useState([]);
     const [idManuelUser, setIdManuelUser] = useState("");
     const [string, setString] = useState("hola");
-    const [valor, setValor] = useState(0);
 
     const handleQuantity = (id, item) => {
 
@@ -40,8 +39,8 @@ function FinishPayment() {
 
     const handleQuantity2 = (id, item) => {
 
-        if (item.quantity === 0) {
-            return (console.log("0"));
+        if (item.quantity === 1) {
+            return (console.log("1"));
         };
 
         item.quantity = Number(item.quantity) - 1;
@@ -134,11 +133,59 @@ function FinishPayment() {
 
             console.log(id);
 
-            axios.delete(`https://pfservidor-production.up.railway.app/cart/${id}`)
-                .then((res) => {
-                    console.log(res.data);
-                })
-                .catch((err) => console.log(err))
+            if (user) {
+
+                axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: id })
+                    .then((res) => {
+                        console.log(res.data);
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Juego Borrado Correctamente',
+                            icon: "success",
+                            confirmButtonText: 'Ok'
+                        }).then((res) => {
+                            window.location.href = `/status-payment`
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'No se pudo borrar el juego',
+                            icon: "error",
+                            confirmButtonText: 'Ok'
+                        }).then((res) => {
+                            window.location.href = `/status-payment`
+                        });
+                    })
+
+            } else {
+
+                axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: id })
+                    .then((res) => {
+                        console.log(res.data);
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Juego Borrado Correctamente',
+                            icon: "success",
+                            confirmButtonText: 'Ok'
+                        }).then((res) => {
+                            window.location.href = `/status-payment`
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'No se pudo borrar el juego',
+                            icon: "error",
+                            confirmButtonText: 'Ok'
+                        }).then((res) => {
+                            window.location.href = `/status-payment`
+                        });
+                    })
+
+            }
 
         };
 
