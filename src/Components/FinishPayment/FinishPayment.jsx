@@ -85,6 +85,7 @@ function FinishPayment() {
                 console.log(res.data);
                 setProducts([res.data]);
                 setString("chau");
+                settotalPrice(res.data[0].reduce((acc, product) => acc + res.data.price * product.quantity, 0))
             })
             .catch((err) => console.log(err))
 
@@ -95,6 +96,7 @@ function FinishPayment() {
                 console.log(res.data);
                 setProducts([res.data]);
                 setString("chau");
+                settotalPrice(res.data[0].reduce((acc, product) => acc + product.price * product.quantity, 0))
             })
             .catch((err) => console.log(err))
 
@@ -111,14 +113,14 @@ function FinishPayment() {
         console.log(newArray);
 
 
-        if (string === "chau") {
+      /*   if (string === "chau") {
             var num = 0;
             for (let i = 0; i < newArray.length; i++) {
                 num = num + Number(newArray[i].price);
             }
             settotalPrice(num)
             setString("terminado")
-        };
+        }; */
 
         console.log(totalPrice);
 
