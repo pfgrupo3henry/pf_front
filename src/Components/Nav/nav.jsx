@@ -106,7 +106,7 @@ function Nav() {
       width: 400,
       timeoutInSeconds: 10,
     }).then((res) => {
-      window.location.href = "http://localhost:3000/home";
+      window.location.href = "https://pfservidor-production.up.railway.app/home";
     })
 
   };
