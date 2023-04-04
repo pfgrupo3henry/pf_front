@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import { SiMercadopago } from "react-icons/si";
-import { Avatar, InputNumber, List, Radio, Space, Card } from 'antd';
+import { Avatar, InputNumber, List, Radio, Space, Card, Input } from 'antd';
 import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
 import { useState } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
@@ -8,6 +8,7 @@ import axios from "axios"
 import "./FinishPayment.css"
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
+import Item from 'antd/es/list/Item';
 
 
 
@@ -27,19 +28,26 @@ function FinishPayment() {
     const [idUserAUth0, setIdUserAuth0] = useState([]);
     const [idManuelUser, setIdManuelUser] = useState("");
     const [string, setString] = useState("hola");
+    const [valor, setValor] = useState(0);
 
-    const handleQuantity = (value, id) => {
-        const newProducts = products.map(product => {
-            if (product.id === id) {
-                return {
-                    ...product,
-                    quantity: value
-                };
-            }
-            return product;
-        });
-        setProducts(newProducts);
-        settotalPrice()
+    const handleQuantity = (id, item) => {
+
+        item.quantity = Number(item.quantity) + 1;
+        var numero2 = totalPrice + Number(item.price);
+        settotalPrice(numero2);
+
+    };
+
+    const handleQuantity2 = (id, item) => {
+
+        if (item.quantity === 0) {
+            return (console.log("0"));
+        };
+
+        item.quantity = Number(item.quantity) - 1;
+        var numero2 = totalPrice - Number(item.price);
+        settotalPrice(numero2);
+
     };
 
     if (isAuthenticated) {
@@ -113,15 +121,29 @@ function FinishPayment() {
         console.log(newArray);
 
 
-      /*   if (string === "chau") {
+        if (string === "chau") {
             var num = 0;
             for (let i = 0; i < newArray.length; i++) {
                 num = num + Number(newArray[i].price);
             }
             settotalPrice(num)
             setString("terminado")
-        }; */
+        };
 
+        const onClickDelete = (id) => {
+
+            console.log(id);
+
+            axios.delete(`https://pfservidor-production.up.railway.app/cart/${id}`)
+                .then((res) => {
+                    console.log(res.data);
+                })
+                .catch((err) => console.log(err))
+
+        };
+
+        console.log(idUserAUth0);
+        console.log(idManuelUser);
         console.log(totalPrice);
 
         return (
@@ -154,12 +176,18 @@ function FinishPayment() {
                                                     <br></br>
 
                                                     <div className='quantity-delete'>
-                                                        <InputNumber
-                                                            value={item.quantity}
-                                                            onChange={(value) => handleQuantity(value, item.id)}
-                                                            style={{ height: "1.69rem", width: "4rem" }}
-                                                        />
-                                                        <AiOutlineDelete className='deleteIcon' />
+
+                                                        <Button className='button+' onClick={(e) => handleQuantity2(item.id, item)}>
+                                                            -
+                                                        </Button>
+                                                        <p className='p-cantidad'>{item.quantity}</p>
+                                                        <Button className='button-' onClick={(e) => handleQuantity(item.id, item)}>
+                                                            +
+                                                        </Button>
+
+                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id)}>
+                                                            <AiOutlineDelete className='deleteIcon' />
+                                                        </Button>
                                                         <div className='unit-price'>
                                                             ${item.price}
                                                         </div>
