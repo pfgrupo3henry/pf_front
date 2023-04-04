@@ -39,7 +39,7 @@ export const deleteFavorites = (id) => {
 export const addItemToChart = (payload) => {
     try {
         return async function(dispatch){
-            let json = await axios.put("https://pfservidor-production.up.railway.app/cart" , payload);
+            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity" , payload);
             console.log("console.log" , json)
             return dispatch({
                 type: ADD_ITEM_TO_CHART,
