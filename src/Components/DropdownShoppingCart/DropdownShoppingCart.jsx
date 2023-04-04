@@ -1,6 +1,7 @@
 import React from "react";
-import DropdownShoppingCartCard from "./DropdownShoppingCartCard";
-import { Button, Space } from "antd";
+//import DropdownShoppingCartCard from "./DropdownShoppingCartCard";
+import { Button, Typography, Image, Space, Tooltip, Input } from "antd";
+import { PlusOutlined, MinusOutlined, DeleteOutlined } from "@ant-design/icons";
 import "./DropdownShoppingCart.css";
 import { useSelector } from "react-redux";
 import axios from "axios"
@@ -8,6 +9,8 @@ import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
+import "./DropdownShoppingCartCard.css";
 
 
 
@@ -19,6 +22,7 @@ function DropdownShoppingCart() {
   const [idManuelUser, setIdManuelUser] = useState("");
   const [string, setString] = useState("hola");
 
+  const { Text } = Typography;
 
   if (isAuthenticated) {
 
@@ -50,6 +54,66 @@ function DropdownShoppingCart() {
       console.log(idCoockie);
 
       setIdManuelUser(idCoockie);
+
+    }
+
+  };
+
+  const onClickDelete = (e) => {
+
+
+
+    if (user) {
+
+      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: e.target.value })
+        .then((res) => {
+          console.log(res.data);
+          Swal.fire({
+            title: "Success!",
+            text: 'Juego Borrado Correctamente',
+            icon: "success",
+            confirmButtonText: 'Ok'
+          }).then((res) => {
+            window.location.href = `/home`
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            title: "Error!",
+            text: 'No se pudo borrar el juego',
+            icon: "error",
+            confirmButtonText: 'Ok'
+          }).then((res) => {
+            window.location.href = `/home`
+          });
+        })
+
+    } else {
+
+      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: e.target.value })
+        .then((res) => {
+          console.log(res.data);
+          Swal.fire({
+            title: "Success!",
+            text: 'Juego Borrado Correctamente',
+            icon: "success",
+            confirmButtonText: 'Ok'
+          }).then((res) => {
+            window.location.href = `/home`
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            title: "Error!",
+            text: 'No se pudo borrar el juego',
+            icon: "error",
+            confirmButtonText: 'Ok'
+          }).then((res) => {
+            window.location.href = `/home`
+          });
+        })
 
     }
 
@@ -92,11 +156,35 @@ function DropdownShoppingCart() {
         <div className="scroll">
           {products.length
             ? products[0].products.map((el) => (
-              <DropdownShoppingCartCard
-                title={el.name}
-                image={el.img[0]}
-                price={el.price}
-              />
+              <div className="dropdown-shopping-cart-card-component">
+                <div style={{ backgroundImage: `url('${""}')` }} className="card-header">
+                  <Image width={100} src={el.img[0]} />
+                  <Text type="secondary" style={{ color: "#90A4AE" }}>
+                    {el.name || "Game Title"}
+                  </Text>
+                </div>
+                <div>
+                  <Text type="secondary">{`$ ${el.price}` || "$USD 30"}</Text>
+                </div>
+                <div className="card-footer">
+                  <Space>
+                    <Tooltip title="Minus">
+                      <Button icon={<MinusOutlined />} />
+                    </Tooltip>
+                    <Tooltip title="Add">
+                      <Button icon={<PlusOutlined />} />
+                    </Tooltip>
+                    <Tooltip title="delete">
+                      <Input
+                        type="submit"
+                        onClick={(e) => onClickDelete(e)}
+                        value={el.id}
+                      >
+                      </Input>
+                    </Tooltip>
+                  </Space>
+                </div>
+              </div>
             ))
             : null}
         </div>
