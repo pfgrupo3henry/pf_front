@@ -39,17 +39,18 @@ export const deleteFavorites = (id) => {
 export const addItemToChart = (payload) => {
     try {
         return async function(dispatch){
-            let json = await axios.put("https://pfservidor-production.up.railway.app/cart" , payload);
+            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity" , payload);
             console.log("console.log" , json)
+
             return dispatch({
                 type: ADD_ITEM_TO_CHART,
                 payload: json.data,
             })
         }
-            
-    } catch (error) {   
+
+    } catch (error) {
         console.log("error-post", error)
-        
+
     }
 
 }
@@ -57,9 +58,9 @@ export const addItemToChart = (payload) => {
 
 
 
-export const getUsers =()=> {
+export const getUsers = () => {
     try {
-        return async function(dispatch){
+        return async function (dispatch) {
             let json = await axios.get('https://pfservidor-production.up.railway.app/user/all-users');
             console.log(json)
             return dispatch({
@@ -67,12 +68,12 @@ export const getUsers =()=> {
                 payload: json.data
             })
         }
-        
+
     } catch (error) {
         console.log(error)
-        
+
     }
-    
+
 
 }
 
@@ -96,21 +97,21 @@ export const getCards = () => {
 }
 
 
-export const postNewProduct =(payload)=> {
+export const postNewProduct = (payload) => {
 
     try {
-        return async function(dispatch){
-            let json = await axios.post("https://pfservidor-production.up.railway.app/videogames" , payload);
-            console.log("console.log" , json)
+        return async function (dispatch) {
+            let json = await axios.post("https://pfservidor-production.up.railway.app/videogames", payload);
+            console.log("console.log", json)
             return dispatch({
                 type: POST_NEW_PRODUCT,
                 payload: json.data,
             })
         }
-            
-    } catch (error) {   
+
+    } catch (error) {
         console.log("error-post", error)
-        
+
     }
 
 }
