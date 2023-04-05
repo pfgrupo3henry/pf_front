@@ -126,24 +126,17 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       const products = []
       const put = {
         userId: idUserAUth0[0].id,
-        products: 
-          {
-            id: product_id,
-            quantity: 1
-          }
-        
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
       }
 
+      setCart(false);
       dispatch(addItemToChart(put));
       console.log("obj", put);
-      Swal.fire({
-        title: "Success!",
-        text: 'Carrito cargado correctamente',
-        icon: "success",
-        confirmButtonText: 'Ok'
-      }).then((res) => {
-        window.location.href = `/home`
-      });
 
     } else if (!user) {
 
@@ -153,24 +146,45 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       const products = []
       const put = {
         userId: idManuelUser,
-        products: 
-          {
-            id: product_id,
-            quantity: 1
-          }
-        
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
       }
 
+      setCart(false);
       dispatch(addItemToChart(put))
       console.log("obj", put)
-      Swal.fire({
-        title: "Success!",
-        text: 'Carrito cargado correctamente',
-        icon: "success",
-        confirmButtonText: 'Ok'
-      }).then((res) => {
-        window.location.href = `/home`
-      });
+
+    }
+
+  };
+
+  const onClickDelete = (id) => {
+
+    if (user) {
+
+      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: id })
+        .then((res) => {
+          console.log(res.data);
+          setCart(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+    } else {
+
+      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: id })
+        .then((res) => {
+          console.log(res.data);
+          setCart(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
 
     }
 
@@ -228,18 +242,12 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
             : <AiFillHeart
               onClick={() => dispatch(deleteFavorites(id))}
               className='favIconCardHome' />}
-          {!shoppingStringified.includes(JSON.stringify({
-            title,
-            description,
-            img: imgProvisoria,
-            price,
-            id
-          })) ?
+          {cart ?
             <RiShoppingCartLine
               className='favIconCardHome'
               onClick={() => handleShoppingChart(id, quantity)} />
             : <RiShoppingCartFill
-              onClick={() => handleShoppingChart(title, description, imgProvisoria, price, id, quantity)}
+              onClick={() => onClickDelete(id)}
               className='favIconCardHome' />}
         </div>
       </Card>

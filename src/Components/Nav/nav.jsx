@@ -12,7 +12,9 @@ import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space, Badge } from "antd";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import { useState } from 'react';
+import { addItemToChart } from "../../Redux/Actions/Index";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 
 
 
@@ -27,6 +29,8 @@ function Nav() {
   const [idUserAUth0, setIdUserAuth0] = useState([]);
   const [idManuelUser, setIdManuelUser] = useState("");
   const [string, setString] = useState("hola");
+  const shoppingChart = useSelector(state => state.shoppingChart);
+  const dispatch = useDispatch();
 
 
   if (isAuthenticated) {
@@ -106,7 +110,7 @@ function Nav() {
       width: 400,
       timeoutInSeconds: 10,
     }).then((res) => {
-      window.location.href = "https://pf-front-y72g-git-develop-pfgrupo3henry.vercel.app/home";
+      window.location.href = "/home";
     })
 
   };
@@ -144,6 +148,9 @@ function Nav() {
       key: "4",
     },
   ];
+
+  console.log(shoppingChart);
+
 
   return (
     <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
@@ -210,7 +217,7 @@ function Nav() {
               }
             </div>
             <Badge
-              count={products.length !== 0 ? products[0].products.length : "0"}
+              count={shoppingChart.length > 1 ? "&" : "0"}
               size="small"
               style={{ backgroundColor: "#1976D2" }}>
               <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
