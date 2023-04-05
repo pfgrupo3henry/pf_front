@@ -23,7 +23,8 @@ const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
 function CardElement({ title, imgProvisoria, description, price, descriptionComplete, id, quantity }) {
 
   const { user, isAuthenticated } = useAuth0();
-
+  const [cargado, setCargado] = useState(false);
+  const [borrado, setBorrado] = useState(false);
 
   const [favorite, setFavorite] = useState(true);
   const [cart, setCart] = useState(true);
@@ -135,6 +136,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       }
 
       setCart(false);
+      setCargado(true);
+      setBorrado(false);
       dispatch(addItemToChart(put));
       console.log("obj", put);
 
@@ -155,6 +158,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       }
 
       setCart(false);
+      setCargado(true);
+      setBorrado(false);
       dispatch(addItemToChart(put))
       console.log("obj", put)
 
@@ -170,6 +175,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
         .then((res) => {
           console.log(res.data);
           setCart(true);
+          setBorrado(true);
+          setCargado(false);
         })
         .catch((err) => {
           console.log(err);
@@ -181,6 +188,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
         .then((res) => {
           console.log(res.data);
           setCart(true);
+          setBorrado(true)
+          setCargado(false);
         })
         .catch((err) => {
           console.log(err);
@@ -225,6 +234,15 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           title={title}
           description={precio}
         />
+        <br></br>
+        {cargado === true ?
+          <p className='p-carrito'>Carrito cargado</p>
+          :
+          null}
+        {borrado === true ?
+          <p className='p-carrito-borrado'>Eliminado</p>
+          :
+          null}
         <div className='iconsCardHomeContainer'>
           {!favsStringified.includes(JSON.stringify({
             title,

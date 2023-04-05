@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 
-function Nav() {
+function Nav(count) {
 
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
   const cookie = new Cookies();
@@ -149,8 +149,6 @@ function Nav() {
     },
   ];
 
-  console.log(shoppingChart);
-
 
   return (
     <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
@@ -217,7 +215,7 @@ function Nav() {
               }
             </div>
             <Badge
-              count={shoppingChart.length > 1 ? "&" : "0"}
+              count="!"
               size="small"
               style={{ backgroundColor: "#1976D2" }}>
               <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />

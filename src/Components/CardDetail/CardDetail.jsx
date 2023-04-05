@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Col, Row } from 'antd';
@@ -6,7 +6,9 @@ import { useParams } from 'react-router-dom';
 import { Avatar, Button, Rate } from 'antd';
 import { Input } from 'antd';
 import axios from "axios";
-
+import Cookies from "universal-cookie";
+import { useSelector, useDispatch } from "react-redux";
+import { addItemToChart } from "../../Redux/Actions/Index";
 
 
 import "./CardDetail.css";
@@ -21,8 +23,12 @@ function CardDetail() {
     const [card, setCard] = useState([]);
     const { user, isAuthenticated, isLoading } = useAuth0();
     const { id } = useParams();
-
+    const dispatch = useDispatch();
     const { Meta } = Card;
+    const [idUserAUth0, setIdUserAuth0] = useState([]);
+    const [idManuelUser, setIdManuelUser] = useState("");
+    const allUsers = useSelector(state => state.allUsers);
+
 
     if (!card.length) {
 
@@ -35,8 +41,85 @@ function CardDetail() {
 
     };
 
-    console.log(card);
-    console.log(id);
+    if (isAuthenticated) {
+
+        if (user) {
+
+            const emailAuth0 = user.email;
+
+            if (idUserAUth0.length === 0) {
+
+                axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
+                    .then((res) => {
+                        console.log(res.data);
+                        setIdUserAuth0([res.data]);
+                    })
+                    .catch((err) => console.log(err))
+
+            }
+
+        };
+
+    };
+
+    if (idUserAUth0.length !== 0) {
+        console.log(idUserAUth0[0].id);
+    };
+
+    if (!user) {
+
+        if (idManuelUser === "") {
+
+            const cookie = new Cookies();
+            const idCoockie = cookie.get("id");
+            console.log(idCoockie);
+
+            setIdManuelUser(idCoockie);
+
+        }
+
+    };
+
+
+    const handleShoppingChart = (id) => {
+
+        if (user) {
+
+            const product_id = id;
+            const put = {
+                userId: idUserAUth0[0].id,
+                products:
+                {
+                    id: product_id,
+                    quantity: 1
+                }
+
+            }
+
+
+            dispatch(addItemToChart(put));
+            console.log("obj", put);
+
+        } else if (!user) {
+
+            const product_id = id;
+            const put = {
+                userId: idManuelUser,
+                products:
+                {
+                    id: product_id,
+                    quantity: 1
+                }
+
+            }
+
+
+            dispatch(addItemToChart(put))
+            console.log("obj", put)
+
+        }
+
+    };
 
     if (card.length !== 0) {
 
@@ -46,168 +129,169 @@ function CardDetail() {
 
             <div className='card-detail-component2'>
 
-            <div className="body-card card-detail-component">
+                <div className="body-card card-detail-component">
 
-                <div className="cardsDetailsRates">
-                    <div className="cardsContainer">
-                        <div className="cardFormReview">
-                            <Card
-                                style={{ width: 360, height: 580 }}
-                                cover={
-                                    <img
-                                        style={{ width: 360, height: 460 }}
-                                        alt="Among Us"
-                                        src={card[0].image[0]}
+                    <div className="cardsDetailsRates">
+                        <div className="cardsContainer">
+                            <div className="cardFormReview">
+                                <Card
+                                    style={{ width: 360, height: 580 }}
+                                    cover={
+                                        <img
+                                            style={{ width: 360, height: 460 }}
+                                            alt="Among Us"
+                                            src={card[0].image[0]}
+                                        />
+                                    }
+                                >
+                                    <Meta
+                                        title={card[0].name}
+                                        description="Henry Game Store, the best console games, at the best market price"
                                     />
-                                }
-                            >
-                                <Meta
-                                    title={card[0].name}
-                                    description="Henry Game Store, the best console games, at the best market price"
-                                />
-                                <br></br>
-                            </Card>
+                                    <br></br>
+                                </Card>
 
-                            <div className="rateForm">
-                                <Rate
-                                    className="rateAux"
-                                    allowHalf defaultValue={2.5} />
+                                <div className="rateForm">
+                                    <Rate
+                                        className="rateAux"
+                                        allowHalf defaultValue={2.5} />
 
-                                <div className="inputButton">
-                                    <Input
-                                        className="form"
-                                        placeholder="Leave your comment" bordered={false} />
+                                    <div className="inputButton">
+                                        <Input
+                                            className="form"
+                                            placeholder="Leave your comment" bordered={false} />
 
-                                    <Button
-                                        className="buttonAux"
-                                        style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-                                        type="primary"
-                                    >
-                                        Send
-                                    </Button>
+                                        <Button
+                                            className="buttonAux"
+                                            style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                                            type="primary"
+                                        >
+                                            Send
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <div className="detailNameInfo">
-                            <div className="nameFormat">
-                                <h3 className="title">{card[0].name}</h3>
-                                <p className="title">DIGITAL</p>
+                            <div className="detailNameInfo">
+                                <div className="nameFormat">
+                                    <h3 className="title">{card[0].name}</h3>
+                                    <p className="title">DIGITAL</p>
+                                </div>
+                                <br></br>
+                                <hr></hr>
+                                <Card
+                                    className="cardDetailDescription"
+                                    title={precio}
+                                    bordered={false}
+                                    style={{
+                                        width: 300,
+                                        height: 510
+                                    }}
+                                >
+                                    <p>
+                                        {card[0].description}
+                                    </p>
+
+                                    <br></br>
+                                    <br></br>
+                                    <p>Platforma: {card[0].platform}</p>
+                                    <p>Genero: {card[0].genre}</p>
+
+                                    <div className="buttonsContainer">
+                                        <Button
+                                            className="buttonsCardDetail"
+                                            style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                                            type="primary"
+                                        >
+                                            Buy
+                                        </Button>
+
+                                        <Button
+                                            style={{ color: "rgba(9, 22, 29, 0.712)" }}
+                                            className="buttonsCardDetail"
+                                            onClick={() => handleShoppingChart(id)}
+                                        >
+                                            Add To Cart
+                                        </Button>
+                                    </div>
+
+                                </Card>
                             </div>
-                            <br></br>
-                            <hr></hr>
-                            <Card
-                                className="cardDetailDescription"
-                                title={precio}
-                                bordered={false}
-                                style={{
-                                    width: 300,
-                                    height: 510
-                                }}
-                            >
-                                <p>
-                                    {card[0].description}
-                                </p>
 
-                                <br></br>
-                                <br></br>
-                                <p>Platforma: {card[0].platform}</p>
-                                <p>Genero: {card[0].genre}</p>
+                            <div className="comentarios-card">
 
-                                <div className="buttonsContainer">
-                                    <Button
-                                        className="buttonsCardDetail"
-                                        style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-                                        type="primary"
-                                    >
-                                        Buy
-                                    </Button>
 
-                                    <Button
-                                        style={{ color: "rgba(9, 22, 29, 0.712)" }}
-                                        className="buttonsCardDetail"
-                                    >
-                                        Add To Cart
-                                    </Button>
+                                <div className="reviewsContainer">
+
+
+
+
+                                    <Card title="" bordered={false}>
+                                        <div className="nameComment">
+                                            <div className="imgRate">
+                                                {!isAuthenticated ? null : <Profile />}
+                                                <Rate
+                                                    className="rate"
+                                                    disabled defaultValue={5} />
+                                            </div>
+                                            <p className="comment">
+                                                ¡Great!, an incredible game, i love it
+                                            </p>
+
+                                        </div>
+                                    </Card>
+
+
+                                    <Card title="" bordered={false}>
+                                        <div className="nameComment">
+                                            <div className="imgRate">
+                                                {!isAuthenticated ? null : <Profile />}
+                                                <Rate
+                                                    className="rate"
+                                                    disabled defaultValue={2} />
+                                            </div>
+                                            <p className="comment">
+                                                ¡Great!, an incredible game, i love it
+                                            </p>
+
+                                        </div>
+                                    </Card>
+
+
+                                    <Card title="" bordered={false}>
+                                        <div className="nameComment">
+                                            <div className="imgRate">
+                                                {!isAuthenticated ? null : <Profile />}
+                                                <Rate
+                                                    className="rate"
+                                                    disabled defaultValue={4} />
+                                            </div>
+                                            <p className="comment">
+                                                ¡Great!, an incredible game, i love it
+                                            </p>
+
+                                        </div>
+                                    </Card>
+
                                 </div>
 
-                            </Card>
-                        </div>
-
-                        <div className="comentarios-card">
-
-
-                            <div className="reviewsContainer">
-
-
-
-
-                                <Card title="" bordered={false}>
-                                    <div className="nameComment">
-                                        <div className="imgRate">
-                                            {!isAuthenticated ? null : <Profile />}
-                                            <Rate
-                                                className="rate"
-                                                disabled defaultValue={5} />
-                                        </div>
-                                        <p className="comment">
-                                            ¡Great!, an incredible game, i love it
-                                        </p>
-
-                                    </div>
-                                </Card>
-
-
-                                <Card title="" bordered={false}>
-                                    <div className="nameComment">
-                                        <div className="imgRate">
-                                            {!isAuthenticated ? null : <Profile />}
-                                            <Rate
-                                                className="rate"
-                                                disabled defaultValue={2} />
-                                        </div>
-                                        <p className="comment">
-                                            ¡Great!, an incredible game, i love it
-                                        </p>
-
-                                    </div>
-                                </Card>
-
-
-                                <Card title="" bordered={false}>
-                                    <div className="nameComment">
-                                        <div className="imgRate">
-                                            {!isAuthenticated ? null : <Profile />}
-                                            <Rate
-                                                className="rate"
-                                                disabled defaultValue={4} />
-                                        </div>
-                                        <p className="comment">
-                                            ¡Great!, an incredible game, i love it
-                                        </p>
-
-                                    </div>
-                                </Card>
-
                             </div>
-
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+                    <br></br>
+
+
+
                 </div>
-
-
-
-
-
-
-
-
-                <br></br>
-
-
-
-            </div>
             </div>
         );
 
