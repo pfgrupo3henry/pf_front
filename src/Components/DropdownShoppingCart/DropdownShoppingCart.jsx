@@ -68,25 +68,10 @@ function DropdownShoppingCart() {
       axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: e.target.value })
         .then((res) => {
           console.log(res.data);
-          Swal.fire({
-            title: "Success!",
-            text: 'Juego Borrado Correctamente',
-            icon: "success",
-            confirmButtonText: 'Ok'
-          }).then((res) => {
-            window.location.href = `/home`
-          });
+          setProducts([res.data]);
         })
         .catch((err) => {
           console.log(err);
-          Swal.fire({
-            title: "Error!",
-            text: 'No se pudo borrar el juego',
-            icon: "error",
-            confirmButtonText: 'Ok'
-          }).then((res) => {
-            window.location.href = `/home`
-          });
         })
 
     } else {
@@ -94,25 +79,10 @@ function DropdownShoppingCart() {
       axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: e.target.value })
         .then((res) => {
           console.log(res.data);
-          Swal.fire({
-            title: "Success!",
-            text: 'Juego Borrado Correctamente',
-            icon: "success",
-            confirmButtonText: 'Ok'
-          }).then((res) => {
-            window.location.href = `/home`
-          });
+          setProducts([res.data]);
         })
         .catch((err) => {
           console.log(err);
-          Swal.fire({
-            title: "Error!",
-            text: 'No se pudo borrar el juego',
-            icon: "error",
-            confirmButtonText: 'Ok'
-          }).then((res) => {
-            window.location.href = `/home`
-          });
         })
 
     }
@@ -142,6 +112,7 @@ function DropdownShoppingCart() {
 
   };
 
+  console.log(products);
 
   return (
     <div
@@ -158,7 +129,7 @@ function DropdownShoppingCart() {
             ? products[0].products.map((el) => (
               <div className="dropdown-shopping-cart-card-component">
                 <div style={{ backgroundImage: `url('${""}')` }} className="card-header">
-                  <Image width={100} src={el.img[0]} />
+                  <Image width={100} src={el.img} />
                   <Text type="secondary" style={{ color: "#90A4AE" }}>
                     {el.name || "Game Title"}
                   </Text>

@@ -23,6 +23,7 @@ function FinishPayment() {
     const [position, setPosition] = useState('bottom');
     const [align, setAlign] = useState('center');
     const [products, setProducts] = useState([]);
+    const [products2, setProducts2] = useState([]);
     const [totalPrice, settotalPrice] = useState(""); //(acc, product) => acc + product.unit_price * product.quantity, 0)
     const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
     const [idUserAUth0, setIdUserAuth0] = useState([]);
@@ -136,25 +137,10 @@ function FinishPayment() {
                 axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: id })
                     .then((res) => {
                         console.log(res.data);
-                        Swal.fire({
-                            title: "Success!",
-                            text: 'Juego Borrado Correctamente',
-                            icon: "success",
-                            confirmButtonText: 'Ok'
-                        }).then((res) => {
-                            window.location.href = `/status-payment`
-                        });
+                        setProducts([res.data]);
                     })
                     .catch((err) => {
                         console.log(err);
-                        Swal.fire({
-                            title: "Error!",
-                            text: 'No se pudo borrar el juego',
-                            icon: "error",
-                            confirmButtonText: 'Ok'
-                        }).then((res) => {
-                            window.location.href = `/status-payment`
-                        });
                     })
 
             } else {
@@ -162,25 +148,11 @@ function FinishPayment() {
                 axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: id })
                     .then((res) => {
                         console.log(res.data);
-                        Swal.fire({
-                            title: "Success!",
-                            text: 'Juego Borrado Correctamente',
-                            icon: "success",
-                            confirmButtonText: 'Ok'
-                        }).then((res) => {
-                            window.location.href = `/status-payment`
-                        });
+                        setProducts([res.data]);
+
                     })
                     .catch((err) => {
                         console.log(err);
-                        Swal.fire({
-                            title: "Error!",
-                            text: 'No se pudo borrar el juego',
-                            icon: "error",
-                            confirmButtonText: 'Ok'
-                        }).then((res) => {
-                            window.location.href = `/status-payment`
-                        });
                     })
 
             }
@@ -190,113 +162,123 @@ function FinishPayment() {
         console.log(idUserAUth0);
         console.log(idManuelUser);
         console.log(totalPrice);
+        console.log(products2);
 
-        return (
-            <div className="finishPayment-component">
-                <div className="checkout">
-                    <div className='checkOutList-component'>
-                        <div className='cartItems'>
-                            <Space
-                                direction="horizontal"
-                                style={{
-                                    marginBottom: '20px',
-                                }}
-                                size="middle"
-                            >
-                            </Space>
-                            <List
-                                pagination={{
-                                    position,
-                                    align,
-                                }}
-                                dataSource={products[0].products}
-                                renderItem={(item, index) => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={<Avatar src={item.img[0]} />}
-                                            title={item.title}
-                                            description={
-                                                <div className='icons-container'>
-                                                    {item.description}
-                                                    <br></br>
+        if (Array.isArray(products) && products.length) {
 
-                                                    <div className='quantity-delete'>
+            return (
+                <div className="finishPayment-component">
+                    <div className="checkout">
+                        <div className='checkOutList-component'>
+                            <div className='cartItems'>
+                                <Space
+                                    direction="horizontal"
+                                    style={{
+                                        marginBottom: '20px',
+                                    }}
+                                    size="middle"
+                                >
+                                </Space>
+                                <List
+                                    pagination={{
+                                        position,
+                                        align,
+                                    }}
+                                    dataSource={products[0].products}
+                                    renderItem={(item, index) => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                avatar={<Avatar src={item.img} />}
+                                                title={item.title}
+                                                description={
+                                                    <div className='icons-container'>
+                                                        {item.description}
+                                                        <br></br>
 
-                                                        <Button className='button+' onClick={(e) => handleQuantity2(item.id, item)}>
-                                                            -
-                                                        </Button>
-                                                        <p className='p-cantidad'>{item.quantity}</p>
-                                                        <Button className='button-' onClick={(e) => handleQuantity(item.id, item)}>
-                                                            +
-                                                        </Button>
+                                                        <div className='quantity-delete'>
 
-                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id)}>
-                                                            <AiOutlineDelete className='deleteIcon' />
-                                                        </Button>
-                                                        <div className='unit-price'>
-                                                            ${item.price}
+                                                            <Button className='button+' onClick={(e) => handleQuantity2(item.id, item)}>
+                                                                -
+                                                            </Button>
+                                                            <p className='p-cantidad'>{item.quantity}</p>
+                                                            <Button className='button-' onClick={(e) => handleQuantity(item.id, item)}>
+                                                                +
+                                                            </Button>
+
+                                                            <Button className='button-borrar' onClick={(e) => onClickDelete(item.id)}>
+                                                                <AiOutlineDelete className='deleteIcon' />
+                                                            </Button>
+                                                            <div className='unit-price'>
+                                                                ${item.price}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            }
+                                                }
 
 
-                                        />
-                                    </List.Item>
+                                            />
+                                        </List.Item>
 
-                                )}
-                            />
+                                    )}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="card-payment-imgMercadoPago">
-                    <div className="card-payment">
-                        <Card
-                            title={
-                                <div className="container-aux">
-                                    <div>
-                                        Total:
+                    <div className="card-payment-imgMercadoPago">
+                        <div className="card-payment">
+                            <Card
+                                title={
+                                    <div className="container-aux">
+                                        <div>
+                                            Total:
+                                        </div>
+                                        <div>
+                                            ${totalPrice}
+                                        </div>
                                     </div>
-                                    <div>
-                                        ${totalPrice}
-                                    </div>
-                                </div>
-                            }
-                            bordered={true}
-                            style={{
-                                width: 400,
-                            }}
-                        >
-                            <p className="infoAux">Una vez realizado el pago, recibiras por mail
-                                el detalle del mismo.
-                            </p>
-                            <br></br>
-                            <br></br>
-                            <Button
-                                onClick={() => {
-                                    axios.post("https://pfservidor-production.up.railway.app/payment/mercadopago", { totalPrice })
-                                        .then((res) => {
-                                            window.location.href = res.data.response.body.init_point;
-                                        })
+                                }
+                                bordered={true}
+                                style={{
+                                    width: 400,
                                 }}
-                                className="buttonsCardDetail"
-                                style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-                                type="primary"
                             >
-                                Finalizar compra
-                            </Button>
+                                <p className="infoAux">Una vez realizado el pago, recibiras por mail
+                                    el detalle del mismo.
+                                </p>
+                                <br></br>
+                                <br></br>
+                                <Button
+                                    onClick={() => {
+                                        axios.post("https://pfservidor-production.up.railway.app/payment/mercadopago", { totalPrice })
+                                            .then((res) => {
+                                                window.location.href = res.data.response.body.init_point;
+                                            })
+                                    }}
+                                    className="buttonsCardDetail"
+                                    style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                                    type="primary"
+                                >
+                                    Finalizar compra
+                                </Button>
 
-                        </Card>
+                            </Card>
+                        </div>
                     </div>
+
                 </div>
 
-            </div>
+            )
 
-        )
+        } else {
 
-    }
+            return (
+                <div>loading</div>
+            )
 
+        };
 
-}
+    };
+
+};
 
 export { FinishPayment };

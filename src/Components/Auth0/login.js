@@ -16,7 +16,7 @@ export const Login = () => {
       width: 400,
       timeoutInSeconds: 10,
     }).then((res) => {
-      window.location.href = "https://pf-front-y72g-git-develop-pfgrupo3henry.vercel.app/home";
+      window.location.href = "/home";
     })
 
   };
