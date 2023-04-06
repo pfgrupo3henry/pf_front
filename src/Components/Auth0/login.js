@@ -23,9 +23,9 @@ export const Login = () => {
 
   return (
     <div>
-      <GoogleButton onClick={handleLoginClick} />
+      <GoogleButton style={{width:"22rem"}}
+      onClick={handleLoginClick} />
     </div>
   )
 
 }
-

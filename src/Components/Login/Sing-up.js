@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import "./Sing-up.css";
-import { Button, Form, Input, Checkbox, Upload, Alert } from 'antd';
+import { Button, Form, Input, Checkbox, Upload, Alert, Select } from 'antd';
 import { Login } from "../Auth0/login";
 import { LockOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import Axios from "axios";
@@ -104,10 +104,10 @@ function SingUp() {
         };
 
         return (
-
+            <div className="login-form">
             <Form
                 name="normal_login"
-                className="login-form"
+                
                 initialValues={{ remember: true }}
                 onChange={(e) => handleLogin(e)}
             >
@@ -159,11 +159,11 @@ function SingUp() {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button
+                    <div
                         onClick={onClickState}
-                        className="button-form-ir-a">
+                        className="buttonOrRegister">
                         Or register now!
-                    </Button>
+                    </div>
                 </Form.Item>
 
                 <Form.Item>
@@ -171,6 +171,7 @@ function SingUp() {
                 </Form.Item>
 
             </Form>
+            </div>
 
         );
 
@@ -351,12 +352,12 @@ function SingUp() {
 
         return (
 
-            <div className="div-singup-principal">
+            <div className="registro">
 
                 <Form
                     className="form-sing-up"
                     labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
+                    wrapperCol={{ span: 24 }}
                     onChange={(e) => handleInputChange(e)}
                 >
 
@@ -390,8 +391,10 @@ function SingUp() {
                         label="Nacionalidad"
                         name="nationality"
                     >
-                        <select className="select-sing-up" name="nationality" onChange={handleInputChange}>
-                            <option className="option-sing-up">Encontra tu pais</option>
+                        <select
+                        name="nationality"
+                        placeholder="Encontrá tu país"
+                        className="select-sing-up"  onChange={handleInputChange}>
 
                             {options && options.map((n) => {
                                 return (
@@ -566,4 +569,3 @@ export default SingUp;
                             <div></div>
                         }
 */
-
