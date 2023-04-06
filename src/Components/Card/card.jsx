@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
-import { postFavorites, addItemToChart, deleteFavorites, getUsers } from "../../Redux/Actions/Index";
+import { postFavorites, addItemToChart, deleteFavorites, getUsers, deleteChart } from "../../Redux/Actions/Index";
 import React, { useEffect, useState } from "react";
 import { Card } from 'antd';
 import "../Card/card.css"
@@ -23,8 +23,6 @@ const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
 function CardElement({ title, imgProvisoria, description, price, descriptionComplete, id, quantity }) {
 
   const { user, isAuthenticated } = useAuth0();
-  const [cargado, setCargado] = useState(false);
-  const [borrado, setBorrado] = useState(false);
 
   const [favorite, setFavorite] = useState(true);
   const [cart, setCart] = useState(true);
@@ -136,8 +134,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       }
 
       setCart(false);
-      setCargado(true);
-      setBorrado(false);
       dispatch(addItemToChart(put));
       console.log("obj", put);
 
@@ -158,8 +154,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       }
 
       setCart(false);
-      setCargado(true);
-      setBorrado(false);
       dispatch(addItemToChart(put))
       console.log("obj", put)
 
@@ -171,29 +165,23 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     if (user) {
 
-      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: id })
-        .then((res) => {
-          console.log(res.data);
-          setCart(true);
-          setBorrado(true);
-          setCargado(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+      let payload = {
+        userId: idUserAUth0[0].id,
+        gameId: id
+      }
+
+      dispatch(deleteChart(payload));
+      setCart(true);
 
     } else {
 
-      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: id })
-        .then((res) => {
-          console.log(res.data);
-          setCart(true);
-          setBorrado(true)
-          setCargado(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+      let payload = {
+        userId: idManuelUser,
+        gameId: id
+      }
+
+      dispatch(deleteChart(payload));
+      setCart(true);
 
     }
 
@@ -235,14 +223,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           description={precio}
         />
         <br></br>
-        {cargado === true ?
-          <p className='p-carrito'>Carrito cargado</p>
-          :
-          null}
-        {borrado === true ?
-          <p className='p-carrito-borrado'>Eliminado</p>
-          :
-          null}
         <div className='iconsCardHomeContainer'>
           {!favsStringified.includes(JSON.stringify({
             title,

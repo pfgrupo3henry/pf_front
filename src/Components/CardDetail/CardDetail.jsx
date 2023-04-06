@@ -6,7 +6,9 @@ import { useParams } from 'react-router-dom';
 import { Avatar, Button, Rate } from 'antd';
 import { Input } from 'antd';
 import axios from "axios";
-
+import Cookies from "universal-cookie";
+import { useDispatch } from "react-redux";
+import { addItemToChart } from "../../Redux/Actions/Index";
 
 
 import "./CardDetail.css";
@@ -20,8 +22,11 @@ function CardDetail() {
 
     const [card, setCard] = useState([]);
     const { user, isAuthenticated, isLoading } = useAuth0();
+    const [idUserAUth0, setIdUserAuth0] = useState([]);
+    const [idManuelUser, setIdManuelUser] = useState("");
+    const [string, setString] = useState("vacio");
     const { id } = useParams();
-
+    const dispatch = useDispatch();
     const { Meta } = Card;
 
     if (!card.length) {
@@ -35,10 +40,135 @@ function CardDetail() {
 
     };
 
+    if (isAuthenticated) {
+
+        if (user && idUserAUth0.length === 0) {
+
+            const emailAuth0 = user.email;
+
+            if (idUserAUth0.length === 0) {
+
+                axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
+                    .then((res) => {
+                        console.log(res.data);
+                        setIdUserAuth0([res.data]);
+                    })
+                    .catch((err) => console.log(err))
+
+            }
+
+        };
+
+    };
+
+    if (!user) {
+
+        if (idManuelUser === "") {
+
+            const cookie = new Cookies();
+            const idCoockie = cookie.get("id");
+            console.log(idCoockie);
+
+            setIdManuelUser(idCoockie);
+
+        }
+
+    };
+
+    const handleShoppingChart = () => {
+
+        if (user) {
+
+            const product_id = card[0].id;
+            const put = {
+                userId: idUserAUth0[0].id,
+                products:
+                {
+                    id: product_id,
+                    quantity: 1
+                }
+
+            }
+
+            setString("parrafo");
+            dispatch(addItemToChart(put));
+            console.log("obj", put);
+
+        } else if (!user) {
+
+            const product_id = card[0].id;
+            const put = {
+                userId: idManuelUser,
+                products:
+                {
+                    id: product_id,
+                    quantity: 1
+                }
+
+            }
+
+            setString("parrafo");
+            dispatch(addItemToChart(put))
+            console.log("obj", put)
+
+        }
+
+    };
+
+    const handleShoppingChart2 = () => {
+
+        if (user) {
+
+            const product_id = card[0].id;
+            const put = {
+                userId: idUserAUth0[0].id,
+                products:
+                {
+                    id: product_id,
+                    quantity: 1
+                }
+
+            }
+
+            setString("parrafo");
+            dispatch(addItemToChart(put));
+            console.log("obj", put);
+            setTimeout(() => {
+                window.location.href = "/status-payment";
+            }, "600");
+
+        } else if (!user) {
+
+            const product_id = card[0].id;
+            const put = {
+                userId: idManuelUser,
+                products:
+                {
+                    id: product_id,
+                    quantity: 1
+                }
+
+            }
+
+            setString("parrafo");
+            dispatch(addItemToChart(put))
+            console.log("obj", put)
+            setTimeout(() => {
+                window.location.href = "/status-payment";
+            }, "2000");
+
+        }
+
+    };
+
     console.log(card);
     console.log(id);
+    console.log(idUserAUth0);
+    console.log(idManuelUser);
 
     if (card.length !== 0) {
+
+        console.log(card[0].id);
 
         var precio = `$ ${card[0].price}`
 
@@ -120,6 +250,7 @@ function CardDetail() {
                                             className="buttonsCardDetail"
                                             style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
                                             type="primary"
+                                            onClick={handleShoppingChart2}
                                         >
                                             Buy
                                         </Button>
@@ -127,9 +258,15 @@ function CardDetail() {
                                         <Button
                                             style={{ color: "rgba(9, 22, 29, 0.712)" }}
                                             className="buttonsCardDetail"
+                                            onClick={handleShoppingChart}
                                         >
                                             Add To Cart
                                         </Button>
+
+                                        {string === "parrafo" ?
+                                            <p className='p-carrito-cardD'>Carrito cargado</p>
+                                            :
+                                            null}
                                     </div>
 
                                 </Card>
@@ -208,7 +345,7 @@ function CardDetail() {
 
 
                 </div>
-            </div>
+            </div >
         );
 
     } else {
@@ -216,7 +353,7 @@ function CardDetail() {
 
         return (
 
-            <div>Loading...</div>
+            <div className='loader-card-detail'>Loading...</div>
 
         );
 

@@ -17,7 +17,7 @@
     color: rgb(0, 140, 255);
 }
  */
-.buttonOrRegister{
+.buttonOrRegister {
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -39,11 +39,11 @@
     justify-content: center;
     width: 30rem;
     flex-direction: column;
-    
+
 }
 
 
-.registro{
+.registro {
     margin-top: 5rem;
     display: flex;
     flex-direction: column;
@@ -78,17 +78,17 @@
     color: rgb(100, 94, 87);
     font-size: 15px;
     Overflow: hidden;
-} 
+}
 
- .select-sing-up::-webkit-scrollbar {
+.select-sing-up::-webkit-scrollbar {
     display: none;
 }
 
 .option-sing-up {
     color: rgb(100, 94, 87);
     font-size: 15px;
-} 
- 
+}
+
 
 .p-error {
     color: red;
@@ -113,7 +113,7 @@
     justify-content: center;
     width: 12rem;
     margin-left: 16rem;
-   
+
 }
 
 .Button-sing-up-submit {
@@ -126,8 +126,8 @@
 
 .buttonsing-up-none {
     display: none;
-} 
+}
 
-.google{
+.google {
     width: 30rem;
 }

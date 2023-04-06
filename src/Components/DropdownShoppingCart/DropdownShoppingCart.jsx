@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Typography, Image, Space, Tooltip, Input } from "antd";
 import { PlusOutlined, MinusOutlined, DeleteOutlined } from "@ant-design/icons";
 import "./DropdownShoppingCart.css";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios"
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,117 +10,152 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import "./DropdownShoppingCartCard.css";
-import { useEffect } from "react";
-import { deleteCart, getCart } from "../../Redux/Actions/Index";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteChart } from "../../Redux/Actions/Index";
 
 
 
 function DropdownShoppingCart() {
-  const [color, setColor] = useState("rgba(9, 22, 29, 1)");
-  const [productos, setProductos] = useState([]);
-  const products = useSelector(store => store.shoppingChart)
+  const [color, setColor] = React.useState("rgba(9, 22, 29, 1)");
+  const [products, setProducts] = useState([]);
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
   const [idUserAUth0, setIdUserAuth0] = useState([]);
-  const [autenticatedUserId, setautenticatedUserId] = useState("")
   const [idManuelUser, setIdManuelUser] = useState("");
   const [string, setString] = useState("hola");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { Text } = Typography;
-  const [loading, setLoading] = useState(true);
-  
+
+  if (isAuthenticated) {
+
+    if (user && idUserAUth0.length === 0) {
+
+      const emailAuth0 = user.email;
+
+      if (idUserAUth0.length === 0) {
+
+        axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
+          .then((res) => {
+            console.log(res.data);
+            setIdUserAuth0([res.data]);
+          })
+          .catch((err) => console.log(err))
+
+      }
+
+    };
+
+  };
+
+  if (!user) {
+
+    if (idManuelUser === "") {
+
+      const cookie = new Cookies();
+      const idCoockie = cookie.get("id");
+      console.log(idCoockie);
+
+      setIdManuelUser(idCoockie);
+
+    }
+
+  };
+
+  const onClickDelete = (e) => {
 
 
 
-  if(!user && !autenticatedUserId){
-    const cookie = new Cookies();
-    const idCoockie = cookie.get("id");
-    console.log(idCoockie);
-    setautenticatedUserId(idCoockie);
-  } else if (isAuthenticated && !autenticatedUserId ){
-    const emailAuth0 = user.email;
-    setautenticatedUserId(emailAuth0)
-  }
+    if (user) {
 
- 
-/*   function onClickDelete(e){
-    console.log(e.target.value)
-    let id = e.target.value
-    dispatch(deleteCart(autenticatedUserId,id))
-  }  */
+      let payload = {
+        userId: idUserAUth0[0].id,
+        gameId: e.target.value
+      }
 
-  const onClickDelete = (id) => {
-    dispatch(deleteCart(autenticatedUserId, id ))
-  }
- 
- 
- 
-  useEffect (()=>{
-    (async () => {
-      await dispatch(getCart(autenticatedUserId));
-    })();
-  },[dispatch]) 
+      dispatch(deleteChart(payload));
 
-  useEffect(() => {
-    setLoading(false);
-    setProductos(products.products);
-    console.log("PRODUCTOS",products)
-  }, [products]);
-  
+      setTimeout(() => {
+
+        axios.get(`https://pfservidor-production.up.railway.app/cart/${idUserAUth0[0].id}`)
+          .then((res) => {
+            console.log(res.data);
+            setProducts([res.data]);
+            setString("chau");
+          })
+          .catch((err) => console.log(err))
+
+      }, "500");
+
+    } else {
+
+      let payload = {
+        userId: idManuelUser,
+        gameId: e.target.value
+      }
+
+      dispatch(deleteChart(payload));
+
+      setTimeout(() => {
+
+        axios.get(`https://pfservidor-production.up.railway.app/cart/${idManuelUser}`)
+          .then((res) => {
+            console.log(res.data);
+            setProducts([res.data]);
+            setString("chau");
+          })
+          .catch((err) => console.log(err))
+
+      }, "500");
+
+    }
+
+  };
 
 
+  if (idManuelUser && string === "hola") {
 
-/*   const onClickDelete = (e) => {
-  if (user) {
-    axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: autenticatedUserId, gameId: e.target.value })
-    console.log(autenticatedUserId)
+    axios.get(`https://pfservidor-production.up.railway.app/cart/${idManuelUser}`)
       .then((res) => {
         console.log(res.data);
-     setProducts([res.data]); 
+        setProducts([res.data]);
+        setString("chau");
       })
-      .catch((err) => {
-        console.log(err);
-      })
-  
-  } else {
-  
-    axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: autenticatedUserId, gameId: e.target.value })
+      .catch((err) => console.log(err))
+
+  } else if (idUserAUth0.length !== 0 && isAuthenticated && string === "hola") {
+
+    axios.get(`https://pfservidor-production.up.railway.app/cart/${idUserAUth0[0].id}`)
       .then((res) => {
         console.log(res.data);
-       setProducts([res.data]); 
+        setProducts([res.data]);
+        setString("chau");
       })
-      .catch((err) => {
-        console.log(err);
-      })
-  
-  }
-} */
-  
+      .catch((err) => console.log(err))
 
- 
+  };
+
+  console.log(products);
 
   return (
     <div
-    className="dropdown-shopping-cart-component"
-    style={{
-      width: "fit-content",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }}>
+      className="dropdown-shopping-cart-component"
+      style={{
+        width: "fit-content",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}>
       <div className="main">
         <div className="scroll">
-           {productos && productos.map((el) => ( 
-              
-              <div className="dropdown-shopping-cart-card-component"  >
-                {console.log("QUE HAY",el)}
+          {products.length
+            ? products[0].products.map((el) => (
+              <div className="dropdown-shopping-cart-card-component">
                 <div style={{ backgroundImage: `url('${""}')` }} className="card-header">
-                  <Image width={100} src={el.img} />
+                  <Image width={100} src={el.img[0]} />
                   <Text type="secondary" style={{ color: "#90A4AE" }}>
                     {el.name || "Game Title"}
                   </Text>
                 </div>
                 <div>
-               
                   <Text type="secondary">{`$ ${el.price}` || "$USD 30"}</Text>
                 </div>
                 <div className="card-footer">
@@ -135,16 +169,16 @@ function DropdownShoppingCart() {
                     <Tooltip title="delete">
                       <Input
                         type="submit"
-                        onClick={(e)=>onClickDelete(e)}
+                        onClick={(e) => onClickDelete(e)}
                         value={el.id}
-                        >
+                      >
                       </Input>
                     </Tooltip>
                   </Space>
                 </div>
-              </div>))
-}
-          
+              </div>
+            ))
+            : null}
         </div>
       </div>
       <div className="continue">
@@ -162,98 +196,4 @@ function DropdownShoppingCart() {
   );
 }
 
-
-
 export default DropdownShoppingCart;
-
-
-
-// if (isAuthenticated) {
-
-/* if (user && idUserAUth0.length === 0) {
-
-  const emailAuth0 = user.email;
-
-  if (idUserAUth0.length === 0) {
-
-    axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-      .then((res) => {
-        console.log(res.data);
-        setIdUserAuth0([res.data]);
-      })
-      .catch((err) => console.log(err))
-
-  }
-
-};
-
-};
-
-if (!user) {
-
-if (idManuelUser === "") {
-
-  const cookie = new Cookies();
-  const idCoockie = cookie.get("id");
-  console.log(idCoockie);
-
-  setIdManuelUser(idCoockie);
-
-}
-
-};
-
-const onClickDelete = (e) => {
-
-
-
-if (user) {
-
-  axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: e.target.value })
-    .then((res) => {
-      console.log(res.data);
-      setProducts([res.data]);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-
-} else {
-
-  axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: e.target.value })
-    .then((res) => {
-      console.log(res.data);
-      setProducts([res.data]);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-
-}
-
-};
-
-
-if (idManuelUser && string === "hola") {
-
-axios.get(`https://pfservidor-production.up.railway.app/cart/${idManuelUser}`)
-  .then((res) => {
-    console.log(res.data);
-    setProducts([res.data]);
-    setString("chau");
-  })
-  .catch((err) => console.log(err))
-
-} else if (idUserAUth0.length !== 0 && isAuthenticated && string === "hola") {
-
-axios.get(`https://pfservidor-production.up.railway.app/cart/${idUserAUth0[0].id}`)
-  .then((res) => {
-    console.log(res.data);
-    setProducts([res.data]);
-    setString("chau");
-  })
-  .catch((err) => console.log(err))
-
-};
-
-console.log(products); */

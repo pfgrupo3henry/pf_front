@@ -1,19 +1,18 @@
-import { 
-    GET_FAVORITES, 
-    POST_FAVORITES, 
-    ADD_ITEM_TO_CHART, 
-    DELETE_FAVORITES, 
-    GET_CARDS, 
-    FILTER_CARDS, 
-    GET_SEARCH, 
-    SET_NAME_FILTER, 
-    ORDER_BY_NAME, 
-    ORDER_BY_PRICE, 
+import {
+    GET_FAVORITES,
+    POST_FAVORITES,
+    ADD_ITEM_TO_CHART,
+    DELETE_FAVORITES,
+    GET_CARDS,
+    FILTER_CARDS,
+    GET_SEARCH,
+    SET_NAME_FILTER,
+    ORDER_BY_NAME,
+    ORDER_BY_PRICE,
     ORDER_BY_RATE,
     POST_NEW_PRODUCT,
     GET_ALL_USERS,
-    GET_ITEM_CART,
-    DELETE_CART
+    DELETE_CHART
 } from "../Actions/Types";
 
 const initialState = {
@@ -26,7 +25,6 @@ const initialState = {
     allUsers: []
 
 }
-
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -57,65 +55,44 @@ const rootReducer = (state = initialState, action) => {
 
 
         case ADD_ITEM_TO_CHART:
-            
             return {
                 ...state,
                 shoppingChart: action.payload
 
             }
 
-            case GET_ITEM_CART:
-                return {
-                    ...state,
-                    shoppingChart: action.payload
-        
-                }
+        case DELETE_CHART:
+            return {
+                ...state,
+                shoppingChart: action.payload
 
-                case DELETE_CART:
-                   /*  localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload])); */
-                    console.log("SHOPING?",action.shoppingChart)
-                    return {
-                            ...state,
-                            shoppingChart: [...state.shoppingChart, action.payload]
-                        }
-            
+            }
 
 
-
-
-
-
-
-
-
-
-
-
-
-      /*       let flag = false;
-
-            state.shoppingChart.length && state.shoppingChart.forEach(el => {
-                if (JSON.stringify(el) === JSON.stringify(action.payload)) {
-                    flag = true;
-                }
-            })
-
-            if (!flag) {
-                localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
-                return {
-                    ...state,
-                    shoppingChart: [...state.shoppingChart, action.payload]
-                }
-            } else {
-                const filteredChart = state.shoppingChart.filter(el => {
-                    return JSON.stringify(el) !== JSON.stringify(action.payload)
-                });
-                localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
-                return {
-                    ...state,
-                    shoppingChart: [...filteredChart]
-                }
-            } */
+        /*       let flag = false;
+  
+              state.shoppingChart.length && state.shoppingChart.forEach(el => {
+                  if (JSON.stringify(el) === JSON.stringify(action.payload)) {
+                      flag = true;
+                  }
+              })
+  
+              if (!flag) {
+                  localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
+                  return {
+                      ...state,
+                      shoppingChart: [...state.shoppingChart, action.payload]
+                  }
+              } else {
+                  const filteredChart = state.shoppingChart.filter(el => {
+                      return JSON.stringify(el) !== JSON.stringify(action.payload)
+                  });
+                  localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
+                  return {
+                      ...state,
+                      shoppingChart: [...filteredChart]
+                  }
+              } */
 
         case GET_CARDS:
             return {
@@ -125,12 +102,12 @@ const rootReducer = (state = initialState, action) => {
             }
 
 
-            case GET_ALL_USERS:
-                return {
-                    ...state,
-                    allUsers: action.payload,
-                    
-                }
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                allUsers: action.payload,
+
+            }
 
         case FILTER_CARDS:
             return {
@@ -195,4 +172,4 @@ const rootReducer = (state = initialState, action) => {
 
 
 
-export default rootReducer;
+export default rootReducer; 

@@ -23,8 +23,8 @@ export const Login = () => {
 
   return (
     <div>
-      <GoogleButton style={{width:"22rem"}}
-      onClick={handleLoginClick} />
+      <GoogleButton style={{ width: "22rem" }}
+        onClick={handleLoginClick} />
     </div>
   )
 

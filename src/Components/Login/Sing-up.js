@@ -105,72 +105,72 @@ function SingUp() {
 
         return (
             <div className="login-form">
-            <Form
-                name="normal_login"
-                
-                initialValues={{ remember: true }}
-                onChange={(e) => handleLogin(e)}
-            >
+                <Form
+                    name="normal_login"
 
-                <Form.Item
-                    name="email"
-                    rules={[
-                        {
-                            required: true,
-                            message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
-                        },
-                    ]}
+                    initialValues={{ remember: true }}
+                    onChange={(e) => handleLogin(e)}
                 >
-                    <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                </Form.Item>
 
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: users.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
-                        },
-                    ]}
-                >
-                    <Input
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                    />
-                </Form.Item>
-
-                <Form.Item>
-                    <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>Remember me</Checkbox>
+                    <Form.Item
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
 
-                    <a className="login-form-forgot form-forgot" href="">
-                        Forgot password
-                    </a>
-                </Form.Item>
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: users.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
+                            },
+                        ]}
+                    >
+                        <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                        />
+                    </Form.Item>
 
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button"
-                        onClick={submitUser}>
-                        Log in
-                    </Button>
-                </Form.Item>
+                    <Form.Item>
+                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
 
-                <Form.Item>
-                    <div
-                        onClick={onClickState}
-                        className="buttonOrRegister">
-                        Or register now!
-                    </div>
-                </Form.Item>
+                        <a className="login-form-forgot form-forgot" href="">
+                            Forgot password
+                        </a>
+                    </Form.Item>
 
-                <Form.Item>
-                    <Login />
-                </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button"
+                            onClick={submitUser}>
+                            Log in
+                        </Button>
+                    </Form.Item>
 
-            </Form>
+                    <Form.Item>
+                        <div
+                            onClick={onClickState}
+                            className="buttonOrRegister">
+                            Or register now!
+                        </div>
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Login />
+                    </Form.Item>
+
+                </Form>
             </div>
 
         );
@@ -392,9 +392,9 @@ function SingUp() {
                         name="nationality"
                     >
                         <select
-                        name="nationality"
-                        placeholder="Encontrá tu país"
-                        className="select-sing-up"  onChange={handleInputChange}>
+                            name="nationality"
+                            placeholder="Encontrá tu país"
+                            className="select-sing-up" onChange={handleInputChange}>
 
                             {options && options.map((n) => {
                                 return (

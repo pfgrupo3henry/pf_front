@@ -68,3 +68,11 @@
     color: black;
     padding: 5px 0px 0px 0px;
 }
+
+.loader-payment {
+    font-size: 60px;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 300px 0px;
+}

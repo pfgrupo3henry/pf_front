@@ -11,8 +11,7 @@ import {
     ORDER_BY_NAME, ORDER_BY_PRICE,
     ORDER_BY_RATE,
     GET_ALL_USERS,
-    GET_ITEM_CART,
-    DELETE_CART
+    DELETE_CHART
 } from "./Types";
 
 import axios from "axios";
@@ -27,39 +26,6 @@ export const postFavorites = (data) => {
 
 }
 
-
-
-
-export const getCart = (autenticatedUserId) => {
-    try {
-        return async function (dispatch) {
-            let json = await axios.get(`https://pfservidor-production.up.railway.app/cart/${autenticatedUserId}`);
-            console.log("DATA QUE LLEGA",json.data.products)
-            return dispatch({
-                type: GET_ITEM_CART,
-                payload: json.data
-            })
-        }
-
-    } catch (error) {
-        console.log(error)
-
-    }}
-
-    export const deleteCart = (autenticatedUserId, id) => {
-    
-            return function (dispatch) {
-                let json = axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: autenticatedUserId, gameId: id})
-                console.log(json.data)
-            
-                return dispatch({
-                    type: DELETE_CART,
-                    payload: json.data
-                })
-            }
-        }
-            
-    
 export const deleteFavorites = (id) => {
     return function (dispatch) {
         dispatch({
@@ -73,9 +39,9 @@ export const deleteFavorites = (id) => {
 
 export const addItemToChart = (payload) => {
     try {
-        return async function(dispatch){
-            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity" , payload);
-            console.log("console.log" , json.data)
+        return async function (dispatch) {
+            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity", payload);
+            console.log("console.log", json)
 
             return dispatch({
                 type: ADD_ITEM_TO_CHART,
@@ -88,7 +54,26 @@ export const addItemToChart = (payload) => {
 
     }
 
-} 
+}
+
+export const deleteChart = (payload) => {
+    try {
+        return async function (dispatch) {
+            let json = await axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, payload)
+            console.log("console.log", json)
+
+            return dispatch({
+                type: DELETE_CHART,
+                payload: json.data,
+            })
+        }
+
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
 
 
 
