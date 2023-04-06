@@ -86,43 +86,84 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const idCookie = cookie.get("id");
   console.log(idCookie);*/
 
-
-  const filterUser = () => {
-    if (isAuthenticated) {
-      const usuario = user.email
-      const user_id = allUsers.filter(e => e.email === usuario)
-      console.log(user_id)
-      return user_id.id
-    } else {
-      console.log("no hay usuario autenticado")
-    }
-
-  }
-
   const navigate = useNavigate();
 
 
-  const handleFavorites = (title, description, imgProvisoria, descriptionComplete, price, id,) => {
-    console.log("valores", title, description, imgProvisoria)
-    setFavorite(!favorite)
-    let valores = {
-      title: title,
-      description: descriptionComplete,
-      img: imgProvisoria,
-      price: price,
-      id: id
+  const handleFavorites = (id) => {
+
+    if (user) {
+
+      const product_id = id;
+      const putFavorite = {
+        userId: idUserAUth0[0].id,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
+      }
+
+      setFavorite(false);
+      dispatch(postFavorites(putFavorite));
+      console.log("obj", putFavorite);
+
+    } else if (!user) {
+
+      const product_id = id;
+      const putFavorite = {
+        userId: idManuelUser,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
+      }
+
+      setFavorite(false);
+      dispatch(postFavorites(putFavorite));
+      console.log("obj", putFavorite)
+
     }
-    dispatch(postFavorites(valores));
-  }
+
+  };
+
+  const handleFavoritesDelete = (id) => {
+
+    if (user) {
+
+      const product_id = id;
+      const deleteFavorite = {
+        userId: idUserAUth0[0].id,
+        gameId: product_id
+      }
+
+      setFavorite(true);
+      dispatch(deleteFavorites(deleteFavorite));
+      console.log("obj", deleteFavorite);
+
+    } else if (!user) {
+
+      const product_id = id;
+      const deleteFavorite = {
+        userId: idManuelUser,
+        gameId: product_id
+      }
+
+      setFavorite(true);
+      dispatch(deleteFavorites(deleteFavorite));
+      console.log("obj", deleteFavorite)
+
+    }
+
+  };
 
   const handleShoppingChart = (id) => {
 
     if (user) {
 
-      const user_id = filterUser();
       const product_id = id;
-      const product_quantity = quantity
-      const products = []
       const put = {
         userId: idUserAUth0[0].id,
         products:
@@ -139,10 +180,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     } else if (!user) {
 
-      const user_id = filterUser();
       const product_id = id;
-      const product_quantity = quantity
-      const products = []
       const put = {
         userId: idManuelUser,
         products:
@@ -196,13 +234,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       setShoppingStringified(returnStringified);
     }, [shoppingChart]) */
 
-  React.useEffect(() => {
-    const returnStringified = allFavorites.map(el => {
-      return JSON.stringify(el);
-    });
-    setFavsStringified(returnStringified);
-  }, [allFavorites])
-
 
   var precio = `$ ${price}`;
 
@@ -224,21 +255,14 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
         />
         <br></br>
         <div className='iconsCardHomeContainer'>
-          {!favsStringified.includes(JSON.stringify({
-            title,
-            description: descriptionComplete,
-            img: imgProvisoria,
-            price,
-            id
-          })) ?
+          {favorite === true ?
             <AiOutlineHeart
               className='favIconCardHome'
               onClick={() => {
-                console.log('onClick fired');
-                handleFavorites(title, description, imgProvisoria, descriptionComplete, price, id)
+                handleFavorites(id)
               }} />
             : <AiFillHeart
-              onClick={() => dispatch(deleteFavorites(id))}
+              onClick={() => handleFavoritesDelete(id)}
               className='favIconCardHome' />}
           {cart ?
             <RiShoppingCartLine
