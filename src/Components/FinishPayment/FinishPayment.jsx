@@ -27,7 +27,8 @@ function FinishPayment() {
     const [idUserAUth0, setIdUserAuth0] = useState([]);
     const [idManuelUser, setIdManuelUser] = useState("");
     const [string, setString] = useState("hola");
-    const shoppingChart = useSelector(state => state.shoppingChart);
+    const [string2, setString2] = useState("hola");
+    var shoppingChart = useSelector(state => state.shoppingChart);
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
 
@@ -128,7 +129,7 @@ function FinishPayment() {
                     .then((res) => {
                         console.log(res.data);
                         setProducts([res.data]);
-                        setString("chau");
+                        setString2("chau");
                     })
                     .catch((err) => console.log(err))
 
@@ -149,7 +150,7 @@ function FinishPayment() {
                     .then((res) => {
                         console.log(res.data);
                         setProducts([res.data]);
-                        setString("chau");
+                        setString2("chau");
                     })
                     .catch((err) => console.log(err))
 
@@ -159,8 +160,114 @@ function FinishPayment() {
 
     };
 
+    if (shoppingChart.products && string2 === "chau") {
 
-    if (products.length > 0) {
+        console.log(shoppingChart);
+
+        return (
+            <div className="finishPayment-component">
+                <div className="checkout">
+                    <div className='checkOutList-component'>
+                        <div className='cartItems'>
+                            <Space
+                                direction="horizontal"
+                                style={{
+                                    marginBottom: '20px',
+                                }}
+                                size="middle"
+                            >
+                            </Space>
+                            <List
+                                pagination={{
+                                    position,
+                                    align,
+                                }}
+                                dataSource={shoppingChart.products}
+                                renderItem={(item, index) => (
+                                    <List.Item>
+                                        <List.Item.Meta
+                                            avatar={<Avatar src={item.img[0]} />}
+                                            title={item.title}
+                                            description={
+                                                <div className='icons-container'>
+                                                    {item.description}
+                                                    <br></br>
+
+                                                    <div className='quantity-delete'>
+
+                                                        <Button className='button+' onClick={(e) => handleQuantity2(item.id, item)}>
+                                                            -
+                                                        </Button>
+                                                        <p className='p-cantidad'>{item.quantity}</p>
+                                                        <Button className='button-' onClick={(e) => handleQuantity(item.id, item)}>
+                                                            +
+                                                        </Button>
+
+                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id)}>
+                                                            <AiOutlineDelete className='deleteIcon' />
+                                                        </Button>
+                                                        <div className='unit-price'>
+                                                            ${item.price}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+
+                                        />
+                                    </List.Item>
+
+                                )}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="card-payment-imgMercadoPago">
+                    <div className="card-payment">
+                        <Card
+                            title={
+                                <div className="container-aux">
+                                    <div>
+                                        Total:
+                                    </div>
+                                    <div>
+                                        ${totalPrice}
+                                    </div>
+                                </div>
+                            }
+                            bordered={true}
+                            style={{
+                                width: 400,
+                            }}
+                        >
+                            <p className="infoAux">Una vez realizado el pago, recibiras por mail
+                                el detalle del mismo.
+                            </p>
+                            <br></br>
+                            <br></br>
+                            <Button
+                                onClick={() => {
+                                    axios.post("https://pfservidor-production.up.railway.app/payment/mercadopago", { totalPrice })
+                                        .then((res) => {
+                                            window.location.href = res.data.response.body.init_point;
+                                        })
+                                }}
+                                className="buttonsCardDetail"
+                                style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                                type="primary"
+                            >
+                                Finalizar compra
+                            </Button>
+
+                        </Card>
+                    </div>
+                </div>
+
+            </div>
+
+        );
+
+    } else if (products.length > 0) {
 
         var newArray = products[0].products;
 
