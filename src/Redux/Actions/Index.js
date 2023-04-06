@@ -10,7 +10,8 @@ import {
     SET_NAME_FILTER,
     ORDER_BY_NAME, ORDER_BY_PRICE,
     ORDER_BY_RATE,
-    GET_ALL_USERS
+    GET_ALL_USERS,
+    DELETE_CHART
 } from "./Types";
 
 import axios from "axios";
@@ -38,12 +39,31 @@ export const deleteFavorites = (id) => {
 
 export const addItemToChart = (payload) => {
     try {
-        return async function(dispatch){
-            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity" , payload);
-            console.log("console.log" , json)
+        return async function (dispatch) {
+            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity", payload);
+            console.log("console.log", json)
 
             return dispatch({
                 type: ADD_ITEM_TO_CHART,
+                payload: json.data,
+            })
+        }
+
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
+
+export const deleteChart = (payload) => {
+    try {
+        return async function (dispatch) {
+            let json = await axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, payload)
+            console.log("console.log", json)
+
+            return dispatch({
+                type: DELETE_CHART,
                 payload: json.data,
             })
         }

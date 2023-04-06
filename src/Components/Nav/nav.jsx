@@ -149,57 +149,46 @@ function Nav(count) {
     },
   ];
 
+  console.log(shoppingChart);
+  console.log(products);
 
-  return (
-    <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
-      <div className="rutasNavContainer">
-        <ul>
-          <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
-            <Link to="/home" className="rutasNav">Home</Link>
-          </li>
-          {
-            isAuthenticated || cookieId
-              ? null
-              : <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux2" : "rutasNavAux"}>
-                <Link to="/login" className="rutasNav">Login</Link>
-              </li>
-          }
-          <li>
-            <Dropdown className={isAuthenticated || cookieId ? "rutasNav2Aux" : "rutasNav2AuxUltimate"}
-              menu={{
-                items: inboxOptions,
-              }}>
-              <a onClick={(e) => e.preventDefault()}>
-                <Space>
-                  Catalogue
-                  <DownOutlined />
-                </Space>
-              </a>
-            </Dropdown>
-          </li>
-          <li className={isAuthenticated || cookieId ? "buscadorAux" : "buscador"}>
-            <SearchBar />
-          </li>
-        </ul>
-        <div className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}></div>
-        <div className="rutasNav3">
-          <div className="profileNav">
-            {isAuthenticated ?
-              <Dropdown
-                className=""
+  if (shoppingChart.products) {
+
+    return (
+      <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
+        <div className="rutasNavContainer">
+          <ul>
+            <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
+              <Link to="/home" className="rutasNav">Home</Link>
+            </li>
+            {
+              isAuthenticated || cookieId
+                ? null
+                : <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux2" : "rutasNavAux"}>
+                  <Link to="/login" className="rutasNav">Login</Link>
+                </li>
+            }
+            <li>
+              <Dropdown className={isAuthenticated || cookieId ? "rutasNav2Aux" : "rutasNav2AuxUltimate"}
                 menu={{
-                  items: profileOptions,
+                  items: inboxOptions,
                 }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <Profile />
+                    Catalogue
+                    <DownOutlined />
                   </Space>
                 </a>
-              </Dropdown> :
-              null
-            }
-            <div>
-              {cookieId ?
+              </Dropdown>
+            </li>
+            <li className={isAuthenticated || cookieId ? "buscadorAux" : "buscador"}>
+              <SearchBar />
+            </li>
+          </ul>
+          <div className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}></div>
+          <div className="rutasNav3">
+            <div className="profileNav">
+              {isAuthenticated ?
                 <Dropdown
                   className=""
                   menu={{
@@ -207,31 +196,134 @@ function Nav(count) {
                   }}>
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
-                      <img className="imgProfile" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" alt="profile"></img>
+                      <Profile />
                     </Space>
                   </a>
                 </Dropdown> :
                 null
               }
+              <div>
+                {cookieId ?
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptions,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <img className="imgProfile" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" alt="profile"></img>
+                      </Space>
+                    </a>
+                  </Dropdown> :
+                  null
+                }
+              </div>
+              <Badge
+                count={shoppingChart.products ? shoppingChart.products.length : "0"}
+                size="small"
+                style={{ backgroundColor: "#1976D2" }}>
+                <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
+              </Badge>
             </div>
-            <Badge
-              count="!"
-              size="small"
-              style={{ backgroundColor: "#1976D2" }}>
-              <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
-            </Badge>
-          </div>
 
+          </div>
+          {
+            shoppingCartRender
+              ?
+              <DropdownShoppingCart />
+              : null
+          }
         </div>
-        {
-          shoppingCartRender
-            ?
-            <DropdownShoppingCart />
-            : null
-        }
       </div>
-    </div>
-  );
-}
+    );
+
+  } else {
+
+    return (
+      <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
+        <div className="rutasNavContainer">
+          <ul>
+            <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
+              <Link to="/home" className="rutasNav">Home</Link>
+            </li>
+            {
+              isAuthenticated || cookieId
+                ? null
+                : <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux2" : "rutasNavAux"}>
+                  <Link to="/login" className="rutasNav">Login</Link>
+                </li>
+            }
+            <li>
+              <Dropdown className={isAuthenticated || cookieId ? "rutasNav2Aux" : "rutasNav2AuxUltimate"}
+                menu={{
+                  items: inboxOptions,
+                }}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    Catalogue
+                    <DownOutlined />
+                  </Space>
+                </a>
+              </Dropdown>
+            </li>
+            <li className={isAuthenticated || cookieId ? "buscadorAux" : "buscador"}>
+              <SearchBar />
+            </li>
+          </ul>
+          <div className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}></div>
+          <div className="rutasNav3">
+            <div className="profileNav">
+              {isAuthenticated ?
+                <Dropdown
+                  className=""
+                  menu={{
+                    items: profileOptions,
+                  }}>
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <Profile />
+                    </Space>
+                  </a>
+                </Dropdown> :
+                null
+              }
+              <div>
+                {cookieId ?
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptions,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <img className="imgProfile" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" alt="profile"></img>
+                      </Space>
+                    </a>
+                  </Dropdown> :
+                  null
+                }
+              </div>
+              <Badge
+                count={products.length ? products[0].products.length : "0"}
+                size="small"
+                style={{ backgroundColor: "#1976D2" }}>
+                <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
+              </Badge>
+            </div>
+
+          </div>
+          {
+            shoppingCartRender
+              ?
+              <DropdownShoppingCart />
+              : null
+          }
+        </div>
+      </div>
+    )
+
+  };
+
+};
 
 export { Nav };

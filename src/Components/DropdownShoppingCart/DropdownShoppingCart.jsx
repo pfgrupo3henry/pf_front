@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Typography, Image, Space, Tooltip, Input } from "antd";
 import { PlusOutlined, MinusOutlined, DeleteOutlined } from "@ant-design/icons";
 import "./DropdownShoppingCart.css";
-import { useSelector } from "react-redux";
 import axios from "axios"
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,6 +10,8 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import "./DropdownShoppingCartCard.css";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteChart } from "../../Redux/Actions/Index";
 
 
 
@@ -21,7 +22,7 @@ function DropdownShoppingCart() {
   const [idUserAUth0, setIdUserAuth0] = useState([]);
   const [idManuelUser, setIdManuelUser] = useState("");
   const [string, setString] = useState("hola");
-
+  const dispatch = useDispatch();
   const { Text } = Typography;
 
   if (isAuthenticated) {
@@ -65,25 +66,45 @@ function DropdownShoppingCart() {
 
     if (user) {
 
-      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: e.target.value })
-        .then((res) => {
-          console.log(res.data);
-          setProducts([res.data]);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+      let payload = {
+        userId: idUserAUth0[0].id,
+        gameId: e.target.value
+      }
+
+      dispatch(deleteChart(payload));
+
+      setTimeout(() => {
+
+        axios.get(`https://pfservidor-production.up.railway.app/cart/${idUserAUth0[0].id}`)
+          .then((res) => {
+            console.log(res.data);
+            setProducts([res.data]);
+            setString("chau");
+          })
+          .catch((err) => console.log(err))
+
+      }, "500");
 
     } else {
 
-      axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: e.target.value })
-        .then((res) => {
-          console.log(res.data);
-          setProducts([res.data]);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+      let payload = {
+        userId: idManuelUser,
+        gameId: e.target.value
+      }
+
+      dispatch(deleteChart(payload));
+
+      setTimeout(() => {
+
+        axios.get(`https://pfservidor-production.up.railway.app/cart/${idManuelUser}`)
+          .then((res) => {
+            console.log(res.data);
+            setProducts([res.data]);
+            setString("chau");
+          })
+          .catch((err) => console.log(err))
+
+      }, "500");
 
     }
 
