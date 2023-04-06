@@ -11,7 +11,9 @@ import {
     ORDER_BY_PRICE, 
     ORDER_BY_RATE,
     POST_NEW_PRODUCT,
-    GET_ALL_USERS
+    GET_ALL_USERS,
+    GET_ITEM_CART,
+    DELETE_CART
 } from "../Actions/Types";
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
     allUsers: []
 
 }
+
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -54,14 +57,28 @@ const rootReducer = (state = initialState, action) => {
 
 
         case ADD_ITEM_TO_CHART:
+            
             return {
                 ...state,
                 shoppingChart: action.payload
 
             }
 
+            case GET_ITEM_CART:
+                return {
+                    ...state,
+                    shoppingChart: action.payload
+        
+                }
 
-
+                case DELETE_CART:
+                   /*  localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload])); */
+                    console.log("SHOPING?",action.shoppingChart)
+                    return {
+                            ...state,
+                            shoppingChart: [...state.shoppingChart, action.payload]
+                        }
+            
 
 
 
@@ -178,4 +195,4 @@ const rootReducer = (state = initialState, action) => {
 
 
 
-export default rootReducer; 
+export default rootReducer;
