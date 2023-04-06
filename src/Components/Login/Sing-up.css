@@ -1,35 +1,74 @@
 .login-form {
-    min-height: 80vh;
-    width: 900px;
-    padding: 110px 0px 0px 500px;
+    display: flex;
+    width: 22rem;
+    margin-top: 5rem;
+    justify-content: center;
+    min-height: 30rem;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
-.button-form-ir-a {
+/* .button-form-ir-a {
     text-decoration: none;
     background-color: white;
     border: none;
-    color: blue;
+    color: rgb(0, 140, 255);
+}
+ */
+.buttonOrRegister {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    color: rgb(0, 140, 255);
+
 }
 
 .login-form-button {
-    width: 400px;
+    width: 22rem;
 }
 
 .form-forgot {
-    padding: 0px 0px 0px 160px;
+    margin-left: 5.7rem;
 }
 
 .div-singup-principal {
+    display: flex;
     align-items: center;
     justify-content: center;
+    width: 30rem;
+    flex-direction: column;
+
 }
 
-.form-sing-up {
-    padding: 60px 0px 0px 0px;
-    width: 900px;
+
+.registro {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    width: 36rem;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* .form-sing-up {
     align-items: center;
     justify-content: center;
-}
+} */
 
 .select-sing-up {
     height: 38px;
@@ -50,6 +89,7 @@
     font-size: 15px;
 }
 
+
 .p-error {
     color: red;
 }
@@ -68,17 +108,26 @@
 }
 
 .button-sing-up-body {
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0px 0px 0px 300px;
-    width: 400px;
+    width: 12rem;
+    margin-left: 16rem;
+
 }
 
 .Button-sing-up-submit {
-    background-color: rgb(155, 64, 240);
+    background-color: rgba(9, 22, 29, 0.712);
     color: white;
+    cursor: pointer;
+
+
 }
 
 .buttonsing-up-none {
     display: none;
+}
+
+.google {
+    width: 30rem;
 }

@@ -135,7 +135,7 @@ function CardDetail() {
             console.log("obj", put);
             setTimeout(() => {
                 window.location.href = "/status-payment";
-            }, "2000");
+            }, "600");
 
         } else if (!user) {
 
