@@ -164,7 +164,7 @@ function FinishPayment() {
         console.log(totalPrice);
         console.log(products2);
 
-        if (Array.isArray(products) && products.length) {
+        if (Array.isArray(products) && products.length !== 0) {
 
             return (
                 <div className="finishPayment-component">
@@ -188,7 +188,7 @@ function FinishPayment() {
                                     renderItem={(item, index) => (
                                         <List.Item>
                                             <List.Item.Meta
-                                                avatar={<Avatar src={item.img} />}
+                                                avatar={<Avatar src={item.img[0]} />}
                                                 title={item.title}
                                                 description={
                                                     <div className='icons-container'>
@@ -272,7 +272,7 @@ function FinishPayment() {
         } else {
 
             return (
-                <div>loading</div>
+                <div className='loader-payment'>Loading...</div>
             )
 
         };

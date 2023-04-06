@@ -129,7 +129,7 @@ function DropdownShoppingCart() {
             ? products[0].products.map((el) => (
               <div className="dropdown-shopping-cart-card-component">
                 <div style={{ backgroundImage: `url('${""}')` }} className="card-header">
-                  <Image width={100} src={el.img} />
+                  <Image width={100} src={el.img[0]} />
                   <Text type="secondary" style={{ color: "#90A4AE" }}>
                     {el.name || "Game Title"}
                   </Text>
