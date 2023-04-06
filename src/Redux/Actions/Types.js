@@ -4,6 +4,9 @@ export const DELETE_FAVORITES = "DELETE_FAVORITES";
 export const ADD_ITEM_TO_CHART = 'ADD_ITEM_TO_CHART';
 export const DELETE_CHART = "DELETE_CHART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
+export const GET_ITEM_CART = "GET_ITEM_CART";
+
+export const DELETE_CART = "DELETE_CART";
 
 
 
