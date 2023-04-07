@@ -89,3 +89,16 @@ h1 {
 .priceInput{
     width: 10rem;
 }
+
+
+.selected-modifyUsers{
+    display: flex;
+    gap: 2rem;
+    margin-left: 10rem;
+}
+
+.lista-selects{
+    display: flex;
+    flex-direction: row;
+    
+}
