@@ -12,12 +12,13 @@ import {
     POST_NEW_PRODUCT,
     GET_ALL_USERS,
     DELETE_CHART,
-    GET_FAVORITES
+    GET_FAVORITES,
+    GET_CHART_2
 } from "../Actions/Types";
 
 const initialState = {
-    allFavorites: localStorage.getItem(`allFavorites`) && JSON.parse(localStorage.getItem('allFavorites')) || [],
-    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) || [],
+    allFavorites: [],
+    shoppingChart: [],
     allGames: [],
     cards: [],
     filteredCards: [],
@@ -67,6 +68,13 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case DELETE_CHART:
+            return {
+                ...state,
+                shoppingChart: action.payload
+
+            }
+
+        case GET_CHART_2:
             return {
                 ...state,
                 shoppingChart: action.payload

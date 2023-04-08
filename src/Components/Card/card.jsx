@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
-import { postFavorites, addItemToChart, deleteFavorites, deleteChart } from "../../Redux/Actions/Index";
+import { postFavorites, addItemToChart, deleteFavorites, deleteChart, getFavorites, getChart } from "../../Redux/Actions/Index";
 import React, { useEffect, useState } from "react";
 import { Card } from 'antd';
 import "../Card/card.css"
@@ -40,34 +40,29 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [string, setString] = useState("hola");
 
 
-  /*useEffect(() => {
-    dispatch(getUsers)
-  });*/
+  useEffect(() => {
+    console.log(idUserAUth0);
+    if (idManuelUser) {
+      dispatch(getFavorites(idManuelUser));
+      dispatch(getChart(idManuelUser));
+    }
+  }, [dispatch]);
 
-  if (isAuthenticated) {
+  if (user) {
 
-    if (user) {
+    const emailAuth0 = user.email;
 
-      const emailAuth0 = user.email;
+    if (idUserAUth0.length === 0 && string === "hola") {
 
-      if (idUserAUth0.length === 0 && string === "hola") {
+      axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
+        .then((res) => {
+          setIdUserAuth0([res.data]);
+          setString("chau");
+        })
+        .catch((err) => console.log(err))
 
-        axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-          .then((res) => {
-            console.log(res.data);
-            setIdUserAuth0([res.data]);
-            setString("chau");
-          })
-          .catch((err) => console.log(err))
+    }
 
-      }
-
-    };
-
-  };
-
-  if (idUserAUth0.length !== 0) {
-    console.log(idUserAUth0[0].id);
   };
 
   if (!user) {
@@ -83,10 +78,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     }
 
   };
-
-  /*const cookie = new Cookies();
-  const idCookie = cookie.get("id");
-  console.log(idCookie);*/
 
   const navigate = useNavigate();
 
@@ -227,19 +218,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
   };
 
-  //linea inutil
-
-  /*   React.useEffect(() => {
-      const returnStringified = shoppingChart.map(el => {
-        return JSON.stringify(el);
-      });
-      setShoppingStringified(returnStringified);
-    }, [shoppingChart]) */
-
-
   var precio = `$ ${price}`;
-  console.log(shoppingChart);
-  console.log(allFavorites);
 
   if (shoppingChart || allFavorites) {
     return (
@@ -314,6 +293,3 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 };
 
 export { CardElement };
-
-
-/* */

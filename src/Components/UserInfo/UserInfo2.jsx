@@ -59,13 +59,11 @@ function UserInfo() {
 
     const cookie = new Cookies();
     const email = cookie.get("email");
-    console.log(email);
 
     if (newUser.length === 0) {
 
       axios.get(`https://pfservidor-production.up.railway.app/user/${email}`)
         .then((res) => {
-          console.log(res.data);
           setNewUser([res.data]);
           setTitulo(`${res.data.firstname} ${res.data.lastname}`);
         })
@@ -81,7 +79,6 @@ function UserInfo() {
 
       axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
         .then((res) => {
-          console.log(res.data);
           setNewUser([res.data]);
           setTitulo(`${res.data.firstname} ${res.data.lastname}`);
         })
@@ -93,12 +90,16 @@ function UserInfo() {
 
   const modifyUserSubmit = () => {
 
-    axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
-      .then((res) => {
-        console.log(res.data);
-        window.location.reload();
-      })
-      .catch((err) => console.log(err))
+    if (!input.firstname || !input.lastname || !input.nationality || !input.mobile || !input.img.length === 0) {
+      return (console.log("falta enviar datos obligatorios"));
+    } else {
+      axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err))
+
+    }
 
   };
 
@@ -147,10 +148,6 @@ function UserInfo() {
       }
     );
   };
-
-
-  console.log(newUser);
-  console.log(fileList[0]);
 
   return (
 
