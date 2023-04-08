@@ -27,7 +27,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [favorite, setFavorite] = useState(true);
   const [cart, setCart] = useState(true);
 
-  const loader3 = useSelector(state => state.loading);
   const allFavorites = useSelector(state => state.allFavorites);
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
@@ -241,9 +240,8 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   var precio = `$ ${price}`;
   console.log(shoppingChart);
   console.log(allFavorites);
-  console.log(loader3);
 
-  if (shoppingChart.products || allFavorites.products) {
+  if (shoppingChart || allFavorites) {
     return (
       <div className="card-component">
         <Card
