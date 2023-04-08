@@ -13,10 +13,44 @@ import {
     GET_ALL_USERS,
     DELETE_CHART,
     GET_FAVORITES,
-    GET_CHART_2
+    GET_CHART_2,
+    GET_REVIEWS,
+    SAVE_RATING_AND_COMMENT
 } from "./Types";
 
 import axios from "axios";
+
+export const getReviews = (id) => {
+    try {
+        return async function (dispatch) {
+            let results = await axios.get(`https://pfservidor-production.up.railway.app/review/${id}`);
+            console.log("console.log", results)
+            return dispatch({
+                type: GET_REVIEWS,
+                payload: results.data
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export function saveRatingAndComment(payload) {
+    try {
+        return async function (dispatch) {
+            let json = await axios.post(`https://pfservidor-production.up.railway.app/review`, payload);
+            console.log("console.log", json)
+            return dispatch({
+                type: SAVE_RATING_AND_COMMENT,
+                payload: json.data,
+            })
+        }
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
 
 export const postFavorites = (payload) => {
     try {
