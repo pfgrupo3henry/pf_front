@@ -1,25 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card } from 'antd';
 import { useParams } from 'react-router-dom';
-import { Button, Rate } from 'antd';
+import { Button, Rate, message } from 'antd';
 import { Input } from 'antd';
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { useDispatch } from "react-redux";
-import { addItemToChart } from "../../Redux/Actions/Index";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToChart, getReviews, getUsers, saveRatingAndComment, } from "../../Redux/Actions/Index";
 import "./CardDetail.css";
+
 const imgProvisoria = require("../Assets/a-way-out-ps5-retro.jpg")
-
-
 
 
 function CardDetail() {
 
-    const { isAuthenticated } = useAuth0();
     const [card, setCard] = useState([]);
     const [string, setString] = useState("vacio");
     const { id } = useParams();
@@ -27,6 +23,20 @@ function CardDetail() {
     const { Meta } = Card;
     const cookie = new Cookies();
     const idCoockie = cookie.get("id");
+    const [value, setValue] = useState(1);
+    const [comment, setComment] = useState("");
+    const [prom, setProm] = useState();
+    const [placeholder, setPlaceholder] = useState("Leave your comment");
+    const [stringR, setStringR] = useState("hola");
+    const reviews2 = useSelector(state => state.reviews);
+
+    useEffect(() => {
+        setProm(prom);
+    }, [prom]);
+
+    useEffect(() => {
+        dispatch(getReviews(id));
+    }, [dispatch]);
 
     if (!card.length) {
 
@@ -78,11 +88,61 @@ function CardDetail() {
 
     };
 
+    function handleRatingChange(value2) {
+        if (idCoockie) {
+            setValue(value2);
+            console.log(value);
+        } else {
+            console.log("debe loguearse para puntuar");
+        }
+    }
+
+    function handleChangeInput(e) {
+        if (idCoockie) {
+            setComment(e.target.value);
+            setPlaceholder("Leave your comment");
+            console.log(comment);
+        } else {
+            console.log("debe loguearse para dejar comment");
+        }
+    }
+
+    function onClick(e) {
+        e.preventDefault();
+        const put = {
+            userId: idCoockie,
+            videogameId: Number(id),
+            comment: comment,
+            rate: value,
+        };
+        console.log(put)
+        dispatch(saveRatingAndComment(put));
+        message.success("¡La operación se realizó con éxito!", 5);
+        // window.location.reload();
+    }
+
     if (card.length !== 0) {
 
-        console.log(card[0].id);
 
-        var precio = `$ ${card[0].price}`
+        if (stringR === "hola") {
+            if (reviews2.length !== 0) {
+                var number = 0;
+                for (let i = 0; i < reviews2.length; i++) {
+                    number = number + Number(reviews2[i].rate)
+                }
+                number = number / reviews2.length;
+                console.log(number);
+                setProm(number);
+                setStringR("Chau")
+            }
+        };
+
+
+        console.log(comment);
+        console.log(value);
+        console.log(reviews2);
+        console.log(card[0].id);
+        var precio = `$ ${card[0].price}`;
 
         return (
 
@@ -112,19 +172,28 @@ function CardDetail() {
 
                                 <div className="rateForm">
                                     <Rate
+                                        onChange={handleRatingChange}
                                         className="rateAux"
-                                        allowHalf defaultValue={2.5} />
+                                        allowHalf
+                                        defaultValue={1}
+                                        value={value}
+                                    />
 
                                     <div className="inputButton">
                                         <Input
                                             className="form"
-                                            placeholder="Leave your comment" bordered={false} />
+                                            placeholder={placeholder}
+                                            bordered={false}
+                                            onChange={(e) => handleChangeInput(e)}
+                                            value={comment}
+                                            type="text"
+                                        />
 
                                         <Button
                                             className="buttonAux"
                                             style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
                                             type="primary"
-                                        >
+                                            onClick={(e) => onClick(e)}>
                                             Send
                                         </Button>
                                     </div>
@@ -185,58 +254,38 @@ function CardDetail() {
                             </div>
 
                             <div className="comentarios-card">
-
-
                                 <div className="reviewsContainer">
 
-
-
-
-                                    <Card title="" bordered={false}>
-                                        <div className="nameComment">
-                                            <div className="imgRate">
-                                                {!isAuthenticated ? null : <Profile />}
-                                                <Rate
-                                                    className="rate"
-                                                    disabled defaultValue={5} />
-                                            </div>
-                                            <p className="comment">
-                                                ¡Great!, an incredible game, i love it
-                                            </p>
-
-                                        </div>
+                                    <Card title="PROMEDIO DEL JUEGO">
+                                        <Rate
+                                            className="rateProm"
+                                            disabled
+                                            bordered={false}
+                                            allowHalf
+                                            value={prom}
+                                        />
                                     </Card>
 
-                                    <Card title="" bordered={false}>
-                                        <div className="nameComment">
-                                            <div className="imgRate">
-                                                {!isAuthenticated ? null : <Profile />}
-                                                <Rate
-                                                    className="rate"
-                                                    disabled defaultValue={2} />
-                                            </div>
-                                            <p className="comment">
-                                                ¡Great!, an incredible game, i love it
-                                            </p>
-
-                                        </div>
-                                    </Card>
-
-
-                                    <Card title="" bordered={false}>
-                                        <div className="nameComment">
-                                            <div className="imgRate">
-                                                {!isAuthenticated ? null : <Profile />}
-                                                <Rate
-                                                    className="rate"
-                                                    disabled defaultValue={4} />
-                                            </div>
-                                            <p className="comment">
-                                                ¡Great!, an incredible game, i love it
-                                            </p>
-
-                                        </div>
-                                    </Card>
+                                    {reviews2.length !== 0 ? reviews2.map((r) => {
+                                        return (
+                                            <Card title="" bordered={false}>
+                                                <div className="nameComment">
+                                                    <div className="imgRate">
+                                                        <p>{"Celina"}</p>
+                                                        <Rate
+                                                            className="rate"
+                                                            disabled
+                                                            allowHalf
+                                                            value={Number(r.rate)}
+                                                        />
+                                                    </div>
+                                                    <p className="comment">{r.comment}</p>
+                                                </div>
+                                            </Card>
+                                        )
+                                    })
+                                        :
+                                        null}
 
                                 </div>
 
@@ -252,14 +301,8 @@ function CardDetail() {
         );
 
     } else {
-
-        return (
-
-            <div className='loader-card-detail'>Loading...</div>
-
-        );
-
-    };
+        return (<div className='loader-card-detail'>Loading...</div>)
+    }
 
 };
 
