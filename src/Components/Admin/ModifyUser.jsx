@@ -35,8 +35,8 @@ function ModifyUser() {
           <List.Item>
             <List.Item.Meta
               avatar={<Avatar src={item.img[0]} />}
-              title={<a href="https://ant.design">{item.firstname}</a>}
-              description="ejemplo"
+              title={item.firstname}
+              email={item.email}
             />
                     
             <div className='selected-modifyUsers'>

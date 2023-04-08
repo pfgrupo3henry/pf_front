@@ -8,6 +8,7 @@ import {FormCreateProduct} from "./FormCreateProduct"
 import {ModifyUser} from "./ModifyUser"
 import { Input, Space } from 'antd';
 import  Dashboard  from "./Dashboard";
+import  ProductList  from "./ProductList";
 
 
 const { Search } = Input;
@@ -159,7 +160,7 @@ function Admin() {
 
                         {state === "list-products" ?
 
-                            <div>Form Modify List Products</div>
+                            <div><ProductList/></div>
 
                             :
 

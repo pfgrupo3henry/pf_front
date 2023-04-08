@@ -46,3 +46,9 @@
 .selectores-dash{
     width: 10rem;
 }
+
+.tabla-componente{
+    display: flex;
+    margin-left: 13rem;
+
+}
