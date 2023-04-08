@@ -34,6 +34,7 @@ function LandingPage() {
             .then((res) => {
                 console.log(res);
                 cookie.set("id", res.data._id);
+                cookie.set("email", res.data.email);
             })
             .catch((err) => console.log(err));
 
