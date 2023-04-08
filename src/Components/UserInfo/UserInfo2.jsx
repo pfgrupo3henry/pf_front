@@ -4,20 +4,13 @@ import { Menu, Button, Form, Input, Card, Upload } from 'antd';
 import { useState } from 'react';
 import "./UserInfo.css";
 import "../CardDetail/CardDetail.css";
-import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
 
 
 
-
-const { Meta } = Card;
-
 function getItem(label, key, icon, children, type) {
-
-
-
   return {
     key,
     icon,
@@ -38,7 +31,6 @@ const items = [
 
 function UserInfo() {
 
-  const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
   const [verFrom, setVerForm] = useState("vacio");
   const [theme, setTheme] = useState('ligth');
   const [current, setCurrent] = useState('1');
@@ -53,52 +45,34 @@ function UserInfo() {
   });
   const [fileList, setFileList] = useState([]);
   const [imagenFile, setImagenFile2] = useState("vacio");
+  const { Meta } = Card;
+  const cookie = new Cookies();
+  const email = cookie.get("email");
+  console.log(email);
 
+  if (newUser.length === 0) {
 
-  if (!user && newUser.length === 0) {
+    axios.get(`https://pfservidor-production.up.railway.app/user/${email}`)
+      .then((res) => {
+        setNewUser([res.data]);
+        setTitulo(`${res.data.firstname} ${res.data.lastname}`);
+      })
+      .catch((err) => console.log(err))
 
-    const cookie = new Cookies();
-    const email = cookie.get("email");
-    console.log(email);
+  }
 
-    if (newUser.length === 0) {
+  const modifyUserSubmit = () => {
 
-      axios.get(`https://pfservidor-production.up.railway.app/user/${email}`)
+    if (!input.firstname || !input.lastname || !input.nationality || !input.mobile || !input.img.length === 0) {
+      return (console.log("falta enviar datos obligatorios"));
+    } else {
+      axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
         .then((res) => {
-          console.log(res.data);
-          setNewUser([res.data]);
-          setTitulo(`${res.data.firstname} ${res.data.lastname}`);
+          window.location.reload();
         })
         .catch((err) => console.log(err))
 
     }
-
-  } else if (user && newUser.length === 0) {
-
-    const emailAuth0 = user.email;
-
-    if (newUser.length === 0) {
-
-      axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-        .then((res) => {
-          console.log(res.data);
-          setNewUser([res.data]);
-          setTitulo(`${res.data.firstname} ${res.data.lastname}`);
-        })
-        .catch((err) => console.log(err))
-
-    };
-
-  };
-
-  const modifyUserSubmit = () => {
-
-    axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
-      .then((res) => {
-        console.log(res.data);
-        window.location.reload();
-      })
-      .catch((err) => console.log(err))
 
   };
 
@@ -147,10 +121,6 @@ function UserInfo() {
       }
     );
   };
-
-
-  console.log(newUser);
-  console.log(fileList[0]);
 
   return (
 

@@ -1,4 +1,4 @@
-.finishPayment-component{
+.finishPayment-component {
     margin-top: 8rem;
     display: flex;
     justify-content: center;
@@ -11,25 +11,27 @@
 
 }
 
-.checkout{
+.checkout {
     width: 50rem;
 }
 
-.quantity-delete{
+.quantity-delete {
     margin-top: 1rem;
     display: flex;
     flex-direction: row;
     gap: 2rem;
 }
 
-.deleteIcon{
+.deleteIcon {
     font-size: 1.7rem;
     cursor: pointer;
 }
-.deleteIcon:hover{
+
+.deleteIcon:hover {
     transform: scale(1.2);
 }
-.unit-price{
+
+.unit-price {
     display: flex;
     margin-left: 3rem;
     align-items: center;
@@ -38,21 +40,39 @@
 
 }
 
-.card-payment-imgMercadoPago{
+.card-payment-imgMercadoPago {
     display: flex;
     margin-top: 1rem;
 }
 
-.container-aux{
+.container-aux {
     display: flex;
     flex-direction: row;
     gap: 14rem;
 }
 
-.infoAux{
+.infoAux {
     width: 14rem;
 }
 
-.buttonsCardDetail{
+.buttonsCardDetail {
     width: 22rem;
+}
+
+.button-borrar {
+    border: none;
+}
+
+.p-cantidad {
+    text-align: center;
+    color: black;
+    padding: 5px 0px 0px 0px;
+}
+
+.loader-payment {
+    font-size: 60px;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 300px 0px;
 }

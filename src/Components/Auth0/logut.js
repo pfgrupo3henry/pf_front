@@ -17,7 +17,9 @@ export const Logout = () => {
         document.cookie.split(";").forEach(function (c) {
             document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
-        logout();
+        logout().then((res) => {
+            window.location.href = "/";
+        })
     };
 
 

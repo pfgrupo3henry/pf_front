@@ -27,3 +27,11 @@
 .img-card-home {
     height: 230px;
 }
+
+.p-carrito {
+    color: blue;
+}
+
+.p-carrito-borrado {
+    color: red;
+}

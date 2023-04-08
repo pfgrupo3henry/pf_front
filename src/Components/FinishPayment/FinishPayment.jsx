@@ -1,128 +1,88 @@
 import { Button } from 'antd';
-import { SiMercadopago } from "react-icons/si";
-import { Avatar, InputNumber, List, Radio, Space, Card } from 'antd';
-import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
-import { useState } from 'react';
+import { Avatar, InputNumber, List, Space, Card } from 'antd';
+import { useState, useEffect } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios"
 import "./FinishPayment.css"
 import Cookies from "universal-cookie";
-import { useAuth0 } from "@auth0/auth0-react";
-
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { deleteChart, getChart } from "../../Redux/Actions/Index";
 
 function FinishPayment() {
 
-    /*const allProducts = [
-        { title: "juego de prueba", category_id: "art", currency_id: "ARS", unit_price: 1330.50, description: "La edición Ultimate Evil potencia el juego base con la expansión Reaper of Souls y el nuevo modo Aventura para obtener mejores recompensas. Los jugadores podrán vivir esta experiencia como brujo, cazador de demonios, monje o mago mientras aprenden a dominar nuevas habilidades y poderes mortales.", img: imgProvisoria2, quantity: 1, id: 11 },
-        { title: "juego de prueba2", category_id: "art", currency_id: "ARS", unit_price: 1999.99, description: "La edición Ultimate Evil potencia el juego base con la expansión Reaper of Souls y el nuevo modo Aventura para obtener mejores recompensas. Los jugadores podrán vivir esta experiencia como brujo, cazador de demonios, monje o mago mientras aprenden a dominar nuevas habilidades y poderes mortales.", img: imgProvisoria2, quantity: 1, id: 12 }
-    ]*/
-
     const [position, setPosition] = useState('bottom');
     const [align, setAlign] = useState('center');
-    const [products, setProducts] = useState([]);
-    const [totalPrice, settotalPrice] = useState(""); //(acc, product) => acc + product.unit_price * product.quantity, 0)
-    const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
-    const [idUserAUth0, setIdUserAuth0] = useState([]);
-    const [idManuelUser, setIdManuelUser] = useState("");
-    const [string, setString] = useState("hola");
+    const [totalPrice, settotalPrice] = useState("");
+    const [string, setString] = useState("cuenta");
 
-    const handleQuantity = (value, id) => {
-        const newProducts = products.map(product => {
-            if (product.id === id) {
-                return {
-                    ...product,
-                    quantity: value
-                };
-            }
-            return product;
-        });
-        setProducts(newProducts);
-        settotalPrice()
+    var shoppingChart = useSelector(state => state.shoppingChart);
+    const dispatch = useDispatch();
+
+    const cookie = new Cookies();
+    const idCoockie = cookie.get("id");
+    console.log(idCoockie);
+
+    useEffect(() => {
+
+        dispatch(getChart(idCoockie));
+
+    }, [dispatch]);
+
+
+    const handleQuantity = (id, item) => {
+
+        item.quantity = Number(item.quantity) + 1;
+        var numero2 = totalPrice + Number(item.price);
+        settotalPrice(numero2);
+
     };
 
-    if (isAuthenticated) {
+    const handleQuantity2 = (id, item) => {
 
-        if (user && idUserAUth0.length === 0) {
+        if (item.quantity === 1) {
+            return (console.log("1"));
+        };
 
-            const emailAuth0 = user.email;
+        item.quantity = Number(item.quantity) - 1;
+        var numero2 = totalPrice - Number(item.price);
+        settotalPrice(numero2);
 
-            if (idUserAUth0.length === 0) {
+    };
 
-                axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-                    .then((res) => {
-                        console.log(res.data);
-                        setIdUserAuth0([res.data]);
-                    })
-                    .catch((err) => console.log(err))
+    const onClickDelete = (id, price) => {
 
-            }
+        let precio = Number(totalPrice) - Number(price);
+        console.log(precio);
+
+        let payload = {
+            userId: idCoockie,
+            gameId: id
+        }
+
+        dispatch(deleteChart(payload));
+        settotalPrice(precio);
+
+    };
+
+    if (shoppingChart) {
+
+        if (shoppingChart.products) {
+
+            var newArray = shoppingChart.products;
+            console.log(newArray)
+
+            if (string === "cuenta") {
+                var num = 0;
+                for (let i = 0; i < newArray.length; i++) {
+                    num = num + Number(newArray[i].price);
+                }
+                settotalPrice(num)
+                setString("terminado")
+            };
 
         };
 
-    };
 
-    if (!user) {
-
-        if (idManuelUser === "") {
-
-            const cookie = new Cookies();
-            const idCoockie = cookie.get("id");
-            console.log(idCoockie);
-
-            setIdManuelUser(idCoockie);
-
-        }
-
-    };
-
-
-    if (idManuelUser && string === "hola") {
-
-        axios.get(`https://pfservidor-production.up.railway.app/cart/${idManuelUser}`)
-            .then((res) => {
-                console.log(res.data);
-                setProducts([res.data]);
-                setString("chau");
-                settotalPrice(res.data[0].reduce((acc, product) => acc + res.data.price * product.quantity, 0))
-            })
-            .catch((err) => console.log(err))
-
-    } else if (idUserAUth0.length !== 0 && isAuthenticated && string === "hola") {
-
-        axios.get(`https://pfservidor-production.up.railway.app/cart/${idUserAUth0[0].id}`)
-            .then((res) => {
-                console.log(res.data);
-                setProducts([res.data]);
-                setString("chau");
-                settotalPrice(res.data[0].reduce((acc, product) => acc + product.price * product.quantity, 0))
-            })
-            .catch((err) => console.log(err))
-
-    };
-
-    if (idUserAUth0.length !== 0) {
-        console.log(idUserAUth0[0].id);
-    };
-
-    if (products.length !== 0) {
-
-        console.log(products);
-        var newArray = products[0].products;
-        console.log(newArray);
-
-
-      /*   if (string === "chau") {
-            var num = 0;
-            for (let i = 0; i < newArray.length; i++) {
-                num = num + Number(newArray[i].price);
-            }
-            settotalPrice(num)
-            setString("terminado")
-        }; */
-
-        console.log(totalPrice);
 
         return (
             <div className="finishPayment-component">
@@ -142,11 +102,11 @@ function FinishPayment() {
                                     position,
                                     align,
                                 }}
-                                dataSource={products[0].products}
+                                dataSource={shoppingChart.products}
                                 renderItem={(item, index) => (
                                     <List.Item>
                                         <List.Item.Meta
-                                            avatar={<Avatar src={item.img[0]} />}
+                                            avatar={<Avatar src={item.img ? item.img[0] : ""} />}
                                             title={item.title}
                                             description={
                                                 <div className='icons-container'>
@@ -154,12 +114,18 @@ function FinishPayment() {
                                                     <br></br>
 
                                                     <div className='quantity-delete'>
-                                                        <InputNumber
-                                                            value={item.quantity}
-                                                            onChange={(value) => handleQuantity(value, item.id)}
-                                                            style={{ height: "1.69rem", width: "4rem" }}
-                                                        />
-                                                        <AiOutlineDelete className='deleteIcon' />
+
+                                                        <Button className='button+' onClick={(e) => handleQuantity2(item.id, item)}>
+                                                            -
+                                                        </Button>
+                                                        <p className='p-cantidad'>{item.quantity}</p>
+                                                        <Button className='button-' onClick={(e) => handleQuantity(item.id, item)}>
+                                                            +
+                                                        </Button>
+
+                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id, item.price)}>
+                                                            <AiOutlineDelete className='deleteIcon' />
+                                                        </Button>
                                                         <div className='unit-price'>
                                                             ${item.price}
                                                         </div>
@@ -219,11 +185,17 @@ function FinishPayment() {
 
             </div>
 
+        );
+
+    } else {
+
+        return (
+
+            <div className='loader-payment'>Loading...</div>
         )
 
-    }
+    };
 
-
-}
+};
 
 export { FinishPayment };

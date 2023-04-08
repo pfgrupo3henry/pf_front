@@ -16,16 +16,16 @@ export const Login = () => {
       width: 400,
       timeoutInSeconds: 10,
     }).then((res) => {
-      window.location.href = "http://localhost:3000/home";
+      window.location.href = "/";
     })
 
   };
 
   return (
     <div>
-      <GoogleButton onClick={handleLoginClick} />
+      <GoogleButton style={{ width: "22rem" }}
+        onClick={handleLoginClick} />
     </div>
   )
 
 }
-

@@ -1,22 +1,24 @@
-import { 
-    GET_FAVORITES, 
-    POST_FAVORITES, 
-    ADD_ITEM_TO_CHART, 
-    DELETE_FAVORITES, 
-    GET_CARDS, 
-    FILTER_CARDS, 
-    GET_SEARCH, 
-    SET_NAME_FILTER, 
-    ORDER_BY_NAME, 
-    ORDER_BY_PRICE, 
+import {
+    POST_FAVORITES,
+    ADD_ITEM_TO_CHART,
+    DELETE_FAVORITES,
+    GET_CARDS,
+    FILTER_CARDS,
+    GET_SEARCH,
+    SET_NAME_FILTER,
+    ORDER_BY_NAME,
+    ORDER_BY_PRICE,
     ORDER_BY_RATE,
     POST_NEW_PRODUCT,
-    GET_ALL_USERS
+    GET_ALL_USERS,
+    DELETE_CHART,
+    GET_FAVORITES,
+    GET_CHART_2
 } from "../Actions/Types";
 
 const initialState = {
-    allFavorites: localStorage.getItem(`allFavorites`) && JSON.parse(localStorage.getItem('allFavorites')) || [],
-    shoppingChart: localStorage.getItem(`shoppingChart`) && JSON.parse(localStorage.getItem('shoppingChart')) || [],
+    allFavorites: [],
+    shoppingChart: [],
     allGames: [],
     cards: [],
     filteredCards: [],
@@ -30,19 +32,24 @@ const rootReducer = (state = initialState, action) => {
 
 
         case POST_FAVORITES:
-            localStorage.setItem('allFavorites', JSON.stringify([...state.allFavorites, action.payload]));
+
             return {
                 ...state,
-                allFavorites: [...state.allFavorites, action.payload]
+                allFavorites: action.payload
             }
 
         case DELETE_FAVORITES:
 
-            const favoriteFIlter = state.allFavorites.filter(e => e.id !== action.payload);
-            localStorage.setItem('allFavorites', JSON.stringify([...favoriteFIlter]));
             return {
                 ...state,
-                allFavorites: favoriteFIlter
+                allFavorites: action.payload
+            }
+
+        case GET_FAVORITES:
+
+            return {
+                ...state,
+                allFavorites: action.payload
             }
 
 
@@ -60,45 +67,45 @@ const rootReducer = (state = initialState, action) => {
 
             }
 
+        case DELETE_CHART:
+            return {
+                ...state,
+                shoppingChart: action.payload
+
+            }
+
+        case GET_CHART_2:
+            return {
+                ...state,
+                shoppingChart: action.payload
+
+            }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      /*       let flag = false;
-
-            state.shoppingChart.length && state.shoppingChart.forEach(el => {
-                if (JSON.stringify(el) === JSON.stringify(action.payload)) {
-                    flag = true;
-                }
-            })
-
-            if (!flag) {
-                localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
-                return {
-                    ...state,
-                    shoppingChart: [...state.shoppingChart, action.payload]
-                }
-            } else {
-                const filteredChart = state.shoppingChart.filter(el => {
-                    return JSON.stringify(el) !== JSON.stringify(action.payload)
-                });
-                localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
-                return {
-                    ...state,
-                    shoppingChart: [...filteredChart]
-                }
-            } */
+        /*       let flag = false;
+  
+              state.shoppingChart.length && state.shoppingChart.forEach(el => {
+                  if (JSON.stringify(el) === JSON.stringify(action.payload)) {
+                      flag = true;
+                  }
+              })
+  
+              if (!flag) {
+                  localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
+                  return {
+                      ...state,
+                      shoppingChart: [...state.shoppingChart, action.payload]
+                  }
+              } else {
+                  const filteredChart = state.shoppingChart.filter(el => {
+                      return JSON.stringify(el) !== JSON.stringify(action.payload)
+                  });
+                  localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
+                  return {
+                      ...state,
+                      shoppingChart: [...filteredChart]
+                  }
+              } */
 
         case GET_CARDS:
             return {
@@ -108,12 +115,12 @@ const rootReducer = (state = initialState, action) => {
             }
 
 
-            case GET_ALL_USERS:
-                return {
-                    ...state,
-                    allUsers: action.payload,
-                    
-                }
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                allUsers: action.payload,
+
+            }
 
         case FILTER_CARDS:
             return {
