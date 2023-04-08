@@ -6,7 +6,7 @@ import { LockOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import Cookies from "universal-cookie";
 import emailjs from '@emailjs/browser';
-
+import { LoadingOutlined, } from '@ant-design/icons';
 
 
 function SingUp() {
@@ -19,6 +19,7 @@ function SingUp() {
     const [imagenFile, setImagenFile2] = useState("vacio");
     const [alert, setAlert] = useState("");
     const [state, setState] = useState("login");
+    const [loader, setLoader] = useState(false);
     const [input, setInput] = useState({
         firstname: "",
         lastname: "",
@@ -337,6 +338,8 @@ function SingUp() {
                 });
             } else {
 
+                setLoader(true);
+
                 emailjs.sendForm('service_p04zgza', 'template_sque1s9', e.target, 'PvHbawws_-6fNNwSb')
                     .then((result) => {
                         handleSubmit();
@@ -505,6 +508,10 @@ function SingUp() {
                     <Input type="submit" value="Submit" className="Button-sing-up-submit" id="button-loading" />
                     <input type="text" name="user_name" value={input.firstname} className="buttonsing-up-none" />
                     <input type="text" name="user_email" value={input.email} className="buttonsing-up-none" />
+                    {loader === true ?
+                        <LoadingOutlined />
+                        :
+                        null}
                 </form >
 
             </div>

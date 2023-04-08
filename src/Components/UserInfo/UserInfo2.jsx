@@ -6,6 +6,7 @@ import "./UserInfo.css";
 import "../CardDetail/CardDetail.css";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { LoadingOutlined, } from '@ant-design/icons';
 
 
 
@@ -224,24 +225,24 @@ function UserInfo() {
           cover={
             <img
               style={{ width: 300, height: 330 }}
-              alt="Among Us"
+              alt="Profile Imagen"
               src={newUser[0] ? newUser[0].img[0] : "Incompleto"}
             />
           }
         >
           <Meta
-            title={titulo ? titulo : "Incompleto"}
+            title={titulo ? titulo : <LoadingOutlined />}
             description=""
           />
           <br></br>
         </Card>
 
         <Descriptions className="infoUserDetail" title="Informacion">
-          <Descriptions.Item className="infoUserDetail" label="Nombre">{newUser[0] ? newUser[0].firstname : "Incompleto"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Apellido">{newUser[0] ? newUser[0].lastname : "Incompleto"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Celular">{newUser[0] ? newUser[0].mobile : "Incompleto"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Email">{newUser[0] ? newUser[0].email : "Incompleto"}</Descriptions.Item>
-          <Descriptions.Item className="infoUserDetail" label="Nacionalidad">{newUser[0] ? newUser[0].nationality : "Incompleto"}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Nombre">{newUser[0] ? newUser[0].firstname : <LoadingOutlined />}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Apellido">{newUser[0] ? newUser[0].lastname : <LoadingOutlined />}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Celular">{newUser[0] ? newUser[0].mobile : <LoadingOutlined />}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Email">{newUser[0] ? newUser[0].email : <LoadingOutlined />}</Descriptions.Item>
+          <Descriptions.Item className="infoUserDetail" label="Nacionalidad">{newUser[0] ? newUser[0].nationality : <LoadingOutlined />}</Descriptions.Item>
         </Descriptions>
       </div>
 
