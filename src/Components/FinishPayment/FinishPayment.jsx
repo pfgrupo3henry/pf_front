@@ -110,11 +110,12 @@ function FinishPayment() {
 
     };
 
-    const onClickDelete = (id) => {
-
-        console.log(id);
+    const onClickDelete = (id, price) => {
 
         if (user) {
+
+            let precio = Number(totalPrice) - Number(price);
+            console.log(precio);
 
             let payload = {
                 userId: idUserAUth0[0].id,
@@ -122,6 +123,7 @@ function FinishPayment() {
             }
 
             dispatch(deleteChart(payload));
+            settotalPrice(precio);
 
             setTimeout(() => {
 
@@ -203,7 +205,7 @@ function FinishPayment() {
                                                             +
                                                         </Button>
 
-                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id)}>
+                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id, item.price)}>
                                                             <AiOutlineDelete className='deleteIcon' />
                                                         </Button>
                                                         <div className='unit-price'>
@@ -326,7 +328,7 @@ function FinishPayment() {
                                                             +
                                                         </Button>
 
-                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id)}>
+                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id, item.price)}>
                                                             <AiOutlineDelete className='deleteIcon' />
                                                         </Button>
                                                         <div className='unit-price'>

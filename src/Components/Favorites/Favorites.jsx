@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch, } from "react-redux";
-// import {getFavorites} from "../Actions/Index";
 import { deleteFavorites } from "../../Redux/Actions/Index";
 import { createElement } from "react";
 import { Avatar, List, Space } from 'antd';
@@ -30,6 +29,7 @@ function Favorites() {
   const [string, setString] = useState("hola");
   const [idUserAUth0, setIdUserAuth0] = useState([]);
   const [idManuelUser, setIdManuelUser] = useState("");
+  const dispatch = useDispatch();
 
   if (isAuthenticated) {
 
@@ -107,6 +107,8 @@ function Favorites() {
         gameId: product_id
       }
 
+      dispatch(deleteFavorites(deleteFavorite));
+
       axios.post("https://pfservidor-production.up.railway.app/favorites/restFavorite", deleteFavorite)
         .then((res) => {
           console.log(res.data);
@@ -120,6 +122,8 @@ function Favorites() {
         userId: idManuelUser,
         gameId: product_id
       }
+
+      dispatch(deleteFavorites(deleteFavorite));
 
       axios.post("https://pfservidor-production.up.railway.app/favorites/restFavorite", deleteFavorite)
         .then((res) => {
