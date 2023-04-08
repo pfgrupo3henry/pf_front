@@ -1,11 +1,10 @@
 import { Button } from 'antd';
-import { Avatar, InputNumber, List, Radio, Space, Card, Input } from 'antd';
+import { Avatar, InputNumber, List, Space, Card } from 'antd';
 import { useState, useEffect } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios"
 import "./FinishPayment.css"
 import Cookies from "universal-cookie";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteChart, getChart } from "../../Redux/Actions/Index";
 
@@ -14,17 +13,18 @@ function FinishPayment() {
     const [position, setPosition] = useState('bottom');
     const [align, setAlign] = useState('center');
     const [totalPrice, settotalPrice] = useState("");
-    const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
-    const [idUserAUth0, setIdUserAuth0] = useState([]);
-    const [idManuelUser, setIdManuelUser] = useState("");
+    const [string, setString] = useState("cuenta");
+
     var shoppingChart = useSelector(state => state.shoppingChart);
     const dispatch = useDispatch();
 
+    const cookie = new Cookies();
+    const idCoockie = cookie.get("id");
+    console.log(idCoockie);
+
     useEffect(() => {
 
-        if (idManuelUser) {
-            dispatch(getChart(idManuelUser));
-        }
+        dispatch(getChart(idCoockie));
 
     }, [dispatch]);
 
@@ -49,68 +49,40 @@ function FinishPayment() {
 
     };
 
-    if (user && idUserAUth0.length === 0) {
-
-        const emailAuth0 = user.email;
-
-        if (idUserAUth0.length === 0) {
-
-            axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-                .then((res) => {
-                    console.log(res.data);
-                    setIdUserAuth0([res.data]);
-                })
-                .catch((err) => console.log(err))
-
-        }
-
-    };
-
-    if (!user) {
-
-        if (idManuelUser === "") {
-
-            const cookie = new Cookies();
-            const idCoockie = cookie.get("id");
-            console.log(idCoockie);
-
-            setIdManuelUser(idCoockie);
-
-        }
-
-    };
-
     const onClickDelete = (id, price) => {
 
-        if (user) {
+        let precio = Number(totalPrice) - Number(price);
+        console.log(precio);
 
-            let precio = Number(totalPrice) - Number(price);
-            console.log(precio);
-
-            let payload = {
-                userId: idUserAUth0[0].id,
-                gameId: id
-            }
-
-            dispatch(deleteChart(payload));
-            settotalPrice(precio);
-
-        } else {
-
-            let payload = {
-                userId: idManuelUser,
-                gameId: id
-            }
-
-            dispatch(deleteChart(payload));
-
+        let payload = {
+            userId: idCoockie,
+            gameId: id
         }
+
+        dispatch(deleteChart(payload));
+        settotalPrice(precio);
 
     };
 
     if (shoppingChart) {
 
-        console.log(shoppingChart);
+        if (shoppingChart.products) {
+
+            var newArray = shoppingChart.products;
+            console.log(newArray)
+
+            if (string === "cuenta") {
+                var num = 0;
+                for (let i = 0; i < newArray.length; i++) {
+                    num = num + Number(newArray[i].price);
+                }
+                settotalPrice(num)
+                setString("terminado")
+            };
+
+        };
+
+
 
         return (
             <div className="finishPayment-component">
@@ -216,8 +188,6 @@ function FinishPayment() {
         );
 
     } else {
-
-        console.log(shoppingChart);
 
         return (
 

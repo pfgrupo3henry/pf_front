@@ -10,7 +10,6 @@ import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space, Badge } from "antd";
 import Cookies from "universal-cookie";
-import axios from "axios";
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
@@ -20,62 +19,13 @@ import { useSelector, useDispatch } from "react-redux";
 function Nav(count) {
 
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
-  const cookie = new Cookies();
-  const cookieId = cookie.get("firstname");
   const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
   const [idUserAUth0, setIdUserAuth0] = useState([]);
   const [idManuelUser, setIdManuelUser] = useState("");
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
-
-
-  if (isAuthenticated) {
-
-    if (user && idUserAUth0.length === 0) {
-
-      const emailAuth0 = user.email;
-
-      if (idUserAUth0.length === 0) {
-
-        axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-          .then((res) => {
-            console.log(res.data);
-            setIdUserAuth0([res.data]);
-          })
-          .catch((err) => console.log(err))
-
-      }
-
-    };
-
-  };
-
-  if (!user) {
-
-    if (idManuelUser === "") {
-
-      const cookie = new Cookies();
-      const idCoockie = cookie.get("id");
-      console.log(idCoockie);
-
-      setIdManuelUser(idCoockie);
-
-    }
-
-  };
-
-  if (isAuthenticated) {
-
-    const userAuth0 = {
-      email: user.email,
-      img: ["https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"]
-    }
-
-    axios.post("https://pfservidor-production.up.railway.app/user/auth0", userAuth0)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-  };
+  const cookie = new Cookies();
+  const cookieId = cookie.get("firstname");
 
   const handleLoginClick = () => {
     loginWithPopup({
