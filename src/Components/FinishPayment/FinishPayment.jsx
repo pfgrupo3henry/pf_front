@@ -14,6 +14,7 @@ function FinishPayment() {
     const [align, setAlign] = useState('center');
     const [totalPrice, settotalPrice] = useState("");
     const [string, setString] = useState("cuenta");
+    const [precioFinal, setPrecioFinal] = useState([]);
 
     var shoppingChart = useSelector(state => state.shoppingChart);
     const dispatch = useDispatch();
@@ -31,8 +32,19 @@ function FinishPayment() {
 
     const handleQuantity = (id, item) => {
 
+        var precioFinal4 = 0;
+
+        for (let i = 0; i < precioFinal.length; i++) {
+            if (item.id === precioFinal[i].id) {
+                precioFinal4 = precioFinal4 + Number(precioFinal[i].price)
+            }
+        };
+
+        console.log(precioFinal4);
+
         item.quantity = Number(item.quantity) + 1;
-        var numero2 = totalPrice + Number(item.price);
+        var numero2 = totalPrice + Number(precioFinal4);
+        item.price = Number(item.price) + Number(precioFinal4)
         settotalPrice(numero2);
 
     };
@@ -43,8 +55,19 @@ function FinishPayment() {
             return (console.log("1"));
         };
 
+        var precioFinal4 = 0;
+
+        for (let i = 0; i < precioFinal.length; i++) {
+            if (item.id === precioFinal[i].id) {
+                precioFinal4 = precioFinal4 + Number(precioFinal[i].price)
+            }
+        };
+
+        console.log(precioFinal4);
+
         item.quantity = Number(item.quantity) - 1;
-        var numero2 = totalPrice - Number(item.price);
+        var numero2 = totalPrice - Number(precioFinal4);
+        item.price = Number(item.price) - Number(precioFinal4)
         settotalPrice(numero2);
 
     };
@@ -73,16 +96,22 @@ function FinishPayment() {
 
             if (string === "cuenta") {
                 var num = 0;
+                var precioFinal2 = [];
                 for (let i = 0; i < newArray.length; i++) {
+                    precioFinal2.push({
+                        price: newArray[i].price,
+                        id: newArray[i].id
+                    });
                     num = num + Number(newArray[i].price);
                 }
                 settotalPrice(num)
+                setPrecioFinal(precioFinal2)
                 setString("terminado")
             };
 
         };
 
-
+        console.log(precioFinal);
 
         return (
             <div className="finishPayment-component">
