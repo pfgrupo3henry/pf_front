@@ -25,11 +25,14 @@ function LandingPage() {
 
     if (isAuthenticated) {
 
+        console.log(user);
+
         const emailAuth0 = user.email;
 
         const userAuth0 = {
             email: user.email,
-            img: ["https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"]
+            img: [user.picture],
+            firstname: user.nickname
         }
 
         axios.post("https://pfservidor-production.up.railway.app/user/auth0", userAuth0)
