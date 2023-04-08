@@ -12,7 +12,8 @@ import {
     ORDER_BY_RATE,
     GET_ALL_USERS,
     DELETE_CHART,
-    GET_FAVORITES
+    GET_FAVORITES,
+    GET_CHART_2
 } from "./Types";
 
 import axios from "axios";
@@ -102,6 +103,26 @@ export const deleteChart = (payload) => {
 
             return dispatch({
                 type: DELETE_CHART,
+                payload: json.data,
+            })
+        }
+
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
+
+export const getChart = (id) => {
+    console.log("getchards");
+    try {
+        return async function (dispatch) {
+            let json = await axios.get(`https://pfservidor-production.up.railway.app/cart/${id}`)
+            console.log("console.log", json)
+
+            return dispatch({
+                type: GET_CHART_2,
                 payload: json.data,
             })
         }

@@ -16,7 +16,7 @@ export const Login = () => {
       width: 400,
       timeoutInSeconds: 10,
     }).then((res) => {
-      window.location.href = "/home";
+      window.location.href = "/";
     })
 
   };

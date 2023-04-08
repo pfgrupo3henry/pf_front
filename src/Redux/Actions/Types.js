@@ -7,7 +7,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ITEM_CART = "GET_ITEM_CART";
 
 export const DELETE_CART = "DELETE_CART";
-
+export const GET_CHART_2 = "GET_CHART_2";
 
 
 export const POST_NEW_PRODUCT = "POST_NEW_PRODUCT"

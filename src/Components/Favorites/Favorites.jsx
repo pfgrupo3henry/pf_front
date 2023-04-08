@@ -87,7 +87,7 @@ function Favorites() {
 
   } else if (idManuelUser && string === "hola") {
 
-    axios.get(`https://pfservidor-production.up.railway.app/favorites/${idUserAUth0[0].id}`)
+    axios.get(`https://pfservidor-production.up.railway.app/favorites/${idManuelUser}`)
       .then((res) => {
         console.log(res);
         setFavorite(res.data);

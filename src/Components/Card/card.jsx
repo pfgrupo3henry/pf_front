@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
-import { postFavorites, addItemToChart, deleteFavorites, deleteChart } from "../../Redux/Actions/Index";
+import { postFavorites, addItemToChart, deleteFavorites, deleteChart, getFavorites, getChart } from "../../Redux/Actions/Index";
 import React, { useEffect, useState } from "react";
 import { Card } from 'antd';
 import "../Card/card.css"
@@ -22,11 +22,6 @@ const imgProvisoria = require("../Assets/god-of-war-ragnarok-ps5-retro.jpg")
 
 function CardElement({ title, imgProvisoria, description, price, descriptionComplete, id, quantity }) {
 
-  const { user, isAuthenticated } = useAuth0();
-
-  const [favorite, setFavorite] = useState(true);
-  const [cart, setCart] = useState(true);
-
   const allFavorites = useSelector(state => state.allFavorites);
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
@@ -35,211 +30,82 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [shoppingStringified, setShoppingStringified] = useState([]);
   const [favsStringified, setFavsStringified] = useState([]);
 
-  const [idUserAUth0, setIdUserAuth0] = useState([]);
-  const [idManuelUser, setIdManuelUser] = useState("");
   const [string, setString] = useState("hola");
 
+  const cookie = new Cookies();
+  const idCoockie = cookie.get("id");
+  console.log(idCoockie);
 
-  /*useEffect(() => {
-    dispatch(getUsers)
-  });*/
 
-  if (isAuthenticated) {
+  useEffect(() => {
 
-    if (user) {
+    dispatch(getFavorites(idCoockie));
+    dispatch(getChart(idCoockie));
 
-      const emailAuth0 = user.email;
+  }, [dispatch]);
 
-      if (idUserAUth0.length === 0 && string === "hola") {
-
-        axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-          .then((res) => {
-            console.log(res.data);
-            setIdUserAuth0([res.data]);
-            setString("chau");
-          })
-          .catch((err) => console.log(err))
-
-      }
-
-    };
-
-  };
-
-  if (idUserAUth0.length !== 0) {
-    console.log(idUserAUth0[0].id);
-  };
-
-  if (!user) {
-
-    if (idManuelUser === "") {
-
-      const cookie = new Cookies();
-      const idCoockie = cookie.get("id");
-      console.log(idCoockie);
-
-      setIdManuelUser(idCoockie);
-
-    }
-
-  };
-
-  /*const cookie = new Cookies();
-  const idCookie = cookie.get("id");
-  console.log(idCookie);*/
 
   const navigate = useNavigate();
 
 
   const handleFavorites = (id) => {
 
-    if (user) {
-
-      const product_id = id;
-      const putFavorite = {
-        userId: idUserAUth0[0].id,
-        products:
-        {
-          id: product_id,
-          quantity: 1
-        }
-
+    const product_id = id;
+    const putFavorite = {
+      userId: idCoockie,
+      products:
+      {
+        id: product_id,
+        quantity: 1
       }
-
-      setFavorite(false);
-      dispatch(postFavorites(putFavorite));
-      console.log("obj", putFavorite);
-
-    } else if (!user) {
-
-      const product_id = id;
-      const putFavorite = {
-        userId: idManuelUser,
-        products:
-        {
-          id: product_id,
-          quantity: 1
-        }
-
-      }
-
-      setFavorite(false);
-      dispatch(postFavorites(putFavorite));
-      console.log("obj", putFavorite)
 
     }
+
+    dispatch(postFavorites(putFavorite));
 
   };
 
   const handleFavoritesDelete = (id) => {
 
-    if (user) {
-
-      const product_id = id;
-      const deleteFavorite = {
-        userId: idUserAUth0[0].id,
-        gameId: product_id
-      }
-
-      setFavorite(true);
-      dispatch(deleteFavorites(deleteFavorite));
-      console.log("obj", deleteFavorite);
-
-    } else if (!user) {
-
-      const product_id = id;
-      const deleteFavorite = {
-        userId: idManuelUser,
-        gameId: product_id
-      }
-
-      setFavorite(true);
-      dispatch(deleteFavorites(deleteFavorite));
-      console.log("obj", deleteFavorite)
-
+    const product_id = id;
+    const deleteFavorite = {
+      userId: idCoockie,
+      gameId: product_id
     }
+
+    dispatch(deleteFavorites(deleteFavorite));
 
   };
 
   const handleShoppingChart = (id) => {
 
-    if (user) {
-
-      const product_id = id;
-      const put = {
-        userId: idUserAUth0[0].id,
-        products:
-        {
-          id: product_id,
-          quantity: 1
-        }
-
+    const product_id = id;
+    const put = {
+      userId: idCoockie,
+      products:
+      {
+        id: product_id,
+        quantity: 1
       }
-
-      setCart(false);
-      dispatch(addItemToChart(put));
-      console.log("obj", put);
-
-    } else if (!user) {
-
-      const product_id = id;
-      const put = {
-        userId: idManuelUser,
-        products:
-        {
-          id: product_id,
-          quantity: 1
-        }
-
-      }
-
-      setCart(false);
-      dispatch(addItemToChart(put))
-      console.log("obj", put)
 
     }
+
+    dispatch(addItemToChart(put));
 
   };
 
   const onClickDelete = (id) => {
 
-    if (user) {
-
-      let payload = {
-        userId: idUserAUth0[0].id,
-        gameId: id
-      }
-
-      dispatch(deleteChart(payload));
-      setCart(true);
-
-    } else {
-
-      let payload = {
-        userId: idManuelUser,
-        gameId: id
-      }
-
-      dispatch(deleteChart(payload));
-      setCart(true);
-
+    let payload = {
+      userId: idCoockie,
+      gameId: id
     }
+
+    dispatch(deleteChart(payload));
 
   };
 
-  //linea inutil
-
-  /*   React.useEffect(() => {
-      const returnStringified = shoppingChart.map(el => {
-        return JSON.stringify(el);
-      });
-      setShoppingStringified(returnStringified);
-    }, [shoppingChart]) */
-
-
   var precio = `$ ${price}`;
-  console.log(shoppingChart);
-  console.log(allFavorites);
 
   if (shoppingChart || allFavorites) {
     return (
@@ -314,6 +180,3 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 };
 
 export { CardElement };
-
-
-/* */

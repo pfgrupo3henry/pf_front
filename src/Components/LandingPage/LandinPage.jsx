@@ -2,9 +2,15 @@ import React from "react";
 import "./LandingPage.css";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
+import { useAuth0 } from "@auth0/auth0-react";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 
 function LandingPage() {
+
+    const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
+    const cookie = new Cookies();
 
     React.useEffect(() => {
         document.querySelector('.nav-component').style.display = 'none';
@@ -14,6 +20,32 @@ function LandingPage() {
             document.querySelector('.footer').style.display = '';
         }
     })
+
+    if (isAuthenticated) {
+
+        const emailAuth0 = user.email;
+
+        const userAuth0 = {
+            email: user.email,
+            img: ["https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"]
+        }
+
+        axios.post("https://pfservidor-production.up.railway.app/user/auth0", userAuth0)
+            .then((res) => {
+                console.log(res);
+                cookie.set("id", res.data._id);
+            })
+            .catch((err) => console.log(err));
+
+        axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
+            .then((res) => {
+                console.log(res);
+                cookie.set("id", res.data.id);
+                cookie.set("email", res.data.email);
+            })
+            .catch((err) => console.log(err))
+
+    };
 
     return (
         <div className="landing-page-component container">
