@@ -11,61 +11,100 @@ import {
     ORDER_BY_NAME, ORDER_BY_PRICE,
     ORDER_BY_RATE,
     GET_ALL_USERS,
-    GET_ITEM_CART,
-    DELETE_CART
+    DELETE_CHART,
+    GET_FAVORITES,
+    GET_CHART_2,
+    GET_REVIEWS,
+    SAVE_RATING_AND_COMMENT
 } from "./Types";
 
 import axios from "axios";
 
-export const postFavorites = (data) => {
-    return function (dispatch) {
-        dispatch({
-            type: POST_FAVORITES,
-            payload: data,
-        })
+export const getReviews = (id) => {
+    try {
+        return async function (dispatch) {
+            let results = await axios.get(`https://pfservidor-production.up.railway.app/review/${id}`);
+            console.log("console.log", results)
+            return dispatch({
+                type: GET_REVIEWS,
+                payload: results.data
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export function saveRatingAndComment(payload) {
+    try {
+        return async function (dispatch) {
+            let json = await axios.post(`https://pfservidor-production.up.railway.app/review`, payload);
+            console.log("console.log", json)
+            return dispatch({
+                type: SAVE_RATING_AND_COMMENT,
+                payload: json.data,
+            })
+        }
+    } catch (error) {
+        console.log("error-post", error)
+
     }
 
 }
 
-
-
-
-export const getCart = (autenticatedUserId) => {
+export const postFavorites = (payload) => {
     try {
         return async function (dispatch) {
-            let json = await axios.get(`https://pfservidor-production.up.railway.app/cart/${autenticatedUserId}`);
-            console.log("DATA QUE LLEGA",json.data.products)
+            let json = await axios.post("https://pfservidor-production.up.railway.app/favorites/addFavorite", payload);
+            console.log("console.log", json)
+
             return dispatch({
-                type: GET_ITEM_CART,
-                payload: json.data
+                type: POST_FAVORITES,
+                payload: json.data,
             })
         }
 
     } catch (error) {
-        console.log(error)
+        console.log("error-post", error)
 
-    }}
+    }
 
-    export const deleteCart = (autenticatedUserId, id) => {
-    
-            return function (dispatch) {
-                let json = axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: autenticatedUserId, gameId: id})
-                console.log(json.data)
-            
-                return dispatch({
-                    type: DELETE_CART,
-                    payload: json.data
-                })
-            }
+}
+
+export const deleteFavorites = (payload) => {
+    try {
+        return async function (dispatch) {
+            let json = await axios.post("https://pfservidor-production.up.railway.app/favorites/restFavorite", payload);
+            console.log("console.log", json)
+
+            return dispatch({
+                type: DELETE_FAVORITES,
+                payload: json.data,
+            })
         }
-            
-    
-export const deleteFavorites = (id) => {
-    return function (dispatch) {
-        dispatch({
-            type: DELETE_FAVORITES,
-            payload: id
-        })
+
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
+
+export const getFavorites = (id) => {
+    try {
+        return async function (dispatch) {
+            let json = await axios.get(`https://pfservidor-production.up.railway.app/favorites/${id}`);
+            console.log("console.log", json)
+
+            return dispatch({
+                type: GET_FAVORITES,
+                payload: json.data,
+            })
+        }
+
+    } catch (error) {
+        console.log("error-post", error)
+
     }
 
 }
@@ -73,9 +112,9 @@ export const deleteFavorites = (id) => {
 
 export const addItemToChart = (payload) => {
     try {
-        return async function(dispatch){
-            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity" , payload);
-            console.log("console.log" , json.data)
+        return async function (dispatch) {
+            let json = await axios.post("https://pfservidor-production.up.railway.app/cart/addQuantity", payload);
+            console.log("console.log", json)
 
             return dispatch({
                 type: ADD_ITEM_TO_CHART,
@@ -88,7 +127,46 @@ export const addItemToChart = (payload) => {
 
     }
 
-} 
+}
+
+export const deleteChart = (payload) => {
+    try {
+        return async function (dispatch) {
+            let json = await axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, payload)
+            console.log("console.log", json)
+
+            return dispatch({
+                type: DELETE_CHART,
+                payload: json.data,
+            })
+        }
+
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
+
+export const getChart = (id) => {
+    console.log("getchards");
+    try {
+        return async function (dispatch) {
+            let json = await axios.get(`https://pfservidor-production.up.railway.app/cart/${id}`)
+            console.log("console.log", json)
+
+            return dispatch({
+                type: GET_CHART_2,
+                payload: json.data,
+            })
+        }
+
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
 
 
 

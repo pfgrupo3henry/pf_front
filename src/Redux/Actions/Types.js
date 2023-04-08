@@ -2,12 +2,14 @@ export const GET_FAVORITES = 'GET_FAVORITES';
 export const POST_FAVORITES = "POST_FAVORITES";
 export const DELETE_FAVORITES = "DELETE_FAVORITES";
 export const ADD_ITEM_TO_CHART = 'ADD_ITEM_TO_CHART';
+export const DELETE_CHART = "DELETE_CHART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ITEM_CART = "GET_ITEM_CART";
 
 export const DELETE_CART = "DELETE_CART";
-
-
+export const GET_CHART_2 = "GET_CHART_2";
+export const GET_REVIEWS = "GET_REVIEWS";
+export const SAVE_RATING_AND_COMMENT = "SAVE_RATING_AND_COMMENT";
 
 export const POST_NEW_PRODUCT = "POST_NEW_PRODUCT"
 export const GET_CARDS = 'GET_CARDS';

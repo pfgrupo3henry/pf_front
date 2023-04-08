@@ -1,39 +1,50 @@
 import { Button } from 'antd';
-import { SiMercadopago } from "react-icons/si";
-import { Avatar, InputNumber, List, Radio, Space, Card, Input } from 'antd';
-import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
-import { useState } from 'react';
+import { Avatar, InputNumber, List, Space, Card } from 'antd';
+import { useState, useEffect } from 'react';
 import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios"
 import "./FinishPayment.css"
 import Cookies from "universal-cookie";
-import { useAuth0 } from "@auth0/auth0-react";
-import Item from 'antd/es/list/Item';
-import Swal from 'sweetalert2';
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { deleteChart, getChart } from "../../Redux/Actions/Index";
 
 function FinishPayment() {
 
-    /*const allProducts = [
-        { title: "juego de prueba", category_id: "art", currency_id: "ARS", unit_price: 1330.50, description: "La edición Ultimate Evil potencia el juego base con la expansión Reaper of Souls y el nuevo modo Aventura para obtener mejores recompensas. Los jugadores podrán vivir esta experiencia como brujo, cazador de demonios, monje o mago mientras aprenden a dominar nuevas habilidades y poderes mortales.", img: imgProvisoria2, quantity: 1, id: 11 },
-        { title: "juego de prueba2", category_id: "art", currency_id: "ARS", unit_price: 1999.99, description: "La edición Ultimate Evil potencia el juego base con la expansión Reaper of Souls y el nuevo modo Aventura para obtener mejores recompensas. Los jugadores podrán vivir esta experiencia como brujo, cazador de demonios, monje o mago mientras aprenden a dominar nuevas habilidades y poderes mortales.", img: imgProvisoria2, quantity: 1, id: 12 }
-    ]*/
-
     const [position, setPosition] = useState('bottom');
     const [align, setAlign] = useState('center');
-    const [products, setProducts] = useState([]);
-    const [products2, setProducts2] = useState([]);
-    const [totalPrice, settotalPrice] = useState(""); //(acc, product) => acc + product.unit_price * product.quantity, 0)
-    const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
-    const [idUserAUth0, setIdUserAuth0] = useState([]);
-    const [idManuelUser, setIdManuelUser] = useState("");
-    const [string, setString] = useState("hola");
+    const [totalPrice, settotalPrice] = useState("");
+    const [string, setString] = useState("cuenta");
+    const [precioFinal, setPrecioFinal] = useState([]);
+
+    var shoppingChart = useSelector(state => state.shoppingChart);
+    const dispatch = useDispatch();
+
+    const cookie = new Cookies();
+    const idCoockie = cookie.get("id");
+    console.log(idCoockie);
+
+    useEffect(() => {
+
+        dispatch(getChart(idCoockie));
+
+    }, [dispatch]);
+
 
     const handleQuantity = (id, item) => {
 
+        var precioFinal4 = 0;
+
+        for (let i = 0; i < precioFinal.length; i++) {
+            if (item.id === precioFinal[i].id) {
+                precioFinal4 = precioFinal4 + Number(precioFinal[i].price)
+            }
+        };
+
+        console.log(precioFinal4);
+
         item.quantity = Number(item.quantity) + 1;
-        var numero2 = totalPrice + Number(item.price);
+        var numero2 = totalPrice + Number(precioFinal4);
+        item.price = Number(item.price) + Number(precioFinal4)
         settotalPrice(numero2);
 
     };
@@ -44,238 +55,173 @@ function FinishPayment() {
             return (console.log("1"));
         };
 
+        var precioFinal4 = 0;
+
+        for (let i = 0; i < precioFinal.length; i++) {
+            if (item.id === precioFinal[i].id) {
+                precioFinal4 = precioFinal4 + Number(precioFinal[i].price)
+            }
+        };
+
+        console.log(precioFinal4);
+
         item.quantity = Number(item.quantity) - 1;
-        var numero2 = totalPrice - Number(item.price);
+        var numero2 = totalPrice - Number(precioFinal4);
+        item.price = Number(item.price) - Number(precioFinal4)
         settotalPrice(numero2);
 
     };
 
-    if (isAuthenticated) {
+    const onClickDelete = (id, price) => {
 
-        if (user && idUserAUth0.length === 0) {
+        let precio = Number(totalPrice) - Number(price);
+        console.log(precio);
 
-            const emailAuth0 = user.email;
-
-            if (idUserAUth0.length === 0) {
-
-                axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
-                    .then((res) => {
-                        console.log(res.data);
-                        setIdUserAuth0([res.data]);
-                    })
-                    .catch((err) => console.log(err))
-
-            }
-
-        };
-
-    };
-
-    if (!user) {
-
-        if (idManuelUser === "") {
-
-            const cookie = new Cookies();
-            const idCoockie = cookie.get("id");
-            console.log(idCoockie);
-
-            setIdManuelUser(idCoockie);
-
+        let payload = {
+            userId: idCoockie,
+            gameId: id
         }
 
-    };
-
-
-    if (idManuelUser && string === "hola") {
-
-        axios.get(`https://pfservidor-production.up.railway.app/cart/${idManuelUser}`)
-            .then((res) => {
-                console.log(res.data);
-                setProducts([res.data]);
-                setString("chau");
-            })
-            .catch((err) => console.log(err))
-
-    } else if (idUserAUth0.length !== 0 && isAuthenticated && string === "hola") {
-
-        axios.get(`https://pfservidor-production.up.railway.app/cart/${idUserAUth0[0].id}`)
-            .then((res) => {
-                console.log(res.data);
-                setProducts([res.data]);
-                setString("chau");
-            })
-            .catch((err) => console.log(err))
+        dispatch(deleteChart(payload));
+        settotalPrice(precio);
 
     };
 
-    if (idUserAUth0.length !== 0) {
-        console.log(idUserAUth0[0].id);
-    };
+    if (shoppingChart) {
 
-    if (products.length !== 0) {
+        if (shoppingChart.products) {
 
-        console.log(products);
-        var newArray = products[0].products;
-        console.log(newArray);
+            var newArray = shoppingChart.products;
+            console.log(newArray)
 
-
-        if (string === "chau") {
-            var num = 0;
-            for (let i = 0; i < newArray.length; i++) {
-                num = num + Number(newArray[i].price);
-            }
-            settotalPrice(num)
-            setString("terminado")
-        };
-
-        const onClickDelete = (id) => {
-
-            console.log(id);
-
-            if (user) {
-
-                axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idUserAUth0[0].id, gameId: id })
-                    .then((res) => {
-                        console.log(res.data);
-                        setProducts([res.data]);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-
-            } else {
-
-                axios.post(`https://pfservidor-production.up.railway.app/cart/delete`, { userId: idManuelUser, gameId: id })
-                    .then((res) => {
-                        console.log(res.data);
-                        setProducts([res.data]);
-
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-
-            }
+            if (string === "cuenta") {
+                var num = 0;
+                var precioFinal2 = [];
+                for (let i = 0; i < newArray.length; i++) {
+                    precioFinal2.push({
+                        price: newArray[i].price,
+                        id: newArray[i].id
+                    });
+                    num = num + Number(newArray[i].price);
+                }
+                settotalPrice(num)
+                setPrecioFinal(precioFinal2)
+                setString("terminado")
+            };
 
         };
 
-        console.log(idUserAUth0);
-        console.log(idManuelUser);
-        console.log(totalPrice);
-        console.log(products2);
+        console.log(precioFinal);
 
-        if (Array.isArray(products) && products.length) {
+        return (
+            <div className="finishPayment-component">
+                <div className="checkout">
+                    <div className='checkOutList-component'>
+                        <div className='cartItems'>
+                            <Space
+                                direction="horizontal"
+                                style={{
+                                    marginBottom: '20px',
+                                }}
+                                size="middle"
+                            >
+                            </Space>
+                            <List
+                                pagination={{
+                                    position,
+                                    align,
+                                }}
+                                dataSource={shoppingChart.products}
+                                renderItem={(item, index) => (
+                                    <List.Item>
+                                        <List.Item.Meta
+                                            avatar={<Avatar src={item.img ? item.img[0] : ""} />}
+                                            title={item.title}
+                                            description={
+                                                <div className='icons-container'>
+                                                    {item.description}
+                                                    <br></br>
 
-            return (
-                <div className="finishPayment-component">
-                    <div className="checkout">
-                        <div className='checkOutList-component'>
-                            <div className='cartItems'>
-                                <Space
-                                    direction="horizontal"
-                                    style={{
-                                        marginBottom: '20px',
-                                    }}
-                                    size="middle"
-                                >
-                                </Space>
-                                <List
-                                    pagination={{
-                                        position,
-                                        align,
-                                    }}
-                                    dataSource={products[0].products}
-                                    renderItem={(item, index) => (
-                                        <List.Item>
-                                            <List.Item.Meta
-                                                avatar={<Avatar src={item.img} />}
-                                                title={item.title}
-                                                description={
-                                                    <div className='icons-container'>
-                                                        {item.description}
-                                                        <br></br>
+                                                    <div className='quantity-delete'>
 
-                                                        <div className='quantity-delete'>
+                                                        <Button className='button+' onClick={(e) => handleQuantity2(item.id, item)}>
+                                                            -
+                                                        </Button>
+                                                        <p className='p-cantidad'>{item.quantity}</p>
+                                                        <Button className='button-' onClick={(e) => handleQuantity(item.id, item)}>
+                                                            +
+                                                        </Button>
 
-                                                            <Button className='button+' onClick={(e) => handleQuantity2(item.id, item)}>
-                                                                -
-                                                            </Button>
-                                                            <p className='p-cantidad'>{item.quantity}</p>
-                                                            <Button className='button-' onClick={(e) => handleQuantity(item.id, item)}>
-                                                                +
-                                                            </Button>
-
-                                                            <Button className='button-borrar' onClick={(e) => onClickDelete(item.id)}>
-                                                                <AiOutlineDelete className='deleteIcon' />
-                                                            </Button>
-                                                            <div className='unit-price'>
-                                                                ${item.price}
-                                                            </div>
+                                                        <Button className='button-borrar' onClick={(e) => onClickDelete(item.id, item.price)}>
+                                                            <AiOutlineDelete className='deleteIcon' />
+                                                        </Button>
+                                                        <div className='unit-price'>
+                                                            ${item.price}
                                                         </div>
                                                     </div>
-                                                }
+                                                </div>
+                                            }
 
 
-                                            />
-                                        </List.Item>
+                                        />
+                                    </List.Item>
 
-                                    )}
-                                />
-                            </div>
+                                )}
+                            />
                         </div>
                     </div>
-                    <div className="card-payment-imgMercadoPago">
-                        <div className="card-payment">
-                            <Card
-                                title={
-                                    <div className="container-aux">
-                                        <div>
-                                            Total:
-                                        </div>
-                                        <div>
-                                            ${totalPrice}
-                                        </div>
+                </div>
+                <div className="card-payment-imgMercadoPago">
+                    <div className="card-payment">
+                        <Card
+                            title={
+                                <div className="container-aux">
+                                    <div>
+                                        Total:
                                     </div>
-                                }
-                                bordered={true}
-                                style={{
-                                    width: 400,
+                                    <div>
+                                        ${totalPrice}
+                                    </div>
+                                </div>
+                            }
+                            bordered={true}
+                            style={{
+                                width: 400,
+                            }}
+                        >
+                            <p className="infoAux">Una vez realizado el pago, recibiras por mail
+                                el detalle del mismo.
+                            </p>
+                            <br></br>
+                            <br></br>
+                            <Button
+                                onClick={() => {
+                                    axios.post("https://pfservidor-production.up.railway.app/payment/mercadopago", { totalPrice })
+                                        .then((res) => {
+                                            window.location.href = res.data.response.body.init_point;
+                                        })
                                 }}
+                                className="buttonsCardDetail"
+                                style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                                type="primary"
                             >
-                                <p className="infoAux">Una vez realizado el pago, recibiras por mail
-                                    el detalle del mismo.
-                                </p>
-                                <br></br>
-                                <br></br>
-                                <Button
-                                    onClick={() => {
-                                        axios.post("https://pfservidor-production.up.railway.app/payment/mercadopago", { totalPrice })
-                                            .then((res) => {
-                                                window.location.href = res.data.response.body.init_point;
-                                            })
-                                    }}
-                                    className="buttonsCardDetail"
-                                    style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-                                    type="primary"
-                                >
-                                    Finalizar compra
-                                </Button>
+                                Finalizar compra
+                            </Button>
 
-                            </Card>
-                        </div>
+                        </Card>
                     </div>
-
                 </div>
 
-            )
+            </div>
 
-        } else {
+        );
 
-            return (
-                <div>loading</div>
-            )
+    } else {
 
-        };
+        return (
+
+            <div className='loader-payment'>Loading...</div>
+        )
 
     };
 

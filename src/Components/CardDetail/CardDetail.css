@@ -2,7 +2,7 @@
     display: inline-block;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 45.2px);    
+    min-height: calc(100vh - 45.2px);
     padding: 30px;
     margin-left: 12rem;
     margin-top: 3rem;
@@ -10,6 +10,7 @@
 
 .comentarios-card {
     padding: 15px;
+    margin-left: 80px;
 }
 
 .descripcion-juego {
@@ -17,17 +18,17 @@
 }
 
 
-.buttonsCardDetail{
+.buttonsCardDetail {
     width: 15rem;
 }
 
-.buttonsContainer{
+.buttonsContainer {
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
 }
 
-.cardsContainer{
+.cardsContainer {
     display: flex;
     flex-direction: row;
 }
@@ -36,97 +37,110 @@
     margin-top: 3rem;
 } */
 
-.detailNameInfo{
+.detailNameInfo {
     display: flex;
     flex-direction: column;
 }
 
-.card-detail-component .title{
+.card-detail-component .title {
     margin-left: 1.5rem;
     margin-top: 1.6rem;
-    
-}
-
-.card-detail-component2{
-    min-height: calc(100vh - 45.2px);    
 
 }
 
-.nameFormat{
+.card-detail-component2 {
+    min-height: calc(100vh - 45.2px);
+
+}
+
+.nameFormat {
     display: flex;
     flex-direction: row;
 }
 
-.individualReview{
+.individualReview {
     display: flex;
     flex-direction: row;
 }
 
-.rate{
+.rate {
     display: flex;
     margin-left: 1rem;
-    
+
 }
 
-.rateAux{
+.rateAux {
     display: flex;
     margin-left: 0.7rem;
-    
+
 }
 
-.reviewsContainer{
+.reviewsContainer {
     display: flex;
     flex-direction: column;
     margin-left: 3rem;
 }
 
-.nameComment{
+.nameComment {
     display: flex;
     flex-direction: column;
 }
 
-.comment{
+.comment {
     display: flex;
     margin-top: 1rem;
 }
 
-.imgRate{
+.imgRate {
     display: flex;
     flex-direction: row;
 }
 
-.cardFormReview{
+.cardFormReview {
     display: flex;
     flex-direction: column;
 }
 
-.formReview{
+.formReview {
     margin-top: 1rem;
     font-size: large;
 
 }
 
-.rateForm{
+.rateForm {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
 }
 
-.inputButton{
+.inputButton {
     display: flex;
     flex-direction: row;
-    
+
 }
 
-.buttonAux{
+.buttonAux {
     width: 5rem;
     margin-left: 3rem;
     margin-top: 1rem;
 
 }
 
-.form{
+.form {
     font-size: 1.3rem;
     margin-top: 1rem;
     margin-bottom: 3rem;
+}
+
+.loader-card-detail {
+    font-size: 60px;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 300px 0px;
+}
+
+.p-carrito-cardD {
+    color: blue;
+    font-size: 16px;
 }

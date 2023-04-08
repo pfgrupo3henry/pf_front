@@ -1,23 +1,13 @@
-import {React, useEffect} from "react";
+import { React, useEffect } from "react";
 import { useSelector, useDispatch, } from "react-redux";
-import { useContext } from "react";
-// import {getFavorites} from "../Actions/Index";
-import { deleteFavorites } from "../../Redux/Actions/Index";
-import {createElement} from "react";
-import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
-import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
+import { deleteFavorites, getFavorites } from "../../Redux/Actions/Index";
+import { createElement } from "react";
 import { Avatar, List, Space } from 'antd';
-
-
 import "./Favorites.css"
-import StarOutlined from "@ant-design/icons/StarOutlined";
-import LikeOutlined from "@ant-design/icons/LikeOutlined";
-import MessageOutlined from "@ant-design/icons/MessageOutlined";
-import {AiFillHeart} from "react-icons/ai";
-import {AiOutlineDelete} from "react-icons/ai";
-import {HeartFilled} from "@ant-design/icons"
-import {DeleteOutlined} from "@ant-design/icons"
- 
+import { AiFillHeart } from "react-icons/ai";
+import { AiOutlineDelete } from "react-icons/ai";
+import axios from "axios";
+import Cookies from "universal-cookie";
 
 
 const IconText = ({ icon, text }) => (
@@ -25,94 +15,97 @@ const IconText = ({ icon, text }) => (
     {createElement(icon)}
     {text}
   </Space>
-); 
+);
 
 
-function Favorites (props){
-    const {id} = props
+function Favorites() {
 
-    const allFavorites = useSelector(state => state.allFavorites);
-    
-    const dispatch = useDispatch();
+  const allFavorites = useSelector(state => state.allFavorites);
+  const cookie = new Cookies();
+  const idCoockie = cookie.get("id");
+  console.log(idCoockie);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFavorites(idCoockie));
+  }, [dispatch]);
+
+  const handleFavoritesDelete = (id) => {
+
+    const product_id = id;
+    const deleteFavorite = {
+      userId: idCoockie,
+      gameId: product_id
+    }
+
+    dispatch(deleteFavorites(deleteFavorite));
+
+  };
+
+  if (allFavorites.products) {
+
+    return (
+
+      <div className="favorites-component">
+        <List
+
+          itemLayout="vertical"
+          size="large"
+
+          pagination={{
+            className: "paginationFavorite",
+            onChange: (page) => {
+              console.log(page);
+            },
+
+            pageSize: 5,
+          }}
+          dataSource={allFavorites.products}
+
+          renderItem={(item) => (
+
+            <div className="listFavoritesCard">
+              <List.Item
+
+                key={item.title}
+                actions={[
+                  <div className="iconsFavCard">
+                    <AiFillHeart />
+                    <AiOutlineDelete
+                      className="deleteFav"
+                      onClick={() => handleFavoritesDelete(item.id)}
+                    />
+                  </div>
+                ]}
 
 
-      useEffect(()=>{
-        console.log(allFavorites)
-      },[allFavorites])
+                extra={
+                  <img
+                    width={250}
+                    alt="logo"
+                    src={item.img ? item.img[0] : ""}
+                  />
+                }
+              >
+                <List.Item.Meta
+                  title={item.title}
+                  description={item.description}
+                />
+                <div className="priceFavCard">
+                  {item.price}
+                </div>
+              </List.Item>
+            </div>
 
+          )}
+        />
+      </div>
 
+    );
 
-      const deleteFavorite = (id)=>{
-        dispatch(deleteFavorites(id))
-      }
-   
-    return(
-        
-                    <div className="favorites-component">
-                    <List
-                        
-                        itemLayout="vertical"
-                        size="large"
-                        
-                        pagination={{
-                        className:"paginationFavorite",
-                        onChange: (page) => {
-                            console.log(page);
-                        },
-                        
-                        pageSize: 5,
-                        }}
-                        dataSource={allFavorites}
+  };
 
-                        renderItem={(item) => (
+};
 
-                        <div className="listFavoritesCard">
-                        <List.Item
-                            
-                            key={item.title}
-                            actions={[
-                            <div className="iconsFavCard">
-                              <AiFillHeart/>
-                              <AiOutlineDelete
-                              className="deleteFav"
-                              onClick={()=>{
-                                console.log(id)
-                                deleteFavorite(item.id)
-                              }}/>
-                            
-                            </div>
-                            ]}  
+export { Favorites }
 
-                            
-                            extra={
-                            <img
-                                width={250}
-                                alt="logo"
-                                src= {item.img}
-                            />
-                            }
-                        >
-                            <List.Item.Meta
-                            title={item.title}
-                            description={item.description}
-                            />
-                            <div className="priceFavCard">
-                            {item.price}
-                            </div>
-                        </List.Item>
-                        </div>
-                        
-                        )}
-                        />
-                    </div>
-                                 
-                
-                
-        
-
-    )
-}
-
-export {Favorites}
-
-  
