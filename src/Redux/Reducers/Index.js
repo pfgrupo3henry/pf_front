@@ -13,7 +13,9 @@ import {
     GET_ALL_USERS,
     DELETE_CHART,
     GET_FAVORITES,
-    GET_CHART_2
+    GET_CHART_2,
+    GET_REVIEWS,
+    SAVE_RATING_AND_COMMENT
 } from "../Actions/Types";
 
 const initialState = {
@@ -23,12 +25,26 @@ const initialState = {
     cards: [],
     filteredCards: [],
     nameFilter: '',
-    allUsers: []
-
+    allUsers: [],
+    reviews: []
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case SAVE_RATING_AND_COMMENT: {
+            return {
+                ...state,
+                reviews: action.payload
+            }
+        }
+
+        case GET_REVIEWS:
+            return {
+                ...state,
+                reviews: action.payload,
+
+            }
 
 
         case POST_FAVORITES:
