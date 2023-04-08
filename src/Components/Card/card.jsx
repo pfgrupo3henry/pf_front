@@ -1,5 +1,3 @@
-import Swal from 'sweetalert2';
-import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
 import { postFavorites, addItemToChart, deleteFavorites, deleteChart, getFavorites, getChart } from "../../Redux/Actions/Index";
 import React, { useEffect, useState } from "react";
@@ -11,7 +9,6 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import axios from "axios";
 
 
 const { Meta } = Card;
