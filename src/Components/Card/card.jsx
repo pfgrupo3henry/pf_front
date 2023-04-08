@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
-import { postFavorites, addItemToChart, deleteFavorites, getUsers, deleteChart } from "../../Redux/Actions/Index";
+import { postFavorites, addItemToChart, deleteFavorites, deleteChart } from "../../Redux/Actions/Index";
 import React, { useEffect, useState } from "react";
 import { Card } from 'antd';
 import "../Card/card.css"
@@ -27,6 +27,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [favorite, setFavorite] = useState(true);
   const [cart, setCart] = useState(true);
 
+  const loader3 = useSelector(state => state.loading);
   const allFavorites = useSelector(state => state.allFavorites);
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
   const [idUserAUth0, setIdUserAuth0] = useState([]);
   const [idManuelUser, setIdManuelUser] = useState("");
+  const [string, setString] = useState("hola");
 
 
   /*useEffect(() => {
@@ -49,12 +51,13 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
       const emailAuth0 = user.email;
 
-      if (idUserAUth0.length === 0) {
+      if (idUserAUth0.length === 0 && string === "hola") {
 
         axios.get(`https://pfservidor-production.up.railway.app/user/${emailAuth0}`)
           .then((res) => {
             console.log(res.data);
             setIdUserAuth0([res.data]);
+            setString("chau");
           })
           .catch((err) => console.log(err))
 
@@ -236,46 +239,82 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
 
   var precio = `$ ${price}`;
+  console.log(shoppingChart);
+  console.log(allFavorites);
+  console.log(loader3);
 
-  return (
-    <div className="card-component">
-      <Card
-        onClick={(e) => {
-          e.target.tagName !== 'svg' && e.target.tagName !== 'path' && navigate(`/game/${id}`)
-        }}
-        hoverable
-        style={{
-          width: 180,
-        }}
-        cover={<img alt="example" src={imgProvisoria} className="img-card-home" />}
-      >
-        <Meta
-          title={title}
-          description={precio}
-        />
-        <br></br>
-        <div className='iconsCardHomeContainer'>
-          {favorite === true ?
-            <AiOutlineHeart
-              className='favIconCardHome'
-              onClick={() => {
-                handleFavorites(id)
-              }} />
-            : <AiFillHeart
-              onClick={() => handleFavoritesDelete(id)}
-              className='favIconCardHome' />}
-          {cart ?
-            <RiShoppingCartLine
-              className='favIconCardHome'
-              onClick={() => handleShoppingChart(id, quantity)} />
-            : <RiShoppingCartFill
-              onClick={() => onClickDelete(id)}
-              className='favIconCardHome' />}
-        </div>
-      </Card>
-    </div>
-  )
+  if (shoppingChart.products || allFavorites.products) {
+    return (
+      <div className="card-component">
+        <Card
+          onClick={(e) => {
+            e.target.tagName !== 'svg' && e.target.tagName !== 'path' && navigate(`/game/${id}`)
+          }}
+          hoverable
+          style={{
+            width: 180,
+          }}
+          cover={<img alt="example" src={imgProvisoria} className="img-card-home" />}
+        >
+          <Meta
+            title={title}
+            description={precio}
+          />
+          <br></br>
+          <div className='iconsCardHomeContainer'>
+
+            {allFavorites.products?.map((game) => {
+              if (game.id === id) {
+                return (
+                  <AiFillHeart
+                    onClick={() => handleFavoritesDelete(id)}
+                    className='favIconCardHome' />
+                )
+              }
+            })}
+
+            {!allFavorites.products || allFavorites.products.length === 0 ?
+              <AiOutlineHeart
+                className='favIconCardHome'
+                onClick={() => {
+                  handleFavorites(id)
+                }} />
+              :
+              <AiOutlineHeart
+                className='favIconCardHome'
+                onClick={() => {
+                  handleFavorites(id)
+                }} />
+            }
+
+            {shoppingChart.products?.map((game) => {
+              if (game.id === id) {
+                return (
+                  <RiShoppingCartFill
+                    onClick={() => onClickDelete(id)}
+                    className='favIconCardHome' />
+                )
+              }
+            })}
+
+            {!shoppingChart.products || shoppingChart.products.length === 0 ?
+              <RiShoppingCartLine
+                className='favIconCardHome'
+                onClick={() => handleShoppingChart(id, quantity)} />
+              :
+              <RiShoppingCartLine
+                className='favIconCardHome'
+                onClick={() => handleShoppingChart(id, quantity)} />
+            }
+
+          </div>
+        </Card>
+      </div>
+    )
+  }
+
 };
+
 export { CardElement };
 
 
