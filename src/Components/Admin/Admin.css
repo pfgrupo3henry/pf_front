@@ -89,3 +89,21 @@ h1 {
 .priceInput{
     width: 10rem;
 }
+
+
+.selected-modifyUsers{
+    display: flex;
+    gap: 2rem;
+    margin-left: 20rem;
+}
+
+.lista-selects{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.pagination{
+    margin-left: 10rem;
+    margin-top: 2rem;
+}

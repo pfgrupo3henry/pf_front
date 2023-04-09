@@ -7,6 +7,8 @@ import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
 import {FormCreateProduct} from "./FormCreateProduct"
 import {ModifyUser} from "./ModifyUser"
 import { Input, Space } from 'antd';
+import  Dashboard  from "./Dashboard";
+import  ProductList  from "./ProductList";
 
 
 const { Search } = Input;
@@ -25,7 +27,7 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
     getItem('Dashboard', null, <MailOutlined />, [
-        getItem('Analytics finance', '1'),
+        getItem('Analytics finance', '15'),
     ]),
 
     getItem('Articles', 'sub2', <AppstoreOutlined />, [
@@ -66,6 +68,9 @@ function Admin() {
 
         if (e.key === "1") {
             setState("crear-juego");
+        }
+        if (e.key === "15") {
+            setState("analytics-finance");
         }
 
         if (e.key === "2") {
@@ -130,7 +135,7 @@ function Admin() {
                                 className="buttonSearch"
                                 placeholder="Search user" onSearch="" enterButton 
                                 enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }} 
-                                style={{ width: 300}}/> 
+                                style={{ width: 480}}/> 
                                 <ModifyUser
                                 />
 
@@ -155,7 +160,7 @@ function Admin() {
 
                         {state === "list-products" ?
 
-                            <div>Form Modify List Products</div>
+                            <div><ProductList/></div>
 
                             :
 
@@ -170,6 +175,16 @@ function Admin() {
                             :
 
                             <div></div>
+
+                        }
+
+                        {state === "analytics-finance" ?
+
+                        <div><Dashboard/></div>
+
+                        :
+
+                        <div></div>
 
                         }
 
