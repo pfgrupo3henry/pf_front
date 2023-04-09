@@ -91,15 +91,14 @@ function DropdownShoppingCart() {
           </div>
         </div>
         <div className="continue">
-          <Space wrap>
             <Button
-              style={{ backgroundColor: color }}
-              onMouseLeave={() => setColor("rgba(9, 22, 29, 1)")}
-              onMouseEnter={() => setColor("#555")}
+              className="botton"
+              style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+              onMouseLeave={() => setColor("rgba(9, 22, 29, 0.712)")}
+              onMouseEnter={() => setColor("rgba(9, 22, 29, 0.712)")}
               type="primary">
-              <Link to="/status-payment" className="rutasNav">Finalizar Compra</Link>
+              <Link to="/status-payment" className="rutasNav">Continuar compra</Link>
             </Button>
-          </Space>
         </div>
       </div>
     );

@@ -60,27 +60,26 @@ const ProductList = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(allProducts);
   const [editingKey, setEditingKey] = useState('');
-  const isEditing = (record) => record.key === editingKey;
+  const isEditing = (record) => record.id === editingKey;
   const edit = (record) => {
-    const key = record.key;
     form.setFieldsValue({
       name: '',
       age: '',
       address: '',
       ...record,
     });
-    setEditingKey(key);
-    console.log("key", record.key)
+    setEditingKey(record.id);
+    console.log("key", record.id)
 
   };
   const cancel = () => {
     setEditingKey('');
   };
-  const save = async (key) => {
+  const save = async (id) => {
     try {
       const row = await form.validateFields();
       const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
+      const index = newData.findIndex((item) => id === item.id);
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -129,6 +128,7 @@ const ProductList = () => {
     {
       title: 'operation',
       dataIndex: 'operation',
+      width:120,
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (

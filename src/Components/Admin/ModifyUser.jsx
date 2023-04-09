@@ -24,10 +24,10 @@ function ModifyUser() {
   const handleChange = (value) => {
     console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
-  
+
 
   return (
-      <div className='lista-selects'>
+    <div className='lista-selects'>
       <List
         itemLayout="horizontal"
         dataSource={allUsers.slice((currentPage - 1) * pageSize, currentPage * pageSize)} // Aplica la paginación en la lista de usuarios
@@ -36,37 +36,44 @@ function ModifyUser() {
             <List.Item.Meta
               avatar={<Avatar src={item.img[0]} />}
               title={item.firstname}
-              email={item.email}
+              description={item.email}
             />
-                    
+
             <div className='selected-modifyUsers'>
-            <Select
-            placeholder="Rol definido"
-             style={{
-              width: 120,
-            }}>
-            <Select.Option value="usuario-por-defecto">Usuario por defecto</Select.Option>
-            <Select.Option value="administrador">Administrador</Select.Option>
+              <Select
+                placeholder="Rol definido"
+                style={{
+                  width: 120,
+                }}>
+                <Select.Option value="usuario-por-defecto">Usuario por defecto</Select.Option>
+                <Select.Option value="administrador">Administrador</Select.Option>
 
-          </Select>
+              </Select>
 
-          <Select
-            placeholder="Estado"
-             style={{
-              width: 90,
-            }}>
-            <Select.Option value="status-active">Activo</Select.Option>
-            <Select.Option value="status-inactive">Inactivo</Select.Option>
+              <Select
+                placeholder="Estado"
+                style={{
+                  width: 90,
+                }}>
+                <Select.Option value="status-active">Activo</Select.Option>
+                <Select.Option value="status-inactive">Inactivo</Select.Option>
 
-          </Select>
-          </div>
+              </Select>
+            </div>
           </List.Item>
         )}
       />
+      <div className='pagination'>
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={allUsers.length}
+        onChange={handlePageChange}
+      />
       </div>
-      
+    </div>
+
   );
 }
 
 export { ModifyUser };
-

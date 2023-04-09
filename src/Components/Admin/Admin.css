@@ -94,11 +94,16 @@ h1 {
 .selected-modifyUsers{
     display: flex;
     gap: 2rem;
-    margin-left: 10rem;
+    margin-left: 20rem;
 }
 
 .lista-selects{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     
+}
+
+.pagination{
+    margin-left: 10rem;
+    margin-top: 2rem;
 }
