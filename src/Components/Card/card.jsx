@@ -123,7 +123,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           />
           <br></br>
           <div className='iconsCardHomeContainer'>
-
             {allFavorites.products?.map((game) => {
               if (game.id === id) {
                 return (
@@ -133,7 +132,17 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 )
               }
             })}
-
+            {shoppingChart.products?.map((game) => {
+              if (game.id === id) {
+                return (
+                  <RiShoppingCartFill
+                    onClick={() => onClickDelete(id)}
+                    className='favIconCardHome' />
+                )
+              }
+            })}
+          </div>
+          <div className='iconsCardHomeContainer'>
             {!allFavorites.products || allFavorites.products.length === 0 ?
               <AiOutlineHeart
                 className='favIconCardHome'
@@ -147,17 +156,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                   handleFavorites(id)
                 }} />
             }
-
-            {shoppingChart.products?.map((game) => {
-              if (game.id === id) {
-                return (
-                  <RiShoppingCartFill
-                    onClick={() => onClickDelete(id)}
-                    className='favIconCardHome' />
-                )
-              }
-            })}
-
             {!shoppingChart.products || shoppingChart.products.length === 0 ?
               <RiShoppingCartLine
                 className='favIconCardHome'
@@ -167,7 +165,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 className='favIconCardHome'
                 onClick={() => handleShoppingChart(id, quantity)} />
             }
-
           </div>
         </Card>
       </div>
