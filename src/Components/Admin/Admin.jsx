@@ -9,6 +9,7 @@ import {ModifyUser} from "./ModifyUser"
 import { Input, Space } from 'antd';
 import  Dashboard  from "./Dashboard";
 import  ProductList  from "./ProductList";
+import  {PaymentsViws}  from "./PaymentsViews";
 
 
 const { Search } = Input;
@@ -26,17 +27,15 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem('Dashboard', null, <MailOutlined />, [
-        getItem('Analytics finance', '15'),
+    getItem('Métricas', null, <MailOutlined />, [
+        getItem('Análisis de finanzas', '15'),
     ]),
 
-    getItem('Articles', 'sub2', <AppstoreOutlined />, [
-        getItem('New Product', '1'),
-        getItem('Modify User', '2'),
-        getItem('Modify Games', '3'),
-        getItem('List Products', '4'),
-        getItem('See Payments ', '5'),
-        getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+    getItem('Articulos y usuarios', 'sub2', <AppstoreOutlined />, [
+        getItem('Nuevo producto', '1'),
+        getItem('Modificar usuarios', '2'),
+        getItem('Lista de productos', '4'),
+        getItem('Listado de ventas', '5'),
     ])
 
 ];
@@ -170,7 +169,7 @@ function Admin() {
 
                         {state === "see-payments" ?
 
-                            <div>Form Modify See Payments</div>
+                            <div><PaymentsViws/></div>
 
                             :
 
