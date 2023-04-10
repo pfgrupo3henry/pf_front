@@ -19,13 +19,14 @@ import { useSelector, useDispatch } from "react-redux";
 function Nav(count) {
 
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
-  const { user, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
-  const [idUserAUth0, setIdUserAuth0] = useState([]);
-  const [idManuelUser, setIdManuelUser] = useState("");
+  const { isAuthenticated, loginWithPopup } = useAuth0();
   const shoppingChart = useSelector(state => state.shoppingChart);
   const dispatch = useDispatch();
   const cookie = new Cookies();
   const cookieId = cookie.get("firstname");
+  const cookieRole = cookie.get("role");
+
+  console.log(cookieRole);
 
   const handleLoginClick = () => {
     loginWithPopup({
@@ -63,12 +64,8 @@ function Nav(count) {
       key: "2",
     },
     {
-      label: <Link to="/admin" className="rutasNav">Admin</Link>,
-      key: "3",
-    },
-    {
       label: <Logout />,
-      key: "4",
+      key: "3",
     },
   ];
 
@@ -101,6 +98,13 @@ function Nav(count) {
                 </a>
               </Dropdown>
             </li>
+            {cookieRole === "Admin" ?
+              < li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
+                <Link to="/admin" className="rutasNav">Admin</Link>
+              </li>
+              :
+              null
+            }
             <li className={isAuthenticated || cookieId ? "buscadorAux" : "buscador"}>
               <SearchBar />
             </li>
@@ -123,7 +127,7 @@ function Nav(count) {
                 null
               }
               <div>
-                {cookieId ?
+                {cookieId && !isAuthenticated ?
                   <Dropdown
                     className=""
                     menu={{
@@ -154,7 +158,7 @@ function Nav(count) {
               : null
           }
         </div>
-      </div>
+      </div >
     );
 
   }

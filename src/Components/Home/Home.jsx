@@ -1,4 +1,4 @@
-import React, {useEffect}from "react";
+import React, { useEffect } from "react";
 import { useState } from 'react';
 import { Pagination, Alert } from 'antd';
 import { CardElement } from "../Card/card";
@@ -11,14 +11,43 @@ import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
 import { Link } from 'react-router-dom';
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterCards, getUsers, setNameFilter } from "../../Redux/Actions/Index";
 import OrderMenu from "../OrderMenu/OrderMenu";
+import Cookies from "universal-cookie";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 function Home(label, key, icon, children, type) {
 
- 
+  const { logout } = useAuth0();
+
+  function eliminarCookies() {
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    logout().then((res) => {
+      window.location.href = "/";
+    })
+  };
+
+  const Swal = require('sweetalert2');
+
+  const cookie = new Cookies();
+  const cookieStatus = cookie.get("status");
+  console.log(cookieStatus);
+
+  if (cookieStatus === "Disabled") {
+    Swal.fire({
+      title: "Error!",
+      text: 'Usuario Bloqueado',
+      icon: "error",
+      confirmButtonText: 'Ok'
+    }).then((res) => {
+      eliminarCookies()
+    });
+  }
 
   const cards = useSelector(state => state.cards);
   const filteredVideogames = useSelector(state => state.filteredCards);
@@ -51,6 +80,8 @@ function Home(label, key, icon, children, type) {
         : []
     );
   };
+
+
 
   //------------------------------Filtros----------------------------------------------------
 
@@ -143,7 +174,7 @@ function Home(label, key, icon, children, type) {
   }
 
 
-  
+
 
   React.useEffect(() => {
     setCurrent(1)
@@ -190,8 +221,8 @@ function Home(label, key, icon, children, type) {
                     descriptionComplete={e.description}
                     price={e.price}
                     id={e.id}
-                    
-                    
+
+
                   />
                 ))}
               </div>
