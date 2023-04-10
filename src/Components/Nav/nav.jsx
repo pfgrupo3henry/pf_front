@@ -10,7 +10,6 @@ import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space, Badge } from "antd";
 import Cookies from "universal-cookie";
-import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 
@@ -18,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 function Nav(count) {
 
+  const Swal = require('sweetalert2');
   const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
   const { isAuthenticated, loginWithPopup } = useAuth0();
   const shoppingChart = useSelector(state => state.shoppingChart);
@@ -29,13 +29,14 @@ function Nav(count) {
   console.log(cookieRole);
 
   const handleLoginClick = () => {
-    loginWithPopup({
-      height: 600,
-      width: 400,
-      timeoutInSeconds: 10,
+    Swal.fire({
+      title: "Error!",
+      text: 'Debes iniciar sesion',
+      icon: "error",
+      confirmButtonText: 'Ok'
     }).then((res) => {
-      window.location.href = "/home";
-    })
+      window.location.href = "/login";
+    });
 
   };
 

@@ -15,6 +15,7 @@ function FinishPayment() {
     const [totalPrice, settotalPrice] = useState("");
     const [string, setString] = useState("cuenta");
     const [precioFinal, setPrecioFinal] = useState([]);
+    const Swal = require('sweetalert2');
 
     var shoppingChart = useSelector(state => state.shoppingChart);
     const dispatch = useDispatch();
@@ -22,6 +23,17 @@ function FinishPayment() {
     const cookie = new Cookies();
     const idCoockie = cookie.get("id");
     console.log(idCoockie);
+
+    if (!idCoockie) {
+        Swal.fire({
+            title: "Error!",
+            text: 'Debes inicar sesion',
+            icon: "error",
+            confirmButtonText: 'Ok'
+        }).then((res) => {
+            window.location.href = "/login"
+        });
+    }
 
     useEffect(() => {
 

@@ -33,6 +33,19 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const idCoockie = cookie.get("id");
   console.log(idCoockie);
 
+  const Swal = require('sweetalert2');
+
+  const handleLoginClick = () => {
+    Swal.fire({
+      title: "Error!",
+      text: 'Debes iniciar sesion',
+      icon: "error",
+      confirmButtonText: 'Ok'
+    }).then((res) => {
+      window.location.href = "/login";
+    });
+
+  };
 
   useEffect(() => {
 
@@ -146,24 +159,20 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
             {!allFavorites.products || allFavorites.products.length === 0 ?
               <AiOutlineHeart
                 className='favIconCardHome'
-                onClick={() => {
-                  handleFavorites(id)
-                }} />
+                onClick={() => { idCoockie ? handleFavorites(id) : handleLoginClick() }} />
               :
               <AiOutlineHeart
                 className='favIconCardHome'
-                onClick={() => {
-                  handleFavorites(id)
-                }} />
+                onClick={() => { idCoockie ? handleFavorites(id) : handleLoginClick() }} />
             }
             {!shoppingChart.products || shoppingChart.products.length === 0 ?
               <RiShoppingCartLine
                 className='favIconCardHome'
-                onClick={() => handleShoppingChart(id, quantity)} />
+                onClick={() => { idCoockie ? handleShoppingChart(id, quantity) : handleLoginClick() }} />
               :
               <RiShoppingCartLine
                 className='favIconCardHome'
-                onClick={() => handleShoppingChart(id, quantity)} />
+                onClick={() => { idCoockie ? handleShoppingChart(id, quantity) : handleLoginClick() }} />
             }
           </div>
         </Card>
