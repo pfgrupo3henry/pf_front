@@ -15,7 +15,10 @@ import {
     GET_FAVORITES,
     GET_CHART_2,
     GET_REVIEWS,
-    SAVE_RATING_AND_COMMENT
+    SAVE_RATING_AND_COMMENT,
+    GET_ALL_ORDERS,
+    MODIFICAR_USUARIO
+
 } from "../Actions/Types";
 
 const initialState = {
@@ -26,7 +29,8 @@ const initialState = {
     filteredCards: [],
     nameFilter: '',
     allUsers: [],
-    reviews: []
+    reviews: [],
+    allOrders: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -98,31 +102,6 @@ const rootReducer = (state = initialState, action) => {
             }
 
 
-        /*       let flag = false;
-  
-              state.shoppingChart.length && state.shoppingChart.forEach(el => {
-                  if (JSON.stringify(el) === JSON.stringify(action.payload)) {
-                      flag = true;
-                  }
-              })
-  
-              if (!flag) {
-                  localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
-                  return {
-                      ...state,
-                      shoppingChart: [...state.shoppingChart, action.payload]
-                  }
-              } else {
-                  const filteredChart = state.shoppingChart.filter(el => {
-                      return JSON.stringify(el) !== JSON.stringify(action.payload)
-                  });
-                  localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
-                  return {
-                      ...state,
-                      shoppingChart: [...filteredChart]
-                  }
-              } */
-
         case GET_CARDS:
             return {
                 ...state,
@@ -131,12 +110,27 @@ const rootReducer = (state = initialState, action) => {
             }
 
 
+
+            case GET_ALL_ORDERS:
+                return {
+                    ...state,
+                    allOrders: action.payload,
+                }    
+
         case GET_ALL_USERS:
             return {
                 ...state,
                 allUsers: action.payload,
 
             }
+
+
+     /*    case MODIFICAR_USUARIO:
+
+            return{
+                ...state,
+
+            } */
 
         case FILTER_CARDS:
             return {
@@ -189,11 +183,10 @@ const rootReducer = (state = initialState, action) => {
             }
             return { ...state, filteredCards: orderPrice }
         }
-        // case ORDER_BY_RATE: {
-        //     let orderRate = [...state.filteredCards];
-        //     orderRate = orderRate.sort((a, b) => a.price - b.price)
-        //     return { ...state, filteredCards: orderRate }
-        // }
+
+
+        
+
         default:
             return { ...state }
     }
@@ -202,3 +195,44 @@ const rootReducer = (state = initialState, action) => {
 
 
 export default rootReducer; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*       let flag = false;
+  
+              state.shoppingChart.length && state.shoppingChart.forEach(el => {
+                  if (JSON.stringify(el) === JSON.stringify(action.payload)) {
+                      flag = true;
+                  }
+              })
+  
+              if (!flag) {
+                  localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
+                  return {
+                      ...state,
+                      shoppingChart: [...state.shoppingChart, action.payload]
+                  }
+              } else {
+                  const filteredChart = state.shoppingChart.filter(el => {
+                      return JSON.stringify(el) !== JSON.stringify(action.payload)
+                  });
+                  localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
+                  return {
+                      ...state,
+                      shoppingChart: [...filteredChart]
+                  }
+              } */
