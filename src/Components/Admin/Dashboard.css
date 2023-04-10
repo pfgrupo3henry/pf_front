@@ -1,0 +1,54 @@
+.dashboard-component{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 15rem;
+    margin-bottom: 4rem;
+    
+}
+
+.pie{
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+ .total-area{
+    display: flex;
+    margin-left: 4rem;
+    margin-bottom: 2rem;
+    gap: 1rem;
+} 
+
+.progress{
+    display: flex;
+    margin-top: 5rem;
+    gap: 2rem;
+}
+
+ .stadisticas{
+  width: 25rem;
+    
+} 
+ 
+
+.stadisticas-dashboard-component{
+    display: flex;
+    flex-direction: column;
+}
+
+.estadisticas{
+    display: flex;
+    margin-left: 15rem;
+    margin-bottom: 2rem;
+    
+}
+
+
+.selectores-dash{
+    width: 10rem;
+}
+
+.tabla-componente{
+    display: flex;
+    margin-left: 13rem;
+
+}

@@ -213,7 +213,7 @@ function CardDetail() {
                                     title={precio}
                                     bordered={false}
                                     style={{
-                                        width: 300,
+                                        width: 400,
                                         height: 510
                                     }}
                                 >
@@ -260,7 +260,7 @@ function CardDetail() {
                                         <Rate
                                             className="rateProm"
                                             disabled
-                                            bordered={false}
+                                            bordered={true}
                                             allowHalf
                                             value={prom}
                                         />
@@ -271,7 +271,7 @@ function CardDetail() {
                                             <Card title="" bordered={false}>
                                                 <div className="nameComment">
                                                     <div className="imgRate">
-                                                        <p>{"Celina"}</p>
+                                                        <img>{r.img}</img>
                                                         <Rate
                                                             className="rate"
                                                             disabled
@@ -282,6 +282,28 @@ function CardDetail() {
                                                     <p className="comment">{r.comment}</p>
                                                 </div>
                                             </Card>
+
+
+                                          /*   <Card title="" bordered={false}>
+                                            <div className="nameComment">
+                                                <div className="imgRate">
+                                                    {!isAuthenticated ? null : <Profile />}
+                                                    <Rate
+                                                        className="rate"
+                                                        disabled defaultValue={5} />
+                                                </div>
+                                                <p className="comment">
+                                                    ¡Great!, an incredible game, i love it
+                                                </p>
+
+                                            </div>
+                                            </Card>
+ */
+
+
+
+
+
                                         )
                                     })
                                         :
@@ -307,3 +329,4 @@ function CardDetail() {
 };
 
 export default CardDetail;
+

@@ -26,13 +26,14 @@
 }
 
 .dropdown-shopping-cart-component .main::-webkit-scrollbar-track {
-    background-color: #00000030;
+    background-color: rgba(9, 22, 29, 0.712);
+    display: none;
 }
 
 .dropdown-shopping-cart-component .main::-webkit-scrollbar-thumb {
     background: #222;
     -webkit-border-radius: 1ex;
-    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 1px 2px rgba(9, 22, 29, 0.712);
     max-height: 40px;
 }
 
@@ -42,6 +43,7 @@
     gap: 10px;
 }
 
-.dropdown-shopping-cart-component .continue {
-    padding: 10px 0;
+
+.botton{
+    width: 20rem;
 }
