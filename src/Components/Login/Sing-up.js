@@ -71,6 +71,8 @@ function SingUp() {
                     cookie.set("lastname", res.data.lastname);
                     cookie.set("email", res.data.email);
                     cookie.set("token", res.data.token);
+                    cookie.set("status", res.data.status);
+                    cookie.set("role", res.data.role);
                     Swal.fire({
                         title: "Success!",
                         text: 'Usuario logeado correctamente',
