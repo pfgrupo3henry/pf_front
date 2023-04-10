@@ -80,6 +80,7 @@ h1 {
 .admin-component .buttonSearch{
     color: rgba(9, 22, 29, 0.712);
     margin-bottom: 3rem;
+    margin-left: 8rem;
 }
 
 .admin-component .searchUserListContainer{
@@ -93,8 +94,9 @@ h1 {
 
 .selected-modifyUsers{
     display: flex;
+    flex-direction: row;
     gap: 2rem;
-    margin-left: 20rem;
+    margin-left: 10rem;
 }
 
 .lista-selects{
@@ -104,6 +106,14 @@ h1 {
 }
 
 .pagination{
-    margin-left: 10rem;
+    margin-left: 20rem;
     margin-top: 2rem;
+}
+
+.role{
+    display: flex;
+    gap: 1rem;
+    font-style: oblique;
+    margin-top: 0.8rem;
+
 }
