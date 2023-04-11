@@ -124,6 +124,7 @@ function FinishPayment() {
         };
 
         console.log(precioFinal);
+        console.log(shoppingChart)
 
         return (
             <div className="finishPayment-component">
@@ -148,7 +149,7 @@ function FinishPayment() {
                                     <List.Item>
                                         <List.Item.Meta
                                             avatar={<Avatar src={item.img ? item.img[0] : ""} />}
-                                            title={item.title}
+                                            title={item.name}
                                             description={
                                                 <div className='icons-container'>
                                                     {item.description}
@@ -168,7 +169,7 @@ function FinishPayment() {
                                                             <AiOutlineDelete className='deleteIcon' />
                                                         </Button>
                                                         <div className='unit-price'>
-                                                            ${item.price}
+                                                            ${item.price * item.quantity}
                                                         </div>
                                                     </div>
                                                 </div>
