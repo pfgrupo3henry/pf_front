@@ -161,14 +161,7 @@ function Admin() {
                         {state === "modify-user" ?
 
                             <div className="searchUserListContainer">
-                                <Search
-                                    className="buttonSearch"
-                                    placeholder="Search user" onSearch="" enterButton
-                                    enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }}
-                                    style={{ width: 480 }} />
-                                <ModifyUser
-                                />
-
+                                <ModifyUser />
                             </div>
 
                             :
