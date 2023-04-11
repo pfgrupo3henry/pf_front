@@ -16,6 +16,7 @@ const DescriptionItem = ({ title, content }) => (
 
 const PaymentsViws = () => {
     const allOrders = useSelector(state => state.allOrders);
+    const allProducts = useSelector(state => state.allOrders)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,6 +34,12 @@ const PaymentsViws = () => {
   return (
     <>
       <List
+      style={{
+        marginTop: "5rem",
+        marginLeft: "10rem",
+
+        width: 700,
+      }}
         dataSource={allOrders.orders}
         bordered
         renderItem={(item) => ( 
@@ -40,110 +47,105 @@ const PaymentsViws = () => {
             key={item.id}
             actions={[
               <a onClick={showDrawer} key={`a-${item.id}`}>
-                View Profile
+                Todas las compras
               </a>,
+/*               onclick(handleID)
+ */              
             ]}
           >
             <List.Item.Meta
               avatar={
-                <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
+                <Avatar src={item.userId.img} />
               }
-              title={item.name}
-              description="Progresser XTech"
+              title={item.userId.firstname}
+              description={item.userId.email  }
             />
           </List.Item>
         )}
       />
-      <Drawer width={640} placement="right" closable={false} onClose={onClose} open={open}>
+      <Drawer 
+
+      width={640} placement="right" closable={false} onClose={onClose} open={open}>
         <p
           className="site-description-item-profile-p"
           style={{
             marginBottom: 24,
           }}
         >
-          User Profile
+          Perfil del usuario
         </p>
         <p className="site-description-item-profile-p">Personal</p>
         <Row>
           <Col span={12}>
-            <DescriptionItem title="Full Name" content="Lily" />
+            <DescriptionItem title="Nombre completo" content="Dylan Marcote" />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Account" content="AntDesign@example.com" />
+            <DescriptionItem title="Mi cuenta" content="Henry Games Store" />
+          </Col>
+        </Row>
+
+        <Divider />
+        <p className="site-description-item-profile-p">Compras Realizadas</p>
+        <Row>
+          <Col span={12}>
+            <DescriptionItem title="ID del carrito" content="2" />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="Fecha de compra" content="11/04/2023 16:24" />
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-            <DescriptionItem title="City" content="HangZhou" />
+            <DescriptionItem title="Estado del pago" content="Finalizado correctamente" />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Country" content="China🇨🇳" />
+            <DescriptionItem title="Total abonado" content="$50400.00" />
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="Birthday" content="February 2,1900" />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Website" content="-" />
-          </Col>
-        </Row>
-        <Row>
+       {/*  <Row>
           <Col span={24}>
             <DescriptionItem
-              title="Message"
-              content="Make things as simple as possible but no simpler."
+            dataSource={}
+              title="Productos"
+              content={
+                <div>
+                {!allOrders.orders?.cartId?.videogames ? null : allOrders.orders?.cartId?.videogames.length === 0 ? (
+                  <p>No hay productos disponibles.</p>
+                ) : (
+                  allOrders.orders?.cartId?.videogames.map((e) => (
+                    <p key={e.name}>
+                      Nombre: {e.name}, Precio: {e.price}
+                    </p>
+                  ))
+                )}
+              </div>
+              }
             />
           </Col>
-        </Row>
+        </Row> */}
         <Divider />
-        <p className="site-description-item-profile-p">Company</p>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="Position" content="Programmer" />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Responsibilities" content="Coding" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="Department" content="XTech" />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Supervisor" content={<a>Lin</a>} />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <DescriptionItem
-              title="Skills"
-              content="C / C + +, data structures, software engineering, operating systems, computer networks, databases, compiler theory, computer architecture, Microcomputer Principle and Interface Technology, Computer English, Java, ASP, etc."
-            />
-          </Col>
-        </Row>
-        <Divider />
-        <p className="site-description-item-profile-p">Contacts</p>
+        <p className="site-description-item-profile-p">Contacto</p>
         <Row>
           <Col span={12}>
             <DescriptionItem title="Email" content="AntDesign@example.com" />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Phone Number" content="+86 181 0000 0000" />
+            <DescriptionItem title="Teléfono" content="+86 181 0000 0000" />
           </Col>
         </Row>
-        <Row>
+    {/*     <Row>
           <Col span={24}>
             <DescriptionItem
               title="Github"
-              content={
+               content={
                 <a href="http://github.com/ant-design/ant-design/">
                   github.com/ant-design/ant-design/
                 </a>
               }
-            />
+            /> 
+            
           </Col>
-        </Row>
+        </Row> */}
       </Drawer>
     </>
   );

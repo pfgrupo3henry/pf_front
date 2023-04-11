@@ -316,7 +316,7 @@ export const orderByPrice = (data) => {
 export const getOrders = () => {
     try {
         return async function (dispatch) {
-            let json = await axios.get('https://pfservidor-production.up.railway.app/orders');
+            let json = await axios.get('https://pfservidor-production.up.railway.app/orders/allOrders');
             console.log(json)
             return dispatch({
                 type: GET_ALL_ORDERS,
