@@ -69,6 +69,13 @@ function DropdownShoppingCart() {
                   </div>
                   <div className="card-footer">
                     <Space>
+                      <Tooltip title="Minus">
+                        <Button icon={<MinusOutlined />} />
+                      </Tooltip>
+                      <p>{el.quantity}</p>
+                      <Tooltip title="Add">
+                        <Button icon={<PlusOutlined />} />
+                      </Tooltip>
                       <Tooltip title="delete">
                         <Button
                           onClick={() => onClickDelete(el.id)}
@@ -101,14 +108,3 @@ function DropdownShoppingCart() {
 };
 
 export default DropdownShoppingCart;
-
-
-/*
-                      <Tooltip title="Minus">
-                        <Button icon={<MinusOutlined />} />
-                      </Tooltip>
-                      <p>{el.quantity}</p>
-                      <Tooltip title="Add">
-                        <Button icon={<PlusOutlined />} />
-                      </Tooltip>
-*/
