@@ -12,6 +12,7 @@ import ProductList from "./ProductList";
 import { PaymentsViws } from "./PaymentsViews";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
+import VerReviews from "./verReviews";
 
 
 const { Search } = Input;
@@ -38,6 +39,7 @@ const items = [
         getItem('Modificar usuarios', '2'),
         getItem('Lista de productos', '4'),
         getItem('Listado de ventas', '5'),
+        getItem('Reviews', '6'),
     ])
 
 ];
@@ -117,6 +119,10 @@ function Admin() {
 
         if (e.key === "5") {
             setState("see-payments");
+        }
+
+        if (e.key === "6") {
+            setState("reviews");
         }
 
     };
@@ -209,6 +215,15 @@ function Admin() {
 
                             <div></div>
 
+                        }
+
+                        {state === "reviews" ?
+
+                            <div><VerReviews /></div>
+
+                            :
+
+                            <div></div>
                         }
 
                     </div>
