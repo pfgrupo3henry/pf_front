@@ -71,7 +71,6 @@ function DropdownShoppingCart() {
                     <Space>
                       <Tooltip title="delete">
                         <Button
-                          type="submit"
                           onClick={() => onClickDelete(el.id)}
                           icon={<DeleteOutlined />}
                         >
