@@ -401,6 +401,10 @@ function SingUp() {
                             placeholder="Encontrá tu país"
                             className="select-sing-up" onChange={handleInputChange}>
 
+                            <option className="option-sing-up">
+                                Elegir Nacionalidad
+                            </option>
+
                             {options && options.map((n) => {
                                 return (
                                     <option className="option-sing-up">
