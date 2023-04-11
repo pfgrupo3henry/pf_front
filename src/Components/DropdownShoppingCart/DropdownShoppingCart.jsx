@@ -69,12 +69,6 @@ function DropdownShoppingCart() {
                   </div>
                   <div className="card-footer">
                     <Space>
-                      <Tooltip title="Minus">
-                        <Button icon={<MinusOutlined />} />
-                      </Tooltip>
-                      <Tooltip title="Add">
-                        <Button icon={<PlusOutlined />} />
-                      </Tooltip>
                       <Tooltip title="delete">
                         <Button
                           type="submit"
@@ -91,14 +85,14 @@ function DropdownShoppingCart() {
           </div>
         </div>
         <div className="continue">
-            <Button
-              className="botton"
-              style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-              onMouseLeave={() => setColor("rgba(9, 22, 29, 0.712)")}
-              onMouseEnter={() => setColor("rgba(9, 22, 29, 0.712)")}
-              type="primary">
-              <Link to="/status-payment" className="rutasNav">Continuar compra</Link>
-            </Button>
+          <Button
+            className="botton"
+            style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+            onMouseLeave={() => setColor("rgba(9, 22, 29, 0.712)")}
+            onMouseEnter={() => setColor("rgba(9, 22, 29, 0.712)")}
+            type="primary">
+            <Link to="/status-payment" className="rutasNav">Continuar compra</Link>
+          </Button>
         </div>
       </div>
     );
@@ -108,3 +102,14 @@ function DropdownShoppingCart() {
 };
 
 export default DropdownShoppingCart;
+
+
+/*
+                      <Tooltip title="Minus">
+                        <Button icon={<MinusOutlined />} />
+                      </Tooltip>
+                      <p>{el.quantity}</p>
+                      <Tooltip title="Add">
+                        <Button icon={<PlusOutlined />} />
+                      </Tooltip>
+*/
