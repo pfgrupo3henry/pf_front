@@ -45,7 +45,7 @@ h1 {
     padding: 0px 0px 10px 40px;
 }
 
-.parrafo-juego-select { 
+.parrafo-juego-select {
     color: rgba(9, 22, 29, 0.712);
     padding: 0px 0px 10px 40px;
 }
@@ -68,52 +68,65 @@ h1 {
     min-height: calc(100vh - 45.2px);
 }
 
-.formCreateNewProduct{
+.formCreateNewProduct {
     padding-top: 40px;
     width: 30rem;
 }
 
-.buttonFormCreateProduct{
-     margin-left: 10em; 
+.buttonFormCreateProduct {
+    margin-left: 10em;
 }
 
-.admin-component .buttonSearch{
+.admin-component .buttonSearch {
     color: rgba(9, 22, 29, 0.712);
     margin-bottom: 3rem;
     margin-left: 8rem;
 }
 
-.admin-component .searchUserListContainer{
+.admin-component .searchUserListContainer {
     padding-top: 40px;
 }
 
-.priceInput{
+.priceInput {
     width: 10rem;
 }
 
 
-.selected-modifyUsers{
+.selected-modifyUsers {
     display: flex;
     flex-direction: row;
     gap: 2rem;
     margin-left: 10rem;
 }
 
-.lista-selects{
+.lista-selects {
     display: flex;
     flex-direction: column;
-    
+
 }
 
-.pagination{
+.pagination {
     margin-left: 20rem;
     margin-top: 2rem;
 }
 
-.role{
+.role {
     display: flex;
     gap: 1rem;
     font-style: oblique;
     margin-top: 0.8rem;
 
+}
+
+.game-card-admin {
+    display: flex;
+}
+
+.reviews-card-admin {
+    display: inline-block;
+    padding: 0px 0px 0px 80px;
+}
+
+.body-review-admin {
+    min-height: 100vh;
 }
