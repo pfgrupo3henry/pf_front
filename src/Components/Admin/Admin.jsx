@@ -4,10 +4,16 @@ import {
     Menu
 } from 'antd';
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
-import {FormCreateProduct} from "./FormCreateProduct"
-import {ModifyUser} from "./ModifyUser"
+import { FormCreateProduct } from "./FormCreateProduct"
+import { ModifyUser } from "./ModifyUser"
 import { Input, Space } from 'antd';
-
+import Dashboard from "./Dashboard";
+import ProductList from "./ProductList";
+import { PaymentsViws } from "./PaymentsViews";
+import Cookies from "universal-cookie";
+import { useAuth0 } from "@auth0/auth0-react";
+import VerReviews from "./verReviews";
+import ModificarJuego from "./modificarJuego";
 
 const { Search } = Input;
 
@@ -24,17 +30,17 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem('Dashboard', null, <MailOutlined />, [
-        getItem('Analytics finance', '1'),
+    getItem('Métricas', null, <MailOutlined />, [
+        getItem('Análisis de finanzas', '15'),
     ]),
 
-    getItem('Articles', 'sub2', <AppstoreOutlined />, [
-        getItem('New Product', '1'),
-        getItem('Modify User', '2'),
-        getItem('Modify Games', '3'),
-        getItem('List Products', '4'),
-        getItem('See Payments ', '5'),
-        getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+    getItem('Articulos y usuarios', 'sub2', <AppstoreOutlined />, [
+        getItem('Modificar producto', '0'),
+        getItem('Nuevo producto', '1'),
+        getItem('Modificar usuarios', '2'),
+        getItem('Lista de productos', '4'),
+        getItem('Listado de ventas', '5'),
+        getItem('Reviews', '6'),
     ])
 
 ];
@@ -44,14 +50,43 @@ const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
 
 function Admin() {
 
+    const { logout } = useAuth0();
+
+    function eliminarCookies() {
+        document.cookie.split(";").forEach(function (c) {
+            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+        logout().then((res) => {
+            window.location.href = "/";
+        })
+    };
+
+    const Swal = require('sweetalert2');
+
+    const cookie = new Cookies();
+    const cookieRole = cookie.get("role");
+    console.log(cookieRole);
+
+    if (cookieRole !== "Admin") {
+        Swal.fire({
+            title: "Error!",
+            text: 'No es usuario Admin',
+            icon: "error",
+            confirmButtonText: 'Ok'
+        }).then((res) => {
+            window.location.href = "/home"
+        });
+    }
+
+
     const [openKeys, setOpenKeys] = useState(["sub1"]);
     const onOpenChange = (keys) => {
-      const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-      if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-        setOpenKeys(keys);
-      } else {
-        setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-      }
+        const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+        if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            setOpenKeys(keys);
+        } else {
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
     };
 
     const [theme, setTheme] = useState('ligth');
@@ -64,8 +99,15 @@ function Admin() {
         console.log('click ', e);
         setCurrent(e.key);
 
+        if (e.key === "0") {
+            setState("modificar-juego");
+        }
+
         if (e.key === "1") {
             setState("crear-juego");
+        }
+        if (e.key === "15") {
+            setState("analytics-finance");
         }
 
         if (e.key === "2") {
@@ -84,6 +126,10 @@ function Admin() {
             setState("see-payments");
         }
 
+        if (e.key === "6") {
+            setState("reviews");
+        }
+
     };
 
     const changeTheme = (value) => {
@@ -95,9 +141,9 @@ function Admin() {
 
         return (
 
-        <div className="admin-component">
+            <div className="admin-component">
 
-            <div className="userInfoContainer">
+                <div className="userInfoContainer">
 
                     <div className="menuOptions">
 
@@ -116,9 +162,16 @@ function Admin() {
                     </div>
 
                     <div className="forms-render">
+                        {state === "modificar-juego" ?
+
+                            <div><ModificarJuego /></div>
+                            :
+                            <div></div>
+
+                        }
                         {state === "crear-juego" ?
 
-                            <div><FormCreateProduct/></div>
+                            <div><FormCreateProduct /></div>
                             :
                             <div></div>
 
@@ -126,19 +179,12 @@ function Admin() {
                         {state === "modify-user" ?
 
                             <div className="searchUserListContainer">
-                                <Search 
-                                className="buttonSearch"
-                                placeholder="Search user" onSearch="" enterButton 
-                                enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }} 
-                                style={{ width: 300}}/> 
-                                <ModifyUser
-                                />
+                                <ModifyUser />
+                            </div>
 
-                            </div>  
+                            :
 
-                                :
-
-                                <div></div> 
+                            <div></div>
 
 
                         }
@@ -155,7 +201,7 @@ function Admin() {
 
                         {state === "list-products" ?
 
-                            <div>Form Modify List Products</div>
+                            <div><ProductList /></div>
 
                             :
 
@@ -165,7 +211,7 @@ function Admin() {
 
                         {state === "see-payments" ?
 
-                            <div>Form Modify See Payments</div>
+                            <div><PaymentsViws /></div>
 
                             :
 
@@ -173,10 +219,29 @@ function Admin() {
 
                         }
 
+                        {state === "analytics-finance" ?
+
+                            <div><Dashboard /></div>
+
+                            :
+
+                            <div></div>
+
+                        }
+
+                        {state === "reviews" ?
+
+                            <div><VerReviews /></div>
+
+                            :
+
+                            <div></div>
+                        }
+
                     </div>
 
 
-            </div>
+                </div>
 
             </div>
 
@@ -186,4 +251,4 @@ function Admin() {
 
 };
 
-export  default Admin;
+export default Admin;

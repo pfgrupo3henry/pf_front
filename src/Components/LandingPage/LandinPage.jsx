@@ -48,6 +48,8 @@ function LandingPage() {
                 console.log(res);
                 cookie.set("id", res.data.id);
                 cookie.set("email", res.data.email);
+                cookie.set("status", res.data.status);
+                cookie.set("role", res.data.role);
             })
             .catch((err) => console.log(err))
 

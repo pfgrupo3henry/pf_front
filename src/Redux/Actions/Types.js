@@ -20,3 +20,5 @@ export const ORDER_BY_NAME = 'ORDER_BY_NAME';
 export const ORDER_BY_PRICE = 'ORDER_BY_PRICE';
 export const ORDER_BY_RATE = 'ORDER_BY_RATE'
 
+export const GET_ALL_ORDERS = "GET_ALL_ORDERS"
+export const MODIFICAR_USUARIO = "MODIFICAR_USUARIO"

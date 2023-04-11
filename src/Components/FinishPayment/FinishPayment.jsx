@@ -15,6 +15,7 @@ function FinishPayment() {
     const [totalPrice, settotalPrice] = useState("");
     const [string, setString] = useState("cuenta");
     const [precioFinal, setPrecioFinal] = useState([]);
+    const Swal = require('sweetalert2');
 
     var shoppingChart = useSelector(state => state.shoppingChart);
     const dispatch = useDispatch();
@@ -22,6 +23,17 @@ function FinishPayment() {
     const cookie = new Cookies();
     const idCoockie = cookie.get("id");
     console.log(idCoockie);
+
+    if (!idCoockie) {
+        Swal.fire({
+            title: "Error!",
+            text: 'Debes inicar sesion',
+            icon: "error",
+            confirmButtonText: 'Ok'
+        }).then((res) => {
+            window.location.href = "/login"
+        });
+    }
 
     useEffect(() => {
 
@@ -112,6 +124,7 @@ function FinishPayment() {
         };
 
         console.log(precioFinal);
+        console.log(shoppingChart)
 
         return (
             <div className="finishPayment-component">
@@ -136,7 +149,7 @@ function FinishPayment() {
                                     <List.Item>
                                         <List.Item.Meta
                                             avatar={<Avatar src={item.img ? item.img[0] : ""} />}
-                                            title={item.title}
+                                            title={item.name}
                                             description={
                                                 <div className='icons-container'>
                                                     {item.description}
@@ -156,7 +169,7 @@ function FinishPayment() {
                                                             <AiOutlineDelete className='deleteIcon' />
                                                         </Button>
                                                         <div className='unit-price'>
-                                                            ${item.price}
+                                                            ${item.price * item.quantity}
                                                         </div>
                                                     </div>
                                                 </div>

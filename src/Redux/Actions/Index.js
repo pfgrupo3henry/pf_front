@@ -15,7 +15,9 @@ import {
     GET_FAVORITES,
     GET_CHART_2,
     GET_REVIEWS,
-    SAVE_RATING_AND_COMMENT
+    SAVE_RATING_AND_COMMENT,
+    GET_ALL_ORDERS,
+    MODIFICAR_USUARIO
 } from "./Types";
 
 import axios from "axios";
@@ -192,6 +194,29 @@ export const getUsers = () => {
 
 
 
+export const modificarUser = (id, payload) => {
+
+
+        return async function (dispatch) {
+            try {
+            let json = await axios.put(`https://pfservidor-production.up.railway.app/user/promote-or-block/${id}`, payload);
+            console.log("status", json)
+            return dispatch({
+                type: MODIFICAR_USUARIO,
+                payload: json.data,
+            })
+        }catch (error) {
+            console.log("error-post", error)
+
+    } 
+
+    }
+
+}
+
+
+
+
 
 export const getCards = () => {
     return async function (dispatch) {
@@ -208,6 +233,9 @@ export const getCards = () => {
         }
     }
 }
+
+
+
 
 
 export const postNewProduct = (payload) => {
@@ -281,6 +309,31 @@ export const orderByPrice = (data) => {
         })
     }
 }
+
+
+
+
+export const getOrders = () => {
+    try {
+        return async function (dispatch) {
+            let json = await axios.get('https://pfservidor-production.up.railway.app/orders');
+            console.log(json)
+            return dispatch({
+                type: GET_ALL_ORDERS,
+                payload: json.data
+            })
+        }
+
+    } catch (error) {
+        console.log(error)
+
+    }
+}
+
+
+
+
+
 
 // export const orderByRate = (data) => {
 //     return function (dispatch) {
