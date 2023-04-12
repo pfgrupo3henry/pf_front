@@ -20,7 +20,6 @@ function VerReviews() {
     const [pageSize, setPageSize] = useState(10); // Cambia aquí para ajustar la cantidad de elementos por página
     const { Search } = Input;
     const { Meta } = Card;
-    const Swal = require('sweetalert2');
 
 
     if (games.length === 0) {
@@ -94,14 +93,21 @@ function VerReviews() {
         axios.put(`https://pfservidor-production.up.railway.app/review/${id}`, body)
             .then((res) => {
                 console.log(res)
-                Swal.fire({
-                    title: "Success!",
-                    text: 'Review Modificado',
-                    icon: "success",
-                    confirmButtonText: 'Ok'
-                }).then((res) => {
-                    window.location.reload()
-                });
+                axios.get(`https://pfservidor-production.up.railway.app/review/${gameInfo.id}`)
+                    .then((res) => {
+
+                        var number = 0;
+                        for (let i = 0; i < res.data.length; i++) {
+                            number = number + Number(res.data[i].rate);
+                        }
+                        number = number / res.data.length;
+
+                        setProm(number);
+                        setReviews2(res.data);
+                        setState("gameInfo");
+
+                    })
+                    .catch((err) => console.log(err));
             })
             .catch((err) => console.log(err));
 
