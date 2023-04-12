@@ -3,7 +3,7 @@ import axios from "axios";
 import { Pagination } from 'antd';
 import { Input, Card, Rate } from 'antd';
 import { Avatar, Button, List, Form } from 'antd';
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, CheckOutlined } from "@ant-design/icons";
 import "./Admin.css";
 
 
@@ -20,6 +20,8 @@ function VerReviews() {
     const [pageSize, setPageSize] = useState(10); // Cambia aquí para ajustar la cantidad de elementos por página
     const { Search } = Input;
     const { Meta } = Card;
+    const Swal = require('sweetalert2');
+
 
     if (games.length === 0) {
         axios.get("https://pfservidor-production.up.railway.app/videogames")
@@ -74,11 +76,17 @@ function VerReviews() {
 
     };
 
-    const deleteReview = (id) => {
+    const deleteReview = (id, status) => {
 
-        const body = {
-            status: "Disabled"
-        }
+        if (status === "Active") {
+            var body = {
+                status: "Disabled"
+            }
+        } else if (status === "Disabled") {
+            var body = {
+                status: "Active"
+            }
+        };
 
         console.log(body);
         console.log(id);
@@ -86,6 +94,14 @@ function VerReviews() {
         axios.put(`https://pfservidor-production.up.railway.app/review/${id}`, body)
             .then((res) => {
                 console.log(res)
+                Swal.fire({
+                    title: "Success!",
+                    text: 'Review Modificado',
+                    icon: "success",
+                    confirmButtonText: 'Ok'
+                }).then((res) => {
+                    window.location.reload()
+                });
             })
             .catch((err) => console.log(err));
 
@@ -212,12 +228,23 @@ function VerReviews() {
                                             />
                                         </div>
                                         <p className="comment">{r.comment}</p>
-                                        <Button
-                                            type="submit"
-                                            onClick={() => deleteReview(r.id)}
-                                            icon={<DeleteOutlined />}
-                                        >
-                                        </Button>
+                                        <p className="status-review">Status: {r.status}</p>
+                                        {r.status === "Active" ?
+                                            < Button
+                                                type="submit"
+                                                onClick={() => deleteReview(r.id, r.status)}
+                                                icon={<DeleteOutlined />}
+                                            >
+                                            </Button>
+                                            :
+                                            <Button
+                                                type="submit"
+                                                onClick={() => deleteReview(r.id, r.status)}
+                                                icon={<CheckOutlined />}
+                                            >
+                                            </Button>
+                                        }
+
                                     </div>
                                 </Card>
 
@@ -234,7 +261,7 @@ function VerReviews() {
                 null
             }
 
-        </div>
+        </div >
 
     );
 
