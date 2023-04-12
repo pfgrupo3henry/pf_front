@@ -65,8 +65,7 @@ function VerReviews() {
             })
             .catch((err) => console.log(err));
 
-        axios
-            .get(`https://pfservidor-production.up.railway.app/videogames/${item.id}`)
+        axios.get(`https://pfservidor-production.up.railway.app/videogames/${item.id}`)
             .then((res) => {
                 setGamesInfo(res.data);
                 setState("gameInfo");
@@ -75,7 +74,20 @@ function VerReviews() {
 
     };
 
-    const deleteReview = () => {
+    const deleteReview = (id) => {
+
+        const body = {
+            status: "Disabled"
+        }
+
+        console.log(body);
+        console.log(id);
+
+        axios.put(`https://pfservidor-production.up.railway.app/review/${id}`, body)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => console.log(err));
 
     };
 
@@ -202,7 +214,7 @@ function VerReviews() {
                                         <p className="comment">{r.comment}</p>
                                         <Button
                                             type="submit"
-                                            onClick={() => deleteReview()}
+                                            onClick={() => deleteReview(r.id)}
                                             icon={<DeleteOutlined />}
                                         >
                                         </Button>
