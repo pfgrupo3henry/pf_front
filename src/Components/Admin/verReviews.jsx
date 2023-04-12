@@ -20,7 +20,6 @@ function VerReviews() {
     const [pageSize, setPageSize] = useState(10); // Cambia aquí para ajustar la cantidad de elementos por página
     const { Search } = Input;
     const { Meta } = Card;
-    const Swal = require('sweetalert2');
 
 
     if (games.length === 0) {
@@ -106,13 +105,6 @@ function VerReviews() {
                         setProm(number);
                         setReviews2(res.data);
                         setState("gameInfo");
-
-                        Swal.fire({
-                            title: "Success!",
-                            text: 'Review Modificado',
-                            icon: "success",
-                            confirmButtonText: 'Ok'
-                        })
 
                     })
                     .catch((err) => console.log(err));
