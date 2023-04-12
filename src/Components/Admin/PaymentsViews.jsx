@@ -40,7 +40,7 @@ const PaymentsViws = () => {
 
         width: 700,
       }}
-        dataSource={allOrders.orders}
+        dataSource={allOrders.All_Orders}
         bordered
         renderItem={(item) => ( 
           <List.Item
@@ -102,10 +102,9 @@ const PaymentsViws = () => {
             <DescriptionItem title="Total abonado" content="$50400.00" />
           </Col>
         </Row>
-       {/*  <Row>
+         <Row>
           <Col span={24}>
             <DescriptionItem
-            dataSource={}
               title="Productos"
               content={
                 <div>
@@ -122,7 +121,7 @@ const PaymentsViws = () => {
               }
             />
           </Col>
-        </Row> */}
+        </Row> 
         <Divider />
         <p className="site-description-item-profile-p">Contacto</p>
         <Row>
