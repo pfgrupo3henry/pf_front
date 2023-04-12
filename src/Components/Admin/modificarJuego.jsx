@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import React, { useState } from "react";
 import "./Admin.css";
+import axios from "axios";
 import {
     Button,
     Form,
@@ -50,6 +51,30 @@ function ModificarJuego() {
 
             console.log(data);
 
+            axios.put("https://pfservidor-production.up.railway.app/videogames/modify", data)
+                .then((res) => {
+                    console.log(res);
+                    Swal.fire({
+                        title: "Success!",
+                        text: 'Juego Modificado',
+                        icon: "success",
+                        confirmButtonText: 'Ok'
+                    }).then((res) => {
+                        window.location.reload();
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Error en la modificacion del juego',
+                        icon: "error",
+                        confirmButtonText: 'Ok'
+                    }).then((res) => {
+                        window.location.reload();
+                    });
+                })
+
         } else {
             console.log("Faltan propiedades por completar");
             Swal.fire(
@@ -91,9 +116,9 @@ function ModificarJuego() {
 
                     >
                         <Select placeholder="Choose Game  ">
-                            <Select.Option value="A Way Out">A Way Out</Select.Option>
-                            <Select.Option value="A Way Out Retro">A Way Out Retro</Select.Option>
-                            <Select.Option value="Alien Isolation">Alien Isolation</Select.Option>
+                            <Select.Option value="A Way Out PS4">A Way Out PS4</Select.Option>
+                            <Select.Option value="A Way Out PS5 Retro">A Way Out PS5 Retro</Select.Option>
+                            <Select.Option value="Alien Isolation PS3">Alien Isolation PS3</Select.Option>
                             <Select.Option value="Alien Isolation PS5 Retro">Alien Isolation PS5 Retro</Select.Option>
                             <Select.Option value="Among Us">Among Us</Select.Option>
                             <Select.Option value="Among Us PS5">Among Us PS5</Select.Option>
@@ -118,8 +143,8 @@ function ModificarJuego() {
                             <Select.Option value="Cal of Duty Black Ops 3">Cal of Duty Black Ops 3</Select.Option>
                             <Select.Option value="Call of Duty Black Ops 4 PS5 Retro">Call of Duty Black Ops 4 PS5 Retro</Select.Option>
                             <Select.Option value="Crash Bandicoot N Sane Trilogy">Crash Bandicoot N Sane Trilogy</Select.Option>
-                            <Select.Option value="Among Us PS5">Among Us PS5</Select.Option>
                             <Select.Option value="Cuphead PS5 Retro">Cuphead PS5 Retro</Select.Option>
+                            <Select.Option value="Digimon World Next Order">Digimon World Next Order</Select.Option>
                             <Select.Option value="Devil May Cry HD Collection PS5 Retro">Devil May Cry HD Collection PS5 Retro</Select.Option>
                             <Select.Option value="Diablo 3 Reaper of Souls Ultimate Evil Edition">Diablo 3 Reaper of Souls Ultimate Evil Edition</Select.Option>
                         </Select>
