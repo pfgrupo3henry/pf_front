@@ -11,7 +11,6 @@ import Dashboard from "./Dashboard";
 import ProductList from "./ProductList";
 import { PaymentsViws } from "./PaymentsViews";
 import Cookies from "universal-cookie";
-import { useAuth0 } from "@auth0/auth0-react";
 import VerReviews from "./verReviews";
 import ModificarJuego from "./modificarJuego";
 
@@ -50,17 +49,6 @@ const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
 
 function Admin() {
 
-    const { logout } = useAuth0();
-
-    function eliminarCookies() {
-        document.cookie.split(";").forEach(function (c) {
-            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-        });
-        logout().then((res) => {
-            window.location.href = "/";
-        })
-    };
-
     const Swal = require('sweetalert2');
 
     const cookie = new Cookies();
@@ -77,7 +65,6 @@ function Admin() {
             window.location.href = "/home"
         });
     }
-
 
     const [openKeys, setOpenKeys] = useState(["sub1"]);
     const onOpenChange = (keys) => {
