@@ -17,10 +17,28 @@ import {
     GET_REVIEWS,
     SAVE_RATING_AND_COMMENT,
     GET_ALL_ORDERS,
-    MODIFICAR_USUARIO
+    MODIFICAR_USUARIO,
+    SAVE_RATING_WEB
 } from "./Types";
 
 import axios from "axios";
+
+export function saveRatingWeb(payload) {
+    try {
+        return async function (dispatch) {
+            let json = await axios.post(`https://pfservidor-production.up.railway.app/ratingWeb`, payload);
+            console.log("console.log", json)
+            return dispatch({
+                type: SAVE_RATING_WEB,
+                payload: json.data,
+            })
+        }
+    } catch (error) {
+        console.log("error-post", error)
+
+    }
+
+}
 
 export const getReviews = (id) => {
     try {
@@ -197,18 +215,18 @@ export const getUsers = () => {
 export const modificarUser = (id, payload) => {
 
 
-        return async function (dispatch) {
-            try {
+    return async function (dispatch) {
+        try {
             let json = await axios.put(`https://pfservidor-production.up.railway.app/user/promote-or-block/${id}`, payload);
             console.log("status", json)
             return dispatch({
                 type: MODIFICAR_USUARIO,
                 payload: json.data,
             })
-        }catch (error) {
+        } catch (error) {
             console.log("error-post", error)
 
-    } 
+        }
 
     }
 

@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Card } from "antd";
 import { useParams } from "react-router-dom";
 import { Button, Rate, message, Space, Spin } from "antd";
-import { Input } from "antd";
+import { Input, Avatar, List } from "antd";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useDispatch, useSelector } from "react-redux";
@@ -119,10 +119,19 @@ function CardDetail() {
     if (stringR === "hola") {
       if (reviews2.length !== 0) {
         var number = 0;
+        var number2 = 0;
+        var number3 = 0;
         for (let i = 0; i < reviews2.length; i++) {
-          number = number + Number(reviews2[i].rate);
+          if (reviews2[i].status === "Disabled") {
+            number = number
+            number2 = number2 + 1;
+          } else {
+            number = number + Number(reviews2[i].rate);
+            number2 = number2;
+          }
         }
-        number = number / reviews2.length;
+        number3 = reviews2.length - number2;
+        number = number / number3;
         console.log(number);
         setProm(number);
         setStringR("Chau");
@@ -244,42 +253,40 @@ function CardDetail() {
                     />
                   </Card>
 
-                  {reviews2.length !== 0
-                    ? reviews2.map((r) => {
-                        return (
-                          <Card title="" bordered={false}>
-                            <div className="nameComment">
-                              <div className="imgRate">
-                                <img>{r.img}</img>
+                  {reviews2.length !== 0 ?
+
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={reviews2}
+                      renderItem={(item, index) => (
+                        <List.Item>
+                          <List.Item.Meta
+                            avatar={item.status !== "Disabled" ? <Avatar src={item.userInfo.img[0]} /> : null}
+                            title={
+                              item.status !== "Disabled" ?
                                 <Rate
                                   className="rate"
                                   disabled
                                   allowHalf
-                                  value={Number(r.rate)}
+                                  value={Number(item.rate)}
                                 />
-                              </div>
-                              <p className="comment">{r.comment}</p>
-                            </div>
-                          </Card>
-
-                          /*   <Card title="" bordered={false}>
-                                            <div className="nameComment">
-                                                <div className="imgRate">
-                                                    {!isAuthenticated ? null : <Profile />}
-                                                    <Rate
-                                                        className="rate"
-                                                        disabled defaultValue={5} />
-                                                </div>
-                                                <p className="comment">
-                                                    ¡Great!, an incredible game, i love it
-                                                </p>
-
-                                            </div>
-                                            </Card>
- */
-                        );
-                      })
+                                :
+                                null
+                            }
+                            description={
+                              item.status !== "Disabled" ?
+                                <div>
+                                  <p className="comment">{item.comment}</p>
+                                </div>
+                                :
+                                null
+                            }
+                          />
+                        </List.Item>
+                      )}
+                    />
                     : null}
+
                 </div>
               </div>
             </div>

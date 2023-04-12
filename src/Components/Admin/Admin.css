@@ -130,3 +130,7 @@ h1 {
 .body-review-admin {
     min-height: 100vh;
 }
+
+.status-review {
+    color: blue;
+}
