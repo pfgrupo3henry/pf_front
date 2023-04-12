@@ -45,9 +45,7 @@ function ModifyUser() {
       text: 'Usuario Modificado',
       icon: "success",
       confirmButtonText: 'Ok'
-    }).then((res) => {
-      window.location.reload()
-    });
+    })
   }
 
   console.log(allUsers2);

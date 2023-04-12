@@ -18,7 +18,8 @@ import {
     SAVE_RATING_AND_COMMENT,
     GET_ALL_ORDERS,
     MODIFICAR_USUARIO,
-    SAVE_RATING_WEB
+    SAVE_RATING_WEB,
+    GET_ORDERS_ID
 
 } from "../Actions/Types";
 
@@ -32,6 +33,8 @@ const initialState = {
     allUsers: [],
     reviews: [],
     allOrders: [],
+    ordersID: [],
+
     ratingsWeb: [],
 }
 
@@ -123,6 +126,19 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allOrders: action.payload,
             }
+
+
+            case GET_ALL_ORDERS:
+                return {
+                    ...state,
+                    allOrders: action.payload,
+                }
+
+                case GET_ORDERS_ID:
+                    return {
+                        ...state,
+                        ordersID: action.payload,
+                    }                       
 
         case GET_ALL_USERS:
             return {

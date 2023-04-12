@@ -22,4 +22,5 @@ export const ORDER_BY_PRICE = 'ORDER_BY_PRICE';
 export const ORDER_BY_RATE = 'ORDER_BY_RATE'
 
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS"
+export const GET_ORDERS_ID = "GET_ORDERS_ID"
 export const MODIFICAR_USUARIO = "MODIFICAR_USUARIO"

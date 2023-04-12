@@ -9,7 +9,7 @@ import { ModifyUser } from "./ModifyUser"
 import { Input, Space } from 'antd';
 import Dashboard from "./Dashboard";
 import ProductList from "./ProductList";
-import { PaymentsViws } from "./PaymentsViews";
+import { PaymentsViews } from "./PaymentsViews";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import VerReviews from "./verReviews";
@@ -211,7 +211,7 @@ function Admin() {
 
                         {state === "see-payments" ?
 
-                            <div><PaymentsViws /></div>
+                            <div><PaymentsViews /></div>
 
                             :
 
