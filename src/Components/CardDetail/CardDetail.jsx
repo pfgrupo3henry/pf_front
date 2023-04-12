@@ -261,17 +261,25 @@ function CardDetail() {
                       renderItem={(item, index) => (
                         <List.Item>
                           <List.Item.Meta
-                            avatar={<Avatar src={item.userInfo.img[0]} />}
-                            title={<Rate
-                              className="rate"
-                              disabled
-                              allowHalf
-                              value={Number(item.rate)}
-                            />}
+                            avatar={item.status !== "Disabled" ? <Avatar src={item.userInfo.img[0]} /> : null}
+                            title={
+                              item.status !== "Disabled" ?
+                                <Rate
+                                  className="rate"
+                                  disabled
+                                  allowHalf
+                                  value={Number(item.rate)}
+                                />
+                                :
+                                null
+                            }
                             description={
-                              <div>
-                                <p className="comment">{item.comment}</p>
-                              </div>
+                              item.status !== "Disabled" ?
+                                <div>
+                                  <p className="comment">{item.comment}</p>
+                                </div>
+                                :
+                                null
                             }
                           />
                         </List.Item>
