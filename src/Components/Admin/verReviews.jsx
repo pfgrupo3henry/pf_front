@@ -94,14 +94,28 @@ function VerReviews() {
         axios.put(`https://pfservidor-production.up.railway.app/review/${id}`, body)
             .then((res) => {
                 console.log(res)
-                Swal.fire({
-                    title: "Success!",
-                    text: 'Review Modificado',
-                    icon: "success",
-                    confirmButtonText: 'Ok'
-                }).then((res) => {
-                    window.location.reload()
-                });
+                axios.get(`https://pfservidor-production.up.railway.app/review/${gameInfo.id}`)
+                    .then((res) => {
+
+                        var number = 0;
+                        for (let i = 0; i < res.data.length; i++) {
+                            number = number + Number(res.data[i].rate);
+                        }
+                        number = number / res.data.length;
+
+                        setProm(number);
+                        setReviews2(res.data);
+                        setState("gameInfo");
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Review Modificado',
+                            icon: "success",
+                            confirmButtonText: 'Ok'
+                        })
+
+                    })
+                    .catch((err) => console.log(err));
             })
             .catch((err) => console.log(err));
 
