@@ -167,7 +167,7 @@ function FinishPayment() {
                   axios
                     .post(
                       "https://pfservidor-production.up.railway.app/payment/mercadopago",
-                      { totalPrice: totalPrice, userId: idCookie }
+                      { totalPrice: totalPrice, userId: idCoockie }
                     )
                     .then((res) => {
                       window.location.href = res.data.response.body.init_point;
