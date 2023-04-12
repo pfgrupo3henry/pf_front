@@ -15,7 +15,7 @@ function ModifyUser() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5); // Cambia aquí para ajustar la cantidad de elementos por página
   const [allUsers2, setAllUsers2] = useState(allUsers);
-
+  const Swal = require('sweetalert2');
 
   useEffect(() => {
     dispatch(getUsers());
@@ -40,6 +40,14 @@ function ModifyUser() {
     console.log("data", data)
     console.log("id", user_id)
     dispatch(modificarUser(user_id, data))
+    Swal.fire({
+      title: "Success!",
+      text: 'Usuario Modificado',
+      icon: "success",
+      confirmButtonText: 'Ok'
+    }).then((res) => {
+      window.location.reload()
+    });
   }
 
   console.log(allUsers2);
@@ -74,7 +82,7 @@ function ModifyUser() {
         renderItem={(item, index) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src={item.img[0]} />}
+              avatar={<Avatar src={item.img ? item.img[0] : ""} />}
               title={item.firstname}
               description={
                 <div className=''>
