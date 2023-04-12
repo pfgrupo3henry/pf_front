@@ -12,7 +12,8 @@ import ProductList from "./ProductList";
 import { PaymentsViws } from "./PaymentsViews";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import VerReviews from "./verReviews";
+import ModificarJuego from "./modificarJuego";
 
 const { Search } = Input;
 
@@ -34,10 +35,12 @@ const items = [
     ]),
 
     getItem('Articulos y usuarios', 'sub2', <AppstoreOutlined />, [
+        getItem('Modificar producto', '0'),
         getItem('Nuevo producto', '1'),
         getItem('Modificar usuarios', '2'),
         getItem('Lista de productos', '4'),
         getItem('Listado de ventas', '5'),
+        getItem('Reviews', '6'),
     ])
 
 ];
@@ -96,6 +99,10 @@ function Admin() {
         console.log('click ', e);
         setCurrent(e.key);
 
+        if (e.key === "0") {
+            setState("modificar-juego");
+        }
+
         if (e.key === "1") {
             setState("crear-juego");
         }
@@ -117,6 +124,10 @@ function Admin() {
 
         if (e.key === "5") {
             setState("see-payments");
+        }
+
+        if (e.key === "6") {
+            setState("reviews");
         }
 
     };
@@ -151,6 +162,13 @@ function Admin() {
                     </div>
 
                     <div className="forms-render">
+                        {state === "modificar-juego" ?
+
+                            <div><ModificarJuego /></div>
+                            :
+                            <div></div>
+
+                        }
                         {state === "crear-juego" ?
 
                             <div><FormCreateProduct /></div>
@@ -209,6 +227,15 @@ function Admin() {
 
                             <div></div>
 
+                        }
+
+                        {state === "reviews" ?
+
+                            <div><VerReviews /></div>
+
+                            :
+
+                            <div></div>
                         }
 
                     </div>
