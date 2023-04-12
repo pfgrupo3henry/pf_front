@@ -137,7 +137,6 @@ function VerReviews() {
                         renderItem={(item, index) => (
                             <List.Item>
                                 <List.Item.Meta
-
                                     avatar={<Avatar src={item.img[0]} />}
                                     title={item.name}
                                     description={
@@ -212,45 +211,46 @@ function VerReviews() {
                             />
                         </Card>
 
-                        {reviews2.length !== 0 ? reviews2.map((r) => {
+                        {reviews2.length !== 0 ?
 
-                            return (
-
-                                <Card title="" bordered={false}>
-                                    <div className="nameComment">
-                                        <div className="imgRate">
-                                            <img>{r.img}</img>
-                                            <Rate
+                            <List
+                                itemLayout="horizontal"
+                                dataSource={reviews2}
+                                renderItem={(item, index) => (
+                                    <List.Item>
+                                        <List.Item.Meta
+                                            avatar={<Avatar src={item.userInfo.img[0]} />}
+                                            title={<Rate
                                                 className="rate"
                                                 disabled
                                                 allowHalf
-                                                value={Number(r.rate)}
-                                            />
-                                        </div>
-                                        <p className="comment">{r.comment}</p>
-                                        <p className="status-review">Status: {r.status}</p>
-                                        {r.status === "Active" ?
-                                            < Button
-                                                type="submit"
-                                                onClick={() => deleteReview(r.id, r.status)}
-                                                icon={<DeleteOutlined />}
-                                            >
-                                            </Button>
-                                            :
-                                            <Button
-                                                type="submit"
-                                                onClick={() => deleteReview(r.id, r.status)}
-                                                icon={<CheckOutlined />}
-                                            >
-                                            </Button>
-                                        }
-
-                                    </div>
-                                </Card>
-
-                            );
-
-                        })
+                                                value={Number(item.rate)}
+                                            />}
+                                            description={
+                                                <div>
+                                                    <p className="comment">{item.comment}</p>
+                                                    <p className="status-review">Status: {item.status}</p>
+                                                    {item.status === "Active" ?
+                                                        < Button
+                                                            type="submit"
+                                                            onClick={() => deleteReview(item.id, item.status)}
+                                                            icon={<DeleteOutlined />}
+                                                        >
+                                                        </Button>
+                                                        :
+                                                        <Button
+                                                            type="submit"
+                                                            onClick={() => deleteReview(item.id, item.status)}
+                                                            icon={<CheckOutlined />}
+                                                        >
+                                                        </Button>
+                                                    }
+                                                </div>
+                                            }
+                                        />
+                                    </List.Item>
+                                )}
+                            />
                             : null}
 
                     </div>
