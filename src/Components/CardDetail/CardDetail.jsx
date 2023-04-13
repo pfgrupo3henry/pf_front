@@ -261,7 +261,7 @@ function CardDetail() {
                       renderItem={(item, index) => (
                         <List.Item>
                           <List.Item.Meta
-                            avatar={item.status !== "Disabled" ? <Avatar src={item.userInfo.img[0]} /> : null}
+                            avatar={item.status !== "Disabled" ? <Avatar src={item.userInfo.img ? item.userInfo.img[0] : ""} /> : null}
                             title={
                               item.status !== "Disabled" ?
                                 <Rate
