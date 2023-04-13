@@ -18,7 +18,8 @@ import {
     SAVE_RATING_AND_COMMENT,
     GET_ALL_ORDERS,
     MODIFICAR_USUARIO,
-    SAVE_RATING_WEB
+    SAVE_RATING_WEB,
+    GET_RATING_WEB
 
 } from "../Actions/Types";
 
@@ -37,6 +38,12 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_RATING_WEB:
+            return {
+                ...state,
+                ratingsWeb: action.payload,
+
+            }
         case SAVE_RATING_WEB: {
             return {
                 ...state,
