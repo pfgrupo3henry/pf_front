@@ -88,7 +88,7 @@ function UserInfo() {
       }
     );
 
-    if (imagenFile === "enCamino") {
+    if (imagenFile === "enCamino" && input.img.length !== 0) {
       setInput(
         {
           ...input,
@@ -143,7 +143,7 @@ function UserInfo() {
   }
 
   console.log(pagos);
-
+  console.log(input);
   return (
 
     <div className="menuProfileInfo">
