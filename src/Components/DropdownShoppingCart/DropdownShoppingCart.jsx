@@ -59,14 +59,40 @@ function DropdownShoppingCart() {
 
   };
 
+  const handleShoppingChart2 = (id, quantity) => {
+
+    if (quantity === 1) {
+      return (console.log("no"))
+    } else {
+
+      const product_id = id;
+      const put = {
+        userId: idCoockie,
+        products:
+        {
+          id: product_id,
+          quantity: - 1
+        }
+
+      }
+
+      dispatch(addItemToChart(put));
+      setString("vacio");
+
+    }
+
+  };
+
+  if (string === "vacio") {
+    dispatch(getChart(idCoockie));
+    setTimeout(function () {
+      setString("completo");
+    }, 1000);
+  };
+
   console.log(shoppingChart);
 
   if (shoppingChart.products) {
-
-    if (string === "vacio") {
-      dispatch(getChart(idCoockie));
-      setString("completo");
-    };
 
     return (
       <div
@@ -93,16 +119,23 @@ function DropdownShoppingCart() {
                   </div>
                   <div className="card-footer">
                     <Space>
+
                       <Tooltip title="Minus">
-                        <Button icon={<MinusOutlined />} />
+                        <Button
+                          onClick={() => handleShoppingChart2(el.id, el.quantity)}
+                          icon={<MinusOutlined />}
+                        />
                       </Tooltip>
+
                       <p>{el.quantity}</p>
+
                       <Tooltip title="Add">
                         <Button
                           onClick={() => handleShoppingChart(el.id)}
                           icon={<PlusOutlined />}
                         />
                       </Tooltip>
+
                       <Tooltip title="delete">
                         <Button
                           onClick={() => onClickDelete(el.id)}
@@ -110,6 +143,7 @@ function DropdownShoppingCart() {
                         >
                         </Button>
                       </Tooltip>
+
                     </Space>
                   </div>
                 </div>
