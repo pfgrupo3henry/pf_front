@@ -3,7 +3,7 @@ import axios from "axios";
 import { Pagination } from 'antd';
 import { Input, Card, Rate } from 'antd';
 import { Avatar, Button, List, Form } from 'antd';
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, CheckOutlined } from "@ant-design/icons";
 import "./Admin.css";
 
 
@@ -20,6 +20,7 @@ function VerReviews() {
     const [pageSize, setPageSize] = useState(10); // Cambia aquí para ajustar la cantidad de elementos por página
     const { Search } = Input;
     const { Meta } = Card;
+
 
     if (games.length === 0) {
         axios.get("https://pfservidor-production.up.railway.app/videogames")
@@ -65,8 +66,7 @@ function VerReviews() {
             })
             .catch((err) => console.log(err));
 
-        axios
-            .get(`https://pfservidor-production.up.railway.app/videogames/${item.id}`)
+        axios.get(`https://pfservidor-production.up.railway.app/videogames/${item.id}`)
             .then((res) => {
                 setGamesInfo(res.data);
                 setState("gameInfo");
@@ -75,7 +75,41 @@ function VerReviews() {
 
     };
 
-    const deleteReview = () => {
+    const deleteReview = (id, status) => {
+
+        if (status === "Active") {
+            var body = {
+                status: "Disabled"
+            }
+        } else if (status === "Disabled") {
+            var body = {
+                status: "Active"
+            }
+        };
+
+        console.log(body);
+        console.log(id);
+
+        axios.put(`https://pfservidor-production.up.railway.app/review/${id}`, body)
+            .then((res) => {
+                console.log(res)
+                axios.get(`https://pfservidor-production.up.railway.app/review/${gameInfo.id}`)
+                    .then((res) => {
+
+                        var number = 0;
+                        for (let i = 0; i < res.data.length; i++) {
+                            number = number + Number(res.data[i].rate);
+                        }
+                        number = number / res.data.length;
+
+                        setProm(number);
+                        setReviews2(res.data);
+                        setState("gameInfo");
+
+                    })
+                    .catch((err) => console.log(err));
+            })
+            .catch((err) => console.log(err));
 
     };
 
@@ -109,7 +143,6 @@ function VerReviews() {
                         renderItem={(item, index) => (
                             <List.Item>
                                 <List.Item.Meta
-
                                     avatar={<Avatar src={item.img[0]} />}
                                     title={item.name}
                                     description={
@@ -184,34 +217,46 @@ function VerReviews() {
                             />
                         </Card>
 
-                        {reviews2.length !== 0 ? reviews2.map((r) => {
+                        {reviews2.length !== 0 ?
 
-                            return (
-
-                                <Card title="" bordered={false}>
-                                    <div className="nameComment">
-                                        <div className="imgRate">
-                                            <img>{r.img}</img>
-                                            <Rate
+                            <List
+                                itemLayout="horizontal"
+                                dataSource={reviews2}
+                                renderItem={(item, index) => (
+                                    <List.Item>
+                                        <List.Item.Meta
+                                            avatar={<Avatar src={item.userInfo.img[0]} />}
+                                            title={<Rate
                                                 className="rate"
                                                 disabled
                                                 allowHalf
-                                                value={Number(r.rate)}
-                                            />
-                                        </div>
-                                        <p className="comment">{r.comment}</p>
-                                        <Button
-                                            type="submit"
-                                            onClick={() => deleteReview()}
-                                            icon={<DeleteOutlined />}
-                                        >
-                                        </Button>
-                                    </div>
-                                </Card>
-
-                            );
-
-                        })
+                                                value={Number(item.rate)}
+                                            />}
+                                            description={
+                                                <div>
+                                                    <p className="comment">{item.comment}</p>
+                                                    <p className="status-review">Status: {item.status}</p>
+                                                    {item.status === "Active" ?
+                                                        < Button
+                                                            type="submit"
+                                                            onClick={() => deleteReview(item.id, item.status)}
+                                                            icon={<DeleteOutlined />}
+                                                        >
+                                                        </Button>
+                                                        :
+                                                        <Button
+                                                            type="submit"
+                                                            onClick={() => deleteReview(item.id, item.status)}
+                                                            icon={<CheckOutlined />}
+                                                        >
+                                                        </Button>
+                                                    }
+                                                </div>
+                                            }
+                                        />
+                                    </List.Item>
+                                )}
+                            />
                             : null}
 
                     </div>
@@ -222,7 +267,7 @@ function VerReviews() {
                 null
             }
 
-        </div>
+        </div >
 
     );
 

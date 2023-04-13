@@ -16,7 +16,7 @@ import { filterCards, getUsers, setNameFilter } from "../../Redux/Actions/Index"
 import OrderMenu from "../OrderMenu/OrderMenu";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import axios from "axios";
 
 
 function Home(label, key, icon, children, type) {
@@ -36,6 +36,7 @@ function Home(label, key, icon, children, type) {
 
   const cookie = new Cookies();
   const cookieStatus = cookie.get("status");
+  const cookieId = cookie.get("id");
   console.log(cookieStatus);
 
   if (cookieStatus === "Disabled") {
@@ -80,6 +81,27 @@ function Home(label, key, icon, children, type) {
         : []
     );
   };
+
+
+  axios.get('https://pfservidor-production.up.railway.app/user/all-users')
+    .then((res) => {
+      console.log(res);
+      const filterUser = res.data.filter((user) => {
+        return (Number(user.id) === Number(cookieId))
+      })
+      console.log(filterUser);
+      if (filterUser[0].status === "Disabled") {
+        Swal.fire({
+          title: "Error!",
+          text: 'Usuario Bloqueado',
+          icon: "error",
+          confirmButtonText: 'Ok'
+        }).then((res) => {
+          eliminarCookies()
+        });
+      }
+    })
+    .catch((err) => console.log(err));
 
 
 
