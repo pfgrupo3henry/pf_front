@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Rate, Button, Input, message, Card, Modal } from "antd";
 import "./RatingWeb.css";
 import Cookies from "universal-cookie";
@@ -12,6 +13,7 @@ const RatingWeb = () => {
   const [value, setValue] = useState(1);
   const [comment, setComment] = useState("");
   const [placeholder, setPlaceholder] = useState("Leave your comment");
+  const navigate = useNavigate();
 
   function handleRatingChange(value2) {
     if (idCoockie) {
@@ -40,12 +42,13 @@ const RatingWeb = () => {
     console.log(put);
     dispatch(saveRatingWeb(put));
     message.success("¡La operación se realizó con éxito!", 5);
+    navigate("/home");
     // window.location.reload();
   }
-
+  const title = "Cuentanos que te pareció la página!";
   return (
     <div className="ratingweb-container">
-      <Card title="Rating" bordered={false} style={{ width: 300 }}>
+      <Card title={title} bordered={false} style={{ width: 800 }}>
         <div className="rateForm">
           <Rate
             onChange={handleRatingChange}

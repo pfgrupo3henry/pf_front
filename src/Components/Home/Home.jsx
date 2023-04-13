@@ -221,6 +221,19 @@ function Home(label, key, icon, children, type) {
             />
             <OrderMenu />
           </div>
+          <div className="link-float-button">
+            <Link to="/ratingWeb" element={<RatingWeb />}>
+              <FloatButton
+                tooltip="Rate de Web!"
+                icon={
+                  <SmileTwoTone
+                    twoToneColor="#1150af"
+                    style={{ fontSize: "100%" }}
+                  />
+                }
+              />
+            </Link>
+          </div>
           <div className="containerExtreme">
             {items.length === 0 ? (
               <div className="alert-home">
@@ -244,16 +257,6 @@ function Home(label, key, icon, children, type) {
                     id={e.id}
                   />
                 ))}
-                <Link to="/ratingWeb" element={<RatingWeb />}>
-                  <FloatButton
-                    icon={
-                      <SmileTwoTone
-                        twoToneColor="#1150af"
-                        style={{ fontSize: "200%" }}
-                      />
-                    }
-                  />
-                </Link>
               </div>
             )}
             <div className="paginationHomeStyle">
