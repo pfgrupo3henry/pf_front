@@ -14,6 +14,7 @@ import { getCards } from "./Redux/Actions/Index";
 import SingUp from "./Components/Login/Sing-up";
 import { LoginForm } from "./Components/Login/Login";
 import Contact from './Components/Contact/Contact'
+import RatingWeb from "./Components/RatingWeb/RatingWeb";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
           {/*           <Route path="/login" element={<LoginForm />} />
  */}          <Route path="/login" element={<SingUp />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='ratingWeb' element={<RatingWeb />} />
         </Routes>
         <Footer />
       </BrowserRouter>

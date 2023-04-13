@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Rate, Button, Input, message, Card } from "antd";
+import { Rate, Button, Input, message, Card, Modal } from "antd";
 import "./RatingWeb.css";
 import Cookies from "universal-cookie";
 import { saveRatingWeb } from "../../Redux/Actions/Index";
@@ -44,35 +44,37 @@ const RatingWeb = () => {
   }
 
   return (
-    <Card title="Rating" bordered={false} style={{ width: 300 }}>
-      <div className="rateForm">
-        <Rate
-          onChange={handleRatingChange}
-          className="rateAux"
-          allowHalf
-          defaultValue={1}
-          value={value}
-        />
-        <div className="inputButton">
-          <Input
-            className="form"
-            placeholder={placeholder}
-            bordered={false}
-            onChange={(e) => handleChangeInput(e)}
-            value={comment}
-            type="text"
+    <div className="ratingweb-container">
+      <Card title="Rating" bordered={false} style={{ width: 300 }}>
+        <div className="rateForm">
+          <Rate
+            onChange={handleRatingChange}
+            className="rateAux"
+            allowHalf
+            defaultValue={1}
+            value={value}
           />
+          <div className="inputButton">
+            <Input
+              className="form"
+              placeholder={placeholder}
+              bordered={false}
+              onChange={(e) => handleChangeInput(e)}
+              value={comment}
+              type="text"
+            />
 
-          <Button
-            className="buttonAux"
-            style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-            type="primary"
-            onClick={(e) => onClick(e)}>
-            Send
-          </Button>
+            <Button
+              className="buttonAux"
+              style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+              type="primary"
+              onClick={(e) => onClick(e)}>
+              Send
+            </Button>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

@@ -1,38 +1,43 @@
 import React, { useEffect } from "react";
-import { useState } from 'react';
-import { Pagination, Alert } from 'antd';
+import { useState } from "react";
 import { CardElement } from "../Card/card";
 //import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
-import { Menu, Button } from "antd";
+import { Menu, FloatButton, Pagination, Alert, Modal } from "antd";
 //import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
 //import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { filterCards, getUsers, setNameFilter } from "../../Redux/Actions/Index";
+import {
+  filterCards,
+  getUsers,
+  setNameFilter,
+} from "../../Redux/Actions/Index";
 import OrderMenu from "../OrderMenu/OrderMenu";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-
+import { SmileTwoTone } from "@ant-design/icons";
+import RatingWeb from "../RatingWeb/RatingWeb";
 
 function Home(label, key, icon, children, type) {
-
   const { logout } = useAuth0();
 
   function eliminarCookies() {
     document.cookie.split(";").forEach(function (c) {
-      document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
     logout().then((res) => {
       window.location.href = "/";
-    })
-  };
+    });
+  }
 
-  const Swal = require('sweetalert2');
+  const Swal = require("sweetalert2");
 
   const cookie = new Cookies();
   const cookieStatus = cookie.get("status");
@@ -42,17 +47,17 @@ function Home(label, key, icon, children, type) {
   if (cookieStatus === "Disabled") {
     Swal.fire({
       title: "Error!",
-      text: 'Usuario Bloqueado',
+      text: "Usuario Bloqueado",
       icon: "error",
-      confirmButtonText: 'Ok'
+      confirmButtonText: "Ok",
     }).then((res) => {
-      eliminarCookies()
+      eliminarCookies();
     });
   }
 
-  const cards = useSelector(state => state.cards);
-  const filteredVideogames = useSelector(state => state.filteredCards);
-  const filterName = useSelector(state => state.nameFilter);
+  const cards = useSelector((state) => state.cards);
+  const filteredVideogames = useSelector((state) => state.filteredCards);
+  const filterName = useSelector((state) => state.nameFilter);
   const dispatch = useDispatch();
 
   const [card, setCard] = useState([]);
@@ -69,7 +74,6 @@ function Home(label, key, icon, children, type) {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(pageSize);
 
-
   const updateElementsToShow = (page) => {
     const newStartIndex = (page - 1) * pageSize;
     const newEndIndex = newStartIndex + pageSize;
@@ -82,35 +86,30 @@ function Home(label, key, icon, children, type) {
     );
   };
 
-
-  axios.get('https://pfservidor-production.up.railway.app/user/all-users')
+  axios
+    .get("https://pfservidor-production.up.railway.app/user/all-users")
     .then((res) => {
       console.log(res);
       const filterUser = res.data.filter((user) => {
-        return (Number(user.id) === Number(cookieId))
-      })
+        return Number(user.id) === Number(cookieId);
+      });
       console.log(filterUser);
       if (filterUser[0].status === "Disabled") {
         Swal.fire({
           title: "Error!",
-          text: 'Usuario Bloqueado',
+          text: "Usuario Bloqueado",
           icon: "error",
-          confirmButtonText: 'Ok'
+          confirmButtonText: "Ok",
         }).then((res) => {
-          eliminarCookies()
+          eliminarCookies();
         });
       }
     })
     .catch((err) => console.log(err));
 
-
-
   //------------------------------Filtros----------------------------------------------------
 
   function getItem(label, key, icon, children, type) {
-
-
-
     return {
       key,
       icon,
@@ -153,7 +152,7 @@ function Home(label, key, icon, children, type) {
       getItem("Infantiles", "25"),
       getItem("Multijugador", "26"),
       getItem("Rol", "27"),
-    ])
+    ]),
   ];
 
   // const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
@@ -180,36 +179,36 @@ function Home(label, key, icon, children, type) {
     console.log(e.keyPath[1]);
 
     if (cards && cards.length) {
-      if (e.keyPath[0] === 'All') {
-        dispatch(setNameFilter(''));
+      if (e.keyPath[0] === "All") {
+        dispatch(setNameFilter(""));
         dispatch(filterCards(cards));
         setOpenKeys(["All"]);
         // console.log('all cards');
       } else {
-        dispatch(setNameFilter(''));
-        const videojuegosFiltrados = cards.filter(el => {
-          return eliminarDiacriticos(el.genre.toLowerCase()) === eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) && el.platform === e.keyPath[1];
+        dispatch(setNameFilter(""));
+        const videojuegosFiltrados = cards.filter((el) => {
+          return (
+            eliminarDiacriticos(el.genre.toLowerCase()) ===
+              eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) &&
+            el.platform === e.keyPath[1]
+          );
         });
         dispatch(filterCards(videojuegosFiltrados));
       }
     }
-  }
-
-
-
+  };
 
   React.useEffect(() => {
-    setCurrent(1)
+    setCurrent(1);
     updateElementsToShow(1);
-  }, [filteredVideogames])
-
+  }, [filteredVideogames]);
 
   if (card) {
     return (
       <div className="home-component">
         <Slider />
         <div className="homeContainerUltraMega">
-          <div className="filterHome" >
+          <div className="filterHome">
             <Menu
               mode="inline"
               onClick={onClick}
@@ -223,7 +222,7 @@ function Home(label, key, icon, children, type) {
             <OrderMenu />
           </div>
           <div className="containerExtreme">
-            {items.length === 0 ?
+            {items.length === 0 ? (
               <div className="alert-home">
                 <Alert
                   message="Por el momento no tenemos juegos de este genero"
@@ -232,7 +231,7 @@ function Home(label, key, icon, children, type) {
                   showIcon
                 />
               </div>
-              :
+            ) : (
               <div className="listCards">
                 {items.map((e, i) => (
                   <CardElement
@@ -243,28 +242,34 @@ function Home(label, key, icon, children, type) {
                     descriptionComplete={e.description}
                     price={e.price}
                     id={e.id}
-
-
                   />
                 ))}
+                <Link to="/ratingWeb" element={<RatingWeb />}>
+                  <FloatButton
+                    icon={
+                      <SmileTwoTone
+                        twoToneColor="#1150af"
+                        style={{ fontSize: "200%" }}
+                      />
+                    }
+                  />
+                </Link>
               </div>
-            }
-            <div className="paginationHomeStyle" >
+            )}
+            <div className="paginationHomeStyle">
               <Pagination
                 current={current}
                 onChange={onChange}
                 total={filteredVideogames.length}
                 pageSize={pageSize}
-                showSizeChanger={false} />
+                showSizeChanger={false}
+              />
             </div>
           </div>
         </div>
-      </div >
-
+      </div>
     );
-
   }
+}
 
-};
-
-export { Home }
+export { Home };
