@@ -22,14 +22,14 @@ const Dashboard = () => {
     const allReviews = useSelector(state => state.allReviews);
 
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         dispatch()
     },[])
 
     useEffect(()=>{
         dispatch()
     },[])
-
+ */
 
 
 

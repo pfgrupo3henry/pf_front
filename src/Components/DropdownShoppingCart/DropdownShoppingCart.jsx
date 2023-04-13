@@ -94,8 +94,8 @@ function DropdownShoppingCart() {
           <Button
             className="botton"
             style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-            onMouseLeave={() => setColor("rgba(9, 22, 29, 0.712)")}
-            onMouseEnter={() => setColor("rgba(9, 22, 29, 0.712)")}
+            onMouseLeave={() => setColor("rgba(27, 37, 43, 0.63)")}
+            onMouseEnter={() => setColor("rgba(27, 37, 43, 0.63)")}
             type="primary">
             <Link to="/status-payment" className="rutasNav">Continuar compra</Link>
           </Button>

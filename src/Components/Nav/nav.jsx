@@ -147,7 +147,11 @@ function Nav(count) {
                 count={shoppingChart.products ? shoppingChart.products.length : "0"}
                 size="small"
                 style={{ backgroundColor: "#1976D2" }}>
-                <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
+                  <div className="carritoAuxiliar77">
+                <RiShoppingCartLine
+                
+                 onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
+                 </div>
               </Badge>
             </div>
 
