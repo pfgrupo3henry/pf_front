@@ -9,13 +9,14 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import "./DropdownShoppingCartCard.css";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteChart, getChart } from "../../Redux/Actions/Index";
+import { deleteChart, getChart, addItemToChart } from "../../Redux/Actions/Index";
 
 
 
 function DropdownShoppingCart() {
   const [color, setColor] = React.useState("rgba(9, 22, 29, 1)");
   var shoppingChart = useSelector(state => state.shoppingChart);
+  const [string, setString] = useState("vacio");
   const dispatch = useDispatch();
   const { Text } = Typography;
   const cookie = new Cookies();
@@ -40,9 +41,32 @@ function DropdownShoppingCart() {
 
   };
 
+  const handleShoppingChart = (id) => {
+
+    const product_id = id;
+    const put = {
+      userId: idCoockie,
+      products:
+      {
+        id: product_id,
+        quantity: 1
+      }
+
+    }
+
+    dispatch(addItemToChart(put));
+    setString("vacio");
+
+  };
+
   console.log(shoppingChart);
 
   if (shoppingChart.products) {
+
+    if (string === "vacio") {
+      dispatch(getChart(idCoockie));
+      setString("completo");
+    };
 
     return (
       <div
@@ -74,7 +98,10 @@ function DropdownShoppingCart() {
                       </Tooltip>
                       <p>{el.quantity}</p>
                       <Tooltip title="Add">
-                        <Button icon={<PlusOutlined />} />
+                        <Button
+                          onClick={() => handleShoppingChart(el.id)}
+                          icon={<PlusOutlined />}
+                        />
                       </Tooltip>
                       <Tooltip title="delete">
                         <Button
