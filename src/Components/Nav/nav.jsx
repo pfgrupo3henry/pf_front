@@ -12,15 +12,11 @@ import { Dropdown, message, Space, Badge } from "antd";
 import Cookies from "universal-cookie";
 import { useSelector, useDispatch } from "react-redux";
 
-
-
-
 function Nav(count) {
-
-  const Swal = require('sweetalert2');
-  const [shoppingCartRender, setShoppingCartRender] = React.useState(false)
+  const Swal = require("sweetalert2");
+  const [shoppingCartRender, setShoppingCartRender] = React.useState(false);
   const { isAuthenticated, loginWithPopup } = useAuth0();
-  const shoppingChart = useSelector(state => state.shoppingChart);
+  const shoppingChart = useSelector((state) => state.shoppingChart);
   const dispatch = useDispatch();
   const cookie = new Cookies();
   const cookieId = cookie.get("firstname");
@@ -31,13 +27,12 @@ function Nav(count) {
   const handleLoginClick = () => {
     Swal.fire({
       title: "Error!",
-      text: 'Debes iniciar sesion',
+      text: "Debes iniciar sesion",
       icon: "error",
-      confirmButtonText: 'Ok'
+      confirmButtonText: "Ok",
     }).then((res) => {
       window.location.href = "/login";
     });
-
   };
 
   const inboxOptions = [
@@ -71,23 +66,42 @@ function Nav(count) {
   ];
 
   if (shoppingChart) {
-
     return (
-      <div className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"}`}>
+      <div
+        className={`nav-component ${
+          isAuthenticated || cookieId ? "nav" : "navAux"
+        }`}>
         <div className="rutasNavContainer">
           <ul>
-            <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
-              <Link to="/home" className="rutasNav">Home</Link>
+            <li
+              className={
+                isAuthenticated || cookieId
+                  ? "rutasNavAlternativeAux"
+                  : "rutasNav"
+              }>
+              <Link to="/home" className="rutasNav">
+                Home
+              </Link>
             </li>
-            {
-              isAuthenticated || cookieId
-                ? null
-                : <li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux2" : "rutasNavAux"}>
-                  <Link to="/login" className="rutasNav">Login</Link>
-                </li>
-            }
+            {isAuthenticated || cookieId ? null : (
+              <li
+                className={
+                  isAuthenticated || cookieId
+                    ? "rutasNavAlternativeAux2"
+                    : "rutasNavAux"
+                }>
+                <Link to="/login" className="rutasNav">
+                  Login
+                </Link>
+              </li>
+            )}
             <li>
-              <Dropdown className={isAuthenticated || cookieId ? "rutasNav2Aux" : "rutasNav2AuxUltimate"}
+              <Dropdown
+                className={
+                  isAuthenticated || cookieId
+                    ? "rutasNav2Aux"
+                    : "rutasNav2AuxUltimate"
+                }
                 menu={{
                   items: inboxOptions,
                 }}>
@@ -99,21 +113,39 @@ function Nav(count) {
                 </a>
               </Dropdown>
             </li>
-            {cookieRole === "Admin" ?
-              < li className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}>
-                <Link to="/admin" className="rutasNav">Admin</Link>
+            {cookieRole === "Admin" ? (
+              <li
+                className={
+                  isAuthenticated || cookieId
+                    ? "rutasNavAlternativeAux"
+                    : "rutasNav"
+                }>
+                <Link to="/admin" className="rutasNav">
+                  Admin
+                </Link>
               </li>
-              :
-              null
-            }
-            <li className={isAuthenticated || cookieId ? "buscadorAux" : "buscador"}>
+            ) : null}
+            <li
+              className={
+                isAuthenticated || cookieId ? "buscadorAux" : "buscador"
+              }>
               <SearchBar />
             </li>
+            <li>
+              <Link to="/contact" className="rutasNav">
+                Contact{" "}
+              </Link>
+            </li>
           </ul>
-          <div className={isAuthenticated || cookieId ? "rutasNavAlternativeAux" : "rutasNav"}></div>
+          <div
+            className={
+              isAuthenticated || cookieId
+                ? "rutasNavAlternativeAux"
+                : "rutasNav"
+            }></div>
           <div className="rutasNav3">
             <div className="profileNav">
-              {isAuthenticated ?
+              {isAuthenticated ? (
                 <Dropdown
                   className=""
                   menu={{
@@ -124,11 +156,10 @@ function Nav(count) {
                       <Profile />
                     </Space>
                   </a>
-                </Dropdown> :
-                null
-              }
+                </Dropdown>
+              ) : null}
               <div>
-                {cookieId && !isAuthenticated ?
+                {cookieId && !isAuthenticated ? (
                   <Dropdown
                     className=""
                     menu={{
@@ -136,34 +167,37 @@ function Nav(count) {
                     }}>
                     <a onClick={(e) => e.preventDefault()}>
                       <Space>
-                        <img className="imgProfile" src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png" alt="profile"></img>
+                        <img
+                          className="imgProfile"
+                          src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
+                          alt="profile"></img>
                       </Space>
                     </a>
-                  </Dropdown> :
-                  null
-                }
+                  </Dropdown>
+                ) : null}
               </div>
               <Badge
-                count={shoppingChart.products ? shoppingChart.products.length : "0"}
+                count={
+                  shoppingChart.products ? shoppingChart.products.length : "0"
+                }
                 size="small"
                 style={{ backgroundColor: "#1976D2" }}>
-                <RiShoppingCartLine onClick={() => { isAuthenticated || cookieId ? setShoppingCartRender(!shoppingCartRender) : handleLoginClick() }} className={!isAuthenticated && !cookieId ? "cartAux" : "cart"} />
+                <RiShoppingCartLine
+                  onClick={() => {
+                    isAuthenticated || cookieId
+                      ? setShoppingCartRender(!shoppingCartRender)
+                      : handleLoginClick();
+                  }}
+                  className={!isAuthenticated && !cookieId ? "cartAux" : "cart"}
+                />
               </Badge>
             </div>
-
           </div>
-          {
-            shoppingCartRender
-              ?
-              <DropdownShoppingCart />
-              : null
-          }
+          {shoppingCartRender ? <DropdownShoppingCart /> : null}
         </div>
-      </div >
+      </div>
     );
-
   }
-
-};
+}
 
 export { Nav };

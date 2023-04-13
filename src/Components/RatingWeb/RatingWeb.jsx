@@ -34,7 +34,6 @@ const RatingWeb = () => {
     e.preventDefault();
     const put = {
       userId: idCoockie,
-      //userImg: img,
       comment: comment,
       rate: value,
     };
