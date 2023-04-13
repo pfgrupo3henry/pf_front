@@ -92,7 +92,7 @@ function Favorites() {
                   description={item.description}
                 />
                 <div className="priceFavCard">
-                  {item.price}
+                  ${item.price}
                 </div>
               </List.Item>
             </div>
