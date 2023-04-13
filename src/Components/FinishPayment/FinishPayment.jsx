@@ -197,14 +197,14 @@ function FinishPayment() {
 
                               <div className="quantity-delete">
                                 <Button className="button+">
-                                  <LoadingOutlined />
+                                  -
                                 </Button>
-                                <p className="p-cantidad"><LoadingOutlined /></p>
+                                <p className="p-cantidad">{item.quantity}</p>
                                 <Button className="button-">
-                                  <LoadingOutlined />
+                                  +
                                 </Button>
                                 <Button className="button-borrar">
-                                  <LoadingOutlined className="deleteIcon" />
+                                  <AiOutlineDelete className="deleteIcon" />
                                 </Button>
                                 <div className="unit-price">
                                   <LoadingOutlined />
