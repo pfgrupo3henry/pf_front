@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Rate, Button, Input, message, Card, Modal } from "antd";
 import "./RatingWeb.css";
 import Cookies from "universal-cookie";
-import { saveRatingWeb } from "../../Redux/Actions/Index";
+import { saveRatingWeb, getRatingWeb } from "../../Redux/Actions/Index";
 
 const RatingWeb = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,8 @@ const RatingWeb = () => {
   const [comment, setComment] = useState("");
   const [placeholder, setPlaceholder] = useState("Leave your comment");
   const navigate = useNavigate();
-
+  const userRate = getRatingWeb();
+  console.log(userRate);
   function handleRatingChange(value2) {
     if (idCoockie) {
       setValue(value2);
