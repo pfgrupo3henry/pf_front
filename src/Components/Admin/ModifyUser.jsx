@@ -1,4 +1,4 @@
-import { Avatar, Button, List, Form } from 'antd';
+import { Avatar, Button, List, Form, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { getUsers, modificarUser } from '../../Redux/Actions/Index';
@@ -40,6 +40,7 @@ function ModifyUser() {
     console.log("data", data)
     console.log("id", user_id)
     dispatch(modificarUser(user_id, data))
+    message.success("¡La operación se realizó con éxito!", 5);
   }
 
   console.log(allUsers2);
