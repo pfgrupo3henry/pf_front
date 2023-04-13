@@ -32,6 +32,7 @@ const items = [
 
 function UserInfo() {
 
+  const [pagos, setPagos] = useState([]);
   const [verFrom, setVerForm] = useState("vacio");
   const [theme, setTheme] = useState('ligth');
   const [current, setCurrent] = useState('1');
@@ -49,6 +50,7 @@ function UserInfo() {
   const { Meta } = Card;
   const cookie = new Cookies();
   const email = cookie.get("email");
+  const userId = cookie.get("id");
   console.log(email);
 
   if (newUser.length === 0) {
@@ -104,7 +106,13 @@ function UserInfo() {
     setCurrent(e.key);
 
     if (e.key === "1") {
+      setPagos([])
       setVerForm("ver");
+    };
+
+    if (e.key === "2") {
+      verPagos();
+      setVerForm("vacio");
     };
   };
 
@@ -122,6 +130,19 @@ function UserInfo() {
       }
     );
   };
+
+  const verPagos = () => {
+
+    axios.get(`https://pfservidor-production.up.railway.app/orders/${userId}`)
+      .then((res) => {
+        console.log(res);
+        setPagos(res.data.userOrder)
+      })
+      .catch((err) => console.log(err))
+
+  }
+
+  console.log(pagos);
 
   return (
 
@@ -216,6 +237,23 @@ function UserInfo() {
               null
           }
         </div>
+
+        {pagos.length !== 0 ?
+
+          pagos[0].orders.map((p) => {
+            return (
+              <div>
+                <br></br>
+                <p>{p.createdAt}</p>
+                <p>{p.status}</p>
+                <p>{p.totalAmount}</p>
+                <br></br>
+              </div>
+            )
+          })
+
+          :
+          null}
       </div>
 
       <div className="cardIndoUserInformation">
