@@ -67,7 +67,7 @@ function LandingPage() {
             <div className="row">
                 <div className="col text-col">
                     <h1>Videojuegos</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Jugar es una nueva habilidad , adorna tu tiempo con Video Juegos y añade diversión a tu vida</p>
                     <Button onClick={onClick}>Ingresar</Button>
                     {state === true ?
                         <LoadingOutlined />

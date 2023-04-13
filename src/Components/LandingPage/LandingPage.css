@@ -39,12 +39,14 @@
     color: white;
     font-size: 52px;
     line-height: 56px;
+    font-weight: bold
 }
 
 .landing-page-component .col p {
     color: white;
     font-size: 18px;
     line-height: 22px;
+    font-weight: bold
 }
 
 .landing-page-component .col button {
