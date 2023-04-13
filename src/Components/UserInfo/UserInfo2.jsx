@@ -244,9 +244,9 @@ function UserInfo() {
             return (
               <div>
                 <br></br>
-                <p>{p.createdAt}</p>
-                <p>{p.status}</p>
-                <p>{p.totalAmount}</p>
+                <p>Fecha: {p.createdAt}</p>
+                <p className='p-status'>Status: {p.status}</p>
+                <p className='p-precio'>Precio: ${p.totalAmount}</p>
                 <br></br>
               </div>
             )
