@@ -20,6 +20,8 @@ import "./Dashboard.css"
 const Dashboard = () => {
     const dispatch = useDispatch()
     const allReviews = useSelector(state => state.allReviews);
+    const allOrders = useSelector(state => state.allOrders);
+
 
 
     /* useEffect(()=>{
@@ -31,7 +33,8 @@ const Dashboard = () => {
     },[])
  */
 
-
+    const filterGenre = () =>{
+    }
 
 
   const data = [
