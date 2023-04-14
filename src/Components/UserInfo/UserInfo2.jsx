@@ -16,7 +16,9 @@ import {
   Upload,
   Avatar,
   List,
+  Modal,
   Space,
+  Table,
 } from "antd";
 import { useState } from "react";
 import "./UserInfo.css";
@@ -64,7 +66,7 @@ function UserInfo() {
   const email = cookie.get("email");
   const userId = cookie.get("id");
   console.log(email);
-  const Swal = require('sweetalert2');
+  const Swal = require("sweetalert2");
 
   if (newUser.length === 0) {
     axios
@@ -94,15 +96,12 @@ function UserInfo() {
       !input.mobile ||
       !input.img.length === 0
     ) {
-      return (
-        Swal.fire({
-          title: "Error!",
-          text: 'Falta enviar datos obligatorios',
-          icon: "error",
-          confirmButtonText: 'Ok'
-        })
-      )
-
+      return Swal.fire({
+        title: "Error!",
+        text: "Falta enviar datos obligatorios",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     } else {
       axios
         .put(
@@ -174,7 +173,60 @@ function UserInfo() {
     "Rejected Pay": "Pago rechazado",
   };
 
-  console.log(pagos[0]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [mappedVideogames, setMappedVideogames] = useState([]);
+
+  const showModal = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+    const mappedGames = item.videogames.map((game) => ({
+      name: game.name,
+      price: game.price,
+      OrdersDetail: game.OrdersDetail,
+    }));
+    setMappedVideogames(mappedGames);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+    },
+    {
+      title: "Subtotal",
+      dataIndex: "subtotal",
+      key: "subtotal",
+    },
+  ];
+
+  const data = mappedVideogames.map((game) => ({
+    key: game.id,
+    name: game.name,
+    price: game.price,
+    quantity: game.OrdersDetail.quantity,
+    subtotal: game.OrdersDetail.subtotal,
+    totalAmount: game.totalAmount,
+  }));
 
   return (
     <div className="menuProfileInfo">
@@ -290,9 +342,6 @@ function UserInfo() {
             dataSource={pagos[0].orders}
             renderItem={(item) => (
               <List.Item key={item.title}>
-                <div>
-                  <span style={{ color: "#1890ff" }}>#{item.id} </span>
-                </div>
                 <List.Item.Meta
                   avatar={
                     item.status === "Completed Pay" ? (
@@ -313,10 +362,27 @@ function UserInfo() {
                     </div>
                   }
                 />
-                <div>
-                  <span style={{ color: "#1890ff" }}>Monto total: </span>
-                  <strong>${item.totalAmount}</strong>
-                </div>
+                <Button type="primary" onClick={() => showModal(item)}>
+                  Order Detail
+                </Button>
+                {console.log(selectedItem)}
+
+                <Modal
+                  title={`#${selectedItem?.id}`}
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}>
+                  <Table
+                    columns={columns}
+                    dataSource={data}
+                    footer={() => (
+                      <div style={{ textAlign: "right" }}>
+                        <strong>Total Amount:</strong>{" "}
+                        {selectedItem.totalAmount}
+                      </div>
+                    )}
+                  />
+                </Modal>
               </List.Item>
             )}
           />
@@ -342,21 +408,41 @@ function UserInfo() {
             </Card>
             <Descriptions className="infoUserDetail" title="Informacion">
               <Descriptions.Item className="infoUserDetail" label="Nombre">
-                {newUser && newUser.length !== 0 ? newUser[0].firstname : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? (
+                  newUser[0].firstname
+                ) : (
+                  <LoadingOutlined />
+                )}
               </Descriptions.Item>
               <Descriptions.Item className="infoUserDetail" label="Apellido">
-                {newUser && newUser.length !== 0 ? newUser[0].lastname : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? (
+                  newUser[0].lastname
+                ) : (
+                  <LoadingOutlined />
+                )}
               </Descriptions.Item>
               <Descriptions.Item className="infoUserDetail" label="Celular">
-                {newUser && newUser.length !== 0 ? newUser[0].mobile : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? (
+                  newUser[0].mobile
+                ) : (
+                  <LoadingOutlined />
+                )}
               </Descriptions.Item>
               <Descriptions.Item className="infoUserDetail" label="Email">
-                {newUser && newUser.length !== 0 ? newUser[0].email : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? (
+                  newUser[0].email
+                ) : (
+                  <LoadingOutlined />
+                )}
               </Descriptions.Item>
               <Descriptions.Item
                 className="infoUserDetail"
                 label="Nacionalidad">
-                {newUser && newUser.length !== 0 ? newUser[0].nationality : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? (
+                  newUser[0].nationality
+                ) : (
+                  <LoadingOutlined />
+                )}
               </Descriptions.Item>
             </Descriptions>
           </>
