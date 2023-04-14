@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Rate, Button, Input, message, Card } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Rate, Button, Input, message, Card, Modal } from "antd";
 import "./RatingWeb.css";
 import Cookies from "universal-cookie";
-import { saveRatingWeb } from "../../Redux/Actions/Index";
+import { saveRatingWeb, getRatingWeb } from "../../Redux/Actions/Index";
 
 const RatingWeb = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,9 @@ const RatingWeb = () => {
   const [value, setValue] = useState(1);
   const [comment, setComment] = useState("");
   const [placeholder, setPlaceholder] = useState("Leave your comment");
-
+  const navigate = useNavigate();
+  const userRate = getRatingWeb();
+  console.log(userRate);
   function handleRatingChange(value2) {
     if (idCoockie) {
       setValue(value2);
@@ -34,46 +37,48 @@ const RatingWeb = () => {
     e.preventDefault();
     const put = {
       userId: idCoockie,
-      //userImg: img,
       comment: comment,
       rate: value,
     };
     console.log(put);
     dispatch(saveRatingWeb(put));
     message.success("¡La operación se realizó con éxito!", 5);
+    navigate("/home");
     // window.location.reload();
   }
-
+  const title = "Cuentanos que te pareció la página!";
   return (
-    <Card title="Rating" bordered={false} style={{ width: 300 }}>
-      <div className="rateForm">
-        <Rate
-          onChange={handleRatingChange}
-          className="rateAux"
-          allowHalf
-          defaultValue={1}
-          value={value}
-        />
-        <div className="inputButton">
-          <Input
-            className="form"
-            placeholder={placeholder}
-            bordered={false}
-            onChange={(e) => handleChangeInput(e)}
-            value={comment}
-            type="text"
+    <div className="ratingweb-container">
+      <Card title={title} bordered={false} style={{ width: 800 }}>
+        <div className="rateForm">
+          <Rate
+            onChange={handleRatingChange}
+            className="rateAux"
+            allowHalf
+            defaultValue={1}
+            value={value}
           />
+          <div className="inputButton">
+            <Input
+              className="form"
+              placeholder={placeholder}
+              bordered={false}
+              onChange={(e) => handleChangeInput(e)}
+              value={comment}
+              type="text"
+            />
 
-          <Button
-            className="buttonAux"
-            style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-            type="primary"
-            onClick={(e) => onClick(e)}>
-            Send
-          </Button>
+            <Button
+              className="buttonAux"
+              style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+              type="primary"
+              onClick={(e) => onClick(e)}>
+              Send
+            </Button>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

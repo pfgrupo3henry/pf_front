@@ -17,7 +17,7 @@
     justify-content: center;
     flex-direction: row;
     margin-top: 45.2px;
-    min-height: 105vh;
+    min-height: 120vh;
     position: relative;
 }
 
@@ -67,4 +67,21 @@
     gap: 40px;
     justify-content: center;
     background-color: white;
+}
+
+.p-status {
+    color: red;
+}
+
+.p-precio {
+    color: blue;
+}
+
+.ant-menu>.ant-menu-item-selected {
+    color: #7aa3ca !important;
+    border-bottom: 2px solid #7aa3ca;
+}
+
+.css-dev-only-do-not-override-mxhywb.ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-content {
+    width: auto !important;
 }
