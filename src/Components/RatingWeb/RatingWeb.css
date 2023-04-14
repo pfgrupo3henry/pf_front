@@ -5,6 +5,7 @@
       padding: 40px;
       margin-left: 12rem;
       margin-top: 2rem;
+      min-height: 70vh;
 }
 
 .comentarios-card {
