@@ -1,0 +1,17 @@
+.products-boughts{
+    margin-bottom: 0.5rem;
+}
+
+.aux{
+    display: flex;
+    gap: 0.4rem;
+}
+
+
+.products{
+    margin-top: 0.5rem;
+}
+
+.rows{
+    margin-bottom: 0.5rem;
+}

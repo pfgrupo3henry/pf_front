@@ -22,7 +22,9 @@
   box-shadow: 0px 2px 10px gray;
 }
 
-
+.carritoAuxiliar77:hover{
+  transform: scale(1.2);
+}
 .nav-component .rutasNavContainer{
   display: flex;
   gap: 20px ;
