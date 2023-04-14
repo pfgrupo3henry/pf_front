@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { postFavorites, addItemToChart, deleteFavorites, deleteChart, getFavorites, getChart } from "../../Redux/Actions/Index";
 import React, { useEffect, useState } from "react";
-import { Card } from 'antd';
+import { Card, message } from 'antd';
 import "../Card/card.css"
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
@@ -27,7 +27,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [shoppingStringified, setShoppingStringified] = useState([]);
   const [favsStringified, setFavsStringified] = useState([]);
 
-  const [string, setString] = useState("hola");
+  const [string, setString] = useState("vacio");
 
   const cookie = new Cookies();
   const idCoockie = cookie.get("id");
@@ -101,6 +101,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     }
 
     dispatch(addItemToChart(put));
+    setString("vacio");
 
   };
 
@@ -112,12 +113,23 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     }
 
     dispatch(deleteChart(payload));
+    setString("vacio");
 
+  };
+
+  if (string === "vacio") {
+    dispatch(getChart(idCoockie));
+    setTimeout(function () {
+      setString("completo");
+    }, 500);
   };
 
   var precio = `$ ${price}`;
 
   if (shoppingChart || allFavorites) {
+
+    console.log(shoppingChart);
+
     return (
       <div className="card-component">
         <Card
@@ -135,7 +147,9 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
             description={precio}
           />
           <br></br>
+
           <div className='iconsCardHomeContainer'>
+
             {allFavorites.products?.map((game) => {
               if (game.id === id) {
                 return (
@@ -145,17 +159,35 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 )
               }
             })}
+
             {shoppingChart.products?.map((game) => {
               if (game.id === id) {
-                return (
-                  <RiShoppingCartFill
-                    onClick={() => onClickDelete(id)}
-                    className='favIconCardHome' />
-                )
+                if (game.stock < 0) {
+                  let payload = {
+                    userId: idCoockie,
+                    gameId: id
+                  }
+                  dispatch(deleteChart(payload));
+                  Swal.fire({
+                    title: "Error!",
+                    text: 'Juego Agotado',
+                    icon: "error",
+                    confirmButtonText: 'Ok'
+                  })
+                } else {
+                  return (
+                    <RiShoppingCartFill
+                      onClick={() => onClickDelete(id)}
+                      className='favIconCardHome' />
+                  )
+                }
               }
             })}
+
           </div>
+
           <div className='iconsCardHomeContainer'>
+
             {!allFavorites.products || allFavorites.products.length === 0 ?
               <AiOutlineHeart
                 className='favIconCardHome'
@@ -165,6 +197,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 className='favIconCardHome'
                 onClick={() => { idCoockie ? handleFavorites(id) : handleLoginClick() }} />
             }
+
             {!shoppingChart.products || shoppingChart.products.length === 0 ?
               <RiShoppingCartLine
                 className='favIconCardHome'
@@ -174,7 +207,9 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 className='favIconCardHome'
                 onClick={() => { idCoockie ? handleShoppingChart(id, quantity) : handleLoginClick() }} />
             }
+
           </div>
+
         </Card>
       </div>
     )
