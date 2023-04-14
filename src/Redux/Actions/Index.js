@@ -363,17 +363,3 @@ export const getOrders = () => {
 
     }
 }
-
-
-
-
-
-
-// export const orderByRate = (data) => {
-//     return function (dispatch) {
-//         dispatch({
-//             type: ORDER_BY_RATE,
-//             payload: data,
-//         })
-//     }
-// }

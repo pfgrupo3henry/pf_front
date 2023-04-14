@@ -47,3 +47,9 @@
 .botton{
     width: 20rem;
 }
+
+.botton:hover{
+    background-color: rgba(27, 37, 43, 0.63);
+    
+    
+}

@@ -6,9 +6,11 @@ import { Col, Row, Statistic } from "antd";
 import CountUp from "react-countup";
 import ReactApexChart from "react-apexcharts";
 import { Select } from "antd";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import { Progress, Space } from "antd";
 import "./Dashboard.css";
-import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const reviewJuegos = useSelector((state) => state.ratingsWeb);
@@ -16,6 +18,21 @@ const Dashboard = () => {
     let suma = 0;
     suma = reviewJuegos.reduce((el) => el);
   }
+  const dispatch = useDispatch();
+  const allReviews = useSelector((state) => state.allReviews);
+  const allOrders = useSelector((state) => state.allOrders);
+
+  /* useEffect(()=>{
+        dispatch()
+    },[])
+
+    useEffect(()=>{
+        dispatch()
+    },[])
+ */
+
+  const filterGenre = () => {};
+
   const data = [
     // datos de ejemplo para los gráficos
     { x: "Enero", y: 10 },
