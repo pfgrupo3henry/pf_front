@@ -22,7 +22,12 @@ const Dashboard = () => {
     const dispatch = useDispatch()
     const allReviews = useSelector(state => state.allReviews);
     const allOrders = useSelector(state => state.allOrders);
+
+    const [selectedWeek, setSelectedWeek] = useState('');
+    const [totalSubtotal, setTotalSubtotal] = useState(0);
+
     const [totalSell, settotalSell] =useState("")
+
 
 
     useEffect(() => {
@@ -48,7 +53,19 @@ const Dashboard = () => {
         }
       }, [allOrders]);
 
-
+      useEffect(() => {
+        // Actualizar el estado de totalSubtotal cuando allOrders cambie
+        if (allOrders && allOrders.All_Orders) {
+          let newTotalSubtotal = 0;
+          allOrders.All_Orders.forEach((user) => {
+            user.orders.forEach((order) => {
+              const subtotal = order.subtotal;
+              newTotalSubtotal += subtotal;
+            });
+          });
+          setTotalSubtotal(newTotalSubtotal);
+        }
+      }, [allOrders]);
 
   const data = [
     // datos de ejemplo para los gráficos
@@ -88,9 +105,8 @@ const Dashboard = () => {
 
 
   const handleChange = (value) => {
-    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+    setSelectedWeek(value);
   };
-
   return (
 
 
@@ -104,10 +120,10 @@ const Dashboard = () => {
         className='stadisticas'
         gutter={16}>
             <Col span={12}>
-            <Statistic title="Total de ventas" value={753} formatter={formatter}  />
+            <Statistic title="Total de ventas" value={Object.values(totalSell).reduce((acc, curr) => acc + curr, 0)}formatter={formatter}  />
             </Col>
             <Col span={12}>
-            <Statistic title="Total facturado" value={34300} precision={2} formatter={formatter} />
+            <Statistic title="Total facturado" value={totalSubtotal} precision={2} formatter={formatter} />
             </Col>
         </Row>
         </div>
