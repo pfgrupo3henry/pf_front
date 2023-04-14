@@ -8,20 +8,12 @@ import ReactApexChart from "react-apexcharts";
 import { Select } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import { Progress, Space } from "antd";
 import "./Dashboard.css";
 import { getOrders } from "../../Redux/Actions/Index";
-
-import { Progress, Space } from "antd";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const reviewJuegos = useSelector((state) => state.ratingsWeb);
-  function rateMayor3() {
-    let suma = 0;
-    suma = reviewJuegos.reduce((el) => el);
-  }
   const dispatch = useDispatch();
   const allReviews = useSelector((state) => state.allReviews);
   const allOrders = useSelector((state) => state.allOrders);
@@ -309,7 +301,7 @@ const Dashboard = () => {
         <div className="total-area">
           <div className="">
             <Select placeholder="Filtro ejemlo 2" className="selectores-dash">
-              <Select.Option value={rate3}>Rates mayor a 3</Select.Option>
+              <Select.Option value="demo">Rates mayor a 3</Select.Option>
               <Select.Option value="demo">Opcion 2</Select.Option>
               <Select.Option value="demo">Opcion 3</Select.Option>
             </Select>
