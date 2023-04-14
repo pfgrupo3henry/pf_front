@@ -19,7 +19,8 @@ import {
     GET_ALL_ORDERS,
     MODIFICAR_USUARIO,
     SAVE_RATING_WEB,
-    GET_RATING_WEB
+    GET_RATING_WEB,
+    GET_ORDERS_ID
 } from "./Types";
 
 import axios from "axios";
@@ -350,10 +351,27 @@ export const orderByPrice = (data) => {
 export const getOrders = () => {
     try {
         return async function (dispatch) {
-            let json = await axios.get('https://pfservidor-production.up.railway.app/orders');
+            let json = await axios.get('https://pfservidor-production.up.railway.app/orders/allOrders');
             console.log(json)
             return dispatch({
                 type: GET_ALL_ORDERS,
+                payload: json.data
+            })
+        }
+
+    } catch (error) {
+        console.log(error)
+
+    }
+}
+
+export const getOrdersId = (id) => {
+    try {
+        return async function (dispatch) {
+            let json = await axios.get(`https://pfservidor-production.up.railway.app/orders/${id}`);
+            console.log(json)
+            return dispatch({
+                type: GET_ORDERS_ID,
                 payload: json.data
             })
         }
