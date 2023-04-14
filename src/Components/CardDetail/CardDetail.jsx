@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToChart,
   getReviews,
-  getUsers,
   saveRatingAndComment,
 } from "../../Redux/Actions/Index";
 import "./CardDetail.css";
@@ -123,7 +122,7 @@ function CardDetail() {
         var number3 = 0;
         for (let i = 0; i < reviews2.length; i++) {
           if (reviews2[i].status === "Disabled") {
-            number = number
+            number = number;
             number2 = number2 + 1;
           } else {
             number = number + Number(reviews2[i].rate);
@@ -253,40 +252,46 @@ function CardDetail() {
                     />
                   </Card>
 
-                  {reviews2.length !== 0 ?
-
+                  {reviews2.length !== 0 ? (
                     <List
                       itemLayout="horizontal"
                       dataSource={reviews2}
                       renderItem={(item, index) => (
                         <List.Item>
                           <List.Item.Meta
-                            avatar={item.status !== "Disabled" ? <Avatar src={item.userInfo && item.userInfo.img ? item.userInfo.img[0] : ""} /> : null}
+                            avatar={
+                              item.status !== "Disabled" ? (
+                                <Avatar
+                                  src={
+                                    item.userInfo && item.userInfo.img
+                                      ? item.userInfo.img[0]
+                                      : ""
+                                  }
+                                />
+                              ) : null
+                            }
                             title={
-                              item.status !== "Disabled" ?
+                              item.status !== "Disabled" ? (
                                 <Rate
                                   className="rate"
                                   disabled
                                   allowHalf
                                   value={Number(item.rate)}
                                 />
-                                :
-                                null
+                              ) : null
                             }
                             description={
-                              item.status !== "Disabled" ?
+                              item.status !== "Disabled" ? (
                                 <div>
                                   <p className="comment">{item.comment}</p>
                                 </div>
-                                :
-                                null
+                              ) : null
                             }
                           />
                         </List.Item>
                       )}
                     />
-                    : null}
-
+                  ) : null}
                 </div>
               </div>
             </div>
