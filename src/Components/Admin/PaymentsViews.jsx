@@ -138,7 +138,7 @@ function PaymentsViews () {
           >
              <List.Item.Meta
               avatar={
-                <Avatar src={item.userInfo.img} />
+                <Avatar src={item.userInfo.img[0]} />
               }
               title={
               <div className='aux'>
