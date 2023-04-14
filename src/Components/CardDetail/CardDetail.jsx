@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { Profile } from "../Auth0/profile";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Card } from "antd";
 import { useParams } from "react-router-dom";
 import { Button, Rate, message, Space, Spin } from "antd";
@@ -11,8 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToChart,
   getReviews,
-  getUsers,
+  getChart,
   saveRatingAndComment,
+  deleteChart
 } from "../../Redux/Actions/Index";
 import "./CardDetail.css";
 
@@ -32,6 +31,9 @@ function CardDetail() {
   const [placeholder, setPlaceholder] = useState("Leave your comment");
   const [stringR, setStringR] = useState("hola");
   const reviews2 = useSelector((state) => state.reviews);
+  const shoppingChart = useSelector(state => state.shoppingChart);
+  const Swal = require('sweetalert2');
+  const [string3, setString3] = useState("vacio");
 
   useEffect(() => {
     setProm(prom);
@@ -39,6 +41,7 @@ function CardDetail() {
 
   useEffect(() => {
     dispatch(getReviews(id));
+    dispatch(getChart(idCoockie));
   }, [dispatch]);
 
   if (!card.length) {
@@ -61,8 +64,11 @@ function CardDetail() {
       },
     };
 
-    setString("parrafo");
     dispatch(addItemToChart(put));
+
+    setTimeout(function () {
+      setString("vacio");
+    }, 500);
   };
 
   const handleShoppingChart2 = () => {
@@ -75,11 +81,16 @@ function CardDetail() {
       },
     };
 
-    setString("parrafo");
     dispatch(addItemToChart(put));
-    setTimeout(() => {
-      window.location.href = "/status-payment";
-    }, "600");
+
+    setTimeout(function () {
+      setString("vacio");
+    }, 500);
+
+    setTimeout(function () {
+      setString3("completo");
+    }, 1000);
+
   };
 
   function handleRatingChange(value2) {
@@ -115,7 +126,15 @@ function CardDetail() {
     // window.location.reload();
   }
 
+  if (string === "vacio") {
+    dispatch(getChart(idCoockie));
+    setTimeout(function () {
+      setString("completo");
+    }, 500);
+  };
+
   if (card.length !== 0) {
+
     if (stringR === "hola") {
       if (reviews2.length !== 0) {
         var number = 0;
@@ -143,6 +162,7 @@ function CardDetail() {
     console.log(reviews2);
     console.log(card[0].id);
     var precio = `$ ${card[0].price}`;
+    console.log(shoppingChart);
 
     return (
       <div className="card-detail-component2">
@@ -234,9 +254,36 @@ function CardDetail() {
                       Add To Cart
                     </Button>
 
-                    {string === "parrafo" ? (
-                      <p className="p-carrito-cardD">Carrito cargado</p>
-                    ) : null}
+                    {shoppingChart?.products?.map((game) => {
+                      console.log(card[0].id)
+                      if (game.id === card[0].id) {
+                        if (game.stock < 0) {
+                          let payload = {
+                            userId: idCoockie,
+                            gameId: id
+                          }
+                          dispatch(deleteChart(payload));
+                          Swal.fire({
+                            title: "Error!",
+                            text: 'Juego Agotado',
+                            icon: "error",
+                            confirmButtonText: 'Ok'
+                          }).then((res) => {
+                            setString3("vacio");
+                          })
+                        } else if (string3 === "completo") {
+                          window.location.href = "/status-payment"
+                          return (
+                            <p className="p-carrito-cardD">Carrito cargado</p>
+                          )
+                        } else {
+                          return (
+                            <p className="p-carrito-cardD">Carrito cargado</p>
+                          )
+                        }
+                      }
+                    })}
+
                   </div>
                 </Card>
               </div>
