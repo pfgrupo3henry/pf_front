@@ -18,15 +18,31 @@ import {
     SAVE_RATING_AND_COMMENT,
     GET_ALL_ORDERS,
     MODIFICAR_USUARIO,
-    SAVE_RATING_WEB
+    SAVE_RATING_WEB,
+    GET_RATING_WEB
 } from "./Types";
 
 import axios from "axios";
 
+
+export function getRatingWeb(id) {
+    try {
+        return async function (dispatch) {
+            let results = await axios.get(`https://pfservidor-production.up.railway.app/webreview/${id}`);
+            return dispatch({
+                type: GET_RATING_WEB,
+                payload: results.data
+            });
+
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 export function saveRatingWeb(payload) {
     try {
         return async function (dispatch) {
-            let json = await axios.post(`https://pfservidor-production.up.railway.app/ratingWeb`, payload);
+            let json = await axios.post(`https://pfservidor-production.up.railway.app/webreview`, payload);
             console.log("console.log", json)
             return dispatch({
                 type: SAVE_RATING_WEB,

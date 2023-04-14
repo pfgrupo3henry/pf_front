@@ -11,6 +11,7 @@ export const GET_CHART_2 = "GET_CHART_2";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const SAVE_RATING_AND_COMMENT = "SAVE_RATING_AND_COMMENT";
 export const SAVE_RATING_WEB = 'SAVE_RATING_WEB';
+export const GET_RATING_WEB = 'GET_RATING_WEB'
 
 export const POST_NEW_PRODUCT = "POST_NEW_PRODUCT"
 export const GET_CARDS = 'GET_CARDS';

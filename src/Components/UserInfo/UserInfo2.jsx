@@ -2,10 +2,9 @@ import {
   AppstoreOutlined,
   PlusOutlined,
   LoadingOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
+  CheckCircleTwoTone,
+  CloseCircleTwoTone,
 } from "@ant-design/icons";
-import { CheckCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 import React from "react";
 import { Descriptions } from "antd";
 import {
@@ -44,7 +43,7 @@ const items = [
 ];
 
 function UserInfo() {
-  const [verPerfil, setVerFerfil] = useState(true)
+  const [verPerfil, setVerFerfil] = useState(true);
   const [verFrom, setVerForm] = useState(false);
   const [pagos, setPagos] = useState([]);
   const [theme, setTheme] = useState("ligth");
@@ -137,7 +136,6 @@ function UserInfo() {
       img: [...fileList],
     });
   };
-  
 
   const onClick = (e) => {
     console.log("click ", e);
@@ -145,24 +143,29 @@ function UserInfo() {
 
     if (e.key === "1") {
       setPagos([]);
-      setVerFerfil(true)
+      setVerFerfil(true);
       setVerForm(false);
     }
 
     if (e.key === "2") {
       setPagos([]);
-      setVerFerfil(false)
+      setVerFerfil(false);
       setVerForm(true);
     }
 
     if (e.key === "3") {
       verPagos();
-      setVerFerfil(false)
+      setVerFerfil(false);
       setVerForm(false);
     }
-
-    
   };
+
+  const translations = {
+    "Completed Pay": "Pago completado",
+    "Rejected Pay": "Pago rechazado",
+  };
+
+  console.log(pagos[0]);
 
   return (
     <div className="menuProfileInfo">
@@ -178,7 +181,6 @@ function UserInfo() {
           mode="inline"
           items={items}
         />
-        
       </div>
 
       <div className="cardIndoUserInformation">
@@ -192,21 +194,18 @@ function UserInfo() {
               wrapperCol={{ flex: 1 }}
               colon={false}
               style={{ maxWidth: 600 }}
-              onChange={handelInputChange}
-            >
+              onChange={handelInputChange}>
               <Form.Item
                 label="Nombre"
                 name="firstname"
-                rules={[{ required: true }]}
-              >
+                rules={[{ required: true }]}>
                 <Input name="firstname" />
               </Form.Item>
 
               <Form.Item
                 label="Apellido"
                 name="lastname"
-                rules={[{ required: true }]}
-              >
+                rules={[{ required: true }]}>
                 <Input name="lastname" />
               </Form.Item>
 
@@ -222,22 +221,19 @@ function UserInfo() {
                     required: true,
                     message: "Cargar la imagen",
                   },
-                ]}
-              >
+                ]}>
                 <Upload
                   action="/upload.do"
                   listType="picture-card"
                   onChange={(e) => {
                     onChangeInputImage(e);
-                  }}
-                >
+                  }}>
                   <div>
                     <PlusOutlined />
                     <div
                       style={{
                         marginTop: 8,
-                      }}
-                    >
+                      }}>
                       Image
                     </div>
                   </div>
@@ -249,16 +245,14 @@ function UserInfo() {
               <Form.Item
                 label="Nacionalidad"
                 name="nationality"
-                rules={[{ required: true }]}
-              >
+                rules={[{ required: true }]}>
                 <Input name="nationality" />
               </Form.Item>
 
               <Form.Item
                 label="Celular"
                 name="mobile"
-                rules={[{ required: true }]}
-              >
+                rules={[{ required: true }]}>
                 <Input name="mobile" />
               </Form.Item>
 
@@ -266,8 +260,7 @@ function UserInfo() {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  onClick={modifyUserSubmit}
-                >
+                  onClick={modifyUserSubmit}>
                   Submit
                 </Button>
               </Form.Item>
@@ -288,6 +281,9 @@ function UserInfo() {
             dataSource={pagos[0].orders}
             renderItem={(item) => (
               <List.Item key={item.title}>
+                <div>
+                  <span style={{ color: "#1890ff" }}>#{item.id} </span>
+                </div>
                 <List.Item.Meta
                   avatar={
                     item.status === "Completed Pay" ? (
@@ -298,7 +294,7 @@ function UserInfo() {
                       <Avatar src={item.avatar} />
                     )
                   }
-                  title={<a>{item.status}</a>}
+                  title={<a>{translations[item.status]}</a>}
                   description={
                     <div>
                       <span style={{ color: "#1890ff" }}>Fecha: </span>
@@ -310,7 +306,7 @@ function UserInfo() {
                 />
                 <div>
                   <span style={{ color: "#1890ff" }}>Monto total: </span>
-                  <strong>{item.totalAmount}</strong>
+                  <strong>${item.totalAmount}</strong>
                 </div>
               </List.Item>
             )}
@@ -328,8 +324,7 @@ function UserInfo() {
                   alt="Profile Imagen"
                   src={newUser[0] ? newUser[0].img[0] : "Incompleto"}
                 />
-              }
-            >
+              }>
               <Meta
                 title={titulo ? titulo : <LoadingOutlined />}
                 description=""
@@ -351,8 +346,7 @@ function UserInfo() {
               </Descriptions.Item>
               <Descriptions.Item
                 className="infoUserDetail"
-                label="Nacionalidad"
-              >
+                label="Nacionalidad">
                 {newUser[0] ? newUser[0].nationality : <LoadingOutlined />}
               </Descriptions.Item>
             </Descriptions>
@@ -364,4 +358,3 @@ function UserInfo() {
 }
 
 export default UserInfo;
-

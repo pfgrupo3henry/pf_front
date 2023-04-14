@@ -1,11 +1,10 @@
-.body-card {
-      display: inline-block;
+.ratingweb-container {
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 45.2px);
-      padding: 30px;
+      padding: 40px;
       margin-left: 12rem;
-      margin-top: 3rem;
+      margin-top: 2rem;
 }
 
 .comentarios-card {
