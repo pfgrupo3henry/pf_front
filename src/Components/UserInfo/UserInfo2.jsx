@@ -322,7 +322,7 @@ function UserInfo() {
                 <img
                   style={{ width: 300, height: 330 }}
                   alt="Profile Imagen"
-                  src={newUser[0] ? newUser[0].img[0] : "Incompleto"}
+                  src={newUser[0] ? newUser[0].img : "Incompleto"}
                 />
               }>
               <Meta
