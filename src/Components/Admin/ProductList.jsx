@@ -126,6 +126,12 @@ const ProductList = () => {
       editable: true,
     },
     {
+      title: 'Imagen',
+      dataIndex: 'imagen',
+      width: 200,
+      editable: true,
+    },
+    {
       title: 'operation',
       dataIndex: 'operation',
       width:120,

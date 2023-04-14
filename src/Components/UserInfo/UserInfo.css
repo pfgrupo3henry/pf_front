@@ -76,3 +76,12 @@
 .p-precio {
     color: blue;
 }
+
+.ant-menu>.ant-menu-item-selected {
+    color: #7aa3ca !important;
+    border-bottom: 2px solid #7aa3ca;
+}
+
+.css-dev-only-do-not-override-mxhywb.ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-content {
+    width: auto !important;
+}
