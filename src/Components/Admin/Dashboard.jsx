@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Line } from "@nivo/line";
 import { Pie } from "@nivo/pie";
 import { Bar } from "@nivo/bar";
@@ -8,6 +8,10 @@ import ReactApexChart from "react-apexcharts";
 import { Select } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+import { Progress, Space } from "antd";
+import "./Dashboard.css";
+import { getOrders } from "../../Redux/Actions/Index";
 
 import { Progress, Space } from "antd";
 import "./Dashboard.css";
@@ -22,16 +26,47 @@ const Dashboard = () => {
   const allReviews = useSelector((state) => state.allReviews);
   const allOrders = useSelector((state) => state.allOrders);
 
-  /* useEffect(()=>{
-        dispatch()
-    },[])
+  const [selectedWeek, setSelectedWeek] = useState("");
+  const [totalSubtotal, setTotalSubtotal] = useState(0);
 
-    useEffect(()=>{
-        dispatch()
-    },[])
- */
+  const [totalSell, settotalSell] = useState("");
 
-  const filterGenre = () => {};
+  useEffect(() => {
+    dispatch(getOrders());
+  }, []);
+
+  useEffect(() => {
+    // Actualizar el estado de salesByDay cuando allOrders cambie
+    if (allOrders && allOrders.All_Orders) {
+      const newSalesByDay = {};
+      allOrders.All_Orders.forEach((user) => {
+        user.orders.forEach((order) => {
+          const createdAt = new Date(order.createdAt).toLocaleDateString();
+          const videogamesSold = order.videogames.length;
+          if (newSalesByDay[createdAt]) {
+            newSalesByDay[createdAt] += videogamesSold;
+          } else {
+            newSalesByDay[createdAt] = videogamesSold;
+          }
+        });
+      });
+      settotalSell(newSalesByDay);
+    }
+  }, [allOrders]);
+
+  useEffect(() => {
+    // Actualizar el estado de totalSubtotal cuando allOrders cambie
+    if (allOrders && allOrders.All_Orders) {
+      let newTotalSubtotal = 0;
+      allOrders.All_Orders.forEach((user) => {
+        user.orders.forEach((order) => {
+          const subtotal = order.subtotal;
+          newTotalSubtotal += subtotal;
+        });
+      });
+      setTotalSubtotal(newTotalSubtotal);
+    }
+  }, [allOrders]);
 
   const data = [
     // datos de ejemplo para los gráficos
@@ -46,7 +81,7 @@ const Dashboard = () => {
     series: [
       {
         name: "Area 1",
-        data: [31, 40, 28, 51, 42, 109, 100],
+        data: Object.values(totalSell),
       },
     ],
     options: {
@@ -67,9 +102,8 @@ const Dashboard = () => {
   const formatter = (value) => <CountUp end={value} separator="," />;
 
   const handleChange = (value) => {
-    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+    setSelectedWeek(value);
   };
-
   return (
     <div className="stadisticas-dashboard-component">
       <div className="estadisticas">
@@ -77,14 +111,17 @@ const Dashboard = () => {
           <Col span={12}>
             <Statistic
               title="Total de ventas"
-              value={753}
+              value={Object.values(totalSell).reduce(
+                (acc, curr) => acc + curr,
+                0
+              )}
               formatter={formatter}
             />
           </Col>
           <Col span={12}>
             <Statistic
               title="Total facturado"
-              value={34300}
+              value={totalSubtotal}
               precision={2}
               formatter={formatter}
             />
@@ -326,3 +363,45 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+/* 
+   // Objeto para llevar el registro de ventas por día
+// Utilizar una promesa para esperar a que allOrders esté completamente cargado
+const waitForAllOrders = () => {
+    return new Promise((resolve) => {
+      const checkAllOrders = () => {
+        if (typeof allOrders !== 'undefined' && typeof allOrders === 'object' && allOrders.All_Orders) {
+          resolve();
+        } else {
+          setTimeout(checkAllOrders, 100);
+        }
+      };
+      checkAllOrders();
+    });
+  };
+  
+  // Esperar a que allOrders esté completamente cargado
+  waitForAllOrders().then(() => {
+    const salesByDay = {};
+  
+    // Iterar sobre el objeto allOrders
+    allOrders.All_Orders.forEach((user) => {
+      user.orders.forEach((order) => {
+        const createdAt = new Date(order.createdAt).toLocaleDateString(); // Obtener la fecha de creación de la orden en formato de fecha local (dd/mm/yyyy)
+        const videogamesSold = order.videogames.length; // Obtener la cantidad de juegos vendidos en la orden
+  
+        // Agregar la cantidad de juegos vendidos al registro de ventas por día
+        if (salesByDay[createdAt]) {
+          salesByDay[createdAt] += videogamesSold;
+        } else {
+          salesByDay[createdAt] = videogamesSold;
+        }
+  
+      });
+    });
+  
+    // Mostrar el registro de ventas por día en la consola
+    console.log("Registro de ventas por día:", salesByDay);
+  
+    // Establecer el estado local con la data de salesByDay
+  }); */

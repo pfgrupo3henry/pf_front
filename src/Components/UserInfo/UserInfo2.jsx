@@ -64,6 +64,7 @@ function UserInfo() {
   const email = cookie.get("email");
   const userId = cookie.get("id");
   console.log(email);
+  const Swal = require('sweetalert2');
 
   if (newUser.length === 0) {
     axios
@@ -93,7 +94,15 @@ function UserInfo() {
       !input.mobile ||
       !input.img.length === 0
     ) {
-      return console.log("falta enviar datos obligatorios");
+      return (
+        Swal.fire({
+          title: "Error!",
+          text: 'Falta enviar datos obligatorios',
+          icon: "error",
+          confirmButtonText: 'Ok'
+        })
+      )
+
     } else {
       axios
         .put(
@@ -322,7 +331,7 @@ function UserInfo() {
                 <img
                   style={{ width: 300, height: 330 }}
                   alt="Profile Imagen"
-                  src={newUser[0] ? newUser[0].img[0] : "Incompleto"}
+                  src={newUser[0] ? newUser[0].img : "Incompleto"}
                 />
               }>
               <Meta
@@ -333,21 +342,21 @@ function UserInfo() {
             </Card>
             <Descriptions className="infoUserDetail" title="Informacion">
               <Descriptions.Item className="infoUserDetail" label="Nombre">
-                {newUser[0] ? newUser[0].firstname : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? newUser[0].firstname : <LoadingOutlined />}
               </Descriptions.Item>
               <Descriptions.Item className="infoUserDetail" label="Apellido">
-                {newUser[0] ? newUser[0].lastname : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? newUser[0].lastname : <LoadingOutlined />}
               </Descriptions.Item>
               <Descriptions.Item className="infoUserDetail" label="Celular">
-                {newUser[0] ? newUser[0].mobile : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? newUser[0].mobile : <LoadingOutlined />}
               </Descriptions.Item>
               <Descriptions.Item className="infoUserDetail" label="Email">
-                {newUser[0] ? newUser[0].email : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? newUser[0].email : <LoadingOutlined />}
               </Descriptions.Item>
               <Descriptions.Item
                 className="infoUserDetail"
                 label="Nacionalidad">
-                {newUser[0] ? newUser[0].nationality : <LoadingOutlined />}
+                {newUser && newUser.length !== 0 ? newUser[0].nationality : <LoadingOutlined />}
               </Descriptions.Item>
             </Descriptions>
           </>
