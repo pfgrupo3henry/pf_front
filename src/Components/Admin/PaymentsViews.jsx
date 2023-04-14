@@ -1,11 +1,9 @@
-import { Avatar, Col, Divider, Drawer, List, Row } from 'antd';
+import { Avatar, Col, Divider, Drawer, List, Row, Button,Spin } from 'antd';
 import { useState } from 'react';
-import { getOrders } from '../../Redux/Actions/Index';
+import { getOrders, getOrdersId } from '../../Redux/Actions/Index';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
-
-
-
+import "./PaymentsViews.css"
 
 const DescriptionItem = ({ title, content }) => (
   <div className="site-description-item-profile-wrapper">
@@ -14,138 +12,276 @@ const DescriptionItem = ({ title, content }) => (
   </div>
 );
 
-const PaymentsViws = () => {
-    const allOrders = useSelector(state => state.allOrders);
-    const dispatch = useDispatch();
+function PaymentsViews () {
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const allOrders = useSelector(state => state.allOrders);
+  const ordersId = useSelector(state => state.ordersID)
+  const [isLoading, setisLoading] = useState(true)
+  const [loading,setLoading] = useState(true)
+  const [ver,setVer] =useState(false)
+  const [verPersonal,setVerPersonal] =useState(false)
+  const [verProducts,setVerProducts] =useState(false)
+  const [drawerData, setDrawerData] = useState({
+    userOrder: [],
+    userId: "",
+    userInfo: {
+      createdAt: "",
+      email: "",
+      firstname: "",
+      id: "",
+      img: null,
+      lastname: "",
+      mobile: "",
+      nationality: "",
+      password: "",
+      refreshToken: "",
+      role: "",
+      status: "",
+      updatedAt: ""
+    }
+  });
+ 
 
-    useEffect(() => {
-        dispatch(getOrders());
-        console.log("estado lobal",allOrders)
-      }, []);
+  
+  
+  
+  
+  const [open, setOpen] = useState(false);
 
-    const [open, setOpen] = useState(false);
-    const showDrawer = () => {
-        setOpen(true);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTimeout(() => {setisLoading(false);
+    }, 1000);
+    dispatch(getOrders());
+    console.log("estado lobal",allOrders.All_Orders)
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Simulación de una función asincrónica con un retardo de 1 segundo
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setisLoading(false);
     };
-    const onClose = () => {
-        setOpen(false);
-    };
+    console.log("data para mapeo",drawerData)
+    fetchData();
+  }, [ordersId,drawerData]);
+
+
+  if (isLoading) {
+    return <div>Cargando usuario...</div>;
+  }
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+/*   const showDrawer = (userId) => {
+    setTimeout(() => {setisLoading(false);
+    }, 3000);
+    console.log("ID_USER", userId)
+    console.log("ORDENES DEL USUARIO" ,ordersId)
+    setDrawerData(ordersId);
+    dispatch(getOrdersId(userId))
+    dispatch(getOrdersId(userId)).then(() => {
+      setDrawerData(ordersId);
+      setOpen(true);
+    });
+  }  */
+
+  const showDrawer = async (userId) => {
+    // Primera función: setea el estado local isLoading
+    setisLoading(false);
+  
+    // Espera 2 segundos (2000 milisegundos)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  
+    // Obtén los datos de las órdenes del usuario
+    const ordersData = await dispatch(getOrdersId(userId));
+    setDrawerData(ordersData.payload); // Setea los datos en el estado local drawerData
+    setLoading(false);
+  
+    // Segunda función: abre el componente
+    setOpen(true);
+  };
+
+  function showOrders(){
+    setVer(!ver)
+  }
+  function showPersonal(){
+    setVerPersonal(!verPersonal)
+  }
+
+
+
+
   return (
     <>
       <List
-        dataSource={allOrders.orders}
+      style={{
+        marginTop: "5rem",
+        marginLeft: "10rem",
+
+        width: 700,
+      }}
+        dataSource={allOrders.All_Orders}
         bordered
         renderItem={(item) => ( 
           <List.Item
-            key={item.id}
+            key={item.userId}
             actions={[
-              <a onClick={showDrawer} key={`a-${item.id}`}>
-                View Profile
-              </a>,
+              <a onClick={()=>showDrawer(item.userId)} key={`a-${item.userId}`}>
+                Todas las compras
+              </a>, 
             ]}
           >
-            <List.Item.Meta
+             <List.Item.Meta
               avatar={
-                <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
+                <Avatar src={item.userInfo.img} />
               }
-              title={item.name}
-              description="Progresser XTech"
-            />
+              title={
+              <div className='aux'>
+              <div>{item.userInfo.firstname}</div>
+              <div>{item.userInfo.lastname}</div>
+              </div>
+            }
+              description={item.userInfo.email  }
+            /> 
+            
           </List.Item>
         )}
       />
-      <Drawer width={640} placement="right" closable={false} onClose={onClose} open={open}>
+      <Drawer 
+
+      width={640} placement="right" closable={false} onClose={onClose} open={open}>
         <p
           className="site-description-item-profile-p"
           style={{
             marginBottom: 24,
           }}
         >
-          User Profile
+          Perfil del usuario
         </p>
         <p className="site-description-item-profile-p">Personal</p>
-        <Row>
+      
+        {loading ? (
+        <div><Spin/></div>
+      ) : (<div>
+          <Row>
           <Col span={12}>
-            <DescriptionItem title="Full Name" content="Lily" />
+
+
+         
+           <DescriptionItem 
+            title={<span style={{ fontWeight: 'bold' }}>Nombre y apellido</span>}
+             content={
+              <div className="aux">
+              <div>{drawerData.userOrder[0].userInfo.firstname}</div> 
+              <div>{drawerData.userOrder[0].userInfo.lastname}</div> 
+            </div>
+            }/>   
+
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Account" content="AntDesign@example.com" />
+            <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Mi cuenta</span>} content="Henry Games Store" />
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="City" content="HangZhou" />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Country" content="China🇨🇳" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="Birthday" content="February 2,1900" />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Website" content="-" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <DescriptionItem
-              title="Message"
-              content="Make things as simple as possible but no simpler."
-            />
-          </Col>
-        </Row>
+        </div>
+      )}
+        
         <Divider />
-        <p className="site-description-item-profile-p">Company</p>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="Position" content="Programmer" />
+        <p className="site-description-item-profile-p">Compras Realizadas</p>
+        <br></br>
+        {loading ? (
+        <div><Spin/></div>
+      ) : (<div>
+          {drawerData.userOrder[0]?.orders.map(order => (
+            <div key={order.id}> {/* Asegúrate de tener una clave única para cada elemento en el bucle de mapeo */}
+              <Row className='rows'>
+                <Col span={12}>
+                <DescriptionItem
+                title={<span style={{ fontWeight: 'bold' }}>ID del carrito</span>}
+                content={drawerData.userOrder[0]?.orders[0]?.cartId}
+                />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Responsibilities" content="Coding" />
+            <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Fecha de compra</span>} content={drawerData.userOrder[0].orders[0].createdAt} />
+          </Col>
+        </Row>
+        <Row className='rows'>
+          <Col span={12}>
+            <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Estado del pago</span>} content={drawerData.userOrder[0].orders[0].status} />
+          </Col>  
+          <Col span={12}>
+          <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Total abonado</span>} content={`$${drawerData.userOrder[0]?.orders[0]?.totalAmount}`} />
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
-            <DescriptionItem title="Department" content="XTech" />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Supervisor" content={<a>Lin</a>} />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
+        <Col span={24}>
             <DescriptionItem
-              title="Skills"
-              content="C / C + +, data structures, software engineering, operating systems, computer networks, databases, compiler theory, computer architecture, Microcomputer Principle and Interface Technology, Computer English, Java, ASP, etc."
-            />
-          </Col>
-        </Row>
-        <Divider />
-        <p className="site-description-item-profile-p">Contacts</p>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="Email" content="AntDesign@example.com" />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Phone Number" content="+86 181 0000 0000" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <DescriptionItem
-              title="Github"
+              title={<span style={{ fontWeight: 'bold' }}>Productos adquiridos</span>}
               content={
-                <a href="http://github.com/ant-design/ant-design/">
-                  github.com/ant-design/ant-design/
-                </a>
+                <div className='products'>
+                  {order.videogames.map(videogame => (
+                    <div key={videogame.id}>
+                      <div className='products-boughts'>
+                      <p>Nombre: {videogame.name}</p>
+                      <p>Precio: ${videogame.price}</p>
+                      <p>Cantidad: {videogame.OrdersDetail.quantity}</p>
+                    </div>
+                    </div>
+                  ))}
+                </div>               
               }
             />
+          </Col>
+          <Divider/>
+        </Row>
+      </div>
+          ))}
+            </div>
+          )}
+
+        <p className="site-description-item-profile-p">Contacto</p>
+        <Row className='products'>
+          <Col span={12}>
+          <DescriptionItem 
+          title={<span style={{ fontWeight: 'bold' }}>Email</span>} 
+          content={drawerData && drawerData.userOrder && drawerData.userOrder[0] && drawerData.userOrder[0].userInfo && drawerData.userOrder[0].userInfo.email} 
+        />
+          </Col>
+          <Col span={12}>
+          <DescriptionItem 
+          title={<span style={{ fontWeight: 'bold' }}>Email</span>} 
+          content={drawerData && drawerData.userOrder && drawerData.userOrder[0] && drawerData.userOrder[0].userInfo && drawerData.userOrder[0].userInfo.mobile} 
+        />
           </Col>
         </Row>
       </Drawer>
     </>
   );
 };
-export  {PaymentsViws};
+export  {PaymentsViews};
+
+
+
+
+
+
+
+
+
+    {/*     <Row>
+          <Col span={24}>
+            <DescriptionItem
+              title="Github"
+               content={
+                <a href="http://github.com/ant-design/ant-design/">
+                  github.com/ant-design/ant-design/
+                </a>
+              }
+            /> 
+            
+          </Col>
+        </Row> */}

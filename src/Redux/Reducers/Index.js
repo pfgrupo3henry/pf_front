@@ -220,12 +220,6 @@ export default rootReducer;
 
 
 
-
-
-
-
-
-
 /*       let flag = false;
  
       state.shoppingChart.length && state.shoppingChart.forEach(el => {
