@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { Profile } from "../Auth0/profile";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Card } from "antd";
 import { useParams } from "react-router-dom";
 import { Button, Rate, message, Space, Spin } from "antd";
@@ -11,8 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToChart,
   getReviews,
-  getUsers,
+  getChart,
   saveRatingAndComment,
+  deleteChart,
 } from "../../Redux/Actions/Index";
 import "./CardDetail.css";
 
@@ -32,6 +31,9 @@ function CardDetail() {
   const [placeholder, setPlaceholder] = useState("Leave your comment");
   const [stringR, setStringR] = useState("hola");
   const reviews2 = useSelector((state) => state.reviews);
+  const shoppingChart = useSelector((state) => state.shoppingChart);
+  const Swal = require("sweetalert2");
+  const [string3, setString3] = useState("vacio");
 
   useEffect(() => {
     setProm(prom);
@@ -39,6 +41,7 @@ function CardDetail() {
 
   useEffect(() => {
     dispatch(getReviews(id));
+    dispatch(getChart(idCoockie));
   }, [dispatch]);
 
   if (!card.length) {
@@ -52,34 +55,47 @@ function CardDetail() {
   }
 
   const handleShoppingChart = () => {
-    const product_id = card[0].id;
-    const put = {
-      userId: idCoockie,
-      products: {
-        id: product_id,
-        quantity: 1,
-      },
-    };
+    if (idCoockie) {
+      const product_id = card[0].id;
+      const put = {
+        userId: idCoockie,
+        products: {
+          id: product_id,
+          quantity: 1,
+        },
+      };
 
-    setString("parrafo");
-    dispatch(addItemToChart(put));
+      dispatch(addItemToChart(put));
+
+      setTimeout(function () {
+        setString("vacio");
+      }, 500);
+    } else {
+      message.warning("¡Debe loguearse para Agregar al carrito!", 5);
+    }
   };
 
   const handleShoppingChart2 = () => {
-    const product_id = card[0].id;
-    const put = {
-      userId: idCoockie,
-      products: {
-        id: product_id,
-        quantity: 1,
-      },
-    };
+    if (idCoockie) {
+      const product_id = card[0].id;
+      const put = {
+        userId: idCoockie,
+        products: {
+          id: product_id,
+          quantity: 1,
+        },
+      };
+      dispatch(addItemToChart(put));
+      setTimeout(function () {
+        setString("vacio");
+      }, 500);
 
-    setString("parrafo");
-    dispatch(addItemToChart(put));
-    setTimeout(() => {
-      window.location.href = "/status-payment";
-    }, "600");
+      setTimeout(function () {
+        setString3("completo");
+      }, 1000);
+    } else {
+      message.warning("¡Debe loguearse para Comprar!", 5);
+    }
   };
 
   function handleRatingChange(value2) {
@@ -87,7 +103,7 @@ function CardDetail() {
       setValue(value2);
       console.log(value);
     } else {
-      console.log("debe loguearse para puntuar");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
@@ -97,22 +113,32 @@ function CardDetail() {
       setPlaceholder("Leave your comment");
       console.log(comment);
     } else {
-      console.log("debe loguearse para dejar comment");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
   function onClick(e) {
-    e.preventDefault();
-    const put = {
-      userId: idCoockie,
-      videogameId: Number(id),
-      comment: comment,
-      rate: value,
-    };
-    console.log(put);
-    dispatch(saveRatingAndComment(put));
-    message.success("¡La operación se realizó con éxito!", 5);
-    // window.location.reload();
+    if (idCoockie) {
+      e.preventDefault();
+      const put = {
+        userId: idCoockie,
+        videogameId: Number(id),
+        comment: comment,
+        rate: value,
+      };
+      console.log(put);
+      dispatch(saveRatingAndComment(put));
+      message.success("¡La operación se realizó con éxito!", 5);
+    } else {
+      message.warning("¡Debe loguearse para puntuar!", 5);
+    }
+  }
+
+  if (string === "vacio") {
+    dispatch(getChart(idCoockie));
+    setTimeout(function () {
+      setString("completo");
+    }, 500);
   }
 
   if (card.length !== 0) {
@@ -123,7 +149,7 @@ function CardDetail() {
         var number3 = 0;
         for (let i = 0; i < reviews2.length; i++) {
           if (reviews2[i].status === "Disabled") {
-            number = number
+            number = number;
             number2 = number2 + 1;
           } else {
             number = number + Number(reviews2[i].rate);
@@ -143,6 +169,7 @@ function CardDetail() {
     console.log(reviews2);
     console.log(card[0].id);
     var precio = `$ ${card[0].price}`;
+    console.log(shoppingChart);
 
     return (
       <div className="card-detail-component2">
@@ -226,17 +253,41 @@ function CardDetail() {
                       onClick={handleShoppingChart2}>
                       Buy
                     </Button>
-
                     <Button
                       style={{ color: "rgba(9, 22, 29, 0.712)" }}
                       className="buttonsCardDetail"
                       onClick={handleShoppingChart}>
                       Add To Cart
                     </Button>
-
-                    {string === "parrafo" ? (
-                      <p className="p-carrito-cardD">Carrito cargado</p>
-                    ) : null}
+                    {shoppingChart?.products?.map((game) => {
+                      console.log(card[0].id);
+                      if (game.id === card[0].id) {
+                        if (game.stock < 0) {
+                          let payload = {
+                            userId: idCoockie,
+                            gameId: id,
+                          };
+                          dispatch(deleteChart(payload));
+                          Swal.fire({
+                            title: "Error!",
+                            text: "Juego Agotado",
+                            icon: "error",
+                            confirmButtonText: "Ok",
+                          }).then((res) => {
+                            setString3("vacio");
+                          });
+                        } else if (string3 === "completo") {
+                          window.location.href = "/status-payment";
+                          return (
+                            <p className="p-carrito-cardD">Carrito cargado</p>
+                          );
+                        } else {
+                          return (
+                            <p className="p-carrito-cardD">Carrito cargado</p>
+                          );
+                        }
+                      }
+                    })}
                   </div>
                 </Card>
               </div>
@@ -253,40 +304,46 @@ function CardDetail() {
                     />
                   </Card>
 
-                  {reviews2.length !== 0 ?
-
+                  {reviews2.length !== 0 ? (
                     <List
                       itemLayout="horizontal"
                       dataSource={reviews2}
                       renderItem={(item, index) => (
                         <List.Item>
                           <List.Item.Meta
-                            avatar={item.status !== "Disabled" ? <Avatar src={item.userInfo && item.userInfo.img ? item.userInfo.img[0] : ""} /> : null}
+                            avatar={
+                              item.status !== "Disabled" ? (
+                                <Avatar
+                                  src={
+                                    item.userInfo && item.userInfo.img
+                                      ? item.userInfo.img[0]
+                                      : ""
+                                  }
+                                />
+                              ) : null
+                            }
                             title={
-                              item.status !== "Disabled" ?
+                              item.status !== "Disabled" ? (
                                 <Rate
                                   className="rate"
                                   disabled
                                   allowHalf
                                   value={Number(item.rate)}
                                 />
-                                :
-                                null
+                              ) : null
                             }
                             description={
-                              item.status !== "Disabled" ?
+                              item.status !== "Disabled" ? (
                                 <div>
                                   <p className="comment">{item.comment}</p>
                                 </div>
-                                :
-                                null
+                              ) : null
                             }
                           />
                         </List.Item>
                       )}
                     />
-                    : null}
-
+                  ) : null}
                 </div>
               </div>
             </div>

@@ -96,6 +96,7 @@ function FinishPayment() {
     dispatch(deleteChart(payload));
     setString2("vacio");
     setString("cuenta");
+    setString3("cargando");
 
   };
 

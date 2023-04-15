@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Rate, Button, Input, message, Card, Modal } from "antd";
 import "./RatingWeb.css";
 import Cookies from "universal-cookie";
-import { saveRatingWeb, getRatingWeb } from "../../Redux/Actions/Index";
+import { getRatingWeb, saveRatingWeb } from "../../Redux/Actions/Index";
 
 const RatingWeb = () => {
   const dispatch = useDispatch();
   const cookie = new Cookies();
+  const { id } = useParams();
   const idCoockie = cookie.get("id");
   const [value, setValue] = useState(1);
   const [comment, setComment] = useState("");
   const [placeholder, setPlaceholder] = useState("Leave your comment");
   const navigate = useNavigate();
-  const userRate = getRatingWeb();
-  console.log(userRate);
+
+  useEffect(() => {
+    dispatch(getRatingWeb(id));
+  }, [dispatch]);
+
   function handleRatingChange(value2) {
     if (idCoockie) {
       setValue(value2);
     } else {
-      console.log("debe loguearse para puntuar");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
@@ -29,24 +34,29 @@ const RatingWeb = () => {
       setComment(e.target.value);
       setPlaceholder("Leave your comment");
     } else {
-      console.log("debe loguearse para dejar comment");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
   function onClick(e) {
-    e.preventDefault();
-    const put = {
-      userId: idCoockie,
-      comment: comment,
-      rate: value,
-    };
-    console.log(put);
-    dispatch(saveRatingWeb(put));
-    message.success("¡La operación se realizó con éxito!", 5);
-    navigate("/home");
+    if (idCoockie) {
+      e.preventDefault();
+      const put = {
+        userId: idCoockie,
+        comment: comment,
+        rate: value,
+      };
+      console.log(put);
+      dispatch(saveRatingWeb(put));
+      message.success("¡La operación se realizó con éxito!", 5);
+      navigate("/home");
+    } else {
+      message.warning("¡Debe loguearse para puntuar!", 5);
+    }
     // window.location.reload();
   }
   const title = "Cuentanos que te pareció la página!";
+
   return (
     <div className="ratingweb-container">
       <Card title={title} bordered={false} style={{ width: 800 }}>
