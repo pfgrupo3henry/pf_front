@@ -10,6 +10,44 @@ const { Text } = Typography;
 
 function DropdownShoppingCartCard({ image, title, description, price, id }) {
   const dispatch = useDispatch();
+  const handleShoppingChart = (id) => {
+    const product_id = id;
+    const put = {
+      userId: idCoockie,
+      products: {
+        id: product_id,
+        quantity: 1,
+      },
+    };
+
+    dispatch(addItemToChart(put));
+    setString("vacio");
+  };
+
+  const handleShoppingChart2 = (id, quantity) => {
+    if (quantity === 1) {
+      return console.log("no");
+    } else {
+      const product_id = id;
+      const put = {
+        userId: idCoockie,
+        products: {
+          id: product_id,
+          quantity: -1,
+        },
+      };
+
+      dispatch(addItemToChart(put));
+      setString("vacio");
+    }
+  };
+
+  if (string === "vacio") {
+    dispatch(getChart(idCoockie));
+    setTimeout(function () {
+      setString("completo");
+    }, 1000);
+  }
 
   return (
     <div className="dropdown-shopping-cart-card-component">
@@ -25,10 +63,16 @@ function DropdownShoppingCartCard({ image, title, description, price, id }) {
       <div className="card-footer">
         <Space>
           <Tooltip title="Minus">
-            <Button icon={<MinusOutlined />} />
+            <Button
+              onClick={() => handleShoppingChart2(el.id, el.quantity)}
+              icon={<MinusOutlined />}
+            />
           </Tooltip>
           <Tooltip title="Add">
-            <Button icon={<PlusOutlined />} />
+            <Button
+              onClick={() => handleShoppingChart(el.id)}
+              icon={<PlusOutlined />}
+            />
           </Tooltip>
           <Tooltip title="Delete">
             <Button

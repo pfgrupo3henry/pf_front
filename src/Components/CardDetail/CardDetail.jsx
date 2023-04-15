@@ -65,6 +65,7 @@ function CardDetail() {
     };
 
     dispatch(addItemToChart(put));
+    message.success("¡Juego agregado a Carrito!", 5);
 
     setTimeout(function () {
       setString("vacio");
@@ -82,6 +83,7 @@ function CardDetail() {
     };
 
     dispatch(addItemToChart(put));
+    message.success("¡Juego agregado a Carrito!", 5);
 
     setTimeout(function () {
       setString("vacio");
@@ -97,7 +99,7 @@ function CardDetail() {
       setValue(value2);
       console.log(value);
     } else {
-      console.log("debe loguearse para puntuar");
+      message.warning("¡Debe loguearse para Puntuar!", 5);
     }
   }
 
@@ -107,7 +109,7 @@ function CardDetail() {
       setPlaceholder("Leave your comment");
       console.log(comment);
     } else {
-      console.log("debe loguearse para dejar comment");
+      message.warning("¡Debe loguearse para Comentar!", 5);
     }
   }
 
@@ -271,13 +273,6 @@ function CardDetail() {
                           });
                         } else if (string3 === "completo") {
                           window.location.href = "/status-payment";
-                          return (
-                            <p className="p-carrito-cardD">Carrito cargado</p>
-                          );
-                        } else {
-                          return (
-                            <p className="p-carrito-cardD">Carrito cargado</p>
-                          );
                         }
                       }
                     })}
