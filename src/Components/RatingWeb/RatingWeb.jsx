@@ -25,7 +25,7 @@ const RatingWeb = () => {
     if (idCoockie) {
       setValue(value2);
     } else {
-      console.log("debe loguearse para puntuar");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
@@ -34,21 +34,25 @@ const RatingWeb = () => {
       setComment(e.target.value);
       setPlaceholder("Leave your comment");
     } else {
-      console.log("debe loguearse para dejar comment");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
   function onClick(e) {
-    e.preventDefault();
-    const put = {
-      userId: idCoockie,
-      comment: comment,
-      rate: value,
-    };
-    console.log(put);
-    dispatch(saveRatingWeb(put));
-    message.success("¡La operación se realizó con éxito!", 5);
-    navigate("/home");
+    if (idCoockie) {
+      e.preventDefault();
+      const put = {
+        userId: idCoockie,
+        comment: comment,
+        rate: value,
+      };
+      console.log(put);
+      dispatch(saveRatingWeb(put));
+      message.success("¡La operación se realizó con éxito!", 5);
+      navigate("/home");
+    } else {
+      message.warning("¡Debe loguearse para puntuar!", 5);
+    }
     // window.location.reload();
   }
   const title = "Cuentanos que te pareció la página!";

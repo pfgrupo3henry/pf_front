@@ -55,41 +55,47 @@ function CardDetail() {
   }
 
   const handleShoppingChart = () => {
-    const product_id = card[0].id;
-    const put = {
-      userId: idCoockie,
-      products: {
-        id: product_id,
-        quantity: 1,
-      },
-    };
+    if (idCoockie) {
+      const product_id = card[0].id;
+      const put = {
+        userId: idCoockie,
+        products: {
+          id: product_id,
+          quantity: 1,
+        },
+      };
 
-    dispatch(addItemToChart(put));
+      dispatch(addItemToChart(put));
 
-    setTimeout(function () {
-      setString("vacio");
-    }, 500);
+      setTimeout(function () {
+        setString("vacio");
+      }, 500);
+    } else {
+      message.warning("¡Debe loguearse para Agregar al carrito!", 5);
+    }
   };
 
   const handleShoppingChart2 = () => {
-    const product_id = card[0].id;
-    const put = {
-      userId: idCoockie,
-      products: {
-        id: product_id,
-        quantity: 1,
-      },
-    };
+    if (idCoockie) {
+      const product_id = card[0].id;
+      const put = {
+        userId: idCoockie,
+        products: {
+          id: product_id,
+          quantity: 1,
+        },
+      };
+      dispatch(addItemToChart(put));
+      setTimeout(function () {
+        setString("vacio");
+      }, 500);
 
-    dispatch(addItemToChart(put));
-
-    setTimeout(function () {
-      setString("vacio");
-    }, 500);
-
-    setTimeout(function () {
-      setString3("completo");
-    }, 1000);
+      setTimeout(function () {
+        setString3("completo");
+      }, 1000);
+    } else {
+      message.warning("¡Debe loguearse para Comprar!", 5);
+    }
   };
 
   function handleRatingChange(value2) {
@@ -97,7 +103,7 @@ function CardDetail() {
       setValue(value2);
       console.log(value);
     } else {
-      console.log("debe loguearse para puntuar");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
@@ -107,22 +113,25 @@ function CardDetail() {
       setPlaceholder("Leave your comment");
       console.log(comment);
     } else {
-      console.log("debe loguearse para dejar comment");
+      message.warning("¡Debe loguearse para puntuar!", 5);
     }
   }
 
   function onClick(e) {
-    e.preventDefault();
-    const put = {
-      userId: idCoockie,
-      videogameId: Number(id),
-      comment: comment,
-      rate: value,
-    };
-    console.log(put);
-    dispatch(saveRatingAndComment(put));
-    message.success("¡La operación se realizó con éxito!", 5);
-    // window.location.reload();
+    if (idCoockie) {
+      e.preventDefault();
+      const put = {
+        userId: idCoockie,
+        videogameId: Number(id),
+        comment: comment,
+        rate: value,
+      };
+      console.log(put);
+      dispatch(saveRatingAndComment(put));
+      message.success("¡La operación se realizó con éxito!", 5);
+    } else {
+      message.warning("¡Debe loguearse para puntuar!", 5);
+    }
   }
 
   if (string === "vacio") {
@@ -244,14 +253,12 @@ function CardDetail() {
                       onClick={handleShoppingChart2}>
                       Buy
                     </Button>
-
                     <Button
                       style={{ color: "rgba(9, 22, 29, 0.712)" }}
                       className="buttonsCardDetail"
                       onClick={handleShoppingChart}>
                       Add To Cart
                     </Button>
-
                     {shoppingChart?.products?.map((game) => {
                       console.log(card[0].id);
                       if (game.id === card[0].id) {
