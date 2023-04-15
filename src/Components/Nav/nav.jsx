@@ -5,12 +5,11 @@ import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
-import { RiShoppingCartLine } from "react-icons/ri";
-import DropdownShoppingCart from "../DropdownShoppingCart/DropdownShoppingCart";
 import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, message, Space, Badge } from "antd";
+import { Dropdown, message, Space } from "antd";
 import Cookies from "universal-cookie";
 import { useSelector, useDispatch } from "react-redux";
+import ShoppingCart from "../DropdownShoppingCart/ShoppingCart";
 
 function Nav(count) {
   const Swal = require("sweetalert2");
@@ -23,17 +22,6 @@ function Nav(count) {
   const cookieRole = cookie.get("role");
 
   console.log(cookieRole);
-
-  const handleLoginClick = () => {
-    Swal.fire({
-      title: "Error!",
-      text: "Debes iniciar sesion",
-      icon: "error",
-      confirmButtonText: "Ok",
-    }).then((res) => {
-      window.location.href = "/login";
-    });
-  };
 
   const inboxOptions = [
     {
@@ -176,24 +164,9 @@ function Nav(count) {
                   </Dropdown>
                 ) : null}
               </div>
-              <Badge
-                count={
-                  shoppingChart.products ? shoppingChart.products.length : "0"
-                }
-                size="small"
-                style={{ backgroundColor: "#1976D2" }}>
-                <RiShoppingCartLine
-                  onClick={() => {
-                    isAuthenticated || cookieId
-                      ? setShoppingCartRender(!shoppingCartRender)
-                      : handleLoginClick();
-                  }}
-                  className={!isAuthenticated && !cookieId ? "cartAux" : "cart"}
-                />
-              </Badge>
+              <ShoppingCart />
             </div>
           </div>
-          {shoppingCartRender ? <DropdownShoppingCart /> : null}
         </div>
       </div>
     );
