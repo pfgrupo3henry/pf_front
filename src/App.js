@@ -15,6 +15,7 @@ import SingUp from "./Components/Login/Sing-up";
 import { LoginForm } from "./Components/Login/Login";
 import Contact from './Components/Contact/Contact'
 import RatingWeb from "./Components/RatingWeb/RatingWeb";
+import Dashboard from "./Components/Admin/dasboardAux";
 
 function App() {
 
@@ -40,6 +41,8 @@ function App() {
  */}          <Route path="/login" element={<SingUp />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='ratingWeb' element={<RatingWeb />} />
+          <Route path='/dash-aux' element={<Dashboard />} />
+
         </Routes>
         <Footer />
       </BrowserRouter>

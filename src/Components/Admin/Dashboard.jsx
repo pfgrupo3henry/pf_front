@@ -10,19 +10,31 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Progress, Space } from "antd";
 import "./Dashboard.css";
-import { getOrders } from "../../Redux/Actions/Index";
+import { getOrders, getUsers } from "../../Redux/Actions/Index";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const allReviews = useSelector((state) => state.allReviews);
   const allOrders = useSelector((state) => state.allOrders);
+  const allUsers = useSelector((state)=> state.allUsers)
 
   const [selectedWeek, setSelectedWeek] = useState("");
-  const [totalSubtotal, setTotalSubtotal] = useState(0);
+  const [totalCash, settotalCash] = useState("");
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [newUsersByDay, setNewUsersByDay] = useState({}); // Estado local para los nuevos usuarios por día
 
-  const [totalSell, settotalSell] = useState("");
+  const [totalSell, settotalSell] = useState(0);
 
+/*   drawerData.userOrder[0]?.orders[0]?.totalAmount
+ */
+
+
+
+
+
+
+//USEEFFECT PARA CANTIDAD DE VENTAS POR DIA RANGO SEMANAL
   useEffect(() => {
     dispatch(getOrders());
   }, []);
@@ -46,19 +58,108 @@ const Dashboard = () => {
     }
   }, [allOrders]);
 
+  console.log("VENTAS POR DIA",totalSell)
+
+
+
   useEffect(() => {
-    // Actualizar el estado de totalSubtotal cuando allOrders cambie
-    if (allOrders && allOrders.All_Orders) {
-      let newTotalSubtotal = 0;
-      allOrders.All_Orders.forEach((user) => {
-        user.orders.forEach((order) => {
-          const subtotal = order.subtotal;
-          newTotalSubtotal += subtotal;
-        });
+    dispatch(getOrders());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getUsers()); // Llama a la acción para obtener los usuarios
+  }, []);
+  
+  useEffect(() => {
+    // Actualiza el estado de newUsersByDay cuando allUsers cambie
+    if (allUsers && allUsers.length > 0) {
+      const newUsersByDay = {};
+      allUsers.forEach(user => {
+        const createdAt = new Date(user.createdAt).toLocaleDateString();
+        if (newUsersByDay[createdAt]) {
+          newUsersByDay[createdAt] += 1;
+        } else {
+          newUsersByDay[createdAt] = 1;
+        }
       });
-      setTotalSubtotal(newTotalSubtotal);
+      setNewUsersByDay(newUsersByDay);
     }
-  }, [allOrders]);
+  }, [allUsers]);
+  
+  console.log("NUEVOS USUARIOS POR DIA", newUsersByDay);
+
+
+
+
+
+
+
+
+
+
+
+
+  //USEEFFECT PARA TOTAL FACTURADO EN PESOS
+  useEffect(() => {
+    // Calcular la suma de todos los totalAmount de las compras
+    const sumTotal = () => {
+      // Verificar si allOrders existe y tiene la propiedad All_Orders
+      if (allOrders && allOrders.All_Orders) {
+        // Obtener todas las órdenes de todos los usuarios
+        const allUserOrders = allOrders.All_Orders.reduce(
+          (acc, user) => acc.concat(user.orders),
+          []
+        );
+
+        // Sumar los totalAmount de todas las órdenes
+        const totalAmounts = allUserOrders.reduce((acc, order) => {
+          const orderTotal = parseFloat(order.totalAmount);
+          return acc + orderTotal;
+        }, 0);
+
+        return totalAmounts;
+      }
+
+      return 0;
+    };
+
+    // Actualizar el estado con el total facturado
+    const totalFacturado = sumTotal();
+    settotalCash(totalFacturado);
+  }, [allOrders]); // Ejecutar el efecto solo cuando allOrders cambie
+
+
+  useEffect(()=>{
+    dispatch(getUsers())
+    const cantidad = allUsers.length;
+    setTotalUsers(cantidad)
+  },[])
+
+/*   useEffect(()=>{
+    dispatch(getUsers())
+    const cantidad = allUsers.length;
+    setTotalUsers(cantidad)
+  },[])
+ */
+
+ /*  useEffect(() => {
+    // Define una función asincrónica para obtener la data de usuarios
+    const fetchData = async () => {
+      try {
+        const users = await getUsers(); // Reemplaza esta llamada con la función que realiza la llamada a la API para obtener la data de usuarios
+        const totalUsers = users.length;
+        console.log("TOTAL DE USUARIOS", totalUsers);
+        dispatch(setTotalUsers(totalUsers)); // Despacha la acción para establecer el total de usuarios en el estado global
+      } catch (error) {
+        // Maneja el error si es necesario
+        console.error('Error al obtener la data de usuarios', error);
+      }
+    };
+
+    // Llama a la función para obtener la data de usuarios
+    fetchData();
+  }, [dispatch]); */
+
 
   const data = [
     // datos de ejemplo para los gráficos
@@ -83,7 +184,29 @@ const Dashboard = () => {
         type: "area",
       },
       xaxis: {
-        categories: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
+        categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
+      },
+      fill: {
+        opacity: 0.6, // Opacidad del área
+      },
+    },
+  };
+
+  const data_area = {
+    series: [
+      {
+        name: "Area 1",
+        data: Object.values(newUsersByDay),
+      },
+    ],
+    options: {
+      chart: {
+        with: 500,
+        height: 350,
+        type: "area",
+      },
+      xaxis: {
+        categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
       },
       fill: {
         opacity: 0.6, // Opacidad del área
@@ -92,6 +215,9 @@ const Dashboard = () => {
   };
   const colors = ["#003785", "#1465bb", "#2196f3", "#81c9fa"];
   const formatter = (value) => <CountUp end={value} separator="," />;
+  const formatter2 = (value) => {
+    return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
 
   const handleChange = (value) => {
     setSelectedWeek(value);
@@ -113,9 +239,9 @@ const Dashboard = () => {
           <Col span={12}>
             <Statistic
               title="Total facturado"
-              value={totalSubtotal}
+              value={totalCash}
               precision={2}
-              formatter={formatter}
+              formatter={formatter2}
             />
           </Col>
         </Row>
@@ -311,7 +437,8 @@ const Dashboard = () => {
                 strokeColor="rgba(0, 143, 251, 0.6)"
                 strokeLinecap="butt"
                 type="circle"
-                percent={75}
+                percent={totalUsers}
+                format={percent => `${percent}%`}
               />
               <Progress
                 strokeColor="rgba(0, 143, 251, 0.6)"
@@ -320,6 +447,7 @@ const Dashboard = () => {
                 percent={23}
               />
               <Progress
+                name="total_users"
                 strokeColor="rgba(0, 143, 251, 0.6)"
                 strokeLinecap="butt"
                 type="circle"
@@ -335,8 +463,8 @@ const Dashboard = () => {
               <Select.Option value="demo">Opcion 3</Select.Option>
             </Select>
             <ReactApexChart
-              options={data2.options}
-              series={data2.series}
+              options={data_area.options}
+              series={data_area.series}
               type="area"
               height={300}
               width={500}
