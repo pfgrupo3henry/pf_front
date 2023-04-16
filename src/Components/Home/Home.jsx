@@ -12,13 +12,8 @@ import OrderMenu from "../OrderMenu/OrderMenu";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import {
-  SmileOutlined,
-  SmileTwoTone,
-  WhatsAppOutlined,
-} from "@ant-design/icons";
+import { SmileOutlined, WhatsAppOutlined } from "@ant-design/icons";
 import RatingWeb from "../RatingWeb/RatingWeb";
-import WhatsappWeb from "../WhatsappWeb/WhatsappWeb";
 import Chatty from "../Chatbot/Chatty";
 import ChatBubble from "../Chatbot/ChatMessage";
 
