@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCards } from '../../Redux/Actions/Index';
 import "./Dashboard.css"
-
+import axios from "axios";
 
 
 
@@ -44,59 +44,78 @@ const EditableCell = ({
 };
 const ProductList = () => {
 
-
-
-    const dispatch = useDispatch()
-
-    useEffect(()=>{
+  useEffect(() => {
     dispatch(getCards())
-    },[])
+  }, [])
 
-
-    const allProducts = useSelector(state => state.cards)
-
-
-
+  const dispatch = useDispatch()
+  const allProducts = useSelector(state => state.cards)
+  const { Search } = Input;
   const [form] = Form.useForm();
-  const [data, setData] = useState(allProducts);
+  const [data, setData] = useState("");
   const [editingKey, setEditingKey] = useState('');
   const isEditing = (record) => record.id === editingKey;
+  const Swal = require('sweetalert2');
+
+
   const edit = (record) => {
+
     form.setFieldsValue({
       name: '',
       age: '',
       address: '',
       ...record,
     });
+
     setEditingKey(record.id);
     console.log("key", record.id)
 
   };
+
   const cancel = () => {
     setEditingKey('');
   };
-  const save = async (id) => {
+
+  const save = async (record, e) => {
+
     try {
+
       const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => id === item.id);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
+      console.log(row);
+
+      axios.put("https://pfservidor-production.up.railway.app/videogames/modify", row)
+        .then((res) => {
+
+          console.log(res);
+          setEditingKey('');
+          dispatch(getCards());
+
+          Swal.fire({
+            title: "Success!",
+            text: 'Juego Modificado',
+            icon: "success",
+            confirmButtonText: 'Ok'
+          }).then((res) => {
+            dispatch(getCards());
+            setData("")
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            title: "Error!",
+            text: 'Error en la modificacion del juego',
+            icon: "error",
+            confirmButtonText: 'Ok'
+          })
+        })
+
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
     }
+
   };
+
   const columns = [
     {
       title: 'Nombre',
@@ -106,41 +125,53 @@ const ProductList = () => {
     },
 
     {
-        title: "Categoria",
-        dataIndex: 'platform',
-        width: 50,
-        editable: true,
-      },
+      title: "Categoria",
+      dataIndex: 'platform',
+      width: 50,
+      editable: true,
+    },
 
-      {
-        title: 'Sub categoria',
-        dataIndex: 'genre',
-        width: 200,
-        editable: true,
-      },
- 
+    {
+      title: 'Sub categoria',
+      dataIndex: 'genre',
+      width: 150,
+      editable: true,
+    },
+
     {
       title: 'Descripcion',
       dataIndex: 'description',
       width: 400,
       editable: true,
     },
-    {
+    /*{
       title: 'Imagen',
       dataIndex: 'imagen',
       width: 200,
+      editable: true,
+    },*/
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      width: 200,
+      editable: true,
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'stock',
+      width: 50,
       editable: true,
     },
     {
       title: 'operation',
       dataIndex: 'operation',
-      width:120,
+      width: 125,
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
             <Typography.Link
-              onClick={() => save(record.key)}
+              onClick={(e) => save(record, e)}
               style={{
                 marginRight: 8,
               }}
@@ -159,6 +190,7 @@ const ProductList = () => {
       },
     },
   ];
+
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
@@ -174,25 +206,61 @@ const ProductList = () => {
       }),
     };
   });
-  return (
-    <div className='tabla-componente'>
 
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{
-          onChange: cancel,
-        }}
-      />
-    </Form>
+  const handleSearchNombre = (e) => {
+
+    let filterUser = allProducts.filter((game) => {
+      return game.name.toLowerCase().includes(e.target.value.toLowerCase())
+    })
+
+    console.log(filterUser);
+    setData(filterUser);
+
+  };
+
+  if (data === "") {
+    setData(allProducts)
+  };
+
+  console.log(data);
+
+  return (
+
+    <div>
+
+      <div className='serach-list'>
+
+        <Search
+          placeholder="Search user" onChange={(e) => handleSearchNombre(e)} enterButton
+          enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }}
+          style={{ width: 480 }}
+        />
+
+      </div>
+
+      <div className='tabla-componente'>
+
+        <Form form={form} component={false}>
+
+          <Table
+            components={{
+              body: {
+                cell: EditableCell,
+              },
+            }}
+            bordered
+            dataSource={data}
+            columns={mergedColumns}
+            rowClassName="editable-row"
+            pagination={{
+              onChange: cancel,
+            }}
+          />
+
+        </Form>
+
+      </div>
+
     </div>
   );
 };

@@ -12,7 +12,6 @@ import ProductList from "./ProductList";
 import { PaymentsViews } from "./PaymentsViews";
 import Cookies from "universal-cookie";
 import VerReviews from "./verReviews";
-import ModificarJuego from "./modificarJuego";
 
 const { Search } = Input;
 
@@ -34,7 +33,6 @@ const items = [
     ]),
 
     getItem('Articulos y usuarios', 'sub2', <AppstoreOutlined />, [
-        getItem('Modificar producto', '0'),
         getItem('Nuevo producto', '1'),
         getItem('Modificar usuarios', '2'),
         getItem('Lista de productos', '4'),
@@ -78,17 +76,13 @@ function Admin() {
 
     const [theme, setTheme] = useState('ligth');
     const [current, setCurrent] = useState('1');
-    const [state, setState] = useState("");
+    const [state, setState] = useState("analytics-finance");
 
 
     const onClick = (e) => {
 
         console.log('click ', e);
         setCurrent(e.key);
-
-        if (e.key === "0") {
-            setState("modificar-juego");
-        }
 
         if (e.key === "1") {
             setState("crear-juego");
@@ -149,13 +143,7 @@ function Admin() {
                     </div>
 
                     <div className="forms-render">
-                        {state === "modificar-juego" ?
 
-                            <div><ModificarJuego /></div>
-                            :
-                            <div></div>
-
-                        }
                         {state === "crear-juego" ?
 
                             <div><FormCreateProduct /></div>
