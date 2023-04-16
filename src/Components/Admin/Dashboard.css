@@ -1,54 +1,60 @@
-.dashboard-component{
+.dashboard-component {
     display: flex;
     flex-wrap: wrap;
     margin-left: 15rem;
     margin-bottom: 4rem;
-    
+
 }
 
-.pie{
+.pie {
     margin-top: 4rem;
     margin-bottom: 2rem;
 }
 
- .total-area{
+.total-area {
     display: flex;
     margin-left: 4rem;
     margin-bottom: 2rem;
     gap: 1rem;
-} 
+}
 
-.progress{
+.progress {
     display: flex;
     margin-top: 5rem;
     gap: 2rem;
 }
 
- .stadisticas{
-  width: 25rem;
-    
-} 
- 
+.stadisticas {
+    width: 25rem;
 
-.stadisticas-dashboard-component{
+}
+
+.stadisticas-dashboard-component {
     display: flex;
     flex-direction: column;
 }
 
-.estadisticas{
+.estadisticas {
     display: flex;
     margin-left: 15rem;
     margin-bottom: 2rem;
-    
+
 }
 
 
-.selectores-dash{
+.selectores-dash {
     width: 10rem;
 }
 
-.tabla-componente{
+.tabla-componente {
     display: flex;
     margin-left: 13rem;
 
+}
+
+.serach-list {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0px 0px 50px 0px;
 }
