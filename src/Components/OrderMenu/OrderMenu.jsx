@@ -28,11 +28,11 @@ const OrderMenu = () => {
   }
 
   const items2 = [
-    getItem("Order by", "Order by", null, [
-      getItem("Lower Price", "1"),
+    getItem("Ordena por", "Ordena por", null, [
+      getItem("Menor precio", "1"),
       getItem("A - Z", "2"),
-      getItem("Z - A", "3")
-    ])
+      getItem("Z - A", "3"),
+    ]),
   ];
 
   const [openKeys, setOpenKeys] = useState(["All"]);
@@ -50,27 +50,24 @@ const OrderMenu = () => {
   const rootSubmenuKeys = ["Ordena Por"];
 
   const onClickOrden = (e) => {
-
     if (e.key === "1") {
-      dispatch(orderByPrice("ORDENAR POR PRECIO"))
-      console.log("1")
+      dispatch(orderByPrice("ORDENAR POR PRECIO"));
+      console.log("1");
     }
 
     if (e.key === "2") {
-      onChange(2)
-      console.log("2")
+      onChange(2);
+      console.log("2");
     }
 
     if (e.key === "3") {
-      onChange(1)
-      console.log("3")
+      onChange(1);
+      console.log("3");
     }
-
   };
 
   return (
     <div className="menu-ordenamiento">
-
       <Menu
         mode="inline"
         onClick={onClickOrden}
@@ -81,8 +78,7 @@ const OrderMenu = () => {
         }}
         items={items2}
       />
-
-    </div >
+    </div>
   );
 };
 export default OrderMenu;
