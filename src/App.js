@@ -15,6 +15,9 @@ import SingUp from "./Components/Login/Sing-up";
 import { LoginForm } from "./Components/Login/Login";
 import Contact from './Components/Contact/Contact'
 import RatingWeb from "./Components/RatingWeb/RatingWeb";
+import Equipo from './Components/Equipo/Equipo';
+import Nosotros from './Components/Nosotros/Nosotros'
+import Chatty from "./Components/Chatbot/Chatty";
 
 function App() {
 
@@ -39,7 +42,12 @@ function App() {
           {/*           <Route path="/login" element={<LoginForm />} />
  */}          <Route path="/login" element={<SingUp />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='ratingWeb' element={<RatingWeb />} />
+          <Route path='/ratingWeb' element={<RatingWeb />} />
+          <Route path='/equipo' element={<Equipo />} />
+          <Route path='/nosotros' element={<Nosotros />} />
+          <Route path='/chatty' element={<Chatty />} />
+
+
         </Routes>
         <Footer />
       </BrowserRouter>
