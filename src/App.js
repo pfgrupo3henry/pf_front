@@ -19,6 +19,7 @@ import Equipo from './Components/Equipo/Equipo';
 import Nosotros from './Components/Nosotros/Nosotros'
 import Chatty from "./Components/Chatbot/Chatty";
 
+
 function App() {
 
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ function App() {
           {/*           <Route path="/login" element={<LoginForm />} />
  */}          <Route path="/login" element={<SingUp />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/dash-aux' element={<Dashboard />} />
           <Route path='/ratingWeb' element={<RatingWeb />} />
           <Route path='/equipo' element={<Equipo />} />
           <Route path='/nosotros' element={<Nosotros />} />
