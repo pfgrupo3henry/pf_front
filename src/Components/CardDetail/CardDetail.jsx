@@ -181,7 +181,7 @@ function CardDetail() {
                   }>
                   <Meta
                     title={card[0].name}
-                    description="Henry Game Store, the best console games, at the best market price"
+                    description="Henry Game Store, los mejores juegos, al mejor precio del mercado"
                   />
                   <br></br>
                 </Card>
@@ -282,14 +282,14 @@ function CardDetail() {
 
               <div className="comentarios-card">
                 <div className="reviewsContainer">
-                  <Card title="PROMEDIO DEL JUEGO">
+                  <Card title="Calificaciones y opiniones">
                     <Rate
                       className="rateProm"
                       disabled
-                      bordered={true}
+                      bordered={false}
                       allowHalf
                       value={prom}
-                    />
+                    />  
                   </Card>
 
                   {reviews2.length !== 0 ? (
