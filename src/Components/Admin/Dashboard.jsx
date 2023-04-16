@@ -196,7 +196,7 @@ const Dashboard = () => {
     series: [
       {
         name: "Area 1",
-        data: Object.values(newUsersByDay),
+        data:newUsersByDay,
       },
     ],
     options: {
