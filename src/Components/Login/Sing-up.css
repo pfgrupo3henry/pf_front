@@ -55,6 +55,22 @@
 }
 
 
+@media(max-width: 700px) {
+
+    .registro {
+        margin-top: 5rem;
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5rem;
+    }
+
+}
+
+
 
 
 

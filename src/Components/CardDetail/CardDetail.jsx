@@ -257,7 +257,7 @@ function CardDetail() {
                     {shoppingChart?.products?.map((game) => {
                       console.log(card[0].id);
                       if (game.id === card[0].id) {
-                        if (game.stock < 0) {
+                        if (game.stock < 1) {
                           let payload = {
                             userId: idCoockie,
                             gameId: id,
