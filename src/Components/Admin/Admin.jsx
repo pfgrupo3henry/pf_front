@@ -76,7 +76,7 @@ function Admin() {
 
     const [theme, setTheme] = useState('ligth');
     const [current, setCurrent] = useState('1');
-    const [state, setState] = useState("");
+    const [state, setState] = useState("analytics-finance");
 
 
     const onClick = (e) => {
