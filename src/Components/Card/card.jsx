@@ -162,7 +162,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
             {shoppingChart.products?.map((game) => {
               if (game.id === id) {
-                if (game.stock < 0) {
+                if (game.stock < 1) {
                   let payload = {
                     userId: idCoockie,
                     gameId: id

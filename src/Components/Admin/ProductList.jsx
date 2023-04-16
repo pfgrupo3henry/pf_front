@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCards } from '../../Redux/Actions/Index';
 import "./Dashboard.css"
-
+import axios from "axios";
 
 
 
@@ -52,16 +52,11 @@ const ProductList = () => {
   const allProducts = useSelector(state => state.cards)
   const { Search } = Input;
   const [form] = Form.useForm();
-  const [data, setData] = useState(allProducts);
+  const [data, setData] = useState("");
   const [editingKey, setEditingKey] = useState('');
   const isEditing = (record) => record.id === editingKey;
-  const [input, setInput] = useState({
-    name: "",
-    platform: "",
-    genre: "",
-    description: "",
-    price: ""
-  })
+  const Swal = require('sweetalert2');
+
 
   const edit = (record) => {
 
@@ -84,22 +79,37 @@ const ProductList = () => {
   const save = async (record, e) => {
 
     try {
+
       const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => record.id === item.id);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
+      console.log(row);
+
+      axios.put("https://pfservidor-production.up.railway.app/videogames/modify", row)
+        .then((res) => {
+
+          console.log(res);
+          setEditingKey('');
+          dispatch(getCards());
+
+          Swal.fire({
+            title: "Success!",
+            text: 'Juego Modificado',
+            icon: "success",
+            confirmButtonText: 'Ok'
+          }).then((res) => {
+            dispatch(getCards());
+            setData("")
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            title: "Error!",
+            text: 'Error en la modificacion del juego',
+            icon: "error",
+            confirmButtonText: 'Ok'
+          })
+        })
+
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
     }
@@ -124,7 +134,7 @@ const ProductList = () => {
     {
       title: 'Sub categoria',
       dataIndex: 'genre',
-      width: 200,
+      width: 150,
       editable: true,
     },
 
@@ -144,6 +154,12 @@ const ProductList = () => {
       title: 'Price',
       dataIndex: 'price',
       width: 200,
+      editable: true,
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'stock',
+      width: 50,
       editable: true,
     },
     {
@@ -200,6 +216,10 @@ const ProductList = () => {
     console.log(filterUser);
     setData(filterUser);
 
+  };
+
+  if (data === "") {
+    setData(allProducts)
   };
 
   console.log(data);
