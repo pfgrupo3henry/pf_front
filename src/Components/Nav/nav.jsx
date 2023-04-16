@@ -25,15 +25,27 @@ function Nav(count) {
 
   const inboxOptions = [
     {
-      label: "Example 1",
+      label: (
+        <Link to="/contact" className="rutasNav">
+          Contacto
+        </Link>
+      ),
       key: "1",
     },
     {
-      label: "Example 2",
+      label: (
+        <Link to="/equipo" className="rutasNav">
+          Equipo de desarrollo
+        </Link>
+      ),
       key: "2",
     },
     {
-      label: "Example 3",
+      label: (
+        <Link to="/nosotros" className="rutasNav">
+          Nosotros
+        </Link>
+      ),
       key: "3",
     },
   ];
@@ -95,7 +107,7 @@ function Nav(count) {
                 }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    Catalogue
+                    Conozcanos
                     <DownOutlined />
                   </Space>
                 </a>
@@ -118,11 +130,6 @@ function Nav(count) {
                 isAuthenticated || cookieId ? "buscadorAux" : "buscador"
               }>
               <SearchBar />
-            </li>
-            <li>
-              <Link to="/contact" className="rutasNav">
-                Contact{" "}
-              </Link>
             </li>
           </ul>
           <div

@@ -1,27 +1,26 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { CardElement } from "../Card/card";
-//import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
-import { Menu, FloatButton, Pagination, Alert, Modal } from "antd";
-//import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
-//import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
+import { Menu, FloatButton, Pagination, Alert, Divider } from "antd";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  filterCards,
-  getUsers,
-  setNameFilter,
-} from "../../Redux/Actions/Index";
+import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
 import OrderMenu from "../OrderMenu/OrderMenu";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { SmileTwoTone } from "@ant-design/icons";
+import {
+  SmileOutlined,
+  SmileTwoTone,
+  WhatsAppOutlined,
+} from "@ant-design/icons";
 import RatingWeb from "../RatingWeb/RatingWeb";
+import WhatsappWeb from "../WhatsappWeb/WhatsappWeb";
+import Chatty from "../Chatbot/Chatty";
+import ChatBubble from "../Chatbot/ChatMessage";
 
 function Home(label, key, icon, children, type) {
   const { logout } = useAuth0();
@@ -119,7 +118,7 @@ function Home(label, key, icon, children, type) {
     };
   }
   const items2 = [
-    getItem("See All", "All", null),
+    getItem("Ver todos", "All", null),
     getItem("PS3", "PS3", null, [
       getItem("Acción", "1"),
       getItem("Aventura", "2"),
@@ -198,6 +197,10 @@ function Home(label, key, icon, children, type) {
     }
   };
 
+  const handleWWClick = () => {
+    window.open("https://web.whatsapp.com/");
+  };
+
   React.useEffect(() => {
     setCurrent(1);
     updateElementsToShow(1);
@@ -222,17 +225,26 @@ function Home(label, key, icon, children, type) {
             <OrderMenu />
           </div>
           <div className="link-float-button">
-            <Link to="/ratingWeb" element={<RatingWeb />}>
-              <FloatButton
-                tooltip="Rate de Web!"
-                icon={
-                  <SmileTwoTone
-                    twoToneColor="#1150af"
-                    style={{ fontSize: "100%" }}
+            <>
+              <FloatButton.Group
+                shape="circle"
+                style={{
+                  right: 20,
+                }}>
+                <FloatButton
+                  onClick={handleWWClick}
+                  tooltip="Consulta con nosotros!"
+                  icon={<WhatsAppOutlined />}
+                />
+                <Divider type="vertical" />
+                <Link to="/ratingWeb" element={<RatingWeb />}>
+                  <FloatButton
+                    tooltip="Califica la Web!"
+                    icon={<SmileOutlined />}
                   />
-                }
-              />
-            </Link>
+                </Link>
+              </FloatButton.Group>
+            </>
           </div>
           <div className="containerExtreme">
             {items.length === 0 ? (
