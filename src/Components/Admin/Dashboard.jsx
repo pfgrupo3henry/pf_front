@@ -7,8 +7,10 @@ import { Select } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Progress } from "antd";
-import { getOrders, getUsers } from "../../Redux/Actions/Index";
+import { getAllRatingsWeb, getOrders, getUsers } from "../../Redux/Actions/Index";
 import "./Dashboard.css";
+import Chart from "react-apexcharts";
+
 import moment from 'moment';
 
 
@@ -22,18 +24,24 @@ const Dashboard = () => {
   const [totalCash, settotalCash] = useState("");
   const [totalUsers, setTotalUsers] = useState(0);
   const [usersByDate, setUsersByDate] = useState({});
+  const allRatingWeb = useSelector((state) => state.allRatingsWeb);
 
+  console.log(
+    "rating",
+    allRatingWeb.map((objeto) => objeto.rate)
+  );
  
 
   const [totalSell, settotalSell] = useState(0);
 
 
 //USEEFFECT PARA CANTIDAD DE VENTAS POR DIA RANGO SEMANAL
-  useEffect(() => {
-    dispatch(getOrders());
-  }, []);
+useEffect(() => {
+  dispatch(getOrders());
+  dispatch(getAllRatingsWeb());
+}, []);
 
-  useEffect(() => {
+  useEffect(() => {         
     // Actualizar el estado de salesByDay cuando allOrders cambie
     if (allOrders && allOrders.All_Orders) {
       const newSalesByDay = {};
@@ -202,6 +210,55 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
   const handleChange = (value) => {
     setSelectedWeek(value);
   };
+
+
+
+  //grafico de las reseñas web :D
+
+  const ratings = allRatingWeb.map((objeto) => objeto.rate);
+
+  const ratingCounts = {};
+
+  for (let i = 0; i < ratings.length; i++) {
+    const rating = ratings[i];
+    ratingCounts[rating] = (ratingCounts[rating] || 0) + 1;
+  }
+
+  const chartData = [];
+
+  for (const rating in ratingCounts) {
+    chartData.push({
+      label: rating,
+      value: ratingCounts[rating],
+    });
+  }
+
+  function DonutChart({ chartData }) {
+
+    chartData.sort((a, b) => parseFloat(a.label) - parseFloat(b.label));
+
+   const options = {
+  labels: chartData.map((data) => "Value " + data.label),
+};
+  
+    const series = chartData.map((data) => data.value)
+  
+    return (
+      <Chart
+        options={options}
+        series={series}
+        type="donut"
+        width="380"
+      />
+    );
+  }
+
+  console.log("RATINGSSS", chartData);
+
+  //grafico de las reseñas web :D
+  
+
+
   return (
     <div className="stadisticas-dashboard-component">
       <div className="estadisticas">
@@ -421,19 +478,10 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
                 percent={totalUsers}
                 format={() => totalUsers}
             />  
-              <Progress
-                strokeColor="rgba(0, 143, 251, 0.6)"
-                strokeLinecap="butt"
-                type="circle"
-                percent={23}
-              />
-              <Progress
-                name="total_users"
-                strokeColor="rgba(0, 143, 251, 0.6)"
-                strokeLinecap="butt"
-                type="circle"
-                percent={47}
-              />
+              <div className="donut">
+               <DonutChart chartData={chartData} />
+              </div>
+
             </div>
           </div>
 
