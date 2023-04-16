@@ -43,7 +43,6 @@ function App() {
           {/*           <Route path="/login" element={<LoginForm />} />
  */}          <Route path="/login" element={<SingUp />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/dash-aux' element={<Dashboard />} />
           <Route path='/ratingWeb' element={<RatingWeb />} />
           <Route path='/equipo' element={<Equipo />} />
           <Route path='/nosotros' element={<Nosotros />} />
