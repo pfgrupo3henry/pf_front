@@ -34,7 +34,7 @@ const initialState = {
     allUsers: [],
     reviews: [],
     allOrders: [],
-    ordersID:[],
+    ordersID: [],
     ratingsWeb: [],
 }
 
@@ -133,11 +133,11 @@ const rootReducer = (state = initialState, action) => {
                 allOrders: action.payload,
             }
 
-            case GET_ORDERS_ID:
-                return {
-                    ...state,
-                    ordersID: action.payload,
-                }
+        case GET_ORDERS_ID:
+            return {
+                ...state,
+                ordersID: action.payload,
+            }
 
         case GET_ALL_USERS:
             return {
@@ -177,11 +177,11 @@ const rootReducer = (state = initialState, action) => {
             orderAz = orderAz.sort((a, b) => {
                 switch (action.payload) {
                     case 1:
-                        if (a.name < b.name) {
+                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
                             return -1;
                         } else return 1
                     case 2:
-                        if (a.name > b.name) {
+                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
                             return -1;
                         } else return 1
                     default: return 0;
@@ -193,18 +193,23 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case ORDER_BY_PRICE: {
-            let ordenAscendente = true;
             let orderPrice = [...state.filteredCards];
-            if (ordenAscendente) {
-                orderPrice = orderPrice.sort((a, b) => a.price - b.price);
-                ordenAscendente = false
+            switch (action.payload) {
+                case 'MENOR PRECIO': {
+                    let orderPriceMayor = orderPrice.sort((a, b) => a.price - b.price);
+                    return {
+                        ...state,
+                        filteredCards: orderPriceMayor
+                    }
+                }
+                case 'MAYOR PRECIO': {
+                    let orderPriceMenor = orderPrice.sort((a, b) => b.price - a.price);
+                    return { ...state, filteredCards: orderPriceMenor }
+                }
             }
-            else {
-                orderPrice = orderPrice.sort((a, b) => b.price - a.price);
-                ordenAscendente = true
-            }
-            return { ...state, filteredCards: orderPrice }
+
         }
+
 
 
 
