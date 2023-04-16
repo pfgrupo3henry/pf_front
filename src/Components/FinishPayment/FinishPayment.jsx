@@ -1,13 +1,17 @@
 import { Button } from "antd";
-import { Avatar, InputNumber, List, Space, Card } from "antd";
+import { Avatar, InputNumber, List, Space, Spin, Card } from "antd";
 import { useState, useEffect } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { LoadingOutlined, } from '@ant-design/icons';
+import { LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./FinishPayment.css";
 import Cookies from "universal-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteChart, getChart, addItemToChart } from "../../Redux/Actions/Index";
+import {
+  deleteChart,
+  getChart,
+  addItemToChart,
+} from "../../Redux/Actions/Index";
 
 function FinishPayment() {
   const [position, setPosition] = useState("bottom");
@@ -41,53 +45,42 @@ function FinishPayment() {
   }, [dispatch]);
 
   const handleShoppingChart = (id) => {
-
     const product_id = id;
     const put = {
       userId: idCoockie,
-      products:
-      {
+      products: {
         id: product_id,
-        quantity: 1
-      }
-
-    }
+        quantity: 1,
+      },
+    };
 
     dispatch(addItemToChart(put));
     setString2("vacio");
     setString("cuenta");
     setString3("cargando");
-
   };
 
   const handleShoppingChart2 = (id, quantity) => {
-
     if (quantity === 1) {
-      return (console.log("no"))
+      return console.log("no");
     } else {
-
       const product_id = id;
       const put = {
         userId: idCoockie,
-        products:
-        {
+        products: {
           id: product_id,
-          quantity: - 1
-        }
-
-      }
+          quantity: -1,
+        },
+      };
 
       dispatch(addItemToChart(put));
       setString2("vacio");
       setString("cuenta");
       setString3("cargando");
-
     }
-
   };
 
   const onClickDelete = (id) => {
-
     let payload = {
       userId: idCoockie,
       gameId: id,
@@ -97,7 +90,6 @@ function FinishPayment() {
     setString2("vacio");
     setString("cuenta");
     setString3("cargando");
-
   };
 
   if (string2 === "vacio") {
@@ -105,12 +97,10 @@ function FinishPayment() {
     setTimeout(function () {
       setString2("completo");
     }, 1000);
-  };
+  }
 
   if (shoppingChart) {
-
     if (shoppingChart.products) {
-
       var newArray = shoppingChart.products;
       console.log(newArray);
 
@@ -121,21 +111,17 @@ function FinishPayment() {
         }
 
         if (string3 === "cargando") {
-
           setTimeout(function () {
             settotalPrice(num);
             setString("terminado");
-            setString3("vacio")
+            setString3("vacio");
           }, 1000);
-
         } else {
           setTimeout(function () {
             settotalPrice(num);
             setString("terminado");
           }, 1000);
-
         }
-
       }
 
       console.log(shoppingChart);
@@ -167,12 +153,13 @@ function FinishPayment() {
                             {item.description}
                             <br></br>
 
-                            {string3 === "vacio" ?
-
+                            {string3 === "vacio" ? (
                               <div className="quantity-delete">
                                 <Button
                                   className="button+"
-                                  onClick={() => handleShoppingChart2(item.id, item.quantity)}>
+                                  onClick={() =>
+                                    handleShoppingChart2(item.id, item.quantity)
+                                  }>
                                   -
                                 </Button>
                                 <p className="p-cantidad">{item.quantity}</p>
@@ -184,26 +171,18 @@ function FinishPayment() {
 
                                 <Button
                                   className="button-borrar"
-                                  onClick={(e) =>
-                                    onClickDelete(item.id)
-                                  }>
+                                  onClick={(e) => onClickDelete(item.id)}>
                                   <AiOutlineDelete className="deleteIcon" />
                                 </Button>
                                 <div className="unit-price">
                                   ${item.price * item.quantity}
                                 </div>
                               </div>
-
-                              :
-
+                            ) : (
                               <div className="quantity-delete">
-                                <Button className="button+">
-                                  -
-                                </Button>
+                                <Button className="button+">-</Button>
                                 <p className="p-cantidad">{item.quantity}</p>
-                                <Button className="button-">
-                                  +
-                                </Button>
+                                <Button className="button-">+</Button>
                                 <Button className="button-borrar">
                                   <AiOutlineDelete className="deleteIcon" />
                                 </Button>
@@ -211,9 +190,7 @@ function FinishPayment() {
                                   <LoadingOutlined />
                                 </div>
                               </div>
-
-                            }
-
+                            )}
                           </div>
                         }
                       />
@@ -226,16 +203,20 @@ function FinishPayment() {
           <div className="card-payment-imgMercadoPago">
             <div className="card-payment">
               <Card
-                title={string3 === "vacio" ?
-                  <div className="container-aux">
-                    <div>Total:</div>
-                    <div>${totalPrice}</div>
-                  </div>
-                  :
-                  <div className="container-aux">
-                    <div>Total:</div>
-                    <div>$<LoadingOutlined /></div>
-                  </div>
+                title={
+                  string3 === "vacio" ? (
+                    <div className="container-aux">
+                      <div>Total:</div>
+                      <div>${totalPrice}</div>
+                    </div>
+                  ) : (
+                    <div className="container-aux">
+                      <div>Total:</div>
+                      <div>
+                        $<LoadingOutlined />
+                      </div>
+                    </div>
+                  )
                 }
                 bordered={true}
                 style={{
@@ -247,32 +228,47 @@ function FinishPayment() {
                 </p>
                 <br></br>
                 <br></br>
-                <Button
-                  onClick={() => {
-                    axios
-                      .post(
-                        "https://pfservidor-production.up.railway.app/payment/mercadopago",
-                        { totalPrice: totalPrice, userId: idCoockie }
-                      )
-                      .then((res) => {
-                        window.location.href = res.data.response.body.init_point;
-                      });
-                  }}
-                  className="buttonsCardDetail"
-                  style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
-                  type="primary">
-                  Finalizar compra
-                </Button>
+                <div className="continue">
+                  <Button
+                    className="botton"
+                    onClick={() => {
+                      axios
+                        .post(
+                          "https://pfservidor-production.up.railway.app/payment/mercadopago",
+                          { totalPrice: totalPrice, userId: idCoockie }
+                        )
+                        .then((res) => {
+                          window.location.href =
+                            res.data.response.body.init_point;
+                        });
+                    }}
+                    style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
+                    type="primary">
+                    Finalizar compra
+                  </Button>
+                </div>
               </Card>
             </div>
           </div>
         </div>
       );
     } else {
-      return <div className="loader-payment">Loading...</div>;
+      return (
+        <div className="loader-card-detail">
+          {" "}
+          <Space
+            direction="vertical"
+            style={{
+              width: "100%",
+            }}>
+            <Spin tip="Loading" size="large">
+              <div className="content" />
+            </Spin>
+          </Space>
+        </div>
+      );
     }
   }
-
 }
 
 export { FinishPayment };
