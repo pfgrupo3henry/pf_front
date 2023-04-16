@@ -198,7 +198,7 @@ function Home(label, key, icon, children, type) {
   };
 
   const handleWWClick = () => {
-    window.open("https://web.whatsapp.com/");
+    window.open("https://wa.me/5492213164508");
   };
 
   React.useEffect(() => {
