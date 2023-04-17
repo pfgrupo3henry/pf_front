@@ -7,17 +7,20 @@ import { Select } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Progress } from "antd";
-import { getAllRatingsWeb, getOrders, getUsers } from "../../Redux/Actions/Index";
+import {
+  getAllRatingsWeb,
+  getOrders,
+  getUsers,
+} from "../../Redux/Actions/Index";
 import "./Dashboard.css";
 import Chart from "react-apexcharts";
 
-import moment from 'moment';
-
+import moment from "moment";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.allOrders);
-  const allUsers = useSelector((state)=> state.allUsers)
+  const allUsers = useSelector((state) => state.allUsers);
 
   const [selectedWeek, setSelectedWeek] = useState("");
   const [totalCash, settotalCash] = useState("");
@@ -31,54 +34,44 @@ const Dashboard = () => {
     "rating",
     allRatingWeb.map((objeto) => objeto.rate)
   );
- 
 
   const [totalSell, settotalSell] = useState(0);
 
+  //USEEFFECT PARA CANTIDAD DE VENTAS POR DIA RANGO SEMANAL
+  useEffect(() => {
+    dispatch(getOrders());
+    dispatch(getAllRatingsWeb());
+  }, []);
 
-//USEEFFECT PARA CANTIDAD DE VENTAS POR DIA RANGO SEMANAL
-useEffect(() => {
-  dispatch(getOrders());
-  dispatch(getAllRatingsWeb());
-}, []);
+  useEffect(() => {
+    // Actualizar el estado de salesByDay cuando allOrders cambie
 
-useEffect(() => {
-  // Actualizar el estado de salesByDay cuando allOrders cambie
-
-
-  if (allOrders && allOrders.All_Orders) {
-
-    const mapeoDeOrdenesCompletadas = allOrders.All_Orders
-
-      ?.map((orden) =>
+    if (allOrders && allOrders.All_Orders) {
+      const mapeoDeOrdenesCompletadas = allOrders.All_Orders?.map((orden) =>
         orden.orders?.filter(
           (ordenDetail) =>
             ordenDetail.status === "Completed Pay" && ordenDetail.totalAmount
         )
-      )
-    const newSalesByDay = {};
+      );
+      const newSalesByDay = {};
 
-    mapeoDeOrdenesCompletadas.forEach((orders) => { 
-
-      orders.forEach((order) => {
-
-        const createdAt = new Date(order.createdAt).toLocaleDateString();
-        const videogamesSold = order.videogames.length;
-        if (newSalesByDay[createdAt]) {
-          newSalesByDay[createdAt] += videogamesSold;
-        } else {
-          newSalesByDay[createdAt] = videogamesSold;
-        }
+      mapeoDeOrdenesCompletadas.forEach((orders) => {
+        orders.forEach((order) => {
+          const createdAt = new Date(order.createdAt).toLocaleDateString();
+          const videogamesSold = order.videogames.length;
+          if (newSalesByDay[createdAt]) {
+            newSalesByDay[createdAt] += videogamesSold;
+          } else {
+            newSalesByDay[createdAt] = videogamesSold;
+          }
+        });
       });
-    });
-    
-    settotalSell(newSalesByDay);
-  }
-  
-}, [allOrders]);
 
-  console.log("VENTAS POR DIA",totalSell)
+      settotalSell(newSalesByDay);
+    }
+  }, [allOrders]);
 
+  console.log("VENTAS POR DIA", totalSell);
 
   //USEEFFECT PARA TOTAL FACTURADO EN PESOS
   useEffect(() => {
@@ -116,56 +109,48 @@ useEffect(() => {
     settotalCash(totalFacturado);
   }, [allOrders]); // Ejecutar el efecto solo cuando allOrders cambie
 
-
   //USEEFFECT PARA TOTAL USUARIOS POR DIA
 
-  useEffect(()=>{
-    dispatch(getUsers())
+  useEffect(() => {
+    dispatch(getUsers());
     const cantidad = allUsers.length;
-    setTotalUsers(cantidad)
-  },[])
+    setTotalUsers(cantidad);
+  }, []);
 
+  useEffect(() => {}, [totalUsers]);
 
-  useEffect(()=>{
-    
-  },[totalUsers])
+  useEffect(() => {
+    const sumUsersByDate = () => {
+      const usersByDate = {};
+      const allDates = allUsers.map((user) => user.createdAt.substring(0, 10)); // Obtener todas las fechas en el rango de fechas
+      const uniqueDates = [...new Set(allDates)]; // Obtener las fechas únicas
 
+      // Crear todas las fechas con contador inicial de 0
+      for (const date of uniqueDates) {
+        usersByDate[date] = 0;
+      }
 
-useEffect(() => {
-  const sumUsersByDate = () => {
-    const usersByDate = {};
-    const allDates = allUsers.map(user => user.createdAt.substring(0, 10)); // Obtener todas las fechas en el rango de fechas
-    const uniqueDates = [...new Set(allDates)]; // Obtener las fechas únicas
+      // Contar los usuarios por fecha
+      for (const user of allUsers) {
+        const date = user.createdAt.substring(0, 10); // Obtener la fecha en formato YYYY-MM-DD
+        usersByDate[date] += 1; // Sumar 1 al contador por cada usuario en esa fecha
+      }
 
-    // Crear todas las fechas con contador inicial de 0
-    for (const date of uniqueDates) {
-      usersByDate[date] = 0;
-    }
+      // Ordenar las fechas en orden ascendente
+      const sortedDates = Object.keys(usersByDate).sort();
+      const sortedUsersByDate = {};
+      for (const date of sortedDates) {
+        sortedUsersByDate[date] = usersByDate[date];
+      }
 
-    // Contar los usuarios por fecha
-    for (const user of allUsers) {
-      const date = user.createdAt.substring(0, 10); // Obtener la fecha en formato YYYY-MM-DD
-      usersByDate[date] += 1; // Sumar 1 al contador por cada usuario en esa fecha
-    }
+      return sortedUsersByDate;
+    };
 
-    // Ordenar las fechas en orden ascendente
-    const sortedDates = Object.keys(usersByDate).sort();
-    const sortedUsersByDate = {};
-    for (const date of sortedDates) {
-      sortedUsersByDate[date] = usersByDate[date];
-    }
+    const usersByDateData = sumUsersByDate();
+    setUsersByDate(usersByDateData);
+  }, [allUsers]);
 
-    return sortedUsersByDate;
-  };
-
-  const usersByDateData = sumUsersByDate();
-  setUsersByDate(usersByDateData);
-}, [allUsers]);
-
-console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
-
-  
-  
+  console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
 
   const dartsyrta = [
     // datos de ejemplo para los gráficos
@@ -198,46 +183,41 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
     },
   };
 
-
-
-
-
   const data_area = {
     series: [
-    {
-    name: "Area 1",
-    data: Object.values(usersByDate),
-    },
+      {
+        name: "Area 1",
+        data: Object.values(usersByDate),
+      },
     ],
     options: {
-    chart: {
-    with: 500,
-    height: 350,
-    type: "area",
+      chart: {
+        with: 500,
+        height: 350,
+        type: "area",
+      },
+      xaxis: {
+        categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
+      },
+      fill: {
+        opacity: 0.6,
+      },
     },
-    xaxis: {
-      categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
-    },
-    fill: {
-    opacity: 0.6,
-    },
-    },
-    };
-
+  };
 
   const colors = ["#003785", "#1465bb", "#2196f3", "#81c9fa"];
   const formatter = (value) => <CountUp end={value} separator="," />;
   const formatter2 = (value) => {
-    return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return `$${value.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   };
 
   const handleChange = (value) => {
     setSelectedWeek(value);
   };
 
-
-
-  
   //GRAFICO DE LAS RESEÑAS WEBS/////////////////////////////////////////////////////////////////
 
   const ratings = allRatingWeb.map((objeto) => objeto.rate);
@@ -259,94 +239,84 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
   }
 
   function DonutChart({ chartData }) {
-
     chartData.sort((a, b) => parseFloat(a.label) - parseFloat(b.label));
 
-   const options = {
-  labels: chartData.map((data) => "Value " + data.label),
-};
-  
-    const series = chartData.map((data) => data.value)
-  
-    return (
-      <Chart
-        options={options}
-        series={series}
-        type="donut"
-        width="380"
-      />
-    );
+    const options = {
+      labels: chartData.map((data) => "Value " + data.label),
+    };
+
+    const series = chartData.map((data) => data.value);
+
+    return <Chart options={options} series={series} type="donut" width="380" />;
   }
 
   console.log("RATINGSSS", chartData);
 
-  //GRAFICO DE LAS RESEÑAS WEBS/////////////////////////////////////////////////////////////////  
+  //GRAFICO DE LAS RESEÑAS WEBS/////////////////////////////////////////////////////////////////
 
-   //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS///////////////////////////////
+  //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS///////////////////////////////
 
-   const ordenes = allOrders.All_Orders;
+  const ordenes = allOrders.All_Orders;
 
-   const mapeoDeOrdenesCompletadas = ordenes
-     ?.map((orden) =>
-       orden.orders
-         ?.filter(
-           (ordenDetail) =>
-             ordenDetail.status === "Completed Pay" && ordenDetail.totalAmount
-         )
-         .map(({ id, status, totalAmount, videogames }) => ({
-           id,
-           status,
-           totalAmount: Number(totalAmount),
-           videogames: videogames.map(({ name, platforms, genres }) => ({
-             name,
-             platforms: platforms && platforms.length ? platforms[0].name : null,
-             genres: genres && genres.length ? genres[0].name : null,
-           })),
-         }))
-     )
-     .flat();
- 
-   // console.log("array original", ordenes);
-   // console.log("las ordenes", mapeoDeOrdenesCompletadas);
- 
-   const genresByPlatforms = mapeoDeOrdenesCompletadas?.map((game) => {
-     return game.videogames;
-   });
- 
-   const genresByPlatformsPS5 = genresByPlatforms
-     ?.map((game) => {
-       if (selectedPlatform === "All") {
-         return game;
-       } else {
-         return game.filter((v) => v.platforms === selectedPlatform);
-       }
-     })
-     .flat();
- 
-   const generos = {};
- 
-   genresByPlatformsPS5?.forEach((game) => {
-     if (!generos[game.genres]) {
-       generos[game.genres] = 1;
-     } else {
-       generos[game.genres]++;
-     }
-   });
- 
-   const arrayGeneros = Object.keys(generos).map((genero) => {
-     return { id: genero, value: generos[genero] };
-   });
- 
-   const handlePlatformChange = (value) => {
-     setSelectedPlatform(value);
-   };
- 
-   // console.log("PREPARANDO EL OBJETO", genresByPlatformsPS5);
-   // console.log("FILTRADO", arrayGeneros);
- 
-   //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS/////////////////////////////// 
-  
+  const mapeoDeOrdenesCompletadas = ordenes
+    ?.map((orden) =>
+      orden.orders
+        ?.filter(
+          (ordenDetail) =>
+            ordenDetail.status === "Completed Pay" && ordenDetail.totalAmount
+        )
+        .map(({ id, status, totalAmount, videogames }) => ({
+          id,
+          status,
+          totalAmount: Number(totalAmount),
+          videogames: videogames.map(({ name, platforms, genres }) => ({
+            name,
+            platforms: platforms && platforms.length ? platforms[0].name : null,
+            genres: genres && genres.length ? genres[0].name : null,
+          })),
+        }))
+    )
+    .flat();
 
+  // console.log("array original", ordenes);
+  // console.log("las ordenes", mapeoDeOrdenesCompletadas);
+
+  const genresByPlatforms = mapeoDeOrdenesCompletadas?.map((game) => {
+    return game.videogames;
+  });
+
+  const genresByPlatformsPS5 = genresByPlatforms
+    ?.map((game) => {
+      if (selectedPlatform === "All") {
+        return game;
+      } else {
+        return game.filter((v) => v.platforms === selectedPlatform);
+      }
+    })
+    .flat();
+
+  const generos = {};
+
+  genresByPlatformsPS5?.forEach((game) => {
+    if (!generos[game.genres]) {
+      generos[game.genres] = 1;
+    } else {
+      generos[game.genres]++;
+    }
+  });
+
+  const arrayGeneros = Object.keys(generos).map((genero) => {
+    return { id: genero, value: generos[genero] };
+  });
+
+  const handlePlatformChange = (value) => {
+    setSelectedPlatform(value);
+  };
+
+  // console.log("PREPARANDO EL OBJETO", genresByPlatformsPS5);
+  // console.log("FILTRADO", arrayGeneros);
+
+  //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS///////////////////////////////
 
   return (
     <div className="stadisticas-dashboard-component">
@@ -374,13 +344,12 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
       </div>
 
       <div className="dashboard-component">
-      <div className="pie">
+        <div className="pie">
           <Select
             placeholder="Consola"
             className="selectores-dash"
             value={selectedPlatform}
-            onChange={handlePlatformChange}
-          >
+            onChange={handlePlatformChange}>
             <Select.Option value="All">Todos</Select.Option>
             <Select.Option value="PS5">PS5</Select.Option>
             <Select.Option value="PS4">PS4</Select.Option>
@@ -476,24 +445,25 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
         <div className="total-area">
           <div className="">
             <Select placeholder="Filtro ejemlo 2" className="selectores-dash">
-              <Select.Option value="demo">Rates mayor a 3</Select.Option>
+              <Select.Option value="demo">Opcion 1</Select.Option>
               <Select.Option value="demo">Opcion 2</Select.Option>
               <Select.Option value="demo">Opcion 3</Select.Option>
             </Select>
 
             <div className="progress">
-            <Progress
+              <p>Usuarios</p>
+              <Progress
                 title="Total de usuarios registrados"
                 strokeColor="rgba(0, 143, 251, 0.6)"
                 strokeLinecap="butt"
                 type="circle"
-                percent={totalUsers}
-                format={() => totalUsers}
-            />  
+                value={totalUsers}
+                format={() => `${totalUsers}  usuarios`}
+              />
               <div className="donut">
-               <DonutChart chartData={chartData} />
+                <p>Rating</p>
+                <DonutChart chartData={chartData} />
               </div>
-
             </div>
           </div>
 
