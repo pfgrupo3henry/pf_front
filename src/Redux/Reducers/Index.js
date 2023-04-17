@@ -20,7 +20,8 @@ import {
     MODIFICAR_USUARIO,
     SAVE_RATING_WEB,
     GET_RATING_WEB,
-    GET_ORDERS_ID
+    GET_ORDERS_ID,
+    GET_ALL_RATING_WEB
 
 } from "../Actions/Types";
 
@@ -36,10 +37,19 @@ const initialState = {
     allOrders: [],
     ordersID:[],
     ratingsWeb: [],
+    allRatingsWeb: []
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case GET_ALL_RATING_WEB:
+            return {
+                ...state,
+                allRatingsWeb: action.payload,
+
+            }
+
         case GET_RATING_WEB:
             return {
                 ...state,
@@ -219,36 +229,3 @@ const rootReducer = (state = initialState, action) => {
 export default rootReducer;
 
 
-
-
-
-
-
-
-
-
-
-/*       let flag = false;
- 
-      state.shoppingChart.length && state.shoppingChart.forEach(el => {
-          if (JSON.stringify(el) === JSON.stringify(action.payload)) {
-              flag = true;
-          }
-      })
- 
-      if (!flag) {
-          localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
-          return {
-              ...state,
-              shoppingChart: [...state.shoppingChart, action.payload]
-          }
-      } else {
-          const filteredChart = state.shoppingChart.filter(el => {
-              return JSON.stringify(el) !== JSON.stringify(action.payload)
-          });
-          localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
-          return {
-              ...state,
-              shoppingChart: [...filteredChart]
-          }
-      } */

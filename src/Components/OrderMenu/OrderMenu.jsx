@@ -30,8 +30,9 @@ const OrderMenu = () => {
   const items2 = [
     getItem("Ordena por", "Ordena por", null, [
       getItem("Menor precio", "1"),
-      getItem("A - Z", "2"),
-      getItem("Z - A", "3"),
+      getItem("Mayor precio", "2"),
+      getItem("A - Z", "3"),
+      getItem("Z - A", "4"),
     ]),
   ];
 
@@ -51,18 +52,18 @@ const OrderMenu = () => {
 
   const onClickOrden = (e) => {
     if (e.key === "1") {
-      dispatch(orderByPrice("ORDENAR POR PRECIO"));
-      console.log("1");
+      dispatch(orderByPrice("MENOR PRECIO"));
     }
-
     if (e.key === "2") {
-      onChange(2);
-      console.log("2");
+      dispatch(orderByPrice("MAYOR PRECIO"));
     }
 
     if (e.key === "3") {
+      onChange(2);
+    }
+
+    if (e.key === "4") {
       onChange(1);
-      console.log("3");
     }
   };
 

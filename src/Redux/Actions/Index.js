@@ -20,10 +20,28 @@ import {
     MODIFICAR_USUARIO,
     SAVE_RATING_WEB,
     GET_RATING_WEB,
-    GET_ORDERS_ID
+    GET_ORDERS_ID,
+    GET_ALL_RATING_WEB
 } from "./Types";
 
 import axios from "axios";
+
+
+export function getAllRatingsWeb() {
+    try {
+        return async function (dispatch) {
+            let results = await axios.get(`https://pfservidor-production.up.railway.app/webreview`);
+
+            return dispatch({
+                type: GET_ALL_RATING_WEB,
+                payload: results.data
+            });
+
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 export function getRatingWeb(id) {
