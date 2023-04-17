@@ -137,12 +137,13 @@ function VerReviews() {
                     />
 
                     <List
-
+                        style={{ width: 900 }}
                         itemLayout="horizontal"
                         dataSource={games.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
                         renderItem={(item, index) => (
                             <List.Item>
                                 <List.Item.Meta
+                                    style={{ width: 500 }}
                                     avatar={<Avatar src={item.img[0]} />}
                                     title={item.name}
                                     description={
