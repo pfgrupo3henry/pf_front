@@ -16,7 +16,6 @@ import moment from 'moment';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const allReviews = useSelector((state) => state.allReviews);
   const allOrders = useSelector((state) => state.allOrders);
   const allUsers = useSelector((state)=> state.allUsers)
 
@@ -25,6 +24,8 @@ const Dashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [usersByDate, setUsersByDate] = useState({});
   const allRatingWeb = useSelector((state) => state.allRatingsWeb);
+
+  const [selectedPlatform, setSelectedPlatform] = useState("All");
 
   console.log(
     "rating",
@@ -41,24 +42,40 @@ useEffect(() => {
   dispatch(getAllRatingsWeb());
 }, []);
 
-  useEffect(() => {         
-    // Actualizar el estado de salesByDay cuando allOrders cambie
-    if (allOrders && allOrders.All_Orders) {
-      const newSalesByDay = {};
-      allOrders.All_Orders.forEach((user) => {
-        user.orders.forEach((order) => {
-          const createdAt = new Date(order.createdAt).toLocaleDateString();
-          const videogamesSold = order.videogames.length;
-          if (newSalesByDay[createdAt]) {
-            newSalesByDay[createdAt] += videogamesSold;
-          } else {
-            newSalesByDay[createdAt] = videogamesSold;
-          }
-        });
+useEffect(() => {
+  // Actualizar el estado de salesByDay cuando allOrders cambie
+
+
+  if (allOrders && allOrders.All_Orders) {
+
+    const mapeoDeOrdenesCompletadas = allOrders.All_Orders
+
+      ?.map((orden) =>
+        orden.orders?.filter(
+          (ordenDetail) =>
+            ordenDetail.status === "Completed Pay" && ordenDetail.totalAmount
+        )
+      )
+    const newSalesByDay = {};
+
+    mapeoDeOrdenesCompletadas.forEach((orders) => { 
+
+      orders.forEach((order) => {
+
+        const createdAt = new Date(order.createdAt).toLocaleDateString();
+        const videogamesSold = order.videogames.length;
+        if (newSalesByDay[createdAt]) {
+          newSalesByDay[createdAt] += videogamesSold;
+        } else {
+          newSalesByDay[createdAt] = videogamesSold;
+        }
       });
-      settotalSell(newSalesByDay);
-    }
-  }, [allOrders]);
+    });
+    
+    settotalSell(newSalesByDay);
+  }
+  
+}, [allOrders]);
 
   console.log("VENTAS POR DIA",totalSell)
 
@@ -68,27 +85,34 @@ useEffect(() => {
     // Calcular la suma de todos los totalAmount de las compras
     const sumTotal = () => {
       // Verificar si allOrders existe y tiene la propiedad All_Orders
-      if (allOrders && allOrders.All_Orders) {
-        // Obtener todas las órdenes de todos los usuarios
-        const allUserOrders = allOrders.All_Orders.reduce(
-          (acc, user) => acc.concat(user.orders),
-          []
-        );
+      // if (allOrders && allOrders.All_Orders) {
+      //   // Obtener todas las órdenes de todos los usuarios
+      //   const allUserOrders = allOrders.All_Orders.reduce(
+      //     (acc, user) => acc.concat(user.orders),
+      //     []
+      //   );
 
-        // Sumar los totalAmount de todas las órdenes
-        const totalAmounts = allUserOrders.reduce((acc, order) => {
-          const orderTotal = parseFloat(order.totalAmount);
-          return acc + orderTotal;
-        }, 0);
+      //   // Sumar los totalAmount de todas las órdenes
+      //   const totalAmounts = allUserOrders.reduce((acc, order) => {
+      //     const orderTotal = parseFloat(order.totalAmount);
+      //     return acc + orderTotal;
+      //   }, 0);
 
-        return totalAmounts;
-      }
+      //   return totalAmounts;
+      // }
 
-      return 0;
+      // return 0;
+
+      const totalSellCompleted = mapeoDeOrdenesCompletadas
+        ?.map((orden) => orden)
+        .reduce((total, { totalAmount }) => total + totalAmount, 0);
+
+      return totalSellCompleted;
     };
 
     // Actualizar el estado con el total facturado
     const totalFacturado = sumTotal();
+    // console.log("total", totalFacturado);
     settotalCash(totalFacturado);
   }, [allOrders]); // Ejecutar el efecto solo cuando allOrders cambie
 
@@ -213,7 +237,8 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
 
 
 
-  //grafico de las reseñas web :D
+  
+  //GRAFICO DE LAS RESEÑAS WEBS/////////////////////////////////////////////////////////////////
 
   const ratings = allRatingWeb.map((objeto) => objeto.rate);
 
@@ -255,7 +280,71 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
 
   console.log("RATINGSSS", chartData);
 
-  //grafico de las reseñas web :D
+  //GRAFICO DE LAS RESEÑAS WEBS/////////////////////////////////////////////////////////////////  
+
+   //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS///////////////////////////////
+
+   const ordenes = allOrders.All_Orders;
+
+   const mapeoDeOrdenesCompletadas = ordenes
+     ?.map((orden) =>
+       orden.orders
+         ?.filter(
+           (ordenDetail) =>
+             ordenDetail.status === "Completed Pay" && ordenDetail.totalAmount
+         )
+         .map(({ id, status, totalAmount, videogames }) => ({
+           id,
+           status,
+           totalAmount: Number(totalAmount),
+           videogames: videogames.map(({ name, platforms, genres }) => ({
+             name,
+             platforms: platforms && platforms.length ? platforms[0].name : null,
+             genres: genres && genres.length ? genres[0].name : null,
+           })),
+         }))
+     )
+     .flat();
+ 
+   // console.log("array original", ordenes);
+   // console.log("las ordenes", mapeoDeOrdenesCompletadas);
+ 
+   const genresByPlatforms = mapeoDeOrdenesCompletadas?.map((game) => {
+     return game.videogames;
+   });
+ 
+   const genresByPlatformsPS5 = genresByPlatforms
+     ?.map((game) => {
+       if (selectedPlatform === "All") {
+         return game;
+       } else {
+         return game.filter((v) => v.platforms === selectedPlatform);
+       }
+     })
+     .flat();
+ 
+   const generos = {};
+ 
+   genresByPlatformsPS5?.forEach((game) => {
+     if (!generos[game.genres]) {
+       generos[game.genres] = 1;
+     } else {
+       generos[game.genres]++;
+     }
+   });
+ 
+   const arrayGeneros = Object.keys(generos).map((genero) => {
+     return { id: genero, value: generos[genero] };
+   });
+ 
+   const handlePlatformChange = (value) => {
+     setSelectedPlatform(value);
+   };
+ 
+   // console.log("PREPARANDO EL OBJETO", genresByPlatformsPS5);
+   // console.log("FILTRADO", arrayGeneros);
+ 
+   //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS/////////////////////////////// 
   
 
 
@@ -285,48 +374,21 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
       </div>
 
       <div className="dashboard-component">
-        <div className="pie">
-          <Select placeholder="Consola" className="selectores-dash">
-            <Select.Option value="demo">PS5</Select.Option>
-            <Select.Option value="demo">PS4</Select.Option>
-            <Select.Option value="demo">PS3</Select.Option>
+      <div className="pie">
+          <Select
+            placeholder="Consola"
+            className="selectores-dash"
+            value={selectedPlatform}
+            onChange={handlePlatformChange}
+          >
+            <Select.Option value="All">Todos</Select.Option>
+            <Select.Option value="PS5">PS5</Select.Option>
+            <Select.Option value="PS4">PS4</Select.Option>
+            <Select.Option value="PS3">PS3</Select.Option>
           </Select>
 
           <Pie
-            data={[
-              {
-                id: "Accion",
-                value: 10,
-              },
-              {
-                id: "Deportes",
-                value: 10,
-              },
-              {
-                id: "Aventura",
-                value: 10,
-              },
-              {
-                id: "Conduccion",
-                value: 20,
-              },
-              {
-                id: "Multijugador",
-                value: 7,
-              },
-              {
-                id: "Combos",
-                value: 3,
-              },
-              {
-                id: "Estrategia",
-                value: 4,
-              },
-              {
-                id: "Infantiles",
-                value: 5,
-              },
-            ]}
+            data={arrayGeneros}
             width={500}
             height={300}
             margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
@@ -351,7 +413,7 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
             }}
             defs={[
               {
-                id: "dots",
+                asd: "dots",
                 type: "patternDots",
                 background: "inherit",
                 color: "rgba(255, 255, 255, 0.3)",
@@ -367,56 +429,6 @@ console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
                 rotation: -45,
                 lineWidth: 6,
                 spacing: 10,
-              },
-            ]}
-            fill={[
-              {
-                match: {
-                  id: "ruby",
-                },
-                id: "dots",
-              },
-              {
-                match: {
-                  id: "c",
-                },
-                id: "dots",
-              },
-              {
-                match: {
-                  id: "go",
-                },
-                id: "dots",
-              },
-              {
-                match: {
-                  id: "python",
-                },
-                id: "dots",
-              },
-              {
-                match: {
-                  id: "scala",
-                },
-                id: "lines",
-              },
-              {
-                match: {
-                  id: "lisp",
-                },
-                id: "lines",
-              },
-              {
-                match: {
-                  id: "elixir",
-                },
-                id: "lines",
-              },
-              {
-                match: {
-                  id: "javascript",
-                },
-                id: "lines",
               },
             ]}
             legends={[
