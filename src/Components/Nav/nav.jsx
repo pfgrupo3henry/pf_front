@@ -18,10 +18,11 @@ function Nav(count) {
   const shoppingChart = useSelector((state) => state.shoppingChart);
   const dispatch = useDispatch();
   const cookie = new Cookies();
-  const cookieId = cookie.get("firstname");
+  const cookieId = cookie.get("id");
   const cookieRole = cookie.get("role");
 
   console.log(cookieRole);
+  console.log(cookieId);
 
   const inboxOptions = [
     {
@@ -180,7 +181,7 @@ function Nav(count) {
                 ) :
                   null}
 
-                {cookieRole !== "Admin" && !isAuthenticated && cookieId ?
+                {!isAuthenticated && cookieId && cookieRole !== "Admin" ?
                   <Dropdown
                     className=""
                     menu={{
@@ -188,7 +189,10 @@ function Nav(count) {
                     }}>
                     <a onClick={(e) => e.preventDefault()}>
                       <Space>
-                        <Profile />
+                        <img
+                          className="imgProfile"
+                          src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
+                          alt="profile"></img>
                       </Space>
                     </a>
                   </Dropdown>
