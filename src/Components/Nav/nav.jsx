@@ -86,9 +86,8 @@ function Nav(count) {
   if (shoppingChart) {
     return (
       <div
-        className={`nav-component ${
-          isAuthenticated || cookieId ? "nav" : "navAux"
-        }`}>
+        className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"
+          }`}>
         <div className="rutasNavContainer">
           <ul>
             <li
@@ -146,21 +145,9 @@ function Nav(count) {
             }></div>
           <div className="rutasNav3">
             <div className="profileNav">
-              {cookieRole === "Admin" ? (
-                <Dropdown
-                  className=""
-                  menu={{
-                    items: profileOptionsAdmin,
-                  }}>
-                  <a onClick={(e) => e.preventDefault()}>
-                    <Space>
-                      <Profile />
-                    </Space>
-                  </a>
-                </Dropdown>
-              ) : null}
               <div>
-                {cookieId && !isAuthenticated && cookieRole === "Admin" ? (
+
+                {cookieRole === "Admin" && !isAuthenticated ? (
                   <Dropdown
                     className=""
                     menu={{
@@ -175,7 +162,25 @@ function Nav(count) {
                       </Space>
                     </a>
                   </Dropdown>
-                ) : (
+                ) :
+                  null}
+
+                {cookieRole === "Admin" && isAuthenticated ? (
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptionsAdmin,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <Profile />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                ) :
+                  null}
+
+                {cookieRole !== "Admin" && !isAuthenticated && cookieId ?
                   <Dropdown
                     className=""
                     menu={{
@@ -187,7 +192,24 @@ function Nav(count) {
                       </Space>
                     </a>
                   </Dropdown>
-                )}
+                  :
+                  null}
+
+                {cookieRole !== "Admin" && isAuthenticated ?
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptions,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <Profile />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                  :
+                  null}
+
               </div>
               <ShoppingCart />
             </div>
