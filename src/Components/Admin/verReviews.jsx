@@ -127,7 +127,7 @@ function VerReviews() {
 
             {state === "data" ?
 
-                <div>
+                <div className='lista-selects'>
 
                     <Search
                         className="buttonSearch"
@@ -156,9 +156,11 @@ function VerReviews() {
                                     }
                                 />
 
-                                <Button type='primary' htmlType='submit' onClick={() => onCLick(item)}>
-                                    Ver Reviews
-                                </Button>
+                                <div className="button-review-admin">
+                                    <Button type='primary' htmlType='submit' onClick={() => onCLick(item)}>
+                                        Ver Reviews
+                                    </Button>
+                                </div>
 
                             </List.Item>
 

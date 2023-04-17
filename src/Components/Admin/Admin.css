@@ -80,7 +80,6 @@ h1 {
 .admin-component .buttonSearch {
     color: rgba(9, 22, 29, 0.712);
     margin-bottom: 3rem;
-    margin-left: 8rem;
 }
 
 .admin-component .searchUserListContainer {
@@ -96,18 +95,23 @@ h1 {
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    margin-left: 10rem;
+    margin-left: 7rem;
 }
 
 .lista-selects {
     display: flex;
     flex-direction: column;
-    padding: 0px 0px 0px 80px;
+    align-items: center;
+    justify-content: center;
+    padding-left: 220px;
 }
 
-.pagination {
-    margin-left: 20rem;
-    margin-top: 2rem;
+.lista-selects-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 200px;
 }
 
 .role {
@@ -133,4 +137,13 @@ h1 {
 
 .status-review {
     color: blue;
+}
+
+.button-review-admin {
+    padding-left: 550px;
+}
+
+.pagination {
+    padding-top: 10px;
+    padding-bottom: 30px;
 }

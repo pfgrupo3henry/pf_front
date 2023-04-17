@@ -234,13 +234,13 @@ function UserInfo() {
         <Menu
           theme={theme}
           onClick={onClick}
-          style={{
-            width: 256,
-          }}
           defaultOpenKeys={["sub1"]}
           selectedKeys={[current]}
           mode="inline"
           items={items}
+          style={{
+            width: "256px",
+          }}
         />
       </div>
 

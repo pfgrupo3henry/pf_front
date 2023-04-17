@@ -67,7 +67,7 @@ function ModifyUser() {
   };
 
   return (
-    <div className='lista-selects'>
+    <div className='lista-selects-user'>
 
       <Search
         className="buttonSearch"
