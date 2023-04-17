@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Line } from "@nivo/line";
 import { Pie } from "@nivo/pie";
-import { Bar } from "@nivo/bar";
 import { Col, Row, Statistic } from "antd";
 import CountUp from "react-countup";
 import ReactApexChart from "react-apexcharts";
 import { Select } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Progress, Space } from "antd";
+import { Progress } from "antd";
+import { getAllRatingsWeb, getOrders, getUsers } from "../../Redux/Actions/Index";
 import "./Dashboard.css";
-import { getOrders, getUsers } from "../../Redux/Actions/Index";
-import "./Dashboard.css";
+import Chart from "react-apexcharts";
+
+import moment from 'moment';
+
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -22,24 +23,25 @@ const Dashboard = () => {
   const [selectedWeek, setSelectedWeek] = useState("");
   const [totalCash, settotalCash] = useState("");
   const [totalUsers, setTotalUsers] = useState(0);
-  const [newUsersByDay, setNewUsersByDay] = useState({}); // Estado local para los nuevos usuarios por día
+  const [usersByDate, setUsersByDate] = useState({});
+  const allRatingWeb = useSelector((state) => state.allRatingsWeb);
+
+  console.log(
+    "rating",
+    allRatingWeb.map((objeto) => objeto.rate)
+  );
+ 
 
   const [totalSell, settotalSell] = useState(0);
 
-/*   drawerData.userOrder[0]?.orders[0]?.totalAmount
- */
-
-
-
-
-
 
 //USEEFFECT PARA CANTIDAD DE VENTAS POR DIA RANGO SEMANAL
-  useEffect(() => {
-    dispatch(getOrders());
-  }, []);
+useEffect(() => {
+  dispatch(getOrders());
+  dispatch(getAllRatingsWeb());
+}, []);
 
-  useEffect(() => {
+  useEffect(() => {         
     // Actualizar el estado de salesByDay cuando allOrders cambie
     if (allOrders && allOrders.All_Orders) {
       const newSalesByDay = {};
@@ -59,44 +61,6 @@ const Dashboard = () => {
   }, [allOrders]);
 
   console.log("VENTAS POR DIA",totalSell)
-
-
-
-  useEffect(() => {
-    dispatch(getOrders());
-  }, []);
-
-  useEffect(() => {
-    dispatch(getUsers()); // Llama a la acción para obtener los usuarios
-  }, []);
-  
-  useEffect(() => {
-    // Actualiza el estado de newUsersByDay cuando allUsers cambie
-    if (allUsers && allUsers.length > 0) {
-      const newUsersByDay = {};
-      allUsers.forEach(user => {
-        const createdAt = new Date(user.createdAt).toLocaleDateString();
-        if (newUsersByDay[createdAt]) {
-          newUsersByDay[createdAt] += 1;
-        } else {
-          newUsersByDay[createdAt] = 1;
-        }
-      });
-      setNewUsersByDay(newUsersByDay);
-    }
-  }, [allUsers]);
-  
-  console.log("NUEVOS USUARIOS POR DIA", newUsersByDay);
-
-
-
-
-
-
-
-
-
-
 
 
   //USEEFFECT PARA TOTAL FACTURADO EN PESOS
@@ -129,39 +93,57 @@ const Dashboard = () => {
   }, [allOrders]); // Ejecutar el efecto solo cuando allOrders cambie
 
 
+  //USEEFFECT PARA TOTAL USUARIOS POR DIA
+
   useEffect(()=>{
     dispatch(getUsers())
     const cantidad = allUsers.length;
     setTotalUsers(cantidad)
   },[])
 
-/*   useEffect(()=>{
-    dispatch(getUsers())
-    const cantidad = allUsers.length;
-    setTotalUsers(cantidad)
-  },[])
- */
 
- /*  useEffect(() => {
-    // Define una función asincrónica para obtener la data de usuarios
-    const fetchData = async () => {
-      try {
-        const users = await getUsers(); // Reemplaza esta llamada con la función que realiza la llamada a la API para obtener la data de usuarios
-        const totalUsers = users.length;
-        console.log("TOTAL DE USUARIOS", totalUsers);
-        dispatch(setTotalUsers(totalUsers)); // Despacha la acción para establecer el total de usuarios en el estado global
-      } catch (error) {
-        // Maneja el error si es necesario
-        console.error('Error al obtener la data de usuarios', error);
-      }
-    };
-
-    // Llama a la función para obtener la data de usuarios
-    fetchData();
-  }, [dispatch]); */
+  useEffect(()=>{
+    
+  },[totalUsers])
 
 
-  const data = [
+useEffect(() => {
+  const sumUsersByDate = () => {
+    const usersByDate = {};
+    const allDates = allUsers.map(user => user.createdAt.substring(0, 10)); // Obtener todas las fechas en el rango de fechas
+    const uniqueDates = [...new Set(allDates)]; // Obtener las fechas únicas
+
+    // Crear todas las fechas con contador inicial de 0
+    for (const date of uniqueDates) {
+      usersByDate[date] = 0;
+    }
+
+    // Contar los usuarios por fecha
+    for (const user of allUsers) {
+      const date = user.createdAt.substring(0, 10); // Obtener la fecha en formato YYYY-MM-DD
+      usersByDate[date] += 1; // Sumar 1 al contador por cada usuario en esa fecha
+    }
+
+    // Ordenar las fechas en orden ascendente
+    const sortedDates = Object.keys(usersByDate).sort();
+    const sortedUsersByDate = {};
+    for (const date of sortedDates) {
+      sortedUsersByDate[date] = usersByDate[date];
+    }
+
+    return sortedUsersByDate;
+  };
+
+  const usersByDateData = sumUsersByDate();
+  setUsersByDate(usersByDateData);
+}, [allUsers]);
+
+console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
+
+  
+  
+
+  const dartsyrta = [
     // datos de ejemplo para los gráficos
     { x: "Enero", y: 10 },
     { x: "Febrero", y: 20 },
@@ -192,27 +174,33 @@ const Dashboard = () => {
     },
   };
 
+
+
+
+
   const data_area = {
     series: [
-      {
-        name: "Area 1",
-        data:newUsersByDay,
-      },
+    {
+    name: "Area 1",
+    data: Object.values(usersByDate),
+    },
     ],
     options: {
-      chart: {
-        with: 500,
-        height: 350,
-        type: "area",
-      },
-      xaxis: {
-        categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
-      },
-      fill: {
-        opacity: 0.6, // Opacidad del área
-      },
+    chart: {
+    with: 500,
+    height: 350,
+    type: "area",
     },
-  };
+    xaxis: {
+      categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
+    },
+    fill: {
+    opacity: 0.6,
+    },
+    },
+    };
+
+
   const colors = ["#003785", "#1465bb", "#2196f3", "#81c9fa"];
   const formatter = (value) => <CountUp end={value} separator="," />;
   const formatter2 = (value) => {
@@ -222,6 +210,55 @@ const Dashboard = () => {
   const handleChange = (value) => {
     setSelectedWeek(value);
   };
+
+
+
+  //grafico de las reseñas web :D
+
+  const ratings = allRatingWeb.map((objeto) => objeto.rate);
+
+  const ratingCounts = {};
+
+  for (let i = 0; i < ratings.length; i++) {
+    const rating = ratings[i];
+    ratingCounts[rating] = (ratingCounts[rating] || 0) + 1;
+  }
+
+  const chartData = [];
+
+  for (const rating in ratingCounts) {
+    chartData.push({
+      label: rating,
+      value: ratingCounts[rating],
+    });
+  }
+
+  function DonutChart({ chartData }) {
+
+    chartData.sort((a, b) => parseFloat(a.label) - parseFloat(b.label));
+
+   const options = {
+  labels: chartData.map((data) => "Value " + data.label),
+};
+  
+    const series = chartData.map((data) => data.value)
+  
+    return (
+      <Chart
+        options={options}
+        series={series}
+        type="donut"
+        width="380"
+      />
+    );
+  }
+
+  console.log("RATINGSSS", chartData);
+
+  //grafico de las reseñas web :D
+  
+
+
   return (
     <div className="stadisticas-dashboard-component">
       <div className="estadisticas">
@@ -433,26 +470,18 @@ const Dashboard = () => {
             </Select>
 
             <div className="progress">
-              <Progress
+            <Progress
+                title="Total de usuarios registrados"
                 strokeColor="rgba(0, 143, 251, 0.6)"
                 strokeLinecap="butt"
                 type="circle"
                 percent={totalUsers}
-                format={percent => `${percent}%`}
-              />
-              <Progress
-                strokeColor="rgba(0, 143, 251, 0.6)"
-                strokeLinecap="butt"
-                type="circle"
-                percent={23}
-              />
-              <Progress
-                name="total_users"
-                strokeColor="rgba(0, 143, 251, 0.6)"
-                strokeLinecap="butt"
-                type="circle"
-                percent={47}
-              />
+                format={() => totalUsers}
+            />  
+              <div className="donut">
+               <DonutChart chartData={chartData} />
+              </div>
+
             </div>
           </div>
 
