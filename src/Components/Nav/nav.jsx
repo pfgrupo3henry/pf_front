@@ -64,6 +64,24 @@ function Nav(count) {
       key: "3",
     },
   ];
+  const profileOptionsAdmin = [
+    {
+      label: <Link to="/profile">Profile</Link>,
+      key: "1",
+    },
+    {
+      label: <Link to="/favorites">Favorites</Link>,
+      key: "2",
+    },
+    {
+      label: <Link to="admin">Admin</Link>,
+      key: "3",
+    },
+    {
+      label: <Logout />,
+      key: "4",
+    },
+  ];
 
   if (shoppingChart) {
     return (
@@ -113,18 +131,6 @@ function Nav(count) {
                 </a>
               </Dropdown>
             </li>
-            {cookieRole === "Admin" ? (
-              <li
-                className={
-                  isAuthenticated || cookieId
-                    ? "rutasNavAlternativeAux"
-                    : "rutasNav"
-                }>
-                <Link to="/admin" className="rutasNav">
-                  Admin
-                </Link>
-              </li>
-            ) : null}
             <li
               className={
                 isAuthenticated || cookieId ? "buscadorAux" : "buscador"
@@ -140,11 +146,11 @@ function Nav(count) {
             }></div>
           <div className="rutasNav3">
             <div className="profileNav">
-              {isAuthenticated ? (
+              {cookieRole === "Admin" ? (
                 <Dropdown
                   className=""
                   menu={{
-                    items: profileOptions,
+                    items: profileOptionsAdmin,
                   }}>
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
@@ -154,11 +160,11 @@ function Nav(count) {
                 </Dropdown>
               ) : null}
               <div>
-                {cookieId && !isAuthenticated ? (
+                {cookieId && !isAuthenticated && cookieRole === "Admin" ? (
                   <Dropdown
                     className=""
                     menu={{
-                      items: profileOptions,
+                      items: profileOptionsAdmin,
                     }}>
                     <a onClick={(e) => e.preventDefault()}>
                       <Space>
@@ -169,7 +175,19 @@ function Nav(count) {
                       </Space>
                     </a>
                   </Dropdown>
-                ) : null}
+                ) : (
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptions,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <Profile />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                )}
               </div>
               <ShoppingCart />
             </div>
