@@ -67,7 +67,7 @@ function Favorites() {
             <div className="listFavoritesCard">
               <List.Item
 
-                key={item.title}
+                key={item.id}
                 actions={[
                   <div className="iconsFavCard">
                     <AiFillHeart />
@@ -88,7 +88,7 @@ function Favorites() {
                 }
               >
                 <List.Item.Meta
-                  title={item.title}
+                  title={item.name}
                   description={item.description}
                 />
                 <div className="priceFavCard">

@@ -18,7 +18,7 @@
     flex-direction: row;
     width: 100%;
     margin-top: 45.2px;
-    min-height: 120vh;
+    min-height: 80vh;
     position: relative;
 }
 
@@ -28,23 +28,13 @@
     width: 300px;
 }
 
-.menuOptions .ant-menu-inline {
-    box-shadow: none;
-    margin: auto;
-}
-
 .menuProfileInfo .menuOptions {
     background-color: #fff;
     border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
     box-shadow: 10px 0 5px -10px #00000020;
-    padding-top: 30px;
-    padding-right: 10px;
-    padding-left: 10px;
-    top: 0;
-    bottom: 0;
-    left: 40px;
+    padding-top: 70px;
     z-index: 1;
-    width: 25%;
+    width: 250px;
 }
 
 .cardUserInfoDescription {

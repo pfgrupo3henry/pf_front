@@ -72,6 +72,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     }
 
     dispatch(postFavorites(putFavorite));
+    message.success("¡Juego agregado a Favoritos!", 5);
 
   };
 
@@ -84,6 +85,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     }
 
     dispatch(deleteFavorites(deleteFavorite));
+    message.success("¡Juego borrado de Favoritos!", 5);
 
   };
 
@@ -102,6 +104,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     dispatch(addItemToChart(put));
     setString("vacio");
+    message.success("¡Juego agregado a Carrito!", 5);
 
   };
 
@@ -114,6 +117,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     dispatch(deleteChart(payload));
     setString("vacio");
+    message.success("¡Juego borrado del Carrito!", 5);
 
   };
 
