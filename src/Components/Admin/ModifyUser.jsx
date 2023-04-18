@@ -40,12 +40,12 @@ function ModifyUser() {
     console.log("data", data)
     console.log("id", user_id)
     dispatch(modificarUser(user_id, data))
-    Swal.fire({
-      title: "Success!",
-      text: 'Usuario Modificado',
-      icon: "success",
-      confirmButtonText: 'Ok'
-    })
+    /*   Swal.fire({
+        title: "Success!",
+        text: 'Usuario Modificado',
+        icon: "success",
+        confirmButtonText: 'Ok'
+      }) */
     message.success("¡La operación se realizó con éxito!", 5);
   }
 

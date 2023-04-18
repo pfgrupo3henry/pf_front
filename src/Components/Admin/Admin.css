@@ -124,6 +124,8 @@ h1 {
 
 .game-card-admin {
     display: flex;
+    gap: 8rem;
+    margin-left: 12rem;
 }
 
 .reviews-card-admin {
@@ -135,7 +137,6 @@ h1 {
 .body-review-admin {
     margin-top: 2rem;
     min-height: 105vh;
-    width: 500px;
 
 }
 
@@ -150,6 +151,7 @@ h1 {
 .pagination {
     padding-top: 10px;
     padding-bottom: 30px;
+    margin-top: 1rem;
 }
 
 .status-buttonDelete{
@@ -174,6 +176,7 @@ h1 {
 .carta-aux{
     display: flex;
     margin-left: 4rem;
+    gap: 5rem;
 }
 
 .aux7{
@@ -205,3 +208,16 @@ h1 {
     max-width: 100%;
 }
 
+.role{
+    display: flex;
+    flex-direction: column;
+}
+
+.yanosenda{
+    display: flex;
+    gap: 2rem;
+}
+
+.description123{
+    width: 40rem;
+}
