@@ -129,15 +129,17 @@ h1 {
 .reviews-card-admin {
     display: inline-block;
     padding: 0px 0px 0px 80px;
+    margin-bottom: 3rem;
 }
 
 .body-review-admin {
     min-height: 100vh;
+    margin-top: 2rem;
 }
 
-.status-review {
+/* .status-review {
     color: blue;
-}
+} */
 
 .button-review-admin {
     padding-left: 250px;
@@ -147,3 +149,57 @@ h1 {
     padding-top: 10px;
     padding-bottom: 30px;
 }
+
+.status-buttonDelete{
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    align-items: center;
+}
+
+
+.button-delete{
+    font-size: 1.2rem;
+}
+.button-delete:hover{
+    transform: scale(1.2);
+}
+
+.listadereviews{
+    margin-top: 2rem;
+}
+
+.carta-aux{
+    display: flex;
+    margin-left: 4rem;
+}
+
+.aux7{
+    display: flex;
+    margin-top: 1rem;
+    gap: 2rem;
+    align-items: center;
+}
+
+.rateProm{
+    margin-bottom: 0.5rem;
+}
+
+.pagination2{
+    margin-left: 10rem;
+    margin-top: 1rem;
+}
+
+.serach-list{
+    margin-left: 10rem;
+}
+
+.axuilar{
+    max-width: 50rem;
+}
+
+
+.cardIndoUserInformation{
+    max-width: 100%;
+}
+

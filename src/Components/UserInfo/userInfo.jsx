@@ -270,15 +270,18 @@ function UserInfo() {
         {verFrom ? (
           <Form
             name="wrap"
-            labelCol={{ flex: "110px" }}
+            labelCol={{
+              span: 6,
+            }}
             labelAlign="left"
             labelWrap
-            wrapperCol={{ flex: 1 }}
-            colon={false}
+            wrapperCol={{
+              span: 14,
+            }}
             style={{ maxWidth: 600 }}
             onChange={handelInputChange}>
             <Form.Item
-              label="Nombre"
+              label="juan"
               name="firstname"
               rules={[{ required: true }]}>
               <Input name="firstname" />

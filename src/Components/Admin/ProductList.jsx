@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCards } from '../../Redux/Actions/Index';
 import "./Dashboard.css"
 import axios from "axios";
+import "./Admin.css"
 
 
 
