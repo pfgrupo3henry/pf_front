@@ -94,3 +94,21 @@
     display: flex !important;
     margin: auto !important;
 }
+
+.botonOrden{
+    margin-left: 6rem;
+    align-items: center;
+}
+
+.iconoss{
+    font-size: 1.5rem;
+    display: flex;
+    margin-top: 0.5rem;
+    align-items: center;
+}
+
+.paginadoLista{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}

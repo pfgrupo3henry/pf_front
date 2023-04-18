@@ -1,6 +1,6 @@
 import React from "react";
 import "./nav.css";
-import { Logout } from "../Auth0/logut";
+import { Salir } from "../Auth0/logut";
 import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import SearchBar from "../SearchBar/SearchBar";
@@ -54,33 +54,33 @@ function Nav(count) {
 
   const profileOptions = [
     {
-      label: <Link to="/profile">Profile</Link>,
+      label: <Link to="/profile">Mi perfil</Link>,
       key: "1",
     },
     {
-      label: <Link to="/favorites">Favorites</Link>,
+      label: <Link to="/favorites">Favoritos</Link>,
       key: "2",
     },
     {
-      label: <Logout />,
+      label: <Salir />,
       key: "3",
     },
   ];
   const profileOptionsAdmin = [
     {
-      label: <Link to="/profile">Profile</Link>,
+      label: <Link to="/profile">Mi perfil</Link>,
       key: "1",
     },
     {
-      label: <Link to="/favorites">Favorites</Link>,
+      label: <Link to="/favorites">Favoritos</Link>,
       key: "2",
     },
     {
-      label: <Link to="admin">Admin</Link>,
+      label: <Link to="admin">Administrador</Link>,
       key: "3",
     },
     {
-      label: <Logout />,
+      label: <Salir />,
       key: "4",
     },
   ];
@@ -99,7 +99,7 @@ function Nav(count) {
                   : "rutasNav"
               }>
               <Link to="/home" className="rutasNav">
-                Home
+                Inicio
               </Link>
             </li>
             {isAuthenticated || cookieId ? null : (
@@ -110,7 +110,7 @@ function Nav(count) {
                     : "rutasNavAux"
                 }>
                 <Link to="/login" className="rutasNav">
-                  Login
+                  Iniciar Sesion
                 </Link>
               </li>
             )}

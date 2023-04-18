@@ -7,8 +7,8 @@ import { Input } from 'antd';
 
 
 
-export const Logout = () => {
-    const { logout } = useAuth0();
+export const Salir = () => {
+    const { Salir } = useAuth0();
     const form = useRef();
     const { user } = useAuth0();
     const [color, setColor] = React.useState('rgba(9, 22, 29, 1)');
@@ -17,7 +17,7 @@ export const Logout = () => {
         document.cookie.split(";").forEach(function (c) {
             document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
-        logout().then((res) => {
+        Salir().then((res) => {
             window.location.href = "/";
         })
     };
@@ -39,7 +39,7 @@ export const Logout = () => {
     return (
 
         <Space wrap>
-            <div onClick={() => eliminarCookies()} type="primary">Logout</div>
+            <div onClick={() => eliminarCookies()} type="primary">Salir</div>
         </Space>
 
         // <form ref={form} onSubmit={sendEmail} className="form-email">
