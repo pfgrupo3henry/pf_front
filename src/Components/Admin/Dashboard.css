@@ -11,16 +11,11 @@
     margin-bottom: 2rem;
 }
 
-.total-area {
-    display: inline-block;
-    margin-left: 4rem;
-    margin-bottom: 2rem;
-    gap: 1rem;
-}
 
 .progress {
     display: flex;
-    margin-top: 5rem;
+    flex-direction: column;
+    margin-top: 3rem;
     gap: 2rem;
 }
 
@@ -59,3 +54,33 @@
     text-align: center;
     padding: 0px 0px 50px 0px;
 }
+
+.total-de-usuarios-y-rates{
+    display: flex;
+    ;
+}
+
+.pie-bars{
+    display: flex;
+    gap: 6rem;
+}
+
+.total-area {
+    display: flex;
+    margin-bottom: 2rem;
+    gap: 4rem;
+    margin-right: 3rem;
+}
+
+.laconchadetuhermana{
+    display: flex;
+    gap: 2rem;
+    margin-left: 10rem;
+}
+
+.donut{
+    margin-top: 3rem;
+
+}
+
+

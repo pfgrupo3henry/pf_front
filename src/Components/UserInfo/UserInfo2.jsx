@@ -232,7 +232,6 @@ function UserInfo() {
     <div className="menuProfileInfo">
       <div className="menuOptions">
         <Menu
-          theme={theme}
           onClick={onClick}
           defaultOpenKeys={["sub1"]}
           selectedKeys={[current]}
@@ -245,16 +244,22 @@ function UserInfo() {
       </div>
 
       <div className="cardIndoUserInformation">
-        <div>
+        <div className="axuilar">
           {verFrom ? (
             <Form
               name="wrap"
-              labelCol={{ flex: "110px" }}
-              labelAlign="left"
+              labelCol={{
+                span: 6,
+              }}
               labelWrap
-              wrapperCol={{ flex: 1 }}
+              wrapperCol={{
+                span: 20
+              }}
+
               colon={false}
-              style={{ maxWidth: 600 }}
+              style={{
+                maxWidth: 800,
+              }}
               onChange={handelInputChange}>
               <Form.Item
                 label="Nombre"
@@ -271,7 +276,7 @@ function UserInfo() {
               </Form.Item>
 
               <Form.Item
-                label="Upload"
+                label="Imagen"
                 valuePropName="fileList"
                 initialValue={fileList[0]}
                 name="upload"
@@ -295,7 +300,7 @@ function UserInfo() {
                       style={{
                         marginTop: 8,
                       }}>
-                      Image
+                      Foto
                     </div>
                   </div>
                 </Upload>
@@ -322,7 +327,7 @@ function UserInfo() {
                   type="primary"
                   htmlType="submit"
                   onClick={modifyUserSubmit}>
-                  Submit
+                  Actualizar
                 </Button>
               </Form.Item>
             </Form>
@@ -331,23 +336,25 @@ function UserInfo() {
 
         {pagos.length !== 0 ? (
           <List
-            itemLayout="vertical"
+            itemLayout="horizontal"
             size="large"
             pagination={{
+              
               onChange: (page) => {
                 console.log(page);
               },
-              pageSize: 3,
+              pageSize: 5,
+              
             }}
             dataSource={pagos[0].orders}
             renderItem={(item) => (
-              <List.Item key={item.title}>
+              <List.Item key={item.title}>  
                 <List.Item.Meta
                   avatar={
                     item.status === "Completed Pay" ? (
-                      <CheckCircleTwoTone twoToneColor="#52c41a" />
+                      <CheckCircleTwoTone className="iconoss" twoToneColor="#52c41a" />
                     ) : item.status === "Rejected Pay" ? (
-                      <CloseCircleTwoTone twoToneColor="#eb2f96" />
+                      <CloseCircleTwoTone className="iconoss" twoToneColor="#eb2f96" />
                     ) : (
                       <Avatar src={item.avatar} />
                     )
@@ -362,9 +369,11 @@ function UserInfo() {
                     </div>
                   }
                 />
+                <div className="botonOrden">
                 <Button type="primary" onClick={() => showModal(item)}>
-                  Order Detail
+                  Detalle de la orden
                 </Button>
+                </div>
                 {console.log(selectedItem)}
 
                 <Modal
@@ -377,7 +386,7 @@ function UserInfo() {
                     dataSource={data}
                     footer={() => (
                       <div style={{ textAlign: "right" }}>
-                        <strong>Total Amount:</strong>{" "}
+                        <strong>Monto total:</strong>{" "}
                         {selectedItem.totalAmount}
                       </div>
                     )}

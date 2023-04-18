@@ -141,6 +141,7 @@ function FinishPayment() {
                   pagination={{
                     position,
                     align,
+                    className:"paginationxd"
                   }}
                   dataSource={shoppingChart.products}
                   renderItem={(item, index) => (

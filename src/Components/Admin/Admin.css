@@ -124,21 +124,25 @@ h1 {
 
 .game-card-admin {
     display: flex;
+    gap: 8rem;
+    margin-left: 12rem;
 }
 
 .reviews-card-admin {
     display: inline-block;
     padding: 0px 0px 0px 80px;
+    margin-bottom: 3rem;
 }
 
 .body-review-admin {
+    margin-top: 2rem;
     min-height: 105vh;
-    width: 500px;
+
 }
 
-.status-review {
+/* .status-review {
     color: blue;
-}
+} */
 
 .button-review-admin {
     padding-left: 250px;
@@ -147,4 +151,73 @@ h1 {
 .pagination {
     padding-top: 10px;
     padding-bottom: 30px;
+    margin-top: 1rem;
+}
+
+.status-buttonDelete{
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    align-items: center;
+}
+
+
+.button-delete{
+    font-size: 1.2rem;
+}
+.button-delete:hover{
+    transform: scale(1.2);
+}
+
+.listadereviews{
+    margin-top: 2rem;
+}
+
+.carta-aux{
+    display: flex;
+    margin-left: 4rem;
+    gap: 5rem;
+}
+
+.aux7{
+    display: flex;
+    margin-top: 1rem;
+    gap: 2rem;
+    align-items: center;
+}
+
+.rateProm{
+    margin-bottom: 0.5rem;
+}
+
+.pagination2{
+    margin-left: 10rem;
+    margin-top: 1rem;
+}
+
+.serach-list{
+    margin-left: 10rem;
+}
+
+.axuilar{
+    max-width: 50rem;
+}
+
+
+.cardIndoUserInformation{
+    max-width: 100%;
+}
+
+.role{
+    display: flex;
+    flex-direction: column;
+}
+
+.yanosenda{
+    display: flex;
+    gap: 2rem;
+}
+
+.description123{
+    width: 40rem;
 }
