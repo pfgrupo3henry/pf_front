@@ -339,10 +339,12 @@ function UserInfo() {
             itemLayout="horizontal"
             size="large"
             pagination={{
+              
               onChange: (page) => {
                 console.log(page);
               },
               pageSize: 5,
+              
             }}
             dataSource={pagos[0].orders}
             renderItem={(item) => (
