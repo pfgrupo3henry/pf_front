@@ -133,8 +133,10 @@ h1 {
 }
 
 .body-review-admin {
-    min-height: 100vh;
     margin-top: 2rem;
+    min-height: 105vh;
+    width: 500px;
+
 }
 
 /* .status-review {

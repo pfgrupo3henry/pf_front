@@ -121,7 +121,7 @@ const ProductList = () => {
     {
       title: 'Nombre',
       dataIndex: 'name',
-      width: 300,
+      width: 100,
       editable: true,
     },
 
@@ -135,14 +135,14 @@ const ProductList = () => {
     {
       title: 'Sub categoria',
       dataIndex: 'genre',
-      width: 150,
+      width: 50,
       editable: true,
     },
 
     {
       title: 'Descripcion',
       dataIndex: 'description',
-      width: 400,
+      width: 300,
       editable: true,
     },
     /*{
@@ -154,7 +154,7 @@ const ProductList = () => {
     {
       title: 'Price',
       dataIndex: 'price',
-      width: 200,
+      width: 50,
       editable: true,
     },
     {
