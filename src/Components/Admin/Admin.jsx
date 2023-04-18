@@ -107,7 +107,10 @@ function Admin() {
     setTheme(value ? "dark" : "light");
   };
 
-  if (true) {
+  if (cookieRole !== "Admin") {
+    return (<div>Cargando...</div>);
+} else if (true) {
+    
     return (
       <div className="admin-component">
         <div className="menuOptions">
