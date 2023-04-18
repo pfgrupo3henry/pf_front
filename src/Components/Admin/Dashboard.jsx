@@ -322,166 +322,132 @@ const Dashboard = () => {
   return (
     <div className="stadisticas-dashboard-component">
       <div className="estadisticas">
-        <Row className="stadisticas" gutter={16}>
-          <Col span={12}>
-            <Statistic
-              title="Total de ventas"
-              value={Object.values(totalSell).reduce(
-                (acc, curr) => acc + curr,
-                0
-              )}
-              formatter={formatter}
-            />
-          </Col>
-          <div className="harto">
-            <Col span={12}>
-            <Statistic
-              title="Total facturado"
-              value={totalCash}
-              precision={2}
-              formatter={formatter2}
-            />
-          </Col>
-
-          </div>
-         
-        </Row>
-        <Col span={12}>
-            <Statistic
-              title="Total de usuarios"
-              value={totalUsers}
-              formatter={formatter}
-            />
-          </Col>
+        <Statistic
+          title="Total de ventas:"
+          value={Object.values(totalSell).reduce((acc, curr) => acc + curr, 0)}
+          formatter={formatter}
+        />
+        <Statistic
+          title="Total facturado:"
+          value={totalCash}
+          precision={2}
+          formatter={formatter2}
+        />
+        <Statistic
+          title="Total de usuarios registrados:"
+          value={totalUsers}
+          formatter={formatter}
+        />
       </div>
-
       <div className="dashboard-component">
-
         <div className="pie-bars">
-        <div className="pie">
-          <Select
-            placeholder="Consola"
-            className="selectores-dash"
-            value={selectedPlatform}
-            onChange={handlePlatformChange}>
-            <Select.Option value="All">Todos</Select.Option>
-            <Select.Option value="PS5">PS5</Select.Option>
-            <Select.Option value="PS4">PS4</Select.Option>
-            <Select.Option value="PS3">PS3</Select.Option>
-          </Select>
+          <div className="pie">
+            <Select
+              placeholder="Consola"
+              className="selectores-dash"
+              value={selectedPlatform}
+              onChange={handlePlatformChange}
+            >
+              <Select.Option value="All">Todos</Select.Option>
+              <Select.Option value="PS5">PS5</Select.Option>
+              <Select.Option value="PS4">PS4</Select.Option>
+              <Select.Option value="PS3">PS3</Select.Option>
+            </Select>
 
-          <Pie
-            data={arrayGeneros}
-            width={500}
-            height={300}
-            margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-            innerRadius={0.5}
-            padAngle={0.7}
-            cornerRadius={3}
-            activeOuterRadiusOffset={8}
-            colors={{ scheme: "blues" }}
-            borderWidth={1}
-            borderColor={{
-              from: "color",
-              modifiers: [["darker", 0.2]],
-            }}
-            arcLinkLabelsSkipAngle={10}
-            arcLinkLabelsTextColor="#333333"
-            arcLinkLabelsThickness={2}
-            arcLinkLabelsColor={{ from: "color" }}
-            arcLabelsSkipAngle={10}
-            arcLabelsTextColor={{
-              from: "color",
-              modifiers: [["darker", 2]],
-            }}
-            defs={[
-              {
-                asd: "dots",
-                type: "patternDots",
-                background: "inherit",
-                color: "rgba(255, 255, 255, 0.3)",
-                size: 4,
-                padding: 1,
-                stagger: true,
-              },
-              {
-                id: "lines",
-                type: "patternLines",
-                background: "inherit",
-                color: "rgba(255, 255, 255, 0.3)",
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10,
-              },
-            ]}
-            legends={[
-              {
-                anchor: "bottom",
-                direction: "row",
-                justify: false,
-                translateX: 0,
-                translateY: 56,
-                itemsSpacing: 0,
-                itemWidth: 100,
-                itemHeight: 18,
-                itemTextColor: "#999",
-                itemDirection: "left-to-right",
-                itemOpacity: 1,
-                symbolSize: 18,
-                symbolShape: "circle",
-                effects: [
-                  {
-                    on: "hover",
-                    style: {
-                      itemTextColor: "#000",
-                    },
-                  },
-                ],
-              },
-            ]}
-          />
-        </div>
+            <Pie
+              data={arrayGeneros}
+              width={450}
+              height={280}
+              margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+              innerRadius={0.5}
+              padAngle={0.7}
+              cornerRadius={3}
+              activeOuterRadiusOffset={8}
+              colors={{ scheme: "blues" }}
+              borderWidth={1}
+              borderColor={{
+                from: "color",
+                modifiers: [["darker", 0.2]],
+              }}
+              arcLinkLabelsSkipAngle={10}
+              arcLinkLabelsTextColor="#333333"
+              arcLinkLabelsThickness={2}
+              arcLinkLabelsColor={{ from: "color" }}
+              arcLabelsSkipAngle={10}
+              arcLabelsTextColor={{
+                from: "color",
+                modifiers: [["darker", 2]],
+              }}
+              defs={[
+                {
+                  asd: "dots",
+                  type: "patternDots",
+                  background: "inherit",
+                  color: "rgba(255, 255, 255, 0.3)",
+                  size: 2,
+                  padding: 1,
+                  stagger: true,
+                },
+                {
+                  id: "lines",
+                  type: "patternLines",
+                  background: "inherit",
+                  color: "rgba(255, 255, 255, 0.3)",
+                  rotation: -45,
+                  lineWidth: 6,
+                  spacing: 10,
+                },
+              ]}
+              // legends={[
+              //   {
+              //     anchor: "bottom",
+              //     direction: "row",
+              //     justify: false,
+              //     translateX: 0,
+              //     translateY: 56,
+              //     itemsSpacing: 0,
+              //     itemWidth: 100,
+              //     itemHeight: 18,
+              //     itemTextColor: "#999",
+              //     itemDirection: "left-to-right",
+              //     itemOpacity: 1,
+              //     symbolSize: 18,
+              //     symbolShape: "circle",
+              //     effects: [
+              //       {
+              //         on: "hover",
+              //         style: {
+              //           itemTextColor: "#000",
+              //         },
+              //       },
+              //     ],
+              //   },
+              // ]}
+            />
+          </div>
 
-        <div>
-          <Select placeholder="Filtro ejemplo 1" className="selectores-dash">
-            <Select.Option value="demo">Opcion 1</Select.Option>
-            <Select.Option value="demo">Opcion 2</Select.Option>
-            <Select.Option value="demo">Opcion 3</Select.Option>
-          </Select>
-          <ReactApexChart
-            options={data2.options}
-            series={data2.series}
-            type="bar"
-            height={350}
-            width={500}
-          />
-        </div>
+          <div className="grafico1">
+            <Select placeholder="Filtro ejemplo 1" className="selectores-dash">
+              <Select.Option value="demo">Opcion 1</Select.Option>
+              <Select.Option value="demo">Opcion 2</Select.Option>
+              <Select.Option value="demo">Opcion 3</Select.Option>
+            </Select>
+            <ReactApexChart
+              options={data2.options}
+              series={data2.series}
+              type="bar"
+              height={320}
+              width={450}
+            />
+          </div>
         </div>
         <div className="total-area">
-     
-            <div className="total-de-usuarios-y-rates">
-              <div className="laconchadetuhermana">
-
-                
-                  {/* <div className="progress">
-                      <p>Usuarios</p>
-                      <Progress
-                        title="Total de usuarios registrados"
-                        strokeColor="rgba(0, 143, 251, 0.6)"
-                        strokeLinecap="butt"
-                        type="circle"
-                        value={totalUsers}
-                        format={() => `${totalUsers}  `}
-                      />
-                    </div> */}
-                  <div className="donut">
-                    <p>Rating</p>
-                    <DonutChart chartData={chartData} />
-                  </div>
-            </div>
+          <div className="donut">
+            <p>Rating</p>
+            <DonutChart chartData={chartData} />
           </div>
 
-          <div>
+          <div className="grafico3" >
             <Select placeholder="Filtro ejemplo 3" className="selectores-dash">
               <Select.Option value="demo">Opcion 1</Select.Option>
               <Select.Option value="demo">Opcion 2</Select.Option>
@@ -491,13 +457,11 @@ const Dashboard = () => {
               options={data_area.options}
               series={data_area.series}
               type="area"
-              height={300}
-              width={500}
+              height={280}
+              width={450}
             />
           </div>
         </div>
-
-
       </div>
     </div>
   );
