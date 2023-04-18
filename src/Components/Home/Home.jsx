@@ -253,7 +253,8 @@ function Home(label, key, icon, children, type) {
                   onClick={showModal}
                   icon={<RiChat1Line />}></FloatButton>
                 <Modal
-                  title="Chatbot"
+                  className="title-chatbot"
+                  title="Chatbot Henry Games"
                   open={isModalVisible}
                   onCancel={handleCancel}
                   footer={null}>
