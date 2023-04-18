@@ -2,8 +2,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 90vh;
-      background-color: aliceblue;
+      min-height: 97vh;
+      background-image: url("https://media.vandal.net/m/90453/hogwarts-legacy-20209173191472_1.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
 }
 
 .comentarios-card {

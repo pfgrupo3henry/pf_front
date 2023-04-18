@@ -20,6 +20,7 @@ function Nav(count) {
   const cookie = new Cookies();
   const cookieId = cookie.get("id");
   const cookieRole = cookie.get("role");
+  const cookieImg = cookie.get("img");
 
   console.log(cookieRole);
   console.log(cookieId);
@@ -158,7 +159,7 @@ function Nav(count) {
                       <Space>
                         <img
                           className="imgProfile"
-                          src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
+                          src={cookieImg ? cookieImg : "https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"}
                           alt="profile"></img>
                       </Space>
                     </a>
@@ -191,7 +192,7 @@ function Nav(count) {
                       <Space>
                         <img
                           className="imgProfile"
-                          src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
+                          src={cookieImg ? cookieImg : "https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"}
                           alt="profile"></img>
                       </Space>
                     </a>
