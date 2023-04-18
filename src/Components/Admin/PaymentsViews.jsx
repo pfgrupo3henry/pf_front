@@ -117,7 +117,10 @@ function PaymentsViews () {
 
 
   return (
+
+    
     <>
+    <div>En desarrollo</div>
       <List
       style={{
         marginTop: "5rem",
@@ -126,6 +129,12 @@ function PaymentsViews () {
         width: 700,
       }}
         dataSource={allOrders.All_Orders}
+        pagination={{
+          onChange: (page) => {
+            console.log(page);
+          },
+          pageSize: 5,
+        }}
         bordered
         renderItem={(item) => ( 
           <List.Item
