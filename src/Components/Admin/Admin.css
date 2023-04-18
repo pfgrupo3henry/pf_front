@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.body-review-admin {
+  min-height: 105vh;
+}
+
 .admin-component {
   height: 100%;
   width: 100%;
@@ -155,6 +159,7 @@ h1 {
 .button-delete {
   font-size: 1.2rem;
 }
+
 .button-delete:hover {
   transform: scale(1.2);
 }
@@ -165,14 +170,10 @@ h1 {
 
 .carta-aux {
   display: flex;
-  margin-left: 4rem;
-  gap: 5rem;
 }
 
 .aux7 {
   display: flex;
-  margin-top: 1rem;
-  gap: 2rem;
   align-items: center;
 }
 
@@ -227,4 +228,3 @@ h1 {
   width: 90%;
   margin: auto;
 }
-
