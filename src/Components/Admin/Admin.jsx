@@ -118,7 +118,9 @@ function Admin() {
     };
 
 
-    if (true) {
+    if (cookieRole !== "Admin") {
+        return (<div>Cargando...</div>);
+    } else if (true) {
 
         return (
 
