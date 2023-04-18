@@ -242,7 +242,8 @@ const Dashboard = () => {
     chartData.sort((a, b) => parseFloat(a.label) - parseFloat(b.label));
 
     const options = {
-      labels: chartData.map((data) => "Value " + data.label),
+      labels: chartData.map((data) => "Calificación " + data.label),
+      colors: ["#005187", "#c4dafa", "#84b6f4", "#4d82bc"], // Aquí puedes especificar los colores que desees
     };
 
     const series = chartData.map((data) => data.value);
@@ -332,7 +333,8 @@ const Dashboard = () => {
               formatter={formatter}
             />
           </Col>
-          <Col span={12}>
+          <div className="harto">
+            <Col span={12}>
             <Statistic
               title="Total facturado"
               value={totalCash}
@@ -340,10 +342,22 @@ const Dashboard = () => {
               formatter={formatter2}
             />
           </Col>
+
+          </div>
+         
         </Row>
+        <Col span={12}>
+            <Statistic
+              title="Total de usuarios"
+              value={totalUsers}
+              formatter={formatter}
+            />
+          </Col>
       </div>
 
       <div className="dashboard-component">
+
+        <div className="pie-bars">
         <div className="pie">
           <Select
             placeholder="Consola"
@@ -442,28 +456,28 @@ const Dashboard = () => {
             width={500}
           />
         </div>
+        </div>
         <div className="total-area">
-          <div className="">
-            <Select placeholder="Filtro ejemlo 2" className="selectores-dash">
-              <Select.Option value="demo">Opcion 1</Select.Option>
-              <Select.Option value="demo">Opcion 2</Select.Option>
-              <Select.Option value="demo">Opcion 3</Select.Option>
-            </Select>
+     
+            <div className="total-de-usuarios-y-rates">
+              <div className="laconchadetuhermana">
 
-            <div className="progress">
-              <p>Usuarios</p>
-              <Progress
-                title="Total de usuarios registrados"
-                strokeColor="rgba(0, 143, 251, 0.6)"
-                strokeLinecap="butt"
-                type="circle"
-                value={totalUsers}
-                format={() => `${totalUsers}  usuarios`}
-              />
-              <div className="donut">
-                <p>Rating</p>
-                <DonutChart chartData={chartData} />
-              </div>
+                
+                  {/* <div className="progress">
+                      <p>Usuarios</p>
+                      <Progress
+                        title="Total de usuarios registrados"
+                        strokeColor="rgba(0, 143, 251, 0.6)"
+                        strokeLinecap="butt"
+                        type="circle"
+                        value={totalUsers}
+                        format={() => `${totalUsers}  `}
+                      />
+                    </div> */}
+                  <div className="donut">
+                    <p>Rating</p>
+                    <DonutChart chartData={chartData} />
+                  </div>
             </div>
           </div>
 
@@ -483,11 +497,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <Progress
-          strokeColor="rgba(0, 143, 251, 0.6)"
-          strokeLinecap="butt"
-          percent={62}
-        />
+
       </div>
     </div>
   );

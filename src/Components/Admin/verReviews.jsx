@@ -17,13 +17,13 @@ function VerReviews() {
     const [prom, setProm] = useState(0);
     const [state, setState] = useState("data");
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10); // Cambia aquí para ajustar la cantidad de elementos por página
+    const [pageSize, setPageSize] = useState(5); // Cambia aquí para ajustar la cantidad de elementos por página
     const { Search } = Input;
     const { Meta } = Card;
 
    
     const [currentPage2, setCurrentPage2] = useState(1);
-    const [pageSize2, setPageSize2] = useState(5);
+    const [pageSize2, setPageSize2] = useState(3);
 
 
 
@@ -171,10 +171,13 @@ function VerReviews() {
                                     title={item.name}
                                     description={
                                         <div className=''>
-                                            <span>${item.price}</span>
                                             <div className='role'>
-                                                <p>{item.platform}</p>
-                                                <p>{item.genre}</p>
+                                                <p className="description123">{item.description}</p>
+                                                <div className="yanosenda">
+                                                    <p>{item.platform}</p>
+                                                    <p>{item.genre}</p>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                     }
@@ -232,85 +235,85 @@ function VerReviews() {
                     </Card>
 
                     <div className="reviews-card-admin">
-                    <div className="carta-aux">
-                    <div className="aux7">
-                            <h4>
-                                Calificación y opiniones
-                            </h4>
-                            <div>
-                                <Rate
-                                className="rateProm"
-                                disabled
-                                bordered={false}
-                                allowHalf
-                                value={prom}
-                            />
+                        <div className="carta-aux">
+                            <div className="aux7">
+                                    <h4>
+                                        Calificación y opiniones
+                                    </h4>
+                                    <div>
+                                        <Rate
+                                        className="rateProm"
+                                        disabled
+                                        bordered={false}
+                                        allowHalf
+                                        value={prom}
+                                    />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        </div>
 
-                        {reviews2.length !== 0 ?
+                            {reviews2.length !== 0 ?
                             <div className="listadereviews">
-                            <List
-                                itemLayout="horizontal"
-                                dataSource={reviews2.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
-                                renderItem={(item, index) => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={<Avatar src={item.userInfo.img[0]} />}
-                                            title={
-                                                <Rate
-                                                className="rate"
-                                                disabled
-                                                allowHalf
-                                                value={Number(item.rate)}
-                                            />}
-                                            description={
-                                                <div>
-                                                    <p className="comment">{item.comment}</p>
-                                                    <div className="status-buttonDelete">
-                                                    <p className="status-review">Estado de la calificación: {item.status}</p>
-                                                    {item.status === "Active" ?
-                                                        <div className="button-delete">
-                                                        < Button
-                                                            type="submit"
-                                                            onClick={() => deleteReview(item.id, item.status)}
-                                                            icon={<DeleteOutlined
-                                                                className="button-delete" />}
-                                                        >
-                                                        </Button>
-                                                        </div>
-                                                        :
-                                                        <Button
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={reviews2.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
+                                    renderItem={(item, index) => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                avatar={<Avatar src={item.userInfo.img[0]} />}
+                                                title={
+                                                    <Rate
+                                                    className="rate"
+                                                    disabled
+                                                    allowHalf
+                                                    value={Number(item.rate)}
+                                                />}
+                                                description={
+                                                    <div>
+                                                        <p className="comment">{item.comment}</p>
+                                                        <div className="status-buttonDelete">
+                                                        <p className="status-review">Estado de la calificación: {item.status}</p>
+                                                        {item.status === "Active" ?
+                                                            <div className="button-delete">
+                                                            < Button
+                                                                type="submit"
+                                                                onClick={() => deleteReview(item.id, item.status)}
+                                                                icon={<DeleteOutlined
+                                                                    className="button-delete" />}
+                                                            >
+                                                            </Button>
+                                                            </div>
+                                                            :
+                                                            <Button
+                                                                
+                                                                type="submit"
+                                                                onClick={() => deleteReview(item.id, item.status)}
+                                                                icon={<CheckOutlined />}
+                                                            >
+                                                            </Button>
                                                             
-                                                            type="submit"
-                                                            onClick={() => deleteReview(item.id, item.status)}
-                                                            icon={<CheckOutlined />}
-                                                        >
-                                                        </Button>
-                                                        
-                                                    }
+                                                        }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            }
-                                        />
-                                    </List.Item>
-                                )}
-                            />
+                                                }
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
+                                </div>
+                                : null}
+                                <div className='pagination2'>
+                                    <Pagination
+                                    current={currentPage2}
+                                    pageSize={pageSize2}
+                                    total={reviews2.length}
+                                    onChange={handlePageChange2}
+                                    />
+                                </div>
+
                             </div>
-                            : null}
-                             <div className='pagination2'>
-                            <Pagination
-                            current={currentPage2}
-                            pageSize={pageSize2}
-                            total={reviews2.length}
-                            onChange={handlePageChange2}
-                            />
-                             </div>
 
-                    </div>
-
-                </div>
+                        </div>
 
                 :
                 null
