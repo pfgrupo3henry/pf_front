@@ -14,8 +14,9 @@ export const Salir = () => {
     function eliminarCookies() {
         document.cookie.split(";").forEach(function (c) {
             document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-            logout();
-            window.location.href = "/"
+        });
+        logout().then((res) => {
+            window.location.href = "/";
         })
     };
 
