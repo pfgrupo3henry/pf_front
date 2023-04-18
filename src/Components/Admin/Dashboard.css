@@ -1,9 +1,7 @@
 .dashboard-component {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 15rem;
     margin-bottom: 4rem;
-
 }
 
 .pie {
@@ -24,29 +22,26 @@
 
 }
 
+
+
 .stadisticas-dashboard-component {
+    overflow: auto;
     display: flex;
     flex-direction: column;
-    padding-left: 50px;
 }
 
 .estadisticas {
     display: flex;
-    margin-left: 15rem;
-    margin-bottom: 2rem;
-
-}
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+  }
 
 
 .selectores-dash {
     width: 10rem;
 }
 
-.tabla-componente {
-    display: flex;
-    margin-left: 13rem;
-
-}
 
 .serach-list {
     align-items: center;
@@ -60,27 +55,25 @@
     ;
 }
 
-.pie-bars{
+.pie-bars {
+    padding: 20px 20px 0px 20px;
+    margin: auto;
     display: flex;
-    gap: 6rem;
-}
+    justify-content: space-between;
+  }
 
 .total-area {
+    padding: 20px 20px 0px 20px;
+    margin: auto;
     display: flex;
-    margin-bottom: 2rem;
-    gap: 4rem;
-    margin-right: 3rem;
-}
-
-.laconchadetuhermana{
-    display: flex;
-    gap: 2rem;
-    margin-left: 10rem;
+    justify-content: space-between;
 }
 
 .donut{
-    margin-top: 3rem;
-
+    padding: 15px;
+}
+.grafico3{
+    padding: 15px;
 }
 
 
