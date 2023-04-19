@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
 }
 
 .carousel-component .left-arrow {

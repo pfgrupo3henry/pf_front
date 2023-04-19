@@ -23,7 +23,7 @@ export const Login = () => {
 
   return (
     <div>
-      <GoogleButton style={{ width: "22rem" }}
+      <GoogleButton style={{ width: "22.7rem" }}
         onClick={handleLoginClick} 
         label="Iniciar sesión con Google"/>
     </div>

@@ -169,7 +169,7 @@ function SingUp() {
                         <div
                             onClick={onClickState}
                             className="buttonOrRegister">
-                            O Registrate!!
+                            O Registrate!
                         </div>
                     </Form.Item>
 
