@@ -48,6 +48,11 @@
       width: 20rem;
 }
 
+button.swal2-confirm.swalButton.swal2-styled {
+      background-color: rgba(0, 6, 10, 0.802);
+      border-color: none;
+  }
+
 .botton:hover {
       background-color: rgba(27, 37, 43, 0.63);
 

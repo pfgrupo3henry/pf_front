@@ -179,6 +179,15 @@ h1 {
 
 }
 
+button.swal2-confirm.swalButton.swal2-styled {
+    background-color: rgba(0, 6, 10, 0.802);
+    border-color: none;
+}
+
+.listadereviews{
+    margin-top: 2rem;
+}
+
 .aux7 {
   display: flex;
   align-items: center;
