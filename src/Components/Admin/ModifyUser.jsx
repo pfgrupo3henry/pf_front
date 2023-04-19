@@ -71,7 +71,7 @@ function ModifyUser() {
 
       <Search
         className="buttonSearch"
-        placeholder="Search user" onChange={(e) => handleSearchNombre(e)} enterButton
+        placeholder="Buscar usuario..." onChange={(e) => handleSearchNombre(e)} enterButton
         enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }}
         style={{ width: 480 }} />
 

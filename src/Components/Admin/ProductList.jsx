@@ -92,10 +92,13 @@ const ProductList = () => {
           dispatch(getCards());
 
           Swal.fire({
-            title: "Success!",
+            title: "¡Éxito!",
             text: 'Juego Modificado',
             icon: "success",
-            confirmButtonText: 'Ok'
+            confirmButtonText: 'Ok',
+            customClass: {
+              confirmButton: "swalButton"
+            }
           }).then((res) => {
             dispatch(getCards());
             setData("")
@@ -107,7 +110,11 @@ const ProductList = () => {
             title: "Error!",
             text: 'Error en la modificacion del juego',
             icon: "error",
-            confirmButtonText: 'Ok'
+            confirmButtonText: 'Ok',
+            customClass: {
+              confirmButton: "swalButton"
+            }
+
           })
         })
 
@@ -140,7 +147,7 @@ const ProductList = () => {
     },
 
     {
-      title: 'Descripcion',
+      title: 'Descripción',
       dataIndex: 'description',
       width: 300,
       editable: true,
@@ -152,19 +159,19 @@ const ProductList = () => {
       editable: true,
     },*/
     {
-      title: 'Price',
+      title: 'Precio',
       dataIndex: 'price',
       width: 50,
       editable: true,
     },
     {
-      title: 'Quantity',
+      title: 'Cantidad',
       dataIndex: 'stock',
       width: 50,
       editable: true,
     },
     {
-      title: 'operation',
+      title: 'Operación',
       dataIndex: 'operation',
       width: 125,
       render: (_, record) => {
@@ -177,15 +184,15 @@ const ProductList = () => {
                 marginRight: 8,
               }}
             >
-              Save
+              Guardar
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+              <a>Cancelar</a>
             </Popconfirm>
           </span>
         ) : (
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
+            Editar
           </Typography.Link>
         );
       },
@@ -232,7 +239,7 @@ const ProductList = () => {
       <div className='serach-list'>
 
         <Search
-          placeholder="Search user" onChange={(e) => handleSearchNombre(e)} enterButton
+          placeholder="Buscar usuario..." onChange={(e) => handleSearchNombre(e)} enterButton
           enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }}
           style={{ width: 480 }}
         />
