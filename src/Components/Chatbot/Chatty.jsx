@@ -69,8 +69,8 @@ function Chatty() {
 
   return (
     <div
-      className="container-chat "
-      style={{ position: "fixed", top: "260px", right: "15px" }}>
+      className="container-chat"
+      style={{ position: "fixed", top: "150px", right: "30px" }}>
       <div className="container-messages">
         <div className="messages">
           <ChatBubble

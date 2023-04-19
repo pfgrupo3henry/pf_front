@@ -229,39 +229,39 @@ function Home(label, key, icon, children, type) {
             <OrderMenu />
           </div>
           <div className="link-float-button">
-            <>
-              <FloatButton.Group
-                shape="circle"
-                style={{
-                  right: 20,
-                }}>
+            <FloatButton.Group
+              shape="circle"
+              style={{
+                right: 20,
+              }}>
+              <FloatButton
+                onClick={handleWWClick}
+                tooltip="Consulta con nosotros!"
+                icon={<WhatsAppOutlined />}
+              />
+              <Divider type="vertical" />
+              <Link to="/ratingWeb" element={<RatingWeb />}>
                 <FloatButton
-                  onClick={handleWWClick}
-                  tooltip="Consulta con nosotros!"
-                  icon={<WhatsAppOutlined />}
+                  tooltip="Califica la Web!"
+                  icon={<SmileOutlined />}
                 />
-                <Divider type="vertical" />
-                <Link to="/ratingWeb" element={<RatingWeb />}>
-                  <FloatButton
-                    tooltip="Califica la Web!"
-                    icon={<SmileOutlined />}
-                  />
-                </Link>
-                <Divider type="vertical" />
-                <FloatButton
-                  tooltip="Chatea con Henry!"
-                  onClick={showModal}
-                  icon={<RiChat1Line />}></FloatButton>
+              </Link>
+              <Divider type="vertical" />
+              <FloatButton
+                tooltip="Chatea con Henry!"
+                onClick={showModal}
+                icon={<RiChat1Line />}></FloatButton>
+              <div className="modal-container">
                 <Modal
-                  className="title-chatbot"
+                  className="modal"
                   title="Chatbot Henry Games"
                   open={isModalVisible}
                   onCancel={handleCancel}
                   footer={null}>
                   <Chatty />
                 </Modal>
-              </FloatButton.Group>
-            </>
+              </div>
+            </FloatButton.Group>
           </div>
           <div className="containerExtreme">
             {items.length === 0 ? (

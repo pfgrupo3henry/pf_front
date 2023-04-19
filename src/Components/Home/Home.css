@@ -113,3 +113,24 @@
     margin: 10px;
     display: flex;
 }
+
+.modal {
+    position: fixed;
+    /* El modal se posiciona en la ventana del navegador */
+    z-index: 1;
+    /* El modal está por encima de todo el contenido */
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 50%;
+}
