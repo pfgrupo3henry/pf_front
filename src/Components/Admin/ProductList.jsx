@@ -173,7 +173,7 @@ const ProductList = () => {
     {
       title: 'Operación',
       dataIndex: 'operation',
-      width: 125,
+      width: 150,
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (

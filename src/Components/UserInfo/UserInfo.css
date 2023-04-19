@@ -1,16 +1,14 @@
-
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
-
 
 .profile-body {
     display: flex;
     padding: 20px 40px;
-    transform: scale(0.8); /* Ajusta la escala según necesites */
+    transform: scale(0.8);
+    /* Ajusta la escala según necesites */
     transform-origin: top left;
 
 }
@@ -28,9 +26,6 @@
     margin-top: 45.2px;
     min-height: 80vh;
     position: relative;
-
-   
-
 }
 
 
@@ -42,18 +37,19 @@
     padding-top: 40px;
     z-index: 1;
     width: 20%;
-    transform: scale(0.8); /* Ajusta la escala según necesites */
+    transform: scale(0.8);
+    /* Ajusta la escala según necesites */
     transform-origin: top left;
 
 }
 
 .cardUserInfoDescription {
     flex-direction: row;
-    
+
 }
 
 .cardIndoUserInformation .ant-list-pagination-align-end {
-    text-align: center ;
+    text-align: center;
     margin-right: 2rem !important;
 }
 
@@ -62,7 +58,6 @@
     flex-direction: column;
     font-style: oblique;
     width: fit-content
-
 }
 
 .cardInfoUser {
@@ -78,7 +73,8 @@
     gap: 40px;
     justify-content: center;
     background-color: white;
-    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform: scale(0.9);
+    /* Ajusta la escala según necesites */
     transform-origin: top left;
 }
 
@@ -109,19 +105,19 @@
     margin: auto !important;
 } */
 
-.botonOrden{
+.botonOrden {
     margin-left: 6rem;
     align-items: center;
 }
 
-.iconoss{
+.iconoss {
     font-size: 1.5rem;
     display: flex;
     margin-top: 0.5rem;
     align-items: center;
 }
 
-.paginadoLista{
+.paginadoLista {
     margin-top: 2rem;
     display: flex;
     justify-content: center;
@@ -221,4 +217,12 @@
     padding-bottom: 0px
 }
 
+.axuilar {
+    width: 400px;
+}
 
+.pagos-estilos {
+    width: 1200px;
+    padding-right: 250px;
+    text-align: center;
+}
