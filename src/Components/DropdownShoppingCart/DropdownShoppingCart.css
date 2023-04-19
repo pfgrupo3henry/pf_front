@@ -3,7 +3,7 @@
     right: 0;
     top: 50px;
     z-index: 2;
-    display: flex;
+    
     flex-direction: column;
     align-items: center;
     background-color: #fff;
@@ -11,9 +11,12 @@
     border: 1px solid rgba(5, 5, 5, 0.06);
     transform: scale(0.9); /* Ajusta la escala según necesites */
     transform-origin: top left;
+    
 }
 
 .dropdown-shopping-cart-component .main {
+    display: flex;
+    flex-direction: column;
     min-height: 250px;
     overflow: scroll;
     margin: 0 auto;
@@ -53,6 +56,8 @@
 .continue:hover {
     background-color: rgba(27, 37, 43, 0.63);
     border-radius: 10px;
+}
 
-
+.cart-empty-container{
+    margin:auto
 }

@@ -1,13 +1,12 @@
 import React from "react";
-//import DropdownShoppingCartCard from "./DropdownShoppingCartCard";
-import { Button, Typography, Image, Space, Tooltip } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Button, Typography, Image, Space, Tooltip, Empty } from "antd";
 import { PlusOutlined, MinusOutlined, DeleteOutlined } from "@ant-design/icons";
-import "./DropdownShoppingCart.css";
-import axios from "axios";
+import carrito from "./carrito.png";
 import Cookies from "universal-cookie";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "./DropdownShoppingCartCard.css";
+import "./DropdownShoppingCart.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   deleteChart,
@@ -16,13 +15,16 @@ import {
 } from "../../Redux/Actions/Index";
 
 function DropdownShoppingCart() {
+
   const [color, setColor] = React.useState("rgba(9, 22, 29, 1)");
-  var shoppingChart = useSelector((state) => state.shoppingChart);
+  const shoppingChart = useSelector((state) => state.shoppingChart);
+  console.log("productos", shoppingChart);
   const [string, setString] = useState("vacio");
   const dispatch = useDispatch();
   const { Text } = Typography;
   const cookie = new Cookies();
   const idCoockie = cookie.get("id");
+  const navigate = useNavigate();
   console.log(idCoockie);
 
   useEffect(() => {
@@ -81,6 +83,7 @@ function DropdownShoppingCart() {
   const [componenteVisible, setComponenteVisible] = useState(true);
 
   const cerrarComponenteActual = () => {
+    navigate("/status-payment");
     setComponenteVisible(false);
   };
 
@@ -98,64 +101,71 @@ function DropdownShoppingCart() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}>
+        }}
+      >
         <div className="main">
-          <div className="scroll">
-            {shoppingChart
-              ? shoppingChart.products.map((el) => (
-                  <div className="dropdown-shopping-cart-card-component">
-                    <div
-                      style={{ backgroundImage: `url('${""}')` }}
-                      className="card-header">
-                      <Image width={100} src={el.img ? el.img[0] : ""} />
-                      <Text type="secondary" style={{ color: "#90A4AE" }}>
-                        {el.name || "Game Title"}
-                      </Text>
-                    </div>
-                    <div>
-                      <Text type="secondary">
-                        {`$ ${el.price}` || "$USD 30"}
-                      </Text>
-                    </div>
-                    <div className="card-footer">
-                      <Space>
-                        <Tooltip title="Minus">
-                          <Button
-                            onClick={() =>
-                              handleShoppingChart2(el.id, el.quantity)
-                            }
-                            icon={<MinusOutlined />}
-                          />
-                        </Tooltip>
-                        <p>{el.quantity}</p>
-                        <Tooltip title="Add">
-                          <Button
-                            onClick={() => handleShoppingChart(el.id)}
-                            icon={<PlusOutlined />}
-                          />
-                        </Tooltip>
-                        <Tooltip title="delete">
-                          <Button
-                            onClick={() => onClickDelete(el.id)}
-                            icon={<DeleteOutlined />}></Button>
-                        </Tooltip>
-                      </Space>
-                    </div>
+          {shoppingChart && shoppingChart.products.length > 0 ? (
+            shoppingChart.products.map((el) => (
+              <div className="scroll">
+                <div className="dropdown-shopping-cart-card-component">
+                  <div
+                    style={{ backgroundImage: `url('${""}')` }}
+                    className="card-header"
+                  >
+                    <Image width={100} src={el.img ? el.img[0] : ""} />
+                    <Text type="secondary" style={{ color: "#90A4AE" }}>
+                      {el.name || "Game Title"}
+                    </Text>
                   </div>
-                ))
-              : null}
-          </div>
+                  <div>
+                    <Text type="secondary">{`$ ${el.price}` || "$USD 30"}</Text>
+                  </div>
+                  <div className="card-footer">
+                    <Space>
+                      <Tooltip title="Minus">
+                        <Button
+                          onClick={() =>
+                            handleShoppingChart2(el.id, el.quantity)
+                          }
+                          icon={<MinusOutlined />}
+                        />
+                      </Tooltip>
+                      <p>{el.quantity}</p>
+                      <Tooltip title="Add">
+                        <Button
+                          onClick={() => handleShoppingChart(el.id)}
+                          icon={<PlusOutlined />}
+                        />
+                      </Tooltip>
+                      <Tooltip title="delete">
+                        <Button
+                          onClick={() => onClickDelete(el.id)}
+                          icon={<DeleteOutlined />}
+                        />
+                      </Tooltip>
+                    </Space>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="cart-empty-container">
+              <Empty image={carrito} description="No tienes juegos agregados" />
+            </div>
+          )}
         </div>
+
         <div className="continue">
           <Button
             className="botton"
             style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
             onMouseLeave={() => setColor("rgba(27, 37, 43, 0.63)")}
             onMouseEnter={() => setColor("rgba(27, 37, 43, 0.63)")}
-            type="primary">
-            <Link to="/status-payment" onClick={cerrarComponenteActual}>
-              Continuar compra
-            </Link>
+            type="primary"
+            disabled={shoppingChart.products.length <= 0}
+            onClick={cerrarComponenteActual}
+          >
+            Continuar compra
           </Button>
         </div>
       </div>
