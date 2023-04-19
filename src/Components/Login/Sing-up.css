@@ -1,12 +1,14 @@
 .login-form {
     display: flex;
-    width: 22rem;
+    width: 22.7rem;
     margin-top: 5rem;
     justify-content: center;
     min-height: 30rem;
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
 
 }
 
@@ -26,7 +28,7 @@
 }
 
 .login-form-button {
-    width: 22rem;
+    width: 22.7rem;
 }
 
 .form-forgot {
@@ -56,6 +58,8 @@ button.swal2-confirm.swalButton.swal2-styled {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5rem;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
 }
 
 

@@ -1,3 +1,132 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+.profile-body {
+    display: flex;
+    padding: 20px 40px;
+    transform: scale(0.8); /* Ajusta la escala según necesites */
+    transform-origin: top left;
+
+}
+
+.profile-text {
+    padding: 30px 20px;
+}
+
+
+
+.menuProfileInfo {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 45.2px;
+    min-height: 80vh;
+    position: relative;
+
+   
+
+}
+
+
+.menuProfileInfo .menuOptions {
+    background-color: #fff;
+    margin-top: 2.5rem;
+    border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
+    box-shadow: 10px 0 5px -10px #00000020;
+    padding-top: 40px;
+    z-index: 1;
+    width: 20%;
+    transform: scale(0.8); /* Ajusta la escala según necesites */
+    transform-origin: top left;
+
+}
+
+.cardUserInfoDescription {
+    flex-direction: row;
+    
+}
+
+.cardIndoUserInformation .ant-list-pagination-align-end {
+    text-align: center ;
+    margin-right: 2rem !important;
+}
+
+.infoUserDetail {
+    display: flex;
+    flex-direction: column;
+    font-style: oblique;
+    width: fit-content
+
+}
+
+.cardInfoUser {
+    margin-bottom: 5rem;
+
+}
+
+.cardIndoUserInformation {
+    padding-top: 80px;
+    max-width: 1300px;
+    width: 75%;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    background-color: white;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
+}
+
+.p-status {
+    color: red;
+}
+
+.p-precio {
+    color: blue;
+}
+
+/* .ant-menu>.ant-menu-item-selected {
+    color: #7aa3ca !important;
+    border-bottom: 2px solid #7aa3ca;
+}
+
+.css-dev-only-do-not-override-mxhywb.ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-content {
+    width: auto !important;
+} */
+
+.ant-modal {
+    top: 50px;
+    padding-bottom: 0px
+}
+
+/* .cardIndoUserInformation button {
+    display: flex !important;
+    margin: auto !important;
+} */
+
+.botonOrden{
+    margin-left: 6rem;
+    align-items: center;
+}
+
+.iconoss{
+    font-size: 1.5rem;
+    display: flex;
+    margin-top: 0.5rem;
+    align-items: center;
+}
+
+.paginadoLista{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
 .profile-body {
     display: flex;
     padding: 20px 40px;
@@ -14,6 +143,8 @@
 
 .menuProfileInfo {
     display: flex;
+    height: 100%;
+    width: 100%;
     justify-content: center;
     flex-direction: row;
     width: 100%;
@@ -90,25 +221,4 @@
     padding-bottom: 0px
 }
 
-.cardIndoUserInformation button {
-    display: flex !important;
-    margin: auto !important;
-}
 
-.botonOrden{
-    margin-left: 6rem;
-    align-items: center;
-}
-
-.iconoss{
-    font-size: 1.5rem;
-    display: flex;
-    margin-top: 0.5rem;
-    align-items: center;
-}
-
-.paginadoLista{
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-}

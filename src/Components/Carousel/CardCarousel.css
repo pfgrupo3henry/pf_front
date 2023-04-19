@@ -4,6 +4,8 @@
     border-radius: 8px;
     padding: 10px;
     scroll-snap-align: start;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
 }
 
 .card-carousel-component:hover {

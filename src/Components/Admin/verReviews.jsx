@@ -184,7 +184,7 @@ function VerReviews() {
           >
             <Meta
               title={gameInfo.name}
-              description="Henry Game Store, the best console games, at the best market price"
+              description="Henry Game Store, los mejores juegos, al mejor precio del mercado"
             />
             <br></br>
             <br></br>
