@@ -28,6 +28,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [favsStringified, setFavsStringified] = useState([]);
 
   const [string, setString] = useState("vacio");
+  const [string2, setString2] = useState("vacio");
 
   const cookie = new Cookies();
   const idCoockie = cookie.get("id");
@@ -104,6 +105,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     dispatch(addItemToChart(put));
     setString("vacio");
+    setString2("vacio")
     message.success("¡Juego agregado a Carrito!", 5);
 
   };
@@ -153,30 +155,49 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           <br></br>
 
           <div className='iconsCardHomeContainer'>
-          {(allFavorites.products && allFavorites.products.some(game => game.id === id)) ? (
-          <AiFillHeart
-            onClick={() => handleFavoritesDelete(id)}
-            className='favIconCardHome' />
-        ) : (
-          <AiOutlineHeart
-            onClick={() => handleFavorites(id)}
-            className='favIconCardHome' />
-        )}
 
-        {(shoppingChart.products && shoppingChart.products.some(game => game.id === id && game.stock > 0)) ? (
-          <RiShoppingCartFill
-            onClick={() => onClickDelete(id)}
-            className='favIconCardHome' />
-        ) : (
-          <RiShoppingCartLine
-            onClick={() => handleShoppingChart(id)}
-            className='favIconCardHome' />
-        )}
-      </div>
+            {(allFavorites.products && allFavorites.products.some(game => game.id === id)) ? (
+              <AiFillHeart
+                onClick={() => handleFavoritesDelete(id)}
+                className='favIconCardHome' />
+            ) : (
+              <AiOutlineHeart
+                onClick={() => handleFavorites(id)}
+                className='favIconCardHome' />
+            )}
 
-          
+            {(shoppingChart.products && shoppingChart.products.some(game => game.id === id && game.stock > 0)) ? (
+              <RiShoppingCartFill
+                onClick={() => onClickDelete(id)}
+                className='favIconCardHome' />
+            ) : (
+              <RiShoppingCartLine
+                onClick={() => handleShoppingChart(id)}
+                className='favIconCardHome' />
+            )}
+
+            {string2 === "vacio" && shoppingChart.products && shoppingChart.products?.map((game) => {
+
+              if (game.stock < 1) {
+
+                onClickDelete(game.id)
+                setString2("completo")
+                Swal.fire({
+                  title: "Error!",
+                  text: 'El juego no tiene stock',
+                  icon: "error",
+                  confirmButtonText: 'Ok'
+                })
+
+              } else {
+                console.log("hola")
+              }
+            })}
+
+          </div>
 
         </Card>
+
       </div>
     )
   }
