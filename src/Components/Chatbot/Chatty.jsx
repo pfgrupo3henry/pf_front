@@ -61,10 +61,6 @@ function Chatty() {
     console.error(err);
   }
 
-  function handleInput(input) {
-    if (input.trim() === "") return;
-  }
-
   useEffect(() => {
     if (scrollToDiv.current) {
       scrollToDiv.current.scrollIntoView({ behavior: "smooth" });
@@ -98,7 +94,7 @@ function Chatty() {
           type="text"
           className="input"
           value={query}
-          onChange={(e) => handleInput(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
         />
         <button
           type="submit"
