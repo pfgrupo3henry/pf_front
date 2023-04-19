@@ -18,7 +18,7 @@
       flex-direction: column;
       gap: 0px;
       align-items: center;
-      margin-bottom: -20px;
+      margin-bottom: 0px;
 }
 
 .messages {
@@ -28,16 +28,16 @@
       font-size: 12px;
 }
 
-.form {
+.form-chat {
       display: flex;
       width: 100%;
       border-radius: 0.375rem;
-      gap: 3rem;
-      background-color: #4a5568;
+      gap: 2rem;
+      background-color: #565758;
       padding: 0.5rem;
 }
 
-.input {
+.input-chat {
       border: none;
       border-radius: 0.375rem;
       padding-top: 0.5rem;

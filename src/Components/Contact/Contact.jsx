@@ -1,7 +1,9 @@
 import React from "react";
-import { List, Button } from "antd";
+import { List, Button, FloatButton } from "antd";
 import "./Contact.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { CaretLeftOutlined } from "@ant-design/icons";
 
 const Contact = () => {
   const [state, setState] = useState(1);
@@ -17,30 +19,40 @@ const Contact = () => {
   const onClick3 = () => {
     setState(3);
   };
+  const navigate = useNavigate();
 
   return (
     <div className="container">
+      <FloatButton
+        icon={<CaretLeftOutlined />}
+        tooltip="Volver"
+        onClick={() => navigate(-1)}>
+        Volver
+      </FloatButton>
+
       <ul className="mapa-lista">
-        <h2>Sucursales:</h2>
-        <br></br>
-        <li>
-          <Button className="boton-list" onClick={onClick1}>
-            {" "}
-            Sucursal 1
-          </Button>
-        </li>
-        <li>
-          <Button className="boton-list" onClick={onClick2}>
-            {" "}
-            Sucursal 2
-          </Button>
-        </li>
-        <li>
-          <Button className="boton-list" onClick={onClick3}>
-            {" "}
-            Sucursal 3
-          </Button>
-        </li>
+        <div>
+          <h2>Sucursales:</h2>
+          <br></br>
+          <List>
+            <Button className="boton-list" onClick={onClick1}>
+              {" "}
+              Sucursal 1
+            </Button>
+          </List>
+          <List>
+            <Button className="boton-list" onClick={onClick2}>
+              {" "}
+              Sucursal 2
+            </Button>
+          </List>
+          <List>
+            <Button className="boton-list" onClick={onClick3}>
+              {" "}
+              Sucursal 3
+            </Button>
+          </List>
+        </div>
 
         <br></br>
         <br></br>

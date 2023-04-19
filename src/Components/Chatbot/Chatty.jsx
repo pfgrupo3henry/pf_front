@@ -89,10 +89,10 @@ function Chatty() {
         </div>
         <div ref={scrollToDiv} />
       </div>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form-chat" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="input"
+          className="input-chat"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { CardElement } from "../Card/card";
 import { Slider } from "../Slider/Slider";
-import { Menu, FloatButton, Pagination, Alert, Divider, Modal } from "antd";
+import {
+  Menu,
+  FloatButton,
+  Pagination,
+  Alert,
+  Divider,
+  Modal,
+  Icon,
+} from "antd";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
@@ -12,10 +20,9 @@ import OrderMenu from "../OrderMenu/OrderMenu";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { SmileOutlined, WhatsAppOutlined } from "@ant-design/icons";
+import { MessageTwoTone, PhoneTwoTone, SmileTwoTone } from "@ant-design/icons";
 import RatingWeb from "../RatingWeb/RatingWeb";
 import Chatty from "../Chatbot/Chatty";
-import { RiChat1Line } from "react-icons/ri";
 
 function Home(label, key, icon, children, type) {
   const { logout } = useAuth0();
@@ -229,28 +236,24 @@ function Home(label, key, icon, children, type) {
             <OrderMenu />
           </div>
           <div className="link-float-button">
-            <FloatButton.Group
-              shape="circle"
-              style={{
-                right: 20,
-              }}>
+            <FloatButton.Group>
               <FloatButton
                 onClick={handleWWClick}
                 tooltip="Consulta con nosotros!"
-                icon={<WhatsAppOutlined />}
+                icon={<PhoneTwoTone twoToneColor="#39F805" />}
               />
               <Divider type="vertical" />
               <Link to="/ratingWeb" element={<RatingWeb />}>
                 <FloatButton
                   tooltip="Califica la Web!"
-                  icon={<SmileOutlined />}
+                  icon={<SmileTwoTone twoToneColor="#39F805" />}
                 />
               </Link>
               <Divider type="vertical" />
               <FloatButton
                 tooltip="Chatea con Henry!"
                 onClick={showModal}
-                icon={<RiChat1Line />}></FloatButton>
+                icon={<MessageTwoTone twoToneColor="#39F805" />}></FloatButton>
               <div className="modal-container">
                 <Modal
                   className="modal"

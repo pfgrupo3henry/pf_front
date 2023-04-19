@@ -1,5 +1,6 @@
 .home-component {
     overflow: hidden;
+    background-image: linear-gradient(to left, #6e6d6d, #ffffff)
 }
 
 .home-component .listCards {
@@ -109,8 +110,6 @@
 }
 
 .link-float-button {
-    padding: 10px;
-    margin: 10px;
     display: flex;
 }
 
@@ -128,7 +127,7 @@
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #48c0f0;
     margin: 10% auto;
     padding: 10px;
     border: 1px solid #888;
