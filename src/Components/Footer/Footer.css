@@ -25,10 +25,10 @@
 }
 
 .footer-content h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 400;
     text-transform: capitalize;
-    line-height: 3rem;
+    line-height: 2rem;
 }
 
 .socials {
@@ -60,7 +60,7 @@
 }
 
 .footer-bottom p {
-    font-size: 14px;
+    font-size: 12px;
     word-spacing: 2px;
     text-transform: capitalize;
 }

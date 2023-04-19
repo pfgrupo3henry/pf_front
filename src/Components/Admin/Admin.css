@@ -64,6 +64,8 @@ h1 {
   padding-top: 40px;
   z-index: 1;
   width: 20%;
+  transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform-origin: top left;
 }
 
 .userInfoContainer {

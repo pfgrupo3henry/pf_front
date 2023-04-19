@@ -26,6 +26,7 @@
 
 .nav-component .rutasNavContainer{
   display: flex;
+  margin-left: 4rem;
   gap: 20px ;
   align-items: center;
   justify-content: space-between;

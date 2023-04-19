@@ -198,17 +198,17 @@ function UserInfo() {
 
   const columns = [
     {
-      title: "Name",
+      title: "NOombre",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Price",
+      title: "Precio",
       dataIndex: "price",
       key: "price",
     },
     {
-      title: "Quantity",
+      title: "Cantidad",
       dataIndex: "quantity",
       key: "quantity",
     },
@@ -238,7 +238,7 @@ function UserInfo() {
           mode="inline"
           items={items}
           style={{
-            width: "256px",
+            width: "230px",
           }}
         />
       </div>
@@ -339,12 +339,10 @@ function UserInfo() {
             itemLayout="horizontal"
             size="large"
             pagination={{
-              
               onChange: (page) => {
                 console.log(page);
               },
               pageSize: 5,
-              
             }}
             dataSource={pagos[0].orders}
             renderItem={(item) => (
