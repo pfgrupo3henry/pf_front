@@ -1,6 +1,6 @@
 import React from "react";
 import "./nav.css";
-import { Logout } from "../Auth0/logut";
+import { Salir } from "../Auth0/logut";
 import { Profile } from "../Auth0/profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import SearchBar from "../SearchBar/SearchBar";
@@ -18,47 +18,78 @@ function Nav(count) {
   const shoppingChart = useSelector((state) => state.shoppingChart);
   const dispatch = useDispatch();
   const cookie = new Cookies();
-  const cookieId = cookie.get("firstname");
+  const cookieId = cookie.get("id");
   const cookieRole = cookie.get("role");
+  const cookieImg = cookie.get("img");
 
   console.log(cookieRole);
+  console.log(cookieId);
 
   const inboxOptions = [
     {
-      label: "Example 1",
+      label: (
+        <Link to="/contact" className="rutasNav">
+          Contacto
+        </Link>
+      ),
       key: "1",
     },
     {
-      label: "Example 2",
+      label: (
+        <Link to="/equipo" className="rutasNav">
+          Equipo de desarrollo
+        </Link>
+      ),
       key: "2",
     },
     {
-      label: "Example 3",
+      label: (
+        <Link to="/nosotros" className="rutasNav">
+          Nosotros
+        </Link>
+      ),
       key: "3",
     },
   ];
 
   const profileOptions = [
     {
-      label: <Link to="/profile">Profile</Link>,
+      label: <Link to="/profile">Mi perfil</Link>,
       key: "1",
     },
     {
-      label: <Link to="/favorites">Favorites</Link>,
+      label: <Link to="/favorites">Favoritos</Link>,
       key: "2",
     },
     {
-      label: <Logout />,
+      label: <Salir />,
       key: "3",
+    },
+  ];
+  const profileOptionsAdmin = [
+    {
+      label: <Link to="/profile">Mi perfil</Link>,
+      key: "1",
+    },
+    {
+      label: <Link to="/favorites">Favoritos</Link>,
+      key: "2",
+    },
+    {
+      label: <Link to="admin">Administrador</Link>,
+      key: "3",
+    },
+    {
+      label: <Salir />,
+      key: "4",
     },
   ];
 
   if (shoppingChart) {
     return (
       <div
-        className={`nav-component ${
-          isAuthenticated || cookieId ? "nav" : "navAux"
-        }`}>
+        className={`nav-component ${isAuthenticated || cookieId ? "nav" : "navAux"
+          }`}>
         <div className="rutasNavContainer">
           <ul>
             <li
@@ -68,7 +99,7 @@ function Nav(count) {
                   : "rutasNav"
               }>
               <Link to="/home" className="rutasNav">
-                Home
+                Inicio
               </Link>
             </li>
             {isAuthenticated || cookieId ? null : (
@@ -79,7 +110,7 @@ function Nav(count) {
                     : "rutasNavAux"
                 }>
                 <Link to="/login" className="rutasNav">
-                  Login
+                  Iniciar Sesion
                 </Link>
               </li>
             )}
@@ -95,34 +126,17 @@ function Nav(count) {
                 }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    Catalogue
+                    Conozcanos
                     <DownOutlined />
                   </Space>
                 </a>
               </Dropdown>
             </li>
-            {cookieRole === "Admin" ? (
-              <li
-                className={
-                  isAuthenticated || cookieId
-                    ? "rutasNavAlternativeAux"
-                    : "rutasNav"
-                }>
-                <Link to="/admin" className="rutasNav">
-                  Admin
-                </Link>
-              </li>
-            ) : null}
             <li
               className={
                 isAuthenticated || cookieId ? "buscadorAux" : "buscador"
               }>
               <SearchBar />
-            </li>
-            <li>
-              <Link to="/contact" className="rutasNav">
-                Contact{" "}
-              </Link>
             </li>
           </ul>
           <div
@@ -133,21 +147,42 @@ function Nav(count) {
             }></div>
           <div className="rutasNav3">
             <div className="profileNav">
-              {isAuthenticated ? (
-                <Dropdown
-                  className=""
-                  menu={{
-                    items: profileOptions,
-                  }}>
-                  <a onClick={(e) => e.preventDefault()}>
-                    <Space>
-                      <Profile />
-                    </Space>
-                  </a>
-                </Dropdown>
-              ) : null}
               <div>
-                {cookieId && !isAuthenticated ? (
+
+                {cookieRole === "Admin" && !isAuthenticated ? (
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptionsAdmin,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <img
+                          className="imgProfile"
+                          src={cookieImg ? cookieImg : "https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"}
+                          alt="profile"></img>
+                      </Space>
+                    </a>
+                  </Dropdown>
+                ) :
+                  null}
+
+                {cookieRole === "Admin" && isAuthenticated ? (
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptionsAdmin,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <Profile />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                ) :
+                  null}
+
+                {!isAuthenticated && cookieId && cookieRole !== "Admin" ?
                   <Dropdown
                     className=""
                     menu={{
@@ -157,14 +192,32 @@ function Nav(count) {
                       <Space>
                         <img
                           className="imgProfile"
-                          src="https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"
+                          src={cookieImg ? cookieImg : "https://www.delacabeza-rivera.es/wp-content/uploads/2020/06/PERFIL-VACIO.png"}
                           alt="profile"></img>
                       </Space>
                     </a>
                   </Dropdown>
-                ) : null}
-              </div>
-              <ShoppingCart />
+                  :
+                  null}
+
+                {cookieRole !== "Admin" && isAuthenticated ?
+                  <Dropdown
+                    className=""
+                    menu={{
+                      items: profileOptions,
+                    }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <Profile />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                  :
+                  null}
+
+              </div >
+              <ShoppingCart/>
+
             </div>
           </div>
         </div>

@@ -1,13 +1,22 @@
 import React from "react";
 import "./Slider.css";
 import { Carousel, Button, notification } from "antd";
-import { RadiusUpleftOutlined } from "@ant-design/icons";
 import assa from "../Assets/assassins_creed.webp";
 import elden from "../Assets/elden_ring.webp";
 import fallen from "../Assets/fallen_order.webp";
 import howarts from "../Assets/howarts_legacy.webp";
 
 function Slider() {
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (placement) => {
+    api.info({
+      message: "INFORMACIÓN IMPORTANTE",
+      description:
+        "Próximamente disponible en nuestra tienda! Registrate para tener acceso privilegiado a estrenos!.",
+      placement,
+    });
+  };
+
   const sliderCards = [
     {
       background: assa,
@@ -42,37 +51,27 @@ function Slider() {
       price: "$ 16.999",
     },
   ];
-  const [api, contextHolder] = notification.useNotification();
-  const openNotification = (placement) => {
-    api.info({
-      message: "INFORMACIÓN IMPORTANTE",
-      description:
-        "Próximamente disponible en nuestra tienda! Registrate para tener acceso privilegiado a estrenos!.",
-      placement,
-    });
-  };
+
   return (
     <Carousel autoplay>
-      {contextHolder}
       {sliderCards.map((el, i) => (
         <React.Fragment key={i}>
-          <div>
-            <div
-              className="slider-card-component"
-              style={{ background: `url('${el.background}')` }}>
-              <div className="slider-card-component-container">
-                <div className="info">
-                  <h2 className="title">{el.title}</h2>
-                  <p className="subtitle">{el.subtitle}</p>
-                  <p className="description">{el.description}</p>
-                  <p className="price">{el.price}</p>
-                  <div>
-                    <Button
-                      type="primary"
-                      onClick={() => openNotification("topLeft")}>
-                      Comprar
-                    </Button>
-                  </div>
+          <div
+            className="slider-card-component"
+            style={{ background: `url('${el.background}')` }}>
+            <div className="slider-card-component-container">
+              <div className="info">
+                <h2 className="title">{el.title}</h2>
+                <p className="subtitle">{el.subtitle}</p>
+                <p className="description">{el.description}</p>
+                <p className="price">{el.price}</p>
+                {contextHolder}
+                <div>
+                  <Button
+                    type="primary"
+                    onClick={() => openNotification("topLeft")}>
+                    Comprar
+                  </Button>
                 </div>
               </div>
             </div>
@@ -84,3 +83,4 @@ function Slider() {
 }
 
 export { Slider };
+

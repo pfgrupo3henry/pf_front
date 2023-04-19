@@ -72,6 +72,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     }
 
     dispatch(postFavorites(putFavorite));
+    message.success("¡Juego agregado a Favoritos!", 5);
 
   };
 
@@ -84,6 +85,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
     }
 
     dispatch(deleteFavorites(deleteFavorite));
+    message.success("¡Juego borrado de Favoritos!", 5);
 
   };
 
@@ -102,6 +104,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     dispatch(addItemToChart(put));
     setString("vacio");
+    message.success("¡Juego agregado a Carrito!", 5);
 
   };
 
@@ -114,6 +117,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     dispatch(deleteChart(payload));
     setString("vacio");
+    message.success("¡Juego borrado del Carrito!", 5);
 
   };
 
@@ -149,66 +153,28 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           <br></br>
 
           <div className='iconsCardHomeContainer'>
+          {(allFavorites.products && allFavorites.products.some(game => game.id === id)) ? (
+          <AiFillHeart
+            onClick={() => handleFavoritesDelete(id)}
+            className='favIconCardHome' />
+        ) : (
+          <AiOutlineHeart
+            onClick={() => handleFavorites(id)}
+            className='favIconCardHome' />
+        )}
 
-            {allFavorites.products?.map((game) => {
-              if (game.id === id) {
-                return (
-                  <AiFillHeart
-                    onClick={() => handleFavoritesDelete(id)}
-                    className='favIconCardHome' />
-                )
-              }
-            })}
+        {(shoppingChart.products && shoppingChart.products.some(game => game.id === id && game.stock > 0)) ? (
+          <RiShoppingCartFill
+            onClick={() => onClickDelete(id)}
+            className='favIconCardHome' />
+        ) : (
+          <RiShoppingCartLine
+            onClick={() => handleShoppingChart(id)}
+            className='favIconCardHome' />
+        )}
+      </div>
 
-            {shoppingChart.products?.map((game) => {
-              if (game.id === id) {
-                if (game.stock < 0) {
-                  let payload = {
-                    userId: idCoockie,
-                    gameId: id
-                  }
-                  dispatch(deleteChart(payload));
-                  Swal.fire({
-                    title: "Error!",
-                    text: 'Juego Agotado',
-                    icon: "error",
-                    confirmButtonText: 'Ok'
-                  })
-                } else {
-                  return (
-                    <RiShoppingCartFill
-                      onClick={() => onClickDelete(id)}
-                      className='favIconCardHome' />
-                  )
-                }
-              }
-            })}
-
-          </div>
-
-          <div className='iconsCardHomeContainer'>
-
-            {!allFavorites.products || allFavorites.products.length === 0 ?
-              <AiOutlineHeart
-                className='favIconCardHome'
-                onClick={() => { idCoockie ? handleFavorites(id) : handleLoginClick() }} />
-              :
-              <AiOutlineHeart
-                className='favIconCardHome'
-                onClick={() => { idCoockie ? handleFavorites(id) : handleLoginClick() }} />
-            }
-
-            {!shoppingChart.products || shoppingChart.products.length === 0 ?
-              <RiShoppingCartLine
-                className='favIconCardHome'
-                onClick={() => { idCoockie ? handleShoppingChart(id, quantity) : handleLoginClick() }} />
-              :
-              <RiShoppingCartLine
-                className='favIconCardHome'
-                onClick={() => { idCoockie ? handleShoppingChart(id, quantity) : handleLoginClick() }} />
-            }
-
-          </div>
+          
 
         </Card>
       </div>

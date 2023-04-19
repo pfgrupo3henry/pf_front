@@ -78,6 +78,16 @@ function DropdownShoppingCart() {
   }
 
   console.log(shoppingChart);
+  const [componenteVisible, setComponenteVisible] = useState(true);
+
+  const cerrarComponenteActual = () => {
+    setComponenteVisible(false);
+  };
+
+  // Si el componente no está visible, se muestra null
+  if (!componenteVisible) {
+    return null;
+  }
 
   if (shoppingChart.products) {
     return (
@@ -143,7 +153,7 @@ function DropdownShoppingCart() {
             onMouseLeave={() => setColor("rgba(27, 37, 43, 0.63)")}
             onMouseEnter={() => setColor("rgba(27, 37, 43, 0.63)")}
             type="primary">
-            <Link to="/status-payment" className="rutasNav">
+            <Link to="/status-payment" onClick={cerrarComponenteActual}>
               Continuar compra
             </Link>
           </Button>

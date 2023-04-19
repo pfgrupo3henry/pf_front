@@ -1,136 +1,249 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.admin-component {
-    min-height: calc(100vh - 45.2px);
-    margin: 0 auto;
-    margin-top: 45.2px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
-
-.admin-component .forms-render {
-    padding-top: 40px;
-    width: -webkit-fill-available;
-    display: flex;
-    justify-content: center;
-}
-
-.admin-component .userInfoContainer {
-    width: 100%;
-    max-width: 1300px;
-}
-
-.form-ant {
-    padding: 20px 40px;
-    max-width: 600px;
-}
-
-.select-form {
-    height: 30px;
-    width: 350px;
-    border-radius: 5px;
-}
-
-h1 {
-    padding: 10px 0;
-}
-
-.parrafo-juego {
-    color: rgba(255, 0, 0, 0.733);
-    padding: 0px 0px 10px 40px;
-}
-
-.parrafo-juego-select {
-    color: rgba(9, 22, 29, 0.712);
-    padding: 0px 0px 10px 40px;
-}
-
-.userInfoContainer .menuOptions {
-    background-color: #fff;
-    border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
-    box-shadow: 10px 0 5px -10px #00000020;
-    padding-top: 40px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 40px;
-    z-index: 1;
-}
-
-.userInfoContainer {
-    display: flex;
-    flex-direction: row;
-    min-height: calc(100vh - 45.2px);
-}
-
-.formCreateNewProduct {
-    padding-top: 40px;
-    width: 30rem;
-}
-
-.buttonFormCreateProduct {
-    margin-left: 10em;
-}
-
-.admin-component .buttonSearch {
-    color: rgba(9, 22, 29, 0.712);
-    margin-bottom: 3rem;
-    margin-left: 8rem;
-}
-
-.admin-component .searchUserListContainer {
-    padding-top: 40px;
-}
-
-.priceInput {
-    width: 10rem;
-}
-
-
-.selected-modifyUsers {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    margin-left: 10rem;
-}
-
-.lista-selects {
-    display: flex;
-    flex-direction: column;
-    padding: 0px 0px 0px 80px;
-}
-
-.pagination {
-    margin-left: 20rem;
-    margin-top: 2rem;
-}
-
-.role {
-    display: flex;
-    gap: 1rem;
-    font-style: oblique;
-    margin-top: 0.8rem;
-
-}
-
-.game-card-admin {
-    display: flex;
-}
-
-.reviews-card-admin {
-    display: inline-block;
-    padding: 0px 0px 0px 80px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .body-review-admin {
-    min-height: 100vh;
+  min-height: 105vh;
 }
 
-.status-review {
+.admin-component {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 45.2px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.admin-component .forms-render {
+  width: 80%;
+  padding-top: 40px;
+  width: -webkit-fill-available;
+  display: flex;
+  justify-content: center;
+}
+
+
+.admin-component .userInfoContainer {
+  width: 100%;
+  max-width: 1300px;
+}
+
+.form-ant {
+  padding: 20px 40px;
+  max-width: 600px;
+}
+
+.select-form {
+  height: 30px;
+  width: 350px;
+  border-radius: 5px;
+}
+
+h1 {
+  padding: 10px 0;
+}
+
+.parrafo-juego {
+  color: rgba(255, 0, 0, 0.733);
+  padding: 0px 0px 10px 40px;
+}
+
+.parrafo-juego-select {
+  color: rgba(9, 22, 29, 0.712);
+  padding: 0px 0px 10px 40px;
+}
+
+.admin-component .menuOptions {
+  background-color: #fff;
+  border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
+  box-shadow: 10px 0 5px -10px #00000020;
+  padding-top: 40px;
+  z-index: 1;
+  width: 20%;
+  transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform-origin: top left;
+}
+
+.userInfoContainer {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 45.2px);
+}
+
+.formCreateNewProduct {
+  padding-top: 40px;
+  width: 30rem;
+}
+
+.buttonFormCreateProduct {
+  margin-left: 10em;
+}
+
+.admin-component .buttonSearch {
+  color: rgba(9, 22, 29, 0.712);
+  margin-bottom: 3rem;
+}
+
+.admin-component .ant-table-wrapper .ant-table-pagination-right {
+  justify-content: center;
+}
+
+.priceInput {
+  width: 10rem;
+}
+
+.selected-modifyUsers {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-left: 7rem;
+}
+
+.lista-selects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lista-selects-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.role {
+  display: flex;
+  gap: 1rem;
+  font-style: oblique;
+  margin-top: 0.8rem;
+}
+
+.game-card-admin {
+  display: flex;
+  margin-left: 12rem;
+  transform: scale(0.8); /* Ajusta la escala según necesites */
+  transform-origin: top left;
+}
+
+.reviews-card-admin {
+  display: inline-block;
+  padding: 0px 0px 0px 80px;
+  margin-bottom: 3rem;
+  transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform-origin: top left;
+}
+
+
+/* .status-review {
     color: blue;
+} */
+
+.button-review-admin {
+  padding-left: 250px;
+}
+
+.pagination {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  margin-top: 1rem;
+}
+
+.status-buttonDelete {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.button-delete {
+  font-size: 1.2rem;
+}
+
+.button-delete:hover {
+  transform: scale(1.2);
+}
+
+.listadereviews {
+  margin-top: 2rem;
+}
+
+.carta-aux {
+  display: flex;
+  color: rgb(53, 53, 53);
+  font-style: oblique;
+  margin-left: 4rem;
+
+}
+
+button.swal2-confirm.swalButton.swal2-styled {
+    background-color: rgba(0, 6, 10, 0.802);
+    border-color: none;
+}
+
+.listadereviews{
+    margin-top: 2rem;
+}
+
+.aux7 {
+  display: flex;
+  align-items: center;
+}
+
+.rateProm {
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pagination2 {
+  margin-left: 10rem;
+  margin-top: 1rem;
+}
+
+
+.axuilar {
+  max-width: 50rem;
+}
+
+.cardIndoUserInformation {
+  max-width: 100%;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+}
+
+.yanosenda {
+  display: flex;
+  gap: 2rem;
+}
+
+.description123 {
+  width: 40rem;
+}
+
+.lista-selects .ant-list .ant-list-pagination-align-end {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.lista-selects .ant-list .ant-list-pagination .ant-pagination-options {
+  text-align: start;
+  display: none;
+}
+
+.listadereviews .ant-list .ant-list-pagination-align-end {
+  text-align: center;
+}
+
+
+.admin-component .menuOptions .ant-menu-light.ant-menu-root.ant-menu-vertical {
+  width: 90%;
+  margin: auto;
 }

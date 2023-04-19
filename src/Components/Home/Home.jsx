@@ -1,27 +1,28 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { CardElement } from "../Card/card";
-//import { FilterHome } from "../FilterHome/filterHome"
 import { Slider } from "../Slider/Slider";
-import { Menu, FloatButton, Pagination, Alert, Modal } from "antd";
-//import imgProvisoria from "../Assets/god-of-war-ragnarok-ps5-retro.jpg";
-//import imgProvisoria2 from "../Assets/a-way-out-ps5-retro.jpg";
+import {
+  Menu,
+  FloatButton,
+  Pagination,
+  Alert,
+  Divider,
+  Modal,
+  Icon,
+} from "antd";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  filterCards,
-  getUsers,
-  setNameFilter,
-} from "../../Redux/Actions/Index";
+import { filterCards, setNameFilter } from "../../Redux/Actions/Index";
 import OrderMenu from "../OrderMenu/OrderMenu";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { SmileTwoTone } from "@ant-design/icons";
+import { MessageTwoTone, PhoneTwoTone, SmileTwoTone } from "@ant-design/icons";
 import RatingWeb from "../RatingWeb/RatingWeb";
+import Chatty from "../Chatbot/Chatty";
 
 function Home(label, key, icon, children, type) {
   const { logout } = useAuth0();
@@ -119,7 +120,7 @@ function Home(label, key, icon, children, type) {
     };
   }
   const items2 = [
-    getItem("See All", "All", null),
+    getItem("Ver todos", "All", null),
     getItem("PS3", "PS3", null, [
       getItem("Acción", "1"),
       getItem("Aventura", "2"),
@@ -198,10 +199,23 @@ function Home(label, key, icon, children, type) {
     }
   };
 
+  const handleWWClick = () => {
+    window.open("https://wa.me/5492213164508");
+  };
+
   React.useEffect(() => {
     setCurrent(1);
     updateElementsToShow(1);
   }, [filteredVideogames]);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   if (card) {
     return (
@@ -222,17 +236,35 @@ function Home(label, key, icon, children, type) {
             <OrderMenu />
           </div>
           <div className="link-float-button">
-            <Link to="/ratingWeb" element={<RatingWeb />}>
+            <FloatButton.Group>
               <FloatButton
-                tooltip="Rate de Web!"
-                icon={
-                  <SmileTwoTone
-                    twoToneColor="#1150af"
-                    style={{ fontSize: "100%" }}
-                  />
-                }
+                onClick={handleWWClick}
+                tooltip="Consulta con nosotros!"
+                icon={<PhoneTwoTone twoToneColor="#39F805" />}
               />
-            </Link>
+              <Divider type="vertical" />
+              <Link to="/ratingWeb" element={<RatingWeb />}>
+                <FloatButton
+                  tooltip="Califica la Web!"
+                  icon={<SmileTwoTone twoToneColor="#39F805" />}
+                />
+              </Link>
+              <Divider type="vertical" />
+              <FloatButton
+                tooltip="Chatea con Henry!"
+                onClick={showModal}
+                icon={<MessageTwoTone twoToneColor="#39F805" />}></FloatButton>
+              <div className="modal-container">
+                <Modal
+                  className="modal"
+                  title="Chatbot Henry Games"
+                  open={isModalVisible}
+                  onCancel={handleCancel}
+                  footer={null}>
+                  <Chatty />
+                </Modal>
+              </div>
+            </FloatButton.Group>
           </div>
           <div className="containerExtreme">
             {items.length === 0 ? (

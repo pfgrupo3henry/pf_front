@@ -59,8 +59,10 @@ const RatingWeb = () => {
 
   return (
     <div className="ratingweb-container">
-      <Card title={title} bordered={false} style={{ width: 800 }}>
+      <Card bordered={false} style={{ width: 800, background: "white" }} className="card-review-general">
         <div className="rateForm">
+          <h2>Cuentanos que te pareció la página!</h2>
+          <br></br>
           <Rate
             onChange={handleRatingChange}
             className="rateAux"

@@ -40,12 +40,12 @@ function ModifyUser() {
     console.log("data", data)
     console.log("id", user_id)
     dispatch(modificarUser(user_id, data))
-    Swal.fire({
-      title: "Success!",
-      text: 'Usuario Modificado',
-      icon: "success",
-      confirmButtonText: 'Ok'
-    })
+    /*   Swal.fire({
+        title: "Success!",
+        text: 'Usuario Modificado',
+        icon: "success",
+        confirmButtonText: 'Ok'
+      }) */
     message.success("¡La operación se realizó con éxito!", 5);
   }
 
@@ -67,11 +67,11 @@ function ModifyUser() {
   };
 
   return (
-    <div className='lista-selects'>
+    <div className='lista-selects-user'>
 
       <Search
         className="buttonSearch"
-        placeholder="Search user" onChange={(e) => handleSearchNombre(e)} enterButton
+        placeholder="Buscar usuario..." onChange={(e) => handleSearchNombre(e)} enterButton
         enterButtonStyle={{ background: 'rgba(9, 22, 29, 0.712)' }}
         style={{ width: 480 }} />
 

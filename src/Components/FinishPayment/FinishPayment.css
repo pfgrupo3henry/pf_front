@@ -55,8 +55,12 @@
     width: 14rem;
 }
 
-.buttonsCardDetail {
+.card-payment-imgMercadoPago.botton {
     width: 22rem;
+}
+
+.card-payment-imgMercadoPago.botton:hover {
+    background-color: rgba(27, 37, 43, 0.63);
 }
 
 .button-borrar {
@@ -75,4 +79,9 @@
     color: white;
     text-align: center;
     padding: 300px 0px;
+}
+
+
+.paginationxd{
+    margin-bottom: 5rem;
 }

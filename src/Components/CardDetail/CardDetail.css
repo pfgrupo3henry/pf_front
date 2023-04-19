@@ -2,15 +2,14 @@
     display: inline-block;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 45.2px);
     padding: 30px;
-    margin-left: 12rem;
-    margin-top: 3rem;
+    margin-left: 10rem;
 }
 
 .comentarios-card {
     padding: 15px;
     margin-left: 80px;
+    width: 40rem
 }
 
 .descripcion-juego {
@@ -49,9 +48,8 @@
 }
 
 .card-detail-component2 {
-    min-height: calc(100vh - 45.2px);
-
-}
+    transform: scale(0.75); /* Ajusta la escala según necesites */
+    transform-origin:  left;}
 
 .nameFormat {
     display: flex;
@@ -143,4 +141,14 @@
 .p-carrito-cardD {
     color: blue;
     font-size: 16px;
+}
+
+.aux7{
+    margin-bottom: 2rem;
+}
+
+.titulooo{
+    color: rgb(53, 53, 53);
+    font-style: oblique;
+    margin-left: 4rem;
 }

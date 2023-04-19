@@ -66,7 +66,7 @@ function LandingPage() {
         <div className="landing-page-component container">
             <div className="row">
                 <div className="col text-col">
-                    <h1>Videojuegos</h1>
+                    <h1>Henry Games Store</h1>
                     <p>Jugar es una nueva habilidad , adorna tu tiempo con Video Juegos y añade diversión a tu vida</p>
                     <Button onClick={onClick}>Ingresar</Button>
                     {state === true ?

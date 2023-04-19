@@ -28,7 +28,7 @@ function CardDetail() {
   const [value, setValue] = useState(1);
   const [comment, setComment] = useState("");
   const [prom, setProm] = useState();
-  const [placeholder, setPlaceholder] = useState("Leave your comment");
+  const [placeholder, setPlaceholder] = useState("Dejanos tu comentario");
   const [stringR, setStringR] = useState("hola");
   const reviews2 = useSelector((state) => state.reviews);
   const shoppingChart = useSelector((state) => state.shoppingChart);
@@ -55,47 +55,43 @@ function CardDetail() {
   }
 
   const handleShoppingChart = () => {
-    if (idCoockie) {
-      const product_id = card[0].id;
-      const put = {
-        userId: idCoockie,
-        products: {
-          id: product_id,
-          quantity: 1,
-        },
-      };
+    const product_id = card[0].id;
+    const put = {
+      userId: idCoockie,
+      products: {
+        id: product_id,
+        quantity: 1,
+      },
+    };
 
-      dispatch(addItemToChart(put));
+    dispatch(addItemToChart(put));
+    message.success("¡Juego agregado a Carrito!", 5);
 
-      setTimeout(function () {
-        setString("vacio");
-      }, 500);
-    } else {
-      message.warning("¡Debe loguearse para Agregar al carrito!", 5);
-    }
+    setTimeout(function () {
+      setString("vacio");
+    }, 500);
   };
 
   const handleShoppingChart2 = () => {
-    if (idCoockie) {
-      const product_id = card[0].id;
-      const put = {
-        userId: idCoockie,
-        products: {
-          id: product_id,
-          quantity: 1,
-        },
-      };
-      dispatch(addItemToChart(put));
-      setTimeout(function () {
-        setString("vacio");
-      }, 500);
+    const product_id = card[0].id;
+    const put = {
+      userId: idCoockie,
+      products: {
+        id: product_id,
+        quantity: 1,
+      },
+    };
 
-      setTimeout(function () {
-        setString3("completo");
-      }, 1000);
-    } else {
-      message.warning("¡Debe loguearse para Comprar!", 5);
-    }
+    dispatch(addItemToChart(put));
+    message.success("¡Juego agregado a Carrito!", 5);
+
+    setTimeout(function () {
+      setString("vacio");
+    }, 500);
+
+    setTimeout(function () {
+      setString3("completo");
+    }, 1000);
   };
 
   function handleRatingChange(value2) {
@@ -103,7 +99,7 @@ function CardDetail() {
       setValue(value2);
       console.log(value);
     } else {
-      message.warning("¡Debe loguearse para puntuar!", 5);
+      message.warning("¡Debe loguearse para Puntuar!", 5);
     }
   }
 
@@ -113,25 +109,22 @@ function CardDetail() {
       setPlaceholder("Leave your comment");
       console.log(comment);
     } else {
-      message.warning("¡Debe loguearse para puntuar!", 5);
+      message.warning("¡Debe loguearse para Comentar!", 5);
     }
   }
 
   function onClick(e) {
-    if (idCoockie) {
-      e.preventDefault();
-      const put = {
-        userId: idCoockie,
-        videogameId: Number(id),
-        comment: comment,
-        rate: value,
-      };
-      console.log(put);
-      dispatch(saveRatingAndComment(put));
-      message.success("¡La operación se realizó con éxito!", 5);
-    } else {
-      message.warning("¡Debe loguearse para puntuar!", 5);
-    }
+    e.preventDefault();
+    const put = {
+      userId: idCoockie,
+      videogameId: Number(id),
+      comment: comment,
+      rate: value,
+    };
+    console.log(put);
+    dispatch(saveRatingAndComment(put));
+    message.success("¡La operación se realizó con éxito!", 5);
+    // window.location.reload();
   }
 
   if (string === "vacio") {
@@ -188,7 +181,7 @@ function CardDetail() {
                   }>
                   <Meta
                     title={card[0].name}
-                    description="Henry Game Store, the best console games, at the best market price"
+                    description="Henry Game Store, los mejores juegos, al mejor precio del mercado"
                   />
                   <br></br>
                 </Card>
@@ -217,7 +210,7 @@ function CardDetail() {
                       style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
                       type="primary"
                       onClick={(e) => onClick(e)}>
-                      Send
+                      Enviar
                     </Button>
                   </div>
                 </div>
@@ -251,18 +244,20 @@ function CardDetail() {
                       style={{ backgroundColor: "rgba(9, 22, 29, 0.712)" }}
                       type="primary"
                       onClick={handleShoppingChart2}>
-                      Buy
+                      Comprar ahora
                     </Button>
+
                     <Button
                       style={{ color: "rgba(9, 22, 29, 0.712)" }}
                       className="buttonsCardDetail"
                       onClick={handleShoppingChart}>
-                      Add To Cart
+                      Añadir al carrito
                     </Button>
+
                     {shoppingChart?.products?.map((game) => {
                       console.log(card[0].id);
                       if (game.id === card[0].id) {
-                        if (game.stock < 0) {
+                        if (game.stock < 1) {
                           let payload = {
                             userId: idCoockie,
                             gameId: id,
@@ -278,13 +273,6 @@ function CardDetail() {
                           });
                         } else if (string3 === "completo") {
                           window.location.href = "/status-payment";
-                          return (
-                            <p className="p-carrito-cardD">Carrito cargado</p>
-                          );
-                        } else {
-                          return (
-                            <p className="p-carrito-cardD">Carrito cargado</p>
-                          );
                         }
                       }
                     })}
@@ -293,16 +281,24 @@ function CardDetail() {
               </div>
 
               <div className="comentarios-card">
-                <div className="reviewsContainer">
-                  <Card title="PROMEDIO DEL JUEGO">
-                    <Rate
-                      className="rateProm"
-                      disabled
-                      bordered={true}
-                      allowHalf
-                      value={prom}
-                    />
-                  </Card>
+              <div className="reviews-card-admin">
+                    <div className="carta-aux">
+                    <div className="aux7">
+                            <h4 className="titulooo">
+                                Calificación y opiniones
+                            </h4>
+                            <div>
+                                <Rate
+                                className="rateProm"
+                                disabled
+                                bordered={false}
+                                allowHalf
+                                value={prom}
+                            />
+                            </div>
+                            <hr></hr>
+                        </div>
+                        </div>
 
                   {reviews2.length !== 0 ? (
                     <List
@@ -323,6 +319,7 @@ function CardDetail() {
                               ) : null
                             }
                             title={
+                              
                               item.status !== "Disabled" ? (
                                 <Rate
                                   className="rate"

@@ -22,11 +22,11 @@
   box-shadow: 0px 2px 10px gray;
 }
 
-.carritoAuxiliar77:hover{
-  transform: scale(1.2);
-}
+
+
 .nav-component .rutasNavContainer{
   display: flex;
+  margin-left: 4rem;
   gap: 20px ;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +55,7 @@
     color: white;
     cursor: pointer;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
 }
 
@@ -66,7 +66,7 @@
   flex-direction: row;
   color: white;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 20px;
 }
 
@@ -79,7 +79,7 @@
   color: white;
   cursor: pointer;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 20px;
 }
 
@@ -97,7 +97,7 @@
     color: white;
     cursor: pointer;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;  
   }
 
@@ -105,7 +105,7 @@
   color: white;
   cursor: pointer;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 20px;
 }
 
@@ -121,7 +121,7 @@
 }
 
 .nav-component .ant-space-item {
-  font-size: 16px;
+  font-size: 13px;
   line-height: 20px;
 }
 

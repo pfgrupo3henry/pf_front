@@ -1,0 +1,29 @@
+.contenedor {
+      background-image: url('../Assets/nosotros-fondo.jpg');
+      background-size: cover;
+      background-position: center center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+}
+
+.contenedor-text {
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(15px);
+      color: cornflowerblue;
+      width: 600px;
+}
+
+.contenedor.h2 {
+      font-size: 4rem;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      position: relative;
+      z-index: 1;
+}

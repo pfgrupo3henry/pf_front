@@ -20,7 +20,8 @@ import {
     MODIFICAR_USUARIO,
     SAVE_RATING_WEB,
     GET_RATING_WEB,
-    GET_ORDERS_ID
+    GET_ORDERS_ID,
+    GET_ALL_RATING_WEB
 
 } from "../Actions/Types";
 
@@ -34,12 +35,21 @@ const initialState = {
     allUsers: [],
     reviews: [],
     allOrders: [],
-    ordersID:[],
+    ordersID: [],
     ratingsWeb: [],
+    allRatingsWeb: []
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case GET_ALL_RATING_WEB:
+            return {
+                ...state,
+                allRatingsWeb: action.payload,
+
+            }
+
         case GET_RATING_WEB:
             return {
                 ...state,
@@ -133,11 +143,11 @@ const rootReducer = (state = initialState, action) => {
                 allOrders: action.payload,
             }
 
-            case GET_ORDERS_ID:
-                return {
-                    ...state,
-                    ordersID: action.payload,
-                }
+        case GET_ORDERS_ID:
+            return {
+                ...state,
+                ordersID: action.payload,
+            }
 
         case GET_ALL_USERS:
             return {
@@ -177,11 +187,11 @@ const rootReducer = (state = initialState, action) => {
             orderAz = orderAz.sort((a, b) => {
                 switch (action.payload) {
                     case 1:
-                        if (a.name < b.name) {
+                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
                             return -1;
                         } else return 1
                     case 2:
-                        if (a.name > b.name) {
+                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
                             return -1;
                         } else return 1
                     default: return 0;
@@ -193,24 +203,26 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case ORDER_BY_PRICE: {
-            let ordenAscendente = true;
             let orderPrice = [...state.filteredCards];
-            if (ordenAscendente) {
-                orderPrice = orderPrice.sort((a, b) => a.price - b.price);
-                ordenAscendente = false
-            }
-            else {
-                orderPrice = orderPrice.sort((a, b) => b.price - a.price);
-                ordenAscendente = true
-            }
-            return { ...state, filteredCards: orderPrice }
+            orderPrice = orderPrice.sort((a, b) => {
+                switch (action.payload) {
+                    case 'MENOR PRECIO':
+                        return a.price - b.price;
+                    case 'MAYOR PRECIO':
+                        return b.price - a.price;
+                    default:
+                        return 0;
+                }
+            });
+            return { ...state, filteredCards: orderPrice };
         }
 
 
 
 
-        default:
-            return { ...state }
+
+
+        default: return { ...state }
     }
 }
 
@@ -219,36 +231,3 @@ const rootReducer = (state = initialState, action) => {
 export default rootReducer;
 
 
-
-
-
-
-
-
-
-
-
-/*       let flag = false;
- 
-      state.shoppingChart.length && state.shoppingChart.forEach(el => {
-          if (JSON.stringify(el) === JSON.stringify(action.payload)) {
-              flag = true;
-          }
-      })
- 
-      if (!flag) {
-          localStorage.setItem('shoppingChart', JSON.stringify([...state.shoppingChart, action.payload]));
-          return {
-              ...state,
-              shoppingChart: [...state.shoppingChart, action.payload]
-          }
-      } else {
-          const filteredChart = state.shoppingChart.filter(el => {
-              return JSON.stringify(el) !== JSON.stringify(action.payload)
-          });
-          localStorage.setItem('shoppingChart', JSON.stringify([...filteredChart]));
-          return {
-              ...state,
-              shoppingChart: [...filteredChart]
-          }
-      } */

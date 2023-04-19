@@ -89,29 +89,29 @@ function UserInfo() {
   };
 
   const modifyUserSubmit = () => {
-    if (
-      !input.firstname ||
-      !input.lastname ||
-      !input.nationality ||
-      !input.mobile ||
-      !input.img.length === 0
-    ) {
-      return Swal.fire({
+    if (!input.firstname || !input.lastname || !input.nationality || !input.mobile || !input.img.length === 0) {
+      Swal.fire({
         title: "Error!",
         text: "Falta enviar datos obligatorios",
         icon: "error",
         confirmButtonText: "Ok",
       });
     } else {
-      axios
-        .put(
-          `https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`,
-          input
-        )
+      axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
         .then((res) => {
+          console.log(res);
           window.location.reload();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            title: "Error!",
+            text: "El celular ya existe, utilizar otro",
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+
+        });
     }
   };
 
@@ -198,17 +198,17 @@ function UserInfo() {
 
   const columns = [
     {
-      title: "Name",
+      title: "NOombre",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Price",
+      title: "Precio",
       dataIndex: "price",
       key: "price",
     },
     {
-      title: "Quantity",
+      title: "Cantidad",
       dataIndex: "quantity",
       key: "quantity",
     },
@@ -232,29 +232,34 @@ function UserInfo() {
     <div className="menuProfileInfo">
       <div className="menuOptions">
         <Menu
-          theme={theme}
           onClick={onClick}
-          style={{
-            width: 256,
-          }}
           defaultOpenKeys={["sub1"]}
           selectedKeys={[current]}
           mode="inline"
           items={items}
+          style={{
+            width: "230px",
+          }}
         />
       </div>
 
       <div className="cardIndoUserInformation">
-        <div>
+        <div className="axuilar">
           {verFrom ? (
             <Form
               name="wrap"
-              labelCol={{ flex: "110px" }}
-              labelAlign="left"
+              labelCol={{
+                span: 6,
+              }}
               labelWrap
-              wrapperCol={{ flex: 1 }}
+              wrapperCol={{
+                span: 20
+              }}
+
               colon={false}
-              style={{ maxWidth: 600 }}
+              style={{
+                maxWidth: 800,
+              }}
               onChange={handelInputChange}>
               <Form.Item
                 label="Nombre"
@@ -271,7 +276,7 @@ function UserInfo() {
               </Form.Item>
 
               <Form.Item
-                label="Upload"
+                label="Imagen"
                 valuePropName="fileList"
                 initialValue={fileList[0]}
                 name="upload"
@@ -295,7 +300,7 @@ function UserInfo() {
                       style={{
                         marginTop: 8,
                       }}>
-                      Image
+                      Foto
                     </div>
                   </div>
                 </Upload>
@@ -322,71 +327,80 @@ function UserInfo() {
                   type="primary"
                   htmlType="submit"
                   onClick={modifyUserSubmit}>
-                  Submit
+                  Actualizar
                 </Button>
               </Form.Item>
             </Form>
           ) : null}
         </div>
 
-        {pagos.length !== 0 ? (
-          <List
-            itemLayout="vertical"
-            size="large"
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: 3,
-            }}
-            dataSource={pagos[0].orders}
-            renderItem={(item) => (
-              <List.Item key={item.title}>
-                <List.Item.Meta
-                  avatar={
-                    item.status === "Completed Pay" ? (
-                      <CheckCircleTwoTone twoToneColor="#52c41a" />
-                    ) : item.status === "Rejected Pay" ? (
-                      <CloseCircleTwoTone twoToneColor="#eb2f96" />
-                    ) : (
-                      <Avatar src={item.avatar} />
-                    )
-                  }
-                  title={<a>{translations[item.status]}</a>}
-                  description={
-                    <div>
-                      <span style={{ color: "#1890ff" }}>Fecha: </span>
-                      <span>
-                        {new Date(item.updatedAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  }
-                />
-                <Button type="primary" onClick={() => showModal(item)}>
-                  Order Detail
-                </Button>
-                {console.log(selectedItem)}
 
-                <Modal
-                  title={`#${selectedItem?.id}`}
-                  open={isModalOpen}
-                  onOk={handleOk}
-                  onCancel={handleCancel}>
-                  <Table
-                    columns={columns}
-                    dataSource={data}
-                    footer={() => (
-                      <div style={{ textAlign: "right" }}>
-                        <strong>Total Amount:</strong>{" "}
-                        {selectedItem.totalAmount}
+
+        {pagos.length !== 0 ? (
+          <div className="pagos-estilos">
+            <List
+              itemLayout="horizontal"
+              size="large"
+              pagination={{
+                onChange: (page) => {
+                  console.log(page);
+                },
+                pageSize: 5,
+              }}
+              dataSource={pagos[0].orders}
+              renderItem={(item) => (
+                <List.Item key={item.title}>
+                  <List.Item.Meta
+                    avatar={
+                      item.status === "Completed Pay" ? (
+                        <CheckCircleTwoTone className="iconoss" twoToneColor="#52c41a" />
+                      ) : item.status === "Rejected Pay" ? (
+                        <CloseCircleTwoTone className="iconoss" twoToneColor="#eb2f96" />
+                      ) : (
+                        <Avatar src={item.avatar} />
+                      )
+                    }
+                    title={<a>{translations[item.status]}</a>}
+                    description={
+                      <div>
+                        <span style={{ color: "#1890ff" }}>Fecha: </span>
+                        <span>
+                          {new Date(item.updatedAt).toLocaleDateString()}
+                        </span>
                       </div>
-                    )}
+                    }
                   />
-                </Modal>
-              </List.Item>
-            )}
-          />
+                  <div className="botonOrden">
+                    <Button type="primary" onClick={() => showModal(item)}>
+                      Detalle de la orden
+                    </Button>
+                  </div>
+                  {console.log(selectedItem)}
+
+                  <Modal
+                    title={`#${selectedItem?.id}`}
+                    open={isModalOpen}
+                    onOk={handleOk}
+                    onCancel={handleCancel}>
+                    <Table
+                      columns={columns}
+                      dataSource={data}
+                      footer={() => (
+                        <div style={{ textAlign: "right" }}>
+                          <strong>Monto total:</strong>{" "}
+                          {selectedItem.totalAmount}
+                        </div>
+                      )}
+                    />
+                  </Modal>
+                </List.Item>
+
+              )}
+            />
+          </div>
         ) : null}
+
+
 
         {verPerfil ? (
           <>

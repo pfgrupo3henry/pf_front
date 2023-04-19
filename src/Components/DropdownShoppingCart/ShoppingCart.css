@@ -48,6 +48,11 @@
       width: 20rem;
 }
 
+button.swal2-confirm.swalButton.swal2-styled {
+      background-color: rgba(0, 6, 10, 0.802);
+      border-color: none;
+  }
+
 .botton:hover {
       background-color: rgba(27, 37, 43, 0.63);
 
@@ -110,4 +115,13 @@
       font-size: 12px;
       line-height: 12px;
       font-weight: 300;
+}
+
+.cartAux:hover{
+      transform: scale(1.2);
+}
+
+.cart:hover{      
+      transform: scale(1.2);
+
 }

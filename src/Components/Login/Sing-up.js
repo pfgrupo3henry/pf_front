@@ -73,9 +73,10 @@ function SingUp() {
                     cookie.set("token", res.data.token);
                     cookie.set("status", res.data.status);
                     cookie.set("role", res.data.role);
+                    cookie.set("img", res.data.img[0]);
                     Swal.fire({
-                        title: "Success!",
-                        text: 'Usuario logeado correctamente',
+                        title: "",
+                        text: 'Usuario logueado correctamente',
                         icon: "success",
                         confirmButtonText: 'Ok'
                     }).then((res) => {
@@ -88,7 +89,10 @@ function SingUp() {
                         title: "Error!",
                         text: 'Usuario o contraseña incorrectos',
                         icon: "error",
-                        confirmButtonText: 'Ok'
+                        confirmButtonText: 'Ok',
+                        customClass: {
+                            confirmButton: "swalButton"
+                          }
                     }).then((res) => {
                         window.location.reload();
                     });
@@ -124,7 +128,7 @@ function SingUp() {
                             },
                         ]}
                     >
-                        <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
                     </Form.Item>
 
                     <Form.Item
@@ -139,25 +143,25 @@ function SingUp() {
                         <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
-                            placeholder="Password"
+                            placeholder="Contraseña"
                             name="password"
                         />
                     </Form.Item>
 
                     <Form.Item>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Remember me</Checkbox>
+                            <Checkbox>Recordarme</Checkbox>
                         </Form.Item>
 
                         <a className="login-form-forgot form-forgot" href="">
-                            Forgot password
+                        Olvidé mi contraseña
                         </a>
                     </Form.Item>
 
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button"
                             onClick={submitUser}>
-                            Log in
+                            Iniciar Sesión
                         </Button>
                     </Form.Item>
 
@@ -165,7 +169,7 @@ function SingUp() {
                         <div
                             onClick={onClickState}
                             className="buttonOrRegister">
-                            Or register now!
+                            O Registrate!
                         </div>
                     </Form.Item>
 
@@ -240,10 +244,13 @@ function SingUp() {
                 .then((res) => {
                     console.log(res);
                     Swal.fire({
-                        title: "Success!",
+                        title: "Registro Exitoso!",
                         text: 'Usuario creado correctamente',
                         icon: "success",
-                        confirmButtonText: 'Ok'
+                        confirmButtonText: 'Ok',
+                        customClass: {
+                            confirmButton: "swalButton"
+                          }
                     }).then((res) => {
                         window.location.reload();
                     });
@@ -254,7 +261,10 @@ function SingUp() {
                         title: "Error!",
                         text: 'Error el usuario ya existe',
                         icon: "error",
-                        confirmButtonText: 'Ok'
+                        confirmButtonText: 'Ok',
+                        customClass: {
+                            confirmButton: "swalButton"
+                          }
                     })
                 });
 
@@ -329,14 +339,20 @@ function SingUp() {
                     title: "Error!",
                     text: 'Falta cargar datos obligatorios',
                     icon: "error",
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Ok',
+                    customClass: {
+                        confirmButton: "swalButton"
+                      }
                 });
             } else if (!sImagen) {
                 Swal.fire({
                     title: "Error!",
                     text: 'Falta cargar la imagen',
                     icon: "error",
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Ok',
+                    customClass: {
+                        confirmButton: "swalButton"
+                      }
                 });
             } else {
 
@@ -429,7 +445,7 @@ function SingUp() {
                         {input.email.length === 0 && alert ? <p className="p-error">Completar el email</p> : <p></p>}
                     </Form.Item>
 
-                    <Form.Item label="Upload" valuePropName="fileList"
+                    <Form.Item label="Cargar" valuePropName="fileList"
                         initialValue={fileList[0]}
                         name="upload"
                         getValueFromEvent={handleFileListChange}
@@ -448,7 +464,7 @@ function SingUp() {
                                         marginTop: 8,
                                     }}
                                 >
-                                    Image
+                                    Imagen
                                 </div>
                             </div>
                         </Upload>
@@ -458,14 +474,14 @@ function SingUp() {
                     </Form.Item>
 
                     <Form.Item
-                        label="Password"
+                        label="Contraseña"
                         name="password"
                     >
                         <Input.Password name="password" />
                         {errorPassword ?
                             <div>
                                 <p className="p-error">
-                                    Password debe  empezar y terminar con numeros
+                                    La Contraseña debe empezar y terminar con números
                                 </p>
                                 <p className="p-error">
                                     Contener letras
@@ -481,7 +497,7 @@ function SingUp() {
                     </Form.Item>
 
                     <Form.Item
-                        label="Repet Password"
+                        label="Repetir Contraseña"
                         name="password2"
                     >
                         <Input.Password name="password2" />
@@ -511,7 +527,7 @@ function SingUp() {
                 </Form >
 
                 <form ref={form} onSubmit={sendEmail} className="button-sing-up-body">
-                    <Input type="submit" value="Submit" className="Button-sing-up-submit" id="button-loading" />
+                    <Input type="submit" value="Enviar" className="Button-sing-up-submit" id="button-loading" />
                     <input type="text" name="user_name" value={input.firstname} className="buttonsing-up-none" />
                     <input type="text" name="user_email" value={input.email} className="buttonsing-up-none" />
                     {loader === true ?
