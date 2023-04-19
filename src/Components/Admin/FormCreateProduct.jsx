@@ -66,9 +66,9 @@ const FormCreateProduct = () => {
       dispatch(postNewProduct(data));
       Swal.fire({
         icon: 'success',
-        title: '¡New product created!',
-        text: 'little things are coming!',
-
+        title: '¡Creado!',
+        text: '¡Nuevo producto agregado a la Tienda!'
+  
       })
 
       setTimeout(() => {
@@ -79,8 +79,8 @@ const FormCreateProduct = () => {
     } else {
       console.log("Faltan propiedades por completar");
       Swal.fire(
-        'hmm wait a minute..',
-        '¡All fields have to completed!',
+        'Espera..',
+        '¡Tenés que completar todas las propiedades!',
         'warning'
       )
     }
@@ -127,24 +127,24 @@ const FormCreateProduct = () => {
           <Form.Item
 
             className='inputsFormCreate'
-            label="Name"
+            label="Nombre"
             name="name"
-            rules={[{ required: true, message: 'Choose a name for the new product' }]}
+            rules={[{ required: true, message: 'Selecciona un nombre para el nuevo producto' }]}
 
           >
             <Input
-              placeholder="Name of product" />
+              placeholder="Nombre del producto" />
           </Form.Item>
 
 
 
           <Form.Item
-            label="Console"
+            label="Consola"
             name="console"
             rules={[
               {
                 required: true,
-                message: "Enter the correct category"
+                message: "Selecciona la categoría correcta"
               },
             ]}
           >
@@ -155,15 +155,15 @@ const FormCreateProduct = () => {
             </Select>
           </Form.Item>
 
-          <Form.Item label="Genere"
+          <Form.Item label="Género"
             name="genre"
             rules={[
               {
                 required: true,
-                message: "Select an genere"
+                message: "Selecciona un género"
               },
             ]}>
-            <Select placeholder="Choose an genere">
+            <Select placeholder="Selecciona un género">
               <Select.Option value="Acción">Action</Select.Option>
               <Select.Option value="Aventura">Adventure</Select.Option>
               <Select.Option value="Conducción">Driving</Select.Option>
@@ -177,38 +177,38 @@ const FormCreateProduct = () => {
           <Form.Item
 
             className=''
-            label="Price"
+            label="Precio"
             name="price"
-            rules={[{ required: true, message: 'Enter a price per unit' }]}
+            rules={[{ required: true, message: 'Seleccione un precio' }]}
 
           >
             <InputNumber
               className='priceInput'
-              placeholder="Price per unit" />
+              placeholder="Precio por unidad" />
           </Form.Item>
 
-          <Form.Item label="Quantity"
+          <Form.Item label="Cantidad"
             name="quantity"
             rules={[
               {
                 required: true,
-                message: "Please enter an quantity"
+                message: "Por favor introduce una cantidad"
               },
             ]}>
             <InputNumber placeholder="1,2,3" />
           </Form.Item>
-          <Form.Item label="Description"
+          <Form.Item label="Descripción"
             name="Description"
             rules={[
               {
                 required: true,
-                message: "Write some about the product"
+                message: "Escribe una descripción para el producto"
               },
             ]}>
-            <TextArea placeholder="About product" rows={4} />
+            <TextArea placeholder="Acerca del producto.." rows={4} />
           </Form.Item>
 
-          <Form.Item label="Upload" valuePropName="fileList"
+          <Form.Item label="Cargar" valuePropName="fileList"
             name="upload"
             getValueFromEvent={handleFileListChange}
             initialValue={fileList[0]}
@@ -216,7 +216,7 @@ const FormCreateProduct = () => {
             rules={[
               {
                 required: false,
-                message: "Upload a picture"
+                message: "Por favor sube una imagen"
               },
             ]}>
             <Upload
@@ -232,7 +232,7 @@ const FormCreateProduct = () => {
                     marginTop: 8,
                   }}
                 >
-                  Image
+                  Imagen
                 </div>
               </div>
             </Upload>

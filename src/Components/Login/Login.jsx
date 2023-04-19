@@ -79,11 +79,11 @@ function LoginForm (){
       </Form.Item>
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>Recordarme</Checkbox>
         </Form.Item>
 
         <a className="login-form-forgot" href="">
-          Forgot password
+          Olvidé mi contraseña
         </a>
       </Form.Item>
 
@@ -94,12 +94,12 @@ function LoginForm (){
         htmlType="submit" 
         onClick={onClickState}
         className="login-form-button button">
-          Log in
+          Iniciar Sesión
         </Button>
         </div>
       </Form.Item>
       <FormItem>
-      Or  <a href="">register now!</a>
+      O <a href="">Registrate!</a>
       </FormItem>
       <GoogleButton/>
     </Form> 
