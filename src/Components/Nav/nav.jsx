@@ -216,10 +216,8 @@ function Nav(count) {
                   null}
 
               </div >
-              <div className="carritoAuxiliar77">
               <ShoppingCart/>
 
-              </div>
             </div>
           </div>
         </div>

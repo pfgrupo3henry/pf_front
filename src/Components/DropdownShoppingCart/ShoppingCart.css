@@ -111,3 +111,12 @@
       line-height: 12px;
       font-weight: 300;
 }
+
+.cartAux:hover{
+      transform: scale(1.2);
+}
+
+.cart:hover{      
+      transform: scale(1.2);
+
+}
