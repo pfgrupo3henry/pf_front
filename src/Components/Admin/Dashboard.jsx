@@ -243,7 +243,7 @@ const Dashboard = () => {
 
     const options = {
       labels: chartData.map((data) => "Calificación " + data.label),
-      colors: ["#005187", "#c4dafa", "#84b6f4", "#4d82bc"], // Aquí puedes especificar los colores que desees
+      colors: ["#005187", "#c4dafa", "#84b6f4", "#4d82bc"],
     };
 
     const series = chartData.map((data) => data.value);
@@ -398,31 +398,6 @@ const Dashboard = () => {
                   spacing: 10,
                 },
               ]}
-              // legends={[
-              //   {
-              //     anchor: "bottom",
-              //     direction: "row",
-              //     justify: false,
-              //     translateX: 0,
-              //     translateY: 56,
-              //     itemsSpacing: 0,
-              //     itemWidth: 100,
-              //     itemHeight: 18,
-              //     itemTextColor: "#999",
-              //     itemDirection: "left-to-right",
-              //     itemOpacity: 1,
-              //     symbolSize: 18,
-              //     symbolShape: "circle",
-              //     effects: [
-              //       {
-              //         on: "hover",
-              //         style: {
-              //           itemTextColor: "#000",
-              //         },
-              //       },
-              //     ],
-              //   },
-              // ]}
             />
           </div>
 
@@ -468,45 +443,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-/* 
-   // Objeto para llevar el registro de ventas por día
-// Utilizar una promesa para esperar a que allOrders esté completamente cargado
-const waitForAllOrders = () => {
-    return new Promise((resolve) => {
-      const checkAllOrders = () => {
-        if (typeof allOrders !== 'undefined' && typeof allOrders === 'object' && allOrders.All_Orders) {
-          resolve();
-        } else {
-          setTimeout(checkAllOrders, 100);
-        }
-      };
-      checkAllOrders();
-    });
-  };
-  
-  // Esperar a que allOrders esté completamente cargado
-  waitForAllOrders().then(() => {
-    const salesByDay = {};
-  
-    // Iterar sobre el objeto allOrders
-    allOrders.All_Orders.forEach((user) => {
-      user.orders.forEach((order) => {
-        const createdAt = new Date(order.createdAt).toLocaleDateString(); // Obtener la fecha de creación de la orden en formato de fecha local (dd/mm/yyyy)
-        const videogamesSold = order.videogames.length; // Obtener la cantidad de juegos vendidos en la orden
-  
-        // Agregar la cantidad de juegos vendidos al registro de ventas por día
-        if (salesByDay[createdAt]) {
-          salesByDay[createdAt] += videogamesSold;
-        } else {
-          salesByDay[createdAt] = videogamesSold;
-        }
-  
-      });
-    });
-  
-    // Mostrar el registro de ventas por día en la consola
-    console.log("Registro de ventas por día:", salesByDay);
-  
-    // Establecer el estado local con la data de salesByDay
-  }); */
