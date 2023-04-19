@@ -22,6 +22,9 @@ const ShoppingCart = () => {
       text: "Debes iniciar sesion",
       icon: "error",
       confirmButtonText: "Ok",
+      customClass: {
+        confirmButton: "swalButton"
+      }
     }).then((res) => {
       window.location.href = "/login";
     });
