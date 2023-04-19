@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
-import ChatBubble from "./ChatMessage";
+import ChatBubble from "./ChatBubble";
+import "./Chatty.css";
 
 function Chatty() {
   const [query, setQuery] = useState("");
@@ -27,13 +28,16 @@ function Chatty() {
     setChatMessages(messages);
 
     setQuery("");
-    const response = await fetch("http://localhost:3001/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ messages }),
-    });
+    const response = await fetch(
+      "https://pfservidor-production.up.railway.app/chat",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages }),
+      }
+    );
     if (!response.ok) {
       handleError(response.statusText);
     }
@@ -64,12 +68,11 @@ function Chatty() {
   }, [chatMessages, answer, loading]);
 
   return (
-    <div className="container">
-      <div>
-        <h1 className="title">CHAT</h1>
-      </div>
-      <div className="chatbubble">
-        <div className="chatbubble-cont">
+    <div
+      className="container-chat"
+      style={{ position: "fixed", top: "150px", right: "30px" }}>
+      <div className="container-messages">
+        <div className="messages">
           <ChatBubble
             type="assistant"
             message="Hola! ¿Cómo puedo ayudarte hoy?"
@@ -82,18 +85,20 @@ function Chatty() {
             />
           ))}
           {answer && <ChatBubble type="assistant" message={answer} />}
-          {loading && <ChatBubble type="assistant" message="Cargando..." />}
+          {loading && <ChatBubble type="assistant" message="Cargando.." />}
         </div>
         <div ref={scrollToDiv} />
       </div>
-      <form className="chat-form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="input-form"
+          className="input"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button type="submit" className="chat-button">
+        <button
+          type="submit"
+          className="bg-button text-white font-bold py-2 px-4 rounded-md">
           Enviar
         </button>
       </form>
