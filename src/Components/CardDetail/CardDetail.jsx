@@ -280,29 +280,25 @@ function CardDetail() {
                 </Card>
               </div>
 
-              <div className="reviews-y-titulo">
-
-                <div className="titulo-reviews">
-
-                  <h4 className="titulooo">
-                    Calificación y opiniones
-                  </h4>
-
-                  <div>
-                    <Rate
-                      className="rateProm"
-                      disabled
-                      bordered={false}
-                      allowHalf
-                      value={prom}
-                    />
-                  </div>
-
-                  <hr></hr>
-
-                </div>
-
-                <div className="solo-reviews">
+              <div className="comentarios-card">
+              <div className="reviews-card-admin">
+                    <div className="carta-aux">
+                    <div className="aux7">
+                            <h4 className="titulooo">
+                                Calificación y opiniones
+                            </h4>
+                            <div>
+                                <Rate
+                                className="rateProm"
+                                disabled
+                                bordered={false}
+                                allowHalf
+                                value={prom}
+                            />
+                            </div>
+                            <hr></hr>
+                        </div>
+                        </div>
 
                   {reviews2.length !== 0 ? (
                     <List
@@ -323,7 +319,7 @@ function CardDetail() {
                               ) : null
                             }
                             title={
-
+                              
                               item.status !== "Disabled" ? (
                                 <Rate
                                   className="rate"
@@ -345,21 +341,14 @@ function CardDetail() {
                       )}
                     />
                   ) : null}
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
           <br></br>
-
         </div>
-
       </div>
-
     );
   } else {
     return (
