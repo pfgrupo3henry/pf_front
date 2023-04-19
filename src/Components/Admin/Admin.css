@@ -64,6 +64,8 @@ h1 {
   padding-top: 40px;
   z-index: 1;
   width: 20%;
+  transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform-origin: top left;
 }
 
 .userInfoContainer {
@@ -124,14 +126,17 @@ h1 {
 
 .game-card-admin {
   display: flex;
-  gap: 8rem;
   margin-left: 12rem;
+  transform: scale(0.8); /* Ajusta la escala según necesites */
+  transform-origin: top left;
 }
 
 .reviews-card-admin {
   display: inline-block;
   padding: 0px 0px 0px 80px;
   margin-bottom: 3rem;
+  transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform-origin: top left;
 }
 
 
@@ -170,6 +175,19 @@ h1 {
 
 .carta-aux {
   display: flex;
+  color: rgb(53, 53, 53);
+  font-style: oblique;
+  margin-left: 4rem;
+
+}
+
+button.swal2-confirm.swalButton.swal2-styled {
+    background-color: rgba(0, 6, 10, 0.802);
+    border-color: none;
+}
+
+.listadereviews{
+    margin-top: 2rem;
 }
 
 .aux7 {
@@ -178,6 +196,7 @@ h1 {
 }
 
 .rateProm {
+  margin-left: 1rem;
   margin-bottom: 0.5rem;
 }
 

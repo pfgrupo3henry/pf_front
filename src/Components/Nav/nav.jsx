@@ -215,8 +215,9 @@ function Nav(count) {
                   :
                   null}
 
-              </div>
-              <ShoppingCart />
+              </div >
+              <ShoppingCart/>
+
             </div>
           </div>
         </div>

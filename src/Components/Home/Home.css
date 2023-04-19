@@ -1,5 +1,6 @@
 .home-component {
     overflow: hidden;
+    background-image: linear-gradient(to left, #6e6d6d, #ffffff)
 }
 
 .home-component .listCards {
@@ -109,6 +110,26 @@
 }
 
 .link-float-button {
+    display: flex;
+}
+
+.modal {
+    position: fixed;
+    /* El modal se posiciona en la ventana del navegador */
+    z-index: 1;
+    /* El modal está por encima de todo el contenido */
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #48c0f0;
+    margin: 10% auto;
     padding: 10px;
-    margin: 10px
+    border: 1px solid #888;
+    width: 50%;
 }

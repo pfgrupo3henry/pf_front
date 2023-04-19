@@ -119,7 +119,7 @@ function VerReviews() {
         <div className="lista-selects">
           <Search
             className="buttonSearch"
-            placeholder="Search user"
+            placeholder="Buscar usuario..."
             onChange={(e) => handleSearchNombre(e)}
             enterButton
             enterButtonStyle={{ background: "rgba(9, 22, 29, 0.712)" }}
@@ -184,7 +184,7 @@ function VerReviews() {
           >
             <Meta
               title={gameInfo.name}
-              description="Henry Game Store, the best console games, at the best market price"
+              description="Henry Game Store, los mejores juegos, al mejor precio del mercado"
             />
             <br></br>
             <br></br>

@@ -15,7 +15,7 @@ function Footer() {
 
             <div className="footer-content">
 
-                <h3>Video Juegos</h3>
+                <h3>Henry Games Store</h3>
 
                 <p>
                     Jugar es una nueva habilidad , adorna tu tiempo con Video Juegos y añade diversión a tu vida

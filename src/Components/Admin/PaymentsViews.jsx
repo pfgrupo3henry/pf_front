@@ -1,9 +1,19 @@
-import { Avatar, Col, Divider, Drawer, List, Row, Button,Spin } from 'antd';
-import { useState } from 'react';
-import { getOrders, getOrdersId } from '../../Redux/Actions/Index';
-import { useSelector, useDispatch } from 'react-redux';
-import React, { useEffect } from 'react';
-import "./PaymentsViews.css"
+import {
+  Avatar,
+  Col,
+  Divider,
+  Drawer,
+  List,
+  Row,
+  Button,
+  Spin,
+  Space,
+} from "antd";
+import { useState } from "react";
+import { getOrders, getOrdersId } from "../../Redux/Actions/Index";
+import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import "./PaymentsViews.css";
 
 const DescriptionItem = ({ title, content }) => (
   <div className="site-description-item-profile-wrapper">
@@ -12,15 +22,15 @@ const DescriptionItem = ({ title, content }) => (
   </div>
 );
 
-function PaymentsViews () {
+function PaymentsViews() {
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const allOrders = useSelector(state => state.allOrders);
-  const ordersId = useSelector(state => state.ordersID)
-  const [isLoading, setisLoading] = useState(true)
-  const [loading,setLoading] = useState(true)
-  const [ver,setVer] =useState(false)
-  const [verPersonal,setVerPersonal] =useState(false)
-  const [verProducts,setVerProducts] =useState(false)
+  const allOrders = useSelector((state) => state.allOrders);
+  const ordersId = useSelector((state) => state.ordersID);
+  const [isLoading, setisLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [ver, setVer] = useState(false);
+  const [verPersonal, setVerPersonal] = useState(false);
+  const [verProducts, setVerProducts] = useState(false);
   const [drawerData, setDrawerData] = useState({
     userOrder: [],
     userId: "",
@@ -37,47 +47,51 @@ function PaymentsViews () {
       refreshToken: "",
       role: "",
       status: "",
-      updatedAt: ""
-    }
+      updatedAt: "",
+    },
   });
- 
 
-  
-  
-  
-  
   const [open, setOpen] = useState(false);
-
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {setisLoading(false);
+    setTimeout(() => {
+      setisLoading(false);
     }, 1000);
     dispatch(getOrders());
-    console.log("estado lobal",allOrders.All_Orders)
+    console.log("estado lobal", allOrders.All_Orders);
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       // Simulación de una función asincrónica con un retardo de 1 segundo
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setisLoading(false);
     };
-    console.log("data para mapeo",drawerData)
+    console.log("data para mapeo", drawerData);
     fetchData();
-  }, [ordersId,drawerData]);
-
+  }, [ordersId, drawerData]);
 
   if (isLoading) {
-    return <div>Cargando usuario...</div>;
+    return (
+      <Space
+        direction="vertical"
+        style={{
+          width: "100%",
+        }}>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
+      </Space>
+    );
   }
 
   const onClose = () => {
     setOpen(false);
   };
 
-/*   const showDrawer = (userId) => {
+  /*   const showDrawer = (userId) => {
     setTimeout(() => {setisLoading(false);
     }, 3000);
     console.log("ID_USER", userId)
@@ -93,41 +107,36 @@ function PaymentsViews () {
   const showDrawer = async (userId) => {
     // Primera función: setea el estado local isLoading
     setisLoading(false);
-  
+
     // Espera 2 segundos (2000 milisegundos)
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     // Obtén los datos de las órdenes del usuario
     const ordersData = await dispatch(getOrdersId(userId));
     setDrawerData(ordersData.payload); // Setea los datos en el estado local drawerData
     setLoading(false);
-  
+
     // Segunda función: abre el componente
     setOpen(true);
   };
 
-  function showOrders(){
-    setVer(!ver)
+  function showOrders() {
+    setVer(!ver);
   }
-  function showPersonal(){
-    setVerPersonal(!verPersonal)
+  function showPersonal() {
+    setVerPersonal(!verPersonal);
   }
-
-
-
 
   return (
-
-    
     <>
-    <div>En desarrollo</div>
+      <div>En desarrollo</div>
       <List
-      style={{
-        marginTop: "5rem",
-        marginLeft: "10rem",
+        style={{
+          marginTop: "5rem",
+          marginLeft: "10rem",
 
-        width: 700,
-      }}
+          width: 700,
+        }}
         dataSource={allOrders.All_Orders}
         pagination={{
           onChange: (page) => {
@@ -136,152 +145,200 @@ function PaymentsViews () {
           pageSize: 5,
         }}
         bordered
-        renderItem={(item) => ( 
+        renderItem={(item) => (
           <List.Item
             key={item.userId}
             actions={[
-              <a onClick={()=>showDrawer(item.userId)} key={`a-${item.userId}`}>
+              <a
+                onClick={() => showDrawer(item.userId)}
+                key={`a-${item.userId}`}>
                 Todas las compras
-              </a>, 
-            ]}
-          >
-             <List.Item.Meta
-              avatar={
-                <Avatar src={item.userInfo.img[0]} />
-              }
+              </a>,
+            ]}>
+            <List.Item.Meta
+              avatar={<Avatar src={item.userInfo.img[0]} />}
               title={
-              <div className='aux'>
-              <div>{item.userInfo.firstname}</div>
-              <div>{item.userInfo.lastname}</div>
-              </div>
-            }
-              description={item.userInfo.email  }
-            /> 
-            
+                <div className="aux">
+                  <div>{item.userInfo.firstname}</div>
+                  <div>{item.userInfo.lastname}</div>
+                </div>
+              }
+              description={item.userInfo.email}
+            />
           </List.Item>
         )}
       />
-      <Drawer 
-
-      width={640} placement="right" closable={false} onClose={onClose} open={open}>
+      <Drawer
+        width={640}
+        placement="right"
+        closable={false}
+        onClose={onClose}
+        open={open}>
         <p
           className="site-description-item-profile-p"
           style={{
             marginBottom: 24,
-          }}
-        >
+          }}>
           Perfil del usuario
         </p>
         <p className="site-description-item-profile-p">Personal</p>
-      
+
         {loading ? (
-        <div><Spin/></div>
-      ) : (<div>
-          <Row>
-          <Col span={12}>
+          <div>
+            <Spin />
+          </div>
+        ) : (
+          <div>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem
+                  title={
+                    <span style={{ fontWeight: "bold" }}>
+                      Nombre y apellido
+                    </span>
+                  }
+                  content={
+                    <div className="aux">
+                      <div>{drawerData.userOrder[0].userInfo.firstname}</div>
+                      <div>{drawerData.userOrder[0].userInfo.lastname}</div>
+                    </div>
+                  }
+                />
+              </Col>
+              <Col span={12}>
+                <DescriptionItem
+                  title={<span style={{ fontWeight: "bold" }}>Mi cuenta</span>}
+                  content="Henry Games Store"
+                />
+              </Col>
+            </Row>
+          </div>
+        )}
 
-
-         
-           <DescriptionItem 
-            title={<span style={{ fontWeight: 'bold' }}>Nombre y apellido</span>}
-             content={
-              <div className="aux">
-              <div>{drawerData.userOrder[0].userInfo.firstname}</div> 
-              <div>{drawerData.userOrder[0].userInfo.lastname}</div> 
-            </div>
-            }/>   
-
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Mi cuenta</span>} content="Henry Games Store" />
-          </Col>
-        </Row>
-        </div>
-      )}
-        
         <Divider />
         <p className="site-description-item-profile-p">Compras Realizadas</p>
         <br></br>
         {loading ? (
-        <div><Spin/></div>
-      ) : (<div>
-          {drawerData.userOrder[0]?.orders.map(order => (
-            <div key={order.id}> {/* Asegúrate de tener una clave única para cada elemento en el bucle de mapeo */}
-              <Row className='rows'>
-                <Col span={12}>
-                <DescriptionItem
-                title={<span style={{ fontWeight: 'bold' }}>ID del carrito</span>}
-                content={drawerData.userOrder[0]?.orders[0]?.cartId}
-                />
-          </Col>
+          <div>
+            <Spin />
+          </div>
+        ) : (
+          <div>
+            {drawerData.userOrder[0]?.orders.map((order) => (
+              <div key={order.id}>
+                {" "}
+                {/* Asegúrate de tener una clave única para cada elemento en el bucle de mapeo */}
+                <Row className="rows">
+                  <Col span={12}>
+                    <DescriptionItem
+                      title={
+                        <span style={{ fontWeight: "bold" }}>
+                          ID del carrito
+                        </span>
+                      }
+                      content={drawerData.userOrder[0]?.orders[0]?.cartId}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <DescriptionItem
+                      title={
+                        <span style={{ fontWeight: "bold" }}>
+                          Fecha de compra
+                        </span>
+                      }
+                      content={drawerData.userOrder[0].orders[0].createdAt}
+                    />
+                  </Col>
+                </Row>
+                <Row className="rows">
+                  <Col span={12}>
+                    <DescriptionItem
+                      title={
+                        <span style={{ fontWeight: "bold" }}>
+                          Estado del pago
+                        </span>
+                      }
+                      content={drawerData.userOrder[0].orders[0].status}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <DescriptionItem
+                      title={
+                        <span style={{ fontWeight: "bold" }}>
+                          Total abonado
+                        </span>
+                      }
+                      content={`$${drawerData.userOrder[0]?.orders[0]?.totalAmount}`}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <DescriptionItem
+                      title={
+                        <span style={{ fontWeight: "bold" }}>
+                          Productos adquiridos
+                        </span>
+                      }
+                      content={
+                        <div className="products">
+                          {order.videogames.map((videogame) => (
+                            <div key={videogame.id}>
+                              <div className="products-boughts">
+                                <p>Nombre: {videogame.name}</p>
+                                <p>Precio: ${videogame.price}</p>
+                                <p>
+                                  Cantidad: {videogame.OrdersDetail.quantity}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      }
+                    />
+                  </Col>
+                  <Divider />
+                </Row>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <p className="site-description-item-profile-p">Contacto</p>
+        <Row className="products">
           <Col span={12}>
-            <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Fecha de compra</span>} content={drawerData.userOrder[0].orders[0].createdAt} />
-          </Col>
-        </Row>
-        <Row className='rows'>
-          <Col span={12}>
-            <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Estado del pago</span>} content={drawerData.userOrder[0].orders[0].status} />
-          </Col>  
-          <Col span={12}>
-          <DescriptionItem title={<span style={{ fontWeight: 'bold' }}>Total abonado</span>} content={`$${drawerData.userOrder[0]?.orders[0]?.totalAmount}`} />
-          </Col>
-        </Row>
-        <Row>
-        <Col span={24}>
             <DescriptionItem
-              title={<span style={{ fontWeight: 'bold' }}>Productos adquiridos</span>}
+              title={<span style={{ fontWeight: "bold" }}>Email</span>}
               content={
-                <div className='products'>
-                  {order.videogames.map(videogame => (
-                    <div key={videogame.id}>
-                      <div className='products-boughts'>
-                      <p>Nombre: {videogame.name}</p>
-                      <p>Precio: ${videogame.price}</p>
-                      <p>Cantidad: {videogame.OrdersDetail.quantity}</p>
-                    </div>
-                    </div>
-                  ))}
-                </div>               
+                drawerData &&
+                drawerData.userOrder &&
+                drawerData.userOrder[0] &&
+                drawerData.userOrder[0].userInfo &&
+                drawerData.userOrder[0].userInfo.email
               }
             />
           </Col>
-          <Divider/>
-        </Row>
-      </div>
-          ))}
-            </div>
-          )}
-
-        <p className="site-description-item-profile-p">Contacto</p>
-        <Row className='products'>
           <Col span={12}>
-          <DescriptionItem 
-          title={<span style={{ fontWeight: 'bold' }}>Email</span>} 
-          content={drawerData && drawerData.userOrder && drawerData.userOrder[0] && drawerData.userOrder[0].userInfo && drawerData.userOrder[0].userInfo.email} 
-        />
-          </Col>
-          <Col span={12}>
-          <DescriptionItem 
-          title={<span style={{ fontWeight: 'bold' }}>Email</span>} 
-          content={drawerData && drawerData.userOrder && drawerData.userOrder[0] && drawerData.userOrder[0].userInfo && drawerData.userOrder[0].userInfo.mobile} 
-        />
+            <DescriptionItem
+              title={<span style={{ fontWeight: "bold" }}>Email</span>}
+              content={
+                drawerData &&
+                drawerData.userOrder &&
+                drawerData.userOrder[0] &&
+                drawerData.userOrder[0].userInfo &&
+                drawerData.userOrder[0].userInfo.mobile
+              }
+            />
           </Col>
         </Row>
       </Drawer>
     </>
   );
-};
-export  {PaymentsViews};
+}
+export { PaymentsViews };
 
-
-
-
-
-
-
-
-
-    {/*     <Row>
+{
+  /*     <Row>
           <Col span={24}>
             <DescriptionItem
               title="Github"
@@ -293,4 +350,5 @@ export  {PaymentsViews};
             /> 
             
           </Col>
-        </Row> */}
+        </Row> */
+}

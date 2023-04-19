@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { CardElement } from "../Card/card";
 import { Slider } from "../Slider/Slider";
-import { Menu, FloatButton, Pagination, Alert, Divider } from "antd";
+import {
+  Menu,
+  FloatButton,
+  Pagination,
+  Alert,
+  Divider,
+  Modal,
+  Icon,
+} from "antd";
 import "../FilterHome/filterHome.css";
 import "./Home.css";
 import "../Pagination/pagination.css";
@@ -12,10 +20,9 @@ import OrderMenu from "../OrderMenu/OrderMenu";
 import Cookies from "universal-cookie";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { SmileOutlined, WhatsAppOutlined } from "@ant-design/icons";
+import { MessageTwoTone, PhoneTwoTone, SmileTwoTone } from "@ant-design/icons";
 import RatingWeb from "../RatingWeb/RatingWeb";
 import Chatty from "../Chatbot/Chatty";
-import ChatBubble from "../Chatbot/ChatMessage";
 
 function Home(label, key, icon, children, type) {
   const { logout } = useAuth0();
@@ -201,6 +208,15 @@ function Home(label, key, icon, children, type) {
     updateElementsToShow(1);
   }, [filteredVideogames]);
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   if (card) {
     return (
       <div className="home-component">
@@ -220,26 +236,35 @@ function Home(label, key, icon, children, type) {
             <OrderMenu />
           </div>
           <div className="link-float-button">
-            <>
-              <FloatButton.Group
-                shape="circle"
-                style={{
-                  right: 20,
-                }}>
+            <FloatButton.Group>
+              <FloatButton
+                onClick={handleWWClick}
+                tooltip="Consulta con nosotros!"
+                icon={<PhoneTwoTone twoToneColor="#39F805" />}
+              />
+              <Divider type="vertical" />
+              <Link to="/ratingWeb" element={<RatingWeb />}>
                 <FloatButton
-                  onClick={handleWWClick}
-                  tooltip="Consulta con nosotros!"
-                  icon={<WhatsAppOutlined />}
+                  tooltip="Califica la Web!"
+                  icon={<SmileTwoTone twoToneColor="#39F805" />}
                 />
-                <Divider type="vertical" />
-                <Link to="/ratingWeb" element={<RatingWeb />}>
-                  <FloatButton
-                    tooltip="Califica la Web!"
-                    icon={<SmileOutlined />}
-                  />
-                </Link>
-              </FloatButton.Group>
-            </>
+              </Link>
+              <Divider type="vertical" />
+              <FloatButton
+                tooltip="Chatea con Henry!"
+                onClick={showModal}
+                icon={<MessageTwoTone twoToneColor="#39F805" />}></FloatButton>
+              <div className="modal-container">
+                <Modal
+                  className="modal"
+                  title="Chatbot Henry Games"
+                  open={isModalVisible}
+                  onCancel={handleCancel}
+                  footer={null}>
+                  <Chatty />
+                </Modal>
+              </div>
+            </FloatButton.Group>
           </div>
           <div className="containerExtreme">
             {items.length === 0 ? (

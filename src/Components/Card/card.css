@@ -1,5 +1,7 @@
 .card-component {
     margin-top: 3rem;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
 }
 
 .card-component .favIconCardHome {
