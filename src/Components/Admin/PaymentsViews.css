@@ -1,17 +1,24 @@
-.products-boughts{
+.products-boughts {
     margin-bottom: 0.5rem;
 }
 
-.aux{
+.aux {
     display: flex;
     gap: 0.4rem;
 }
 
 
-.products{
+.products {
     margin-top: 0.5rem;
 }
 
-.rows{
+.rows {
     margin-bottom: 0.5rem;
+}
+
+.body-pagos-admin {
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 40px;
+    padding-right: 150px;
 }

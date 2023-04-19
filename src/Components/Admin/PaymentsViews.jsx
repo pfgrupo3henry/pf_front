@@ -128,8 +128,7 @@ function PaymentsViews() {
   }
 
   return (
-    <>
-      <div>En desarrollo</div>
+    <div className="body-pagos-admin">
       <List
         style={{
           marginTop: "5rem",
@@ -332,7 +331,7 @@ function PaymentsViews() {
           </Col>
         </Row>
       </Drawer>
-    </>
+    </div>
   );
 }
 export { PaymentsViews };

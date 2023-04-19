@@ -89,29 +89,29 @@ function UserInfo() {
   };
 
   const modifyUserSubmit = () => {
-    if (
-      !input.firstname ||
-      !input.lastname ||
-      !input.nationality ||
-      !input.mobile ||
-      !input.img.length === 0
-    ) {
-      return Swal.fire({
+    if (!input.firstname || !input.lastname || !input.nationality || !input.mobile || !input.img.length === 0) {
+      Swal.fire({
         title: "Error!",
         text: "Falta enviar datos obligatorios",
         icon: "error",
         confirmButtonText: "Ok",
       });
     } else {
-      axios
-        .put(
-          `https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`,
-          input
-        )
+      axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
         .then((res) => {
+          console.log(res);
           window.location.reload();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            title: "Error!",
+            text: "El celular ya existe, utilizar otro",
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+
+        });
     }
   };
 
@@ -334,66 +334,73 @@ function UserInfo() {
           ) : null}
         </div>
 
-        {pagos.length !== 0 ? (
-          <List
-            itemLayout="horizontal"
-            size="large"
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: 5,
-            }}
-            dataSource={pagos[0].orders}
-            renderItem={(item) => (
-              <List.Item key={item.title}>  
-                <List.Item.Meta
-                  avatar={
-                    item.status === "Completed Pay" ? (
-                      <CheckCircleTwoTone className="iconoss" twoToneColor="#52c41a" />
-                    ) : item.status === "Rejected Pay" ? (
-                      <CloseCircleTwoTone className="iconoss" twoToneColor="#eb2f96" />
-                    ) : (
-                      <Avatar src={item.avatar} />
-                    )
-                  }
-                  title={<a>{translations[item.status]}</a>}
-                  description={
-                    <div>
-                      <span style={{ color: "#1890ff" }}>Fecha: </span>
-                      <span>
-                        {new Date(item.updatedAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  }
-                />
-                <div className="botonOrden">
-                <Button type="primary" onClick={() => showModal(item)}>
-                  Detalle de la orden
-                </Button>
-                </div>
-                {console.log(selectedItem)}
 
-                <Modal
-                  title={`#${selectedItem?.id}`}
-                  open={isModalOpen}
-                  onOk={handleOk}
-                  onCancel={handleCancel}>
-                  <Table
-                    columns={columns}
-                    dataSource={data}
-                    footer={() => (
-                      <div style={{ textAlign: "right" }}>
-                        <strong>Monto total:</strong>{" "}
-                        {selectedItem.totalAmount}
+
+        {pagos.length !== 0 ? (
+          <div className="pagos-estilos">
+            <List
+              itemLayout="horizontal"
+              size="large"
+              pagination={{
+                onChange: (page) => {
+                  console.log(page);
+                },
+                pageSize: 5,
+              }}
+              dataSource={pagos[0].orders}
+              renderItem={(item) => (
+                <List.Item key={item.title}>
+                  <List.Item.Meta
+                    avatar={
+                      item.status === "Completed Pay" ? (
+                        <CheckCircleTwoTone className="iconoss" twoToneColor="#52c41a" />
+                      ) : item.status === "Rejected Pay" ? (
+                        <CloseCircleTwoTone className="iconoss" twoToneColor="#eb2f96" />
+                      ) : (
+                        <Avatar src={item.avatar} />
+                      )
+                    }
+                    title={<a>{translations[item.status]}</a>}
+                    description={
+                      <div>
+                        <span style={{ color: "#1890ff" }}>Fecha: </span>
+                        <span>
+                          {new Date(item.updatedAt).toLocaleDateString()}
+                        </span>
                       </div>
-                    )}
+                    }
                   />
-                </Modal>
-              </List.Item>
-            )}
-          />
+                  <div className="botonOrden">
+                    <Button type="primary" onClick={() => showModal(item)}>
+                      Detalle de la orden
+                    </Button>
+                  </div>
+                  {console.log(selectedItem)}
+
+                  <Modal
+                    title={`#${selectedItem?.id}`}
+                    open={isModalOpen}
+                    onOk={handleOk}
+                    onCancel={handleCancel}>
+                    <Table
+                      columns={columns}
+                      dataSource={data}
+                      footer={() => (
+                        <div style={{ textAlign: "right" }}>
+                          <strong>Monto total:</strong>{" "}
+                          {selectedItem.totalAmount}
+                        </div>
+                      )}
+                    />
+                  </Modal>
+                </List.Item>
+
+              )}
+            />
+          </div>
         ) : null}
+
+
 
         {verPerfil ? (
           <>
