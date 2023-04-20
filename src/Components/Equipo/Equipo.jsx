@@ -1,37 +1,80 @@
-import { Divider, List, Typography } from "antd";
-import { CodeOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { Divider, List, Typography, FloatButton } from "antd";
+import { CodeOutlined, GithubOutlined } from "@ant-design/icons";
+import "./Equipo.css";
+import { useNavigate } from "react-router-dom";
+import { CaretLeftOutlined } from "@ant-design/icons";
 
 const data = [
-  "Dylan Marcote - FRONT - https://github.com/dylansebastianm",
-  "Felipe Blaksley - FRONT - https://github.com/Molli1992",
-  "Rocio Alday - BACK - https://github.com/RocioAlday",
-  "Javier Rodriguez - BACK - https://github.com/javlucky",
-  "Matias Tazza - BACK - https://github.com/1Tazza",
-  "Leandro Milia - BACK/FRONT - https://github.com/Leancba",
-  "Celina de la Cruz -  FRONT - https://github.com/celinadelacruzriz",
+  {
+    user: "Dylan Marcote",
+    role: "FRONT",
+    link: "https://github.com/dylansebastianm",
+  },
+  {
+    user: "Felipe Blaksley",
+    role: "FRONT",
+    link: "https://github.com/Molli1992",
+  },
+  {
+    user: "Rocio Alday",
+    role: "BACK",
+    link: "https://github.com/RocioAlday",
+  },
+  {
+    user: "Javier Rodriguez",
+    role: "BACK",
+    link: "https://github.com/javlucky",
+  },
+  {
+    user: "Matias Tazza",
+    role: "BACK",
+    link: "https://github.com/1Tazza",
+  },
+  {
+    user: "Leandro Milia",
+    role: "BACK/FRONT",
+    link: "https://github.com/Leancba",
+  },
+  {
+    user: "Celina de la Cruz",
+    role: "FRONT",
+    link: "https://github.com/celinadelacruzriz",
+  },
 ];
 
-const Equipo = () => (
-  <>
-    <Divider orientation="left"></Divider>
-    <List
-      header={
-        <div>
-          <h2>Equipo</h2>
-        </div>
-      }
-      bordered
-      dataSource={data}
-      renderItem={(item) => (
-        <List.Item>
-          <Typography.Text style={{ level: 1, fontSize: 40 }}>
-            {<CodeOutlined style={{ fontSize: 20 }} />}
-          </Typography.Text>
-          {"  "}
-          {item}
-        </List.Item>
-      )}
-    />
-  </>
-);
+const Equipo = () => {
+  const navigate = useNavigate();
+  return (
+    <div className="equipo-container">
+      <FloatButton
+        icon={<CaretLeftOutlined />}
+        tooltip="Volver"
+        onClick={() => navigate(-1)}>
+        Volver
+      </FloatButton>
+      <Divider></Divider>
+      <List
+        bordered
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item>
+            <Typography.Text style={{ fontFamily: "fantasy", fontSize: 20 }}>
+              {<CodeOutlined style={{ fontSize: 20 }} />}
+              {"    "}
+              {item.user}
+              {"     "}
+              {item.role}
+              {"     "}
+              <Link to={item.link}>
+                <GithubOutlined style={{ fontSize: 25 }} />
+              </Link>
+            </Typography.Text>
+          </List.Item>
+        )}
+      />
+    </div>
+  );
+};
+
 export default Equipo;
