@@ -113,22 +113,19 @@
 }
 
 .modal {
-    position: fixed;
-    /* El modal se posiciona en la ventana del navegador */
+    display: flex;
+    flex-direction: row;
     z-index: 1;
-    /* El modal está por encima de todo el contenido */
-    right: 0;
-    top: 0;
-    width: 50%;
+    justify-content: flex-end;
+    align-items: flex-start;
+    left: 511px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 40%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: transparent;
 }
 
-.modal-content {
-    background-color: #48c0f0;
-    margin: 10% auto;
-    padding: 10px;
-    border: 1px solid #888;
-    width: 50%;
+.modal .ant-modal-content {
+    background-color: transparent;
 }

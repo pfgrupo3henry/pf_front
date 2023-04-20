@@ -71,7 +71,7 @@ function Chatty() {
   return (
     <div
       className="container-chat"
-      style={{ position: "fixed", top: "150px", right: "30px" }}>
+      style={{ position: "fixed", top: "100px", right: "30px" }}>
       <div className="header">Chatbot Henry Games</div>
       <div className="container-messages">
         <div className="messages">

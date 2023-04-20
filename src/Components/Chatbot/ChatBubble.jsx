@@ -25,13 +25,10 @@ function ChatBubble({ type, message }) {
             <p className="text-sm leading-normal">{message}</p>
           </div>
         ) : (
-          <div className="chat-bubble">
-            <div className="loading">
-              <div className="dot one"></div>
-              <div className="dot two"></div>
-              <div className="dot three"></div>
-            </div>
-            <div className="tail"></div>
+          <div className={`loading py-2 px-4 rounded-lg ${chatBubblePrimary}`}>
+            <div className="dot one"></div>
+            <div className="dot two"></div>
+            <div className="dot three"></div>
           </div>
         )}
       </div>
