@@ -89,7 +89,13 @@ function UserInfo() {
   };
 
   const modifyUserSubmit = () => {
-    if (!input.firstname || !input.lastname || !input.nationality || !input.mobile || !input.img.length === 0) {
+    if (
+      !input.firstname ||
+      !input.lastname ||
+      !input.nationality ||
+      !input.mobile ||
+      !input.img.length === 0
+    ) {
       Swal.fire({
         title: "Error!",
         text: "Falta enviar datos obligatorios",
@@ -97,7 +103,11 @@ function UserInfo() {
         confirmButtonText: "Ok",
       });
     } else {
-      axios.put(`https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`, input)
+      axios
+        .put(
+          `https://pfservidor-production.up.railway.app/user/modify/${newUser[0].email}`,
+          input
+        )
         .then((res) => {
           console.log(res);
           window.location.reload();
@@ -110,7 +120,6 @@ function UserInfo() {
             icon: "error",
             confirmButtonText: "Ok",
           });
-
         });
     }
   };
@@ -198,7 +207,7 @@ function UserInfo() {
 
   const columns = [
     {
-      title: "NOombre",
+      title: "Nombre",
       dataIndex: "name",
       key: "name",
     },
@@ -253,9 +262,8 @@ function UserInfo() {
               }}
               labelWrap
               wrapperCol={{
-                span: 20
+                span: 20,
               }}
-
               colon={false}
               style={{
                 maxWidth: 800,
@@ -334,8 +342,6 @@ function UserInfo() {
           ) : null}
         </div>
 
-
-
         {pagos.length !== 0 ? (
           <div className="pagos-estilos">
             <List
@@ -353,9 +359,15 @@ function UserInfo() {
                   <List.Item.Meta
                     avatar={
                       item.status === "Completed Pay" ? (
-                        <CheckCircleTwoTone className="iconoss" twoToneColor="#52c41a" />
+                        <CheckCircleTwoTone
+                          className="iconoss"
+                          twoToneColor="#52c41a"
+                        />
                       ) : item.status === "Rejected Pay" ? (
-                        <CloseCircleTwoTone className="iconoss" twoToneColor="#eb2f96" />
+                        <CloseCircleTwoTone
+                          className="iconoss"
+                          twoToneColor="#eb2f96"
+                        />
                       ) : (
                         <Avatar src={item.avatar} />
                       )
@@ -394,13 +406,10 @@ function UserInfo() {
                     />
                   </Modal>
                 </List.Item>
-
               )}
             />
           </div>
         ) : null}
-
-
 
         {verPerfil ? (
           <>
