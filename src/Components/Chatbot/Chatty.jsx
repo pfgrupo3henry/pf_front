@@ -72,11 +72,12 @@ function Chatty() {
     <div
       className="container-chat"
       style={{ position: "fixed", top: "150px", right: "30px" }}>
+      <div className="header">Chatbot Henry Games</div>
       <div className="container-messages">
         <div className="messages">
           <ChatBubble
             type="assistant"
-            message="Hola! 👋 ¿Cómo puedo ayudarte hoy?"
+            message="¡Hola! 👋 ¿Cómo puedo ayudarte hoy?"
           />
           {chatMessages.map((message, index) => (
             <ChatBubble
@@ -86,15 +87,15 @@ function Chatty() {
             />
           ))}
           {answer && <ChatBubble type="assistant" message={answer} />}
-          {loading && <ChatBubble type="assistant" message="Cargando.." />}
+          {loading && <ChatBubble type="assistant" message="Cargando" />}
         </div>
         <div ref={scrollToDiv} />
       </div>
       <form className="form-chat" onSubmit={handleSubmit}>
         <input
-          placeholder="Ingresa tu mensaje"
           type="text"
           className="input-chat"
+          placeholder="Ingresa tu mensaje"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

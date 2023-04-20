@@ -12,17 +12,28 @@ function ChatBubble({ type, message }) {
     <div className={`flex-${chatEnd} mb-4`}>
       <div className="w-10 h-10 rounded-full mr-4">
         <img
-          width={8}
-          height={8}
+          width={9}
+          height={9}
           src={name}
           alt={`${type} avatar`}
           className="w-3 h-3 rounded-full"
         />
       </div>
       <div>
-        <div className={`py-2 px-4 rounded-lg ${chatBubblePrimary}`}>
-          <p className="text-sm leading-normal">{message}</p>
-        </div>
+        {message !== "Cargando" ? (
+          <div className={`py-2 px-4 rounded-lg ${chatBubblePrimary}`}>
+            <p className="text-sm leading-normal">{message}</p>
+          </div>
+        ) : (
+          <div className="chat-bubble">
+            <div className="loading">
+              <div className="dot one"></div>
+              <div className="dot two"></div>
+              <div className="dot three"></div>
+            </div>
+            <div className="tail"></div>
+          </div>
+        )}
       </div>
     </div>
   );
