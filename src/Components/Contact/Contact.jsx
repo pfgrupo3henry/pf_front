@@ -82,7 +82,7 @@ const Contact = () => {
         {state === 3 ? (
           <div>
             <a>
-              <h4>Direccion: Carlos Paz 6897</h4>
+              <h4>Direccion: José C. Paz 6897</h4>
             </a>
             <a>
               <h4>Telefono: 4951-3541</h4>

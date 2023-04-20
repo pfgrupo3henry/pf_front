@@ -257,7 +257,6 @@ function Home(label, key, icon, children, type) {
               <div className="modal-container">
                 <Modal
                   className="modal"
-                  title="Chatbot Henry Games"
                   open={isModalVisible}
                   onCancel={handleCancel}
                   footer={null}>
