@@ -165,3 +165,14 @@ button.swal2-confirm.swalButton.swal2-styled {
 .google {
     width: 30rem;
 }
+
+.go-back {
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    padding-left: 255px;
+}
+
+.go-back-input {
+    cursor: pointer;
+}
