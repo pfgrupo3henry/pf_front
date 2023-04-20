@@ -22,6 +22,7 @@ function Chatty() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (query.length < 1) return handleError("Debes ingresar una consulta");
     setLoading(true);
 
     const messages = [...chatMessages, { role: "user", content: query }];
@@ -75,7 +76,7 @@ function Chatty() {
         <div className="messages">
           <ChatBubble
             type="assistant"
-            message="Hola! ¿Cómo puedo ayudarte hoy?"
+            message="Hola! 👋 ¿Cómo puedo ayudarte hoy?"
           />
           {chatMessages.map((message, index) => (
             <ChatBubble
@@ -91,6 +92,7 @@ function Chatty() {
       </div>
       <form className="form-chat" onSubmit={handleSubmit}>
         <input
+          placeholder="Ingresa tu mensaje"
           type="text"
           className="input-chat"
           value={query}
