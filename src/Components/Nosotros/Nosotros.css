@@ -1,8 +1,8 @@
 .contenedor {
       display: flex;
       flex-direction: row;
-      margin-top: 170px;
-      padding-bottom: 150px;
+      margin-top: 70px;
+      padding-bottom: 50px;
 }
 
 .contenedor-int {

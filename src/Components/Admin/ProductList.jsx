@@ -135,13 +135,13 @@ const ProductList = (props) => {
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 100,
+      width: 70,
       editable: true,
     },
     {
       title: 'Nombre',
       dataIndex: 'name',
-      width: 100,
+      width: 250,
       editable: true,
     },
 
@@ -155,7 +155,7 @@ const ProductList = (props) => {
     {
       title: 'Sub categoria',
       dataIndex: 'genre',
-      width: 50,
+      width: 100,
       editable: true,
     },
 
@@ -174,7 +174,7 @@ const ProductList = (props) => {
     {
       title: 'Precio',
       dataIndex: 'price',
-      width: 50,
+      width: 100,
       editable: true,
     },
     {
@@ -186,7 +186,7 @@ const ProductList = (props) => {
     {
       title: 'Operación',
       dataIndex: 'operation',
-      width: 138,
+      width: 160,
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
