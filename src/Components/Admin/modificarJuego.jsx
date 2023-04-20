@@ -2,6 +2,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import React, { useState } from "react";
 import "./Admin.css";
 import axios from "axios";
+import { getCards } from '../../Redux/Actions/Index';
 import {
     Button,
     Form,
@@ -10,9 +11,11 @@ import {
     Select,
     Upload,
 } from 'antd';
-
+import { useDispatch } from 'react-redux';
 
 function ModificarJuego() {
+
+    const dispatch = useDispatch()
 
     const [fileList, setFileList] = useState([]);
     const { TextArea } = Input;
@@ -31,7 +34,7 @@ function ModificarJuego() {
         let data = {
             name: event.name,
             description: event.Description,
-            quantity: event.quantity,
+            stock: event.stock,
             img: [fileList[0].thumbUrl],
             price: event.price,
             genre: event.genre,
@@ -50,8 +53,9 @@ function ModificarJuego() {
         if (todasCompletas) {
 
             console.log(data);
+            console.log(data.img[0]);
 
-            axios.put("https://pfservidor-production.up.railway.app/videogames/modify", data)
+            axios.put("https://pfservidor-production.up.railway.app/videogames/modify/img", data)
                 .then((res) => {
                     console.log(res);
                     Swal.fire({
@@ -60,8 +64,9 @@ function ModificarJuego() {
                         icon: "success",
                         confirmButtonText: 'Ok'
                     }).then((res) => {
+                        dispatch(getCards())
                         window.location.reload();
-                    });
+                    })
                 })
                 .catch((err) => {
                     console.log(err);
@@ -70,9 +75,7 @@ function ModificarJuego() {
                         text: 'Error en la modificacion del juego',
                         icon: "error",
                         confirmButtonText: 'Ok'
-                    }).then((res) => {
-                        window.location.reload();
-                    });
+                    })
                 })
 
         } else {
@@ -230,8 +233,8 @@ function ModificarJuego() {
 
                     </Form.Item>
 
-                    <Form.Item label="Quantity"
-                        name="quantity"
+                    <Form.Item label="Stock"
+                        name="stock"
                         rules={[
                             {
                                 required: true,
