@@ -1,0 +1,13 @@
+.body-reset {
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center;
+    padding-top: 180px;
+    padding-left: 500px;
+    width: 900px;
+}
+
+.conteiner-reset {
+    align-items: center;
+    justify-content: center;
+}
