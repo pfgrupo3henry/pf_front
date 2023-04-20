@@ -136,8 +136,35 @@ function SingUp() {
             console.log(forgotPassword)
 
             Axios.put("https://pfservidor-production.up.railway.app/user/password-reset", forgotPassword)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err))
+                .then((res) => {
+                    console.log(res)
+                    Swal.fire({
+                        title: "",
+                        text: 'Revisa tu correo electronico',
+                        icon: "success",
+                        confirmButtonText: 'Ok'
+                    }).then((res) => {
+                        setForgotPassword({
+                            email: ""
+                        });
+                    });
+                })
+                .catch((err) => {
+                    console.log(err)
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Correo electronico incorrecto',
+                        icon: "error",
+                        confirmButtonText: 'Ok',
+                        customClass: {
+                            confirmButton: "swalButton"
+                        }
+                    }).then((res) => {
+                        setForgotPassword({
+                            email: ""
+                        });
+                    })
+                })
 
         };
 
@@ -232,7 +259,7 @@ function SingUp() {
                                 },
                             ]}
                         >
-                            <Input onChange={(e) => onChageRestablecer(e)} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
+                            <Input value={forgotPassword.email} onChange={(e) => onChageRestablecer(e)} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
                         </Form.Item>
 
 
@@ -610,6 +637,9 @@ function SingUp() {
                         null}
                 </form >
 
+                <div className="go-back">
+                    <Input type="submit" value="Atras" className="go-back-input" onClick={onClickState} />
+                </div>
             </div>
 
         );
