@@ -224,7 +224,7 @@ function PaymentsViews() {
         ) : (
           <div>
             {drawerData.userOrder[0]?.orders.map((order) => (
-              <div key={order.id}>
+              <div key={order.userId}>
                 {" "}
                 {/* Asegúrate de tener una clave única para cada elemento en el bucle de mapeo */}
                 <Row className="rows">
@@ -235,7 +235,7 @@ function PaymentsViews() {
                           ID del carrito
                         </span>
                       }
-                      content={drawerData.userOrder[0]?.orders[0]?.cartId}
+                      content={order.id}
                     />
                   </Col>
                   <Col span={12}>
@@ -245,7 +245,7 @@ function PaymentsViews() {
                           Fecha de compra
                         </span>
                       }
-                      content={drawerData.userOrder[0].orders[0].createdAt}
+                      content={order.createdAt}
                     />
                   </Col>
                 </Row>
@@ -257,7 +257,7 @@ function PaymentsViews() {
                           Estado del pago
                         </span>
                       }
-                      content={drawerData.userOrder[0].orders[0].status}
+                      content={order.status}
                     />
                   </Col>
                   <Col span={12}>
@@ -267,7 +267,7 @@ function PaymentsViews() {
                           Total abonado
                         </span>
                       }
-                      content={`$${drawerData.userOrder[0]?.orders[0]?.totalAmount}`}
+                      content={`$${order.totalAmount}`}
                     />
                   </Col>
                 </Row>
