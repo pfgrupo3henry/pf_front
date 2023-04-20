@@ -4,6 +4,8 @@
     margin-top: 5rem;
     justify-content: center;
     min-height: calc(100vh - 45.2px);
+    transform: scale(0.8); /* Ajusta la escala según necesites */
+    transform-origin: top ;
     
 }
 

@@ -234,7 +234,7 @@ const ProductList = () => {
 
   return (
 
-    <div>
+    <div className='hartisimo'>
 
       <div className='serach-list'>
 
