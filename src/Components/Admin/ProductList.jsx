@@ -126,6 +126,12 @@ const ProductList = () => {
 
   const columns = [
     {
+      title: 'ID',
+      dataIndex: 'id',
+      width: 100,
+      editable: true,
+    },
+    {
       title: 'Nombre',
       dataIndex: 'name',
       width: 100,
