@@ -1,29 +1,66 @@
 .contenedor {
-      background-image: url('../Assets/nosotros-fondo.jpg');
-      background-size: cover;
-      background-position: center center;
-      height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      flex-direction: row;
+      margin-top: 170px;
+      padding-bottom: 150px;
+}
+
+.contenedor-int {
+      background-color: rgb(245, 238, 238);
+      padding-right: 500px;
+      border-radius: 0 30px 30px 0px;
+}
+
+.contenedor img {
+      position: relative;
+      border-radius: 65% 0 60% 80%;
+      width: 50%;
+      animation: img 3s;
+      margin-top: 20px;
+}
+
+@keyframes img {
+      0% {
+            transform: rotate(-10deg);
+      }
+
+      20% {
+            transform: rotate(10deg);
+      }
+
+      40% {
+            transform: rotate(-10deg);
+      }
+
 }
 
 .contenedor-text {
-      padding: 30px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      backdrop-filter: blur(15px);
-      color: cornflowerblue;
-      width: 600px;
+      font-style: oblique;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 200px;
+      margin-left: 60px;
+      margin-top: 60px;
+      letter-spacing: 0.08rem;
+      text-shadow: 100px;
+      color: rgb(64, 67, 69);
+      width: 620px;
+      position: absolute;
+      line-height: 28px;
+      background-color: rgb(245, 238, 238)
 }
 
-.contenedor.h2 {
-      font-size: 4rem;
+.contenedor h2 {
+      font-size: 1.7rem;
+      margin-top: 50px;
       margin-bottom: 30px;
-      text-transform: uppercase;
-      letter-spacing: 8px;
       position: relative;
       z-index: 1;
+}
+
+.button {
+      position: relative;
+      margin-top: 400px;
+      margin-left: 200px;
+      margin-bottom: 50px;
 }
