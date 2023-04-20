@@ -92,7 +92,7 @@ function SingUp() {
                         confirmButtonText: 'Ok',
                         customClass: {
                             confirmButton: "swalButton"
-                          }
+                        }
                     }).then((res) => {
                         window.location.reload();
                     });
@@ -154,7 +154,7 @@ function SingUp() {
                         </Form.Item>
 
                         <a className="login-form-forgot form-forgot" href="">
-                        Olvidé mi contraseña
+                            Olvidé mi contraseña
                         </a>
                     </Form.Item>
 
@@ -250,7 +250,7 @@ function SingUp() {
                         confirmButtonText: 'Ok',
                         customClass: {
                             confirmButton: "swalButton"
-                          }
+                        }
                     }).then((res) => {
                         window.location.reload();
                     });
@@ -264,7 +264,7 @@ function SingUp() {
                         confirmButtonText: 'Ok',
                         customClass: {
                             confirmButton: "swalButton"
-                          }
+                        }
                     })
                 });
 
@@ -342,7 +342,7 @@ function SingUp() {
                     confirmButtonText: 'Ok',
                     customClass: {
                         confirmButton: "swalButton"
-                      }
+                    }
                 });
             } else if (!sImagen) {
                 Swal.fire({
@@ -352,13 +352,13 @@ function SingUp() {
                     confirmButtonText: 'Ok',
                     customClass: {
                         confirmButton: "swalButton"
-                      }
+                    }
                 });
             } else {
 
                 setLoader(true);
 
-                emailjs.sendForm('service_p04zgza', 'template_sque1s9', e.target, 'PvHbawws_-6fNNwSb')
+                emailjs.sendForm('service_6d91cl9', 'template_92alxin', e.target, 'G8C7QMGbuMdcamrEn')
                     .then((result) => {
                         handleSubmit();
                         console.log(result.text);
