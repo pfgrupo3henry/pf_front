@@ -123,6 +123,18 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
   };
 
+  const onClickDelete2 = (id) => {
+
+    let payload = {
+      userId: idCoockie,
+      gameId: id
+    }
+
+    dispatch(deleteChart(payload));
+    setString("vacio");
+
+  };
+
   if (string === "vacio") {
     dispatch(getChart(idCoockie));
     setTimeout(function () {
@@ -180,7 +192,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
               if (game.stock < 1) {
 
-                onClickDelete(game.id)
+                onClickDelete2(game.id)
                 setString2("completo")
                 Swal.fire({
                   title: "Error!",
