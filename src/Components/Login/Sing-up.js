@@ -32,6 +32,10 @@ function SingUp() {
     });
     const Swal = require('sweetalert2');
     const form = useRef();
+    const [forgotPassword, setForgotPassword] = useState({
+        email: ""
+    });
+    const [seeForgot, setSeeForgot] = useState("");
 
 
     const onClickState = () => {
@@ -110,6 +114,33 @@ function SingUp() {
             console.log(users);
         };
 
+        const seeForgotClick = () => {
+            if (seeForgot === "") {
+                setSeeForgot("see")
+            } else {
+                setSeeForgot("")
+            }
+        };
+
+        const onChageRestablecer = (e) => {
+            setForgotPassword({
+                email: e.target.value
+            })
+            console.log(forgotPassword)
+        }
+
+        const SubmitReset = (e) => {
+
+            e.preventDefault()
+
+            console.log(forgotPassword)
+
+            Axios.put("https://pfservidor-production.up.railway.app/user/password-reset", forgotPassword)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err))
+
+        };
+
         return (
             <div className="login-form">
                 <Form
@@ -119,65 +150,108 @@ function SingUp() {
                     onChange={(e) => handleLogin(e)}
                 >
 
-                    <Form.Item
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
-                            },
-                        ]}
-                    >
-                        <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
-                    </Form.Item>
+                    {seeForgot === "" ?
 
-                    <Form.Item
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: users.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
-                            },
-                        ]}
-                    >
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Contraseña"
-                            name="password"
-                        />
-                    </Form.Item>
+                        <div>
 
-                    <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Recordarme</Checkbox>
-                        </Form.Item>
+                            <Form.Item
+                                name="email"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                                    },
+                                ]}
+                            >
+                                <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
+                            </Form.Item>
 
-                        <a className="login-form-forgot form-forgot" href="">
-                            Olvidé mi contraseña
-                        </a>
-                    </Form.Item>
+                            <Form.Item
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: users.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                    type="password"
+                                    placeholder="Contraseña"
+                                    name="password"
+                                />
+                            </Form.Item>
 
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button"
-                            onClick={submitUser}>
-                            Iniciar Sesión
-                        </Button>
-                    </Form.Item>
+                            <Form.Item>
+                                <Form.Item name="remember" valuePropName="checked" noStyle>
+                                    <Checkbox>Recordarme</Checkbox>
+                                </Form.Item>
 
-                    <Form.Item>
-                        <div
-                            onClick={onClickState}
-                            className="buttonOrRegister">
-                            O Registrate!
+                                <button className="button-forgot" onClick={seeForgotClick}>
+                                    Olvidé mi contraseña
+                                </button>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" className="login-form-button"
+                                    onClick={submitUser}>
+                                    Iniciar Sesión
+                                </Button>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <div
+                                    onClick={onClickState}
+                                    className="buttonOrRegister">
+                                    O Registrate!
+                                </div>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Login />
+                            </Form.Item>
+
                         </div>
-                    </Form.Item>
 
-                    <Form.Item>
-                        <Login />
-                    </Form.Item>
+                        :
+                        null}
 
                 </Form>
+
+                {seeForgot !== "" ?
+
+                    <div>
+
+                        <Form.Item
+                            label="Escribi tu email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                                },
+                            ]}
+                        >
+                            <Input onChange={(e) => onChageRestablecer(e)} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
+                        </Form.Item>
+
+
+                        <Form.Item>
+                            <button className="button-forgot" onClick={(e) => SubmitReset(e)}>
+                                Restablecer Contraseña
+                            </button>
+                            <br></br>
+                            <br></br>
+                            <button className="button-forgot" onClick={seeForgotClick}>
+                                Atras
+                            </button>
+                        </Form.Item>
+
+
+                    </div>
+                    :
+                    null}
+
             </div>
 
         );
