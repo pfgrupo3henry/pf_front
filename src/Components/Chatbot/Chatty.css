@@ -4,15 +4,27 @@
       width: 450px;
       align-items: flex-end;
       gap: 0rem;
+}
 
+.header {
+      height: 3rem;
+      width: 100%;
+      background-color: #3b82f6;
+      padding: 13.5px;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 700;
+      border-top-left-radius: 0.375rem;
+      border-top-right-radius: 0.375rem;
 }
 
 .container-messages {
       height: 25rem;
       width: 100%;
-      background-color: whitesmoke;
-      border-radius: 0.375rem;
+      background-image: url('../Assets/desktop-wallpaper-190-best-playstation-in-2020-retro-loop-ps4.png');
+      background-size: cover;
       padding: 0.25rem;
+      padding-top: 15px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -25,21 +37,24 @@
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
-      font-size: 12px;
+      font-size: 13px;
 }
 
 .form-chat {
       display: flex;
       width: 100%;
-      border-radius: 0.375rem;
+      border-bottom-left-radius: 0.375rem;
+      border-bottom-right-radius: 0.375rem;
       gap: 2rem;
-      background-color: #565758;
+      background-color: #ffffff;
       padding: 0.5rem;
 }
 
 .input-chat {
       border: none;
       border-radius: 0.375rem;
+      outline-color: #dddbdb;
+      outline-width: 0.03px;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       padding-left: 1rem;
@@ -55,6 +70,10 @@
 
 .bg-button:hover {
       background-color: #0c3980;
+}
+
+.bg-dark {
+      background-color: black;
 }
 
 .text-white {
@@ -129,4 +148,98 @@
       background-color: transparent;
       border: none;
       padding: 0;
+}
+
+
+.loading {
+      position: absolute;
+      z-index: 10;
+      width: 67px;
+}
+
+.loading .dot {
+
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      background-color: #f5efef;
+      display: block;
+      float: left;
+      margin: 0 0 0 8px;
+
+
+}
+
+.loading .dot:first-child {
+
+      margin: 0;
+}
+
+.loading .dot.one {
+      animation: cycleOne 1s ease-in-out infinite;
+      animation-direction: normal;
+}
+
+.loading .dot.two {
+      animation: cycleTwo 1s ease-in-out infinite;
+      animation-direction: normal;
+}
+
+.loading .dot.three {
+      animation: cycleThree 1s ease-in-out infinite;
+      animation-direction: normal;
+}
+
+@keyframes cycleOne {
+      0% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+
+      33.333% {
+            background: rgba(150, 150, 150, 1);
+      }
+
+      66.6667% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+
+      100% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+}
+
+@keyframes cycleTwo {
+      0% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+
+      33.333% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+
+      66.6667% {
+            background: rgba(150, 150, 150, 1);
+      }
+
+      100% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+}
+
+@keyframes cycleThree {
+      0% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+
+      33.333% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+
+      66.6667% {
+            background: rgba(150, 150, 150, 0.4);
+      }
+
+      100% {
+            background: rgba(150, 150, 150, 1);
+      }
 }
