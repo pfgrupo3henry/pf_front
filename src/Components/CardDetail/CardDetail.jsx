@@ -145,17 +145,32 @@ function CardDetail() {
   }
 
   function onClick(e) {
-    e.preventDefault();
-    const put = {
-      userId: idCoockie,
-      videogameId: Number(id),
-      comment: comment,
-      rate: value,
-    };
-    console.log(put);
-    dispatch(saveRatingAndComment(put));
-    message.success("¡La operación se realizó con éxito!", 5);
-    // window.location.reload();
+
+    if (!idCoockie) {
+      e.preventDefault();
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+      e.preventDefault();
+      const put = {
+        userId: idCoockie,
+        videogameId: Number(id),
+        comment: comment,
+        rate: value,
+      };
+      console.log(put);
+      dispatch(saveRatingAndComment(put));
+      message.success("¡La operación se realizó con éxito!", 5);
+      // window.location.reload();
+    }
+
+
   }
 
   if (string === "vacio") {
