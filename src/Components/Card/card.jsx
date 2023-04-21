@@ -114,7 +114,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
   };
 
-  const handleShoppingChart = (id) => {
+  const handleShoppingChart = (id, quantity) => {
 
     if (!idCoockie) {
       Swal.fire({
@@ -125,7 +125,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       }).then((res) => {
         window.location.href = "/login";
       });
-    } else {
+    } else if (quantity > 0) {
 
       const product_id = id;
       const put = {
@@ -143,8 +143,22 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       setString2("vacio")
       message.success("¡Juego agregado a Carrito!", 5);
 
-    }
+    } else if (quantity < 1) {
+      const product_id = id;
+      const put = {
+        userId: idCoockie,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
 
+      }
+
+      dispatch(addItemToChart(put));
+      setString("vacio");
+      setString2("vacio")
+    }
 
   };
 
@@ -235,7 +249,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 className='favIconCardHome' />
             ) : (
               <RiShoppingCartLine
-                onClick={() => handleShoppingChart(id)}
+                onClick={() => handleShoppingChart(id, quantity)}
                 className='favIconCardHome' />
             )}
 

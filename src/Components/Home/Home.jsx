@@ -190,7 +190,7 @@ function Home(label, key, icon, children, type) {
         const videojuegosFiltrados = cards.filter((el) => {
           return (
             eliminarDiacriticos(el.genre.toLowerCase()) ===
-              eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) &&
+            eliminarDiacriticos(e.domEvent.target.innerHTML.toLowerCase()) &&
             el.platform === e.keyPath[1]
           );
         });
@@ -285,6 +285,7 @@ function Home(label, key, icon, children, type) {
                     description="DIGITAL"
                     descriptionComplete={e.description}
                     price={e.price}
+                    quantity={e.stock}
                     id={e.id}
                   />
                 ))}
