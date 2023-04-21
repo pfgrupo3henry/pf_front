@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pie } from "@nivo/pie";
 import { Statistic } from "antd";
 import CountUp from "react-countup";
-
+import { Area } from '@ant-design/plots';
 import { Select } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,6 +31,7 @@ const Dashboard = () => {
   const [selectedPlatform, setSelectedPlatform] = useState("All");
 
   const [totalSell, settotalSell] = useState(0);
+  const [totalSell2, settotalSell2] = useState(0);
 
   //USEEFFECT PARA CANTIDAD DE VENTAS POR DIA RANGO SEMANAL
   useEffect(() => {
@@ -154,7 +155,7 @@ const Dashboard = () => {
         height: 350,
         type: "area",
       },
-      
+
       fill: {
         opacity: 0.6, // Opacidad del área
       },
@@ -277,13 +278,46 @@ const Dashboard = () => {
     const fechaB = new Date(b.fecha.split('/').reverse().join('-'));
     return fechaA - fechaB;
   }).slice(-7)
-  
+
   console.log('probando', ordenado.slice(-7));
 
   const data = ordenado
 
-  
-   ///AREA DEL GRAFICO DE BARRAS DE DIAS//////////////
+  //---------------------------------------------------- Felipe && Lean
+
+  const usersByDatex = allUsers.reduce((acc, curr) => {
+    const createdAt = new Date(curr.createdAt).toLocaleDateString();
+
+    if (!acc[createdAt]) {
+      acc[createdAt] = 1;
+    } else {
+      acc[createdAt]++;
+    }
+
+    return acc;
+  }, {});
+
+
+  const transformadox = Object.entries(usersByDatex).map(([fecha, usuario]) => {
+    return { fecha, usuario };
+  });
+
+  const ordenadox = transformadox
+    .sort((a, b) => {
+      const fechaA = new Date(a.fecha.split("/").reverse().join("-"));
+      const fechaB = new Date(b.fecha.split("/").reverse().join("-"));
+      return fechaA - fechaB;
+    })
+    .slice(-7);
+
+  const datax = ordenadox;
+
+  console.log('los usuarios', allUsers)
+  console.log('pruebita', usersByDatex)
+
+  //--------------------------------------------------------------- Felipe && Lean
+
+  ///AREA DEL GRAFICO DE BARRAS DE DIAS//////////////
   const config = {
     data,
     xField: 'fecha',
@@ -314,6 +348,36 @@ const Dashboard = () => {
     },
   };
   //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS///////////////////////////////
+
+  const config2 = {
+    data: datax,
+    xField: 'fecha',
+    yField: 'usuario',
+    label: {
+      // 可手动配置 label 数据标签位置
+      position: 'middle',
+      // 'top', 'bottom', 'middle',
+      // 配置样式
+      style: {
+        fill: '#FFFFFF',
+        opacity: 0.6,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      type: {
+        alias: '类别',
+      },
+      sales: {
+        alias: '销售额',
+      },
+    },
+  };
 
   return (
     <div className="stadisticas-dashboard-component">
@@ -463,6 +527,25 @@ const Dashboard = () => {
               width={450}
             />
           </div> */}
+        </div>
+        <div className="total-area">
+          <div className="grafico1">
+            <Area {...config2} />
+          </div>
+          {/* <div className="grafico3" >
+          <Select placeholder="Filtro ejemplo 3" className="selectores-dash">
+            <Select.Option value="demo">Opcion 1</Select.Option>
+            <Select.Option value="demo">Opcion 2</Select.Option>
+            <Select.Option value="demo">Opcion 3</Select.Option>
+          </Select>
+          <ReactApexChart
+            options={data_area.options}
+            series={data_area.series}
+            type="area"
+            height={280}
+            width={450}
+          />
+        </div> */}
         </div>
       </div>
     </div>
