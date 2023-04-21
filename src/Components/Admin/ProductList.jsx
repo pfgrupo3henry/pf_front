@@ -246,7 +246,7 @@ const ProductList = (props) => {
 
   return (
 
-    <div>
+    <div className='hartisimo'>
 
       <div className='serach-list'>
 

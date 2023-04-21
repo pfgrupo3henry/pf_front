@@ -7,6 +7,9 @@
     gap: 0.4rem;
 }
 
+.drawer{
+    transform: scale(0.99); /* Ajusta la escala según necesites */
+}
 
 .products {
     margin-top: 0.5rem;
@@ -17,8 +20,8 @@
 }
 
 .body-pagos-admin {
-    align-items: center;
-    justify-content: center;
     padding-bottom: 40px;
     padding-right: 150px;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
 }
