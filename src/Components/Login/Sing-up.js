@@ -225,15 +225,18 @@ function SingUp() {
                                 />
                             </Form.Item>
 
-                            <Form.Item>
-                                <Form.Item name="remember" valuePropName="checked" noStyle>
-                                    <Checkbox>Recordarme</Checkbox>
-                                </Form.Item>
+                            {false ?
+                                <Form.Item>
+                                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                                        <Checkbox>Recordarme</Checkbox>
+                                    </Form.Item>
 
-                                <button className="button-forgot" onClick={seeForgotClick}>
-                                    Olvidé mi contraseña
-                                </button>
-                            </Form.Item>
+                                    <button className="button-forgot" onClick={seeForgotClick}>
+                                        Olvidé mi contraseña
+                                    </button>
+                                </Form.Item>
+                                :
+                                null}
 
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" className="login-form-button"
