@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import { Pie } from "@nivo/pie";
-import { Col, Row, Statistic } from "antd";
+import { Statistic } from "antd";
 import CountUp from "react-countup";
-import ReactApexChart from "react-apexcharts";
+
 import { Select } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Progress } from "antd";
 import {
   getAllRatingsWeb,
   getOrders,
   getUsers,
 } from "../../Redux/Actions/Index";
 import "./Dashboard.css";
-import Chart from "react-apexcharts";
+import { Column } from '@ant-design/plots';
 
-import moment from "moment";
+
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.allOrders);
+
   const allUsers = useSelector((state) => state.allUsers);
 
   const [selectedWeek, setSelectedWeek] = useState("");
@@ -30,17 +30,13 @@ const Dashboard = () => {
 
   const [selectedPlatform, setSelectedPlatform] = useState("All");
 
-  console.log(
-    "rating",
-    allRatingWeb.map((objeto) => objeto.rate)
-  );
-
   const [totalSell, settotalSell] = useState(0);
 
   //USEEFFECT PARA CANTIDAD DE VENTAS POR DIA RANGO SEMANAL
   useEffect(() => {
     dispatch(getOrders());
     dispatch(getAllRatingsWeb());
+    dispatch(getUsers());
   }, []);
 
   useEffect(() => {
@@ -53,25 +49,28 @@ const Dashboard = () => {
             ordenDetail.status === "Completed Pay" && ordenDetail.totalAmount
         )
       );
-      const newSalesByDay = {};
 
-      mapeoDeOrdenesCompletadas.forEach((orders) => {
-        orders.forEach((order) => {
-          const createdAt = new Date(order.createdAt).toLocaleDateString();
-          const videogamesSold = order.videogames.length;
-          if (newSalesByDay[createdAt]) {
-            newSalesByDay[createdAt] += videogamesSold;
-          } else {
-            newSalesByDay[createdAt] = videogamesSold;
-          }
-        });
-      });
+      const result = mapeoDeOrdenesCompletadas.flat().reduce((acc, curr) => {
 
-      settotalSell(newSalesByDay);
+        let createdAt = new Date(curr.createdAt).toLocaleDateString();
+        let videogamesSold = curr.videogames.length;
+        if (acc[createdAt]) {
+          acc[createdAt] += videogamesSold;
+        } else {
+          acc[createdAt] = videogamesSold;
+        }
+
+        return acc;
+      }, {});
+
+      settotalSell(result);
+
     }
   }, [allOrders]);
 
-  console.log("VENTAS POR DIA", totalSell);
+  console.log("que traigo?", totalSell);
+
+  // console.log("VENTAS POR DIA", totalSell);
 
   //USEEFFECT PARA TOTAL FACTURADO EN PESOS
   useEffect(() => {
@@ -109,16 +108,6 @@ const Dashboard = () => {
     settotalCash(totalFacturado);
   }, [allOrders]); // Ejecutar el efecto solo cuando allOrders cambie
 
-  //USEEFFECT PARA TOTAL USUARIOS POR DIA
-
-  useEffect(() => {
-    dispatch(getUsers());
-    const cantidad = allUsers.length;
-    setTotalUsers(cantidad);
-  }, []);
-
-  useEffect(() => {}, [totalUsers]);
-
   useEffect(() => {
     const sumUsersByDate = () => {
       const usersByDate = {};
@@ -150,16 +139,7 @@ const Dashboard = () => {
     setUsersByDate(usersByDateData);
   }, [allUsers]);
 
-  console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
-
-  const dartsyrta = [
-    // datos de ejemplo para los gráficos
-    { x: "Enero", y: 10 },
-    { x: "Febrero", y: 20 },
-    { x: "Marzo", y: 15 },
-    { x: "Abril", y: 25 },
-    { x: "Mayo", y: 30 },
-  ];
+  // console.log("TOTAL DE USUARIOS POR DIA", usersByDate);
 
   const data2 = {
     series: [
@@ -174,38 +154,13 @@ const Dashboard = () => {
         height: 350,
         type: "area",
       },
-      xaxis: {
-        categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
-      },
+      
       fill: {
         opacity: 0.6, // Opacidad del área
       },
     },
   };
 
-  const data_area = {
-    series: [
-      {
-        name: "Area 1",
-        data: Object.values(usersByDate),
-      },
-    ],
-    options: {
-      chart: {
-        with: 500,
-        height: 350,
-        type: "area",
-      },
-      xaxis: {
-        categories: ["Mier", "Jue", "Vie", "Sab", "Dom", "Lun", "Mar"],
-      },
-      fill: {
-        opacity: 0.6,
-      },
-    },
-  };
-
-  const colors = ["#003785", "#1465bb", "#2196f3", "#81c9fa"];
   const formatter = (value) => <CountUp end={value} separator="," />;
   const formatter2 = (value) => {
     return `$${value.toLocaleString(undefined, {
@@ -233,25 +188,14 @@ const Dashboard = () => {
 
   for (const rating in ratingCounts) {
     chartData.push({
-      label: rating,
+      id: "⭐ " + rating,
       value: ratingCounts[rating],
     });
   }
 
-  function DonutChart({ chartData }) {
-    chartData.sort((a, b) => parseFloat(a.label) - parseFloat(b.label));
+  // console.log('lo que llega', chartData)
 
-    const options = {
-      labels: chartData.map((data) => "Calificación " + data.label),
-      colors: ["#005187", "#c4dafa", "#84b6f4", "#4d82bc"],
-    };
-
-    const series = chartData.map((data) => data.value);
-
-    return <Chart options={options} series={series} type="donut" width="380" />;
-  }
-
-  console.log("RATINGSSS", chartData);
+  // console.log("RATINGSSS", chartData);
 
   //GRAFICO DE LAS RESEÑAS WEBS/////////////////////////////////////////////////////////////////
 
@@ -310,6 +254,8 @@ const Dashboard = () => {
     return { id: genero, value: generos[genero] };
   });
 
+  // console.log('arrays generos' , arrayGeneros)
+
   const handlePlatformChange = (value) => {
     setSelectedPlatform(value);
   };
@@ -317,6 +263,56 @@ const Dashboard = () => {
   // console.log("PREPARANDO EL OBJETO", genresByPlatformsPS5);
   // console.log("FILTRADO", arrayGeneros);
 
+
+  ///AREA DEL GRAFICO DE BARRAS DE DIAS//////////////
+
+  console.log('lo que tengo', totalSell)
+
+  const transformado = Object.entries(totalSell).map(([fecha, videojuegos]) => {
+    return { fecha, videojuegos };
+  });
+
+  const ordenado = transformado.sort((a, b) => {
+    const fechaA = new Date(a.fecha.split('/').reverse().join('-'));
+    const fechaB = new Date(b.fecha.split('/').reverse().join('-'));
+    return fechaA - fechaB;
+  }).slice(-7)
+  
+  console.log('probando', ordenado.slice(-7));
+
+  const data = ordenado
+
+  
+   ///AREA DEL GRAFICO DE BARRAS DE DIAS//////////////
+  const config = {
+    data,
+    xField: 'fecha',
+    yField: 'videojuegos',
+    label: {
+      // 可手动配置 label 数据标签位置
+      position: 'middle',
+      // 'top', 'bottom', 'middle',
+      // 配置样式
+      style: {
+        fill: '#FFFFFF',
+        opacity: 0.6,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      type: {
+        alias: '类别',
+      },
+      sales: {
+        alias: '销售额',
+      },
+    },
+  };
   //GRAFICO DE LOS GENEROS, CANTIDADES Y FILTROS POR PLATAFORMAS///////////////////////////////
 
   return (
@@ -335,19 +331,16 @@ const Dashboard = () => {
         />
         <Statistic
           title="Total de usuarios registrados:"
-          value={totalUsers}
+          value={allUsers.length}
           formatter={formatter}
         />
       </div>
       <div className="dashboard-component">
         <div className="pie-bars">
           <div className="pie">
-          <p className="tituloooss2">Cantidad de ventas por dia</p>
-
             <Select
               placeholder="Consola"
               className="selectores-dash"
-              
               value={selectedPlatform}
               onChange={handlePlatformChange}
             >
@@ -403,36 +396,65 @@ const Dashboard = () => {
               ]}
             />
           </div>
-
-          <div className="grafico1">
-            {/* <Select placeholder="Filtro ejemplo 1" className="selectores-dash">
-              <Select.Option value="demo">Opcion 1</Select.Option>
-              <Select.Option value="demo">Opcion 2</Select.Option>
-              <Select.Option value="demo">Opcion 3</Select.Option>
-            </Select> */}
-            <p className="tituloooss">Total de ventas por dia</p>
-            <ReactApexChart
-              options={data2.options}
-              series={data2.series}
-              type="bar"
-              height={320}
+          <div className="donut">
+            <p>Rating</p>
+            <Pie
+              data={chartData}
               width={450}
+              height={280}
+              margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+              innerRadius={0.5}
+              padAngle={0.7}
+              cornerRadius={3}
+              activeOuterRadiusOffset={8}
+              colors={{ scheme: "blues" }}
+              borderWidth={1}
+              borderColor={{
+                from: "color",
+                modifiers: [["darker", 0.2]],
+              }}
+              arcLinkLabelsSkipAngle={10}
+              arcLinkLabelsTextColor="#333333"
+              arcLinkLabelsThickness={2}
+              arcLinkLabelsColor={{ from: "color" }}
+              arcLabelsSkipAngle={10}
+              arcLabelsTextColor={{
+                from: "color",
+                modifiers: [["darker", 2]],
+              }}
+              defs={[
+                {
+                  asd: "dots",
+                  type: "patternDots",
+                  background: "inherit",
+                  color: "rgba(255, 255, 255, 0.3)",
+                  size: 2,
+                  padding: 1,
+                  stagger: true,
+                },
+                {
+                  id: "lines",
+                  type: "patternLines",
+                  background: "inherit",
+                  color: "rgba(255, 255, 255, 0.3)",
+                  rotation: -45,
+                  lineWidth: 6,
+                  spacing: 10,
+                },
+              ]}
             />
           </div>
         </div>
         <div className="total-area">
-          <div className="donut">
-          <p className="tituloooss">Calificaciones</p>
-            <DonutChart chartData={chartData} />
+          <div className="grafico1">
+            <Column {...config} />
           </div>
-
-          <div className="grafico3" >
-      {/*       <Select placeholder="Filtro ejemplo 3" className="selectores-dash">
+          {/* <div className="grafico3" >
+            <Select placeholder="Filtro ejemplo 3" className="selectores-dash">
               <Select.Option value="demo">Opcion 1</Select.Option>
               <Select.Option value="demo">Opcion 2</Select.Option>
               <Select.Option value="demo">Opcion 3</Select.Option>
-            </Select> */}
-            <p className="tituloooss">Nuevos usuarios por dia</p>
+            </Select>
             <ReactApexChart
               options={data_area.options}
               series={data_area.series}
@@ -440,7 +462,7 @@ const Dashboard = () => {
               height={280}
               width={450}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
