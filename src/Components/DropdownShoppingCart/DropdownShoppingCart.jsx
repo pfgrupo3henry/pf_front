@@ -5,6 +5,7 @@ import { PlusOutlined, MinusOutlined, DeleteOutlined } from "@ant-design/icons";
 import carrito from "./carrito.png";
 import Cookies from "universal-cookie";
 import { useState, useEffect } from "react";
+
 import "./DropdownShoppingCartCard.css";
 import "./DropdownShoppingCart.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +14,7 @@ import {
   getChart,
   addItemToChart,
 } from "../../Redux/Actions/Index";
+
 
 function DropdownShoppingCart() {
 
@@ -150,7 +152,7 @@ function DropdownShoppingCart() {
             ))
           ) : (
             <div className="cart-empty-container">
-              <Empty image={carrito} description="No tienes juegos agregados" />
+             <Empty description={"Tu carrito esta vacio"} /> 
             </div>
           )}
         </div>

@@ -257,7 +257,7 @@ function UserInfo() {
           theme={theme}
           onClick={onClick}
           style={{
-            width: 256,
+            width: 200,
           }}
           defaultOpenKeys={["sub1"]}
           selectedKeys={[current]}

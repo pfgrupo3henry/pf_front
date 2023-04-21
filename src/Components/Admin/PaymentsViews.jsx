@@ -75,15 +75,18 @@ function PaymentsViews() {
 
   if (isLoading) {
     return (
+      <div style={{ textAlign: "center" }}>
       <Space
         direction="vertical"
         style={{
           width: "100%",
-        }}>
+        }}
+      >
         <Spin tip="Loading" size="large">
           <div className="content" />
         </Spin>
       </Space>
+    </div>
     );
   }
 
@@ -258,7 +261,8 @@ function PaymentsViews() {
                         </span>
                       }
                       content={order.status}
-                    />
+/*                       content={order.status === "Completed Pay" ? "Pago finalizdo correctamente" : "Pago rechazado"}
+ */                    />
                   </Col>
                   <Col span={12}>
                     <DescriptionItem
@@ -319,7 +323,7 @@ function PaymentsViews() {
           </Col>
           <Col span={12}>
             <DescriptionItem
-              title={<span style={{ fontWeight: "bold" }}>Email</span>}
+              title={<span style={{ fontWeight: "bold" }}>Teléfono</span>}
               content={
                 drawerData &&
                 drawerData.userOrder &&

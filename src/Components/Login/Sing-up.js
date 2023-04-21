@@ -130,11 +130,24 @@ function SingUp() {
         };
 
         const seeForgotClick = () => {
-            if (seeForgot === "") {
-                setSeeForgot("see")
-            } else {
-                setSeeForgot("")
+            if (true) {
+                Swal.fire({
+                    title: "Error!",
+                    text: 'En construccion',
+                    icon: "error",
+                    confirmButtonText: 'Ok',
+                    customClass: {
+                        confirmButton: "swalButton"
+                    }
+                })
+            } else if (false) {
+                if (seeForgot === "") {
+                    setSeeForgot("see")
+                } else {
+                    setSeeForgot("")
+                }
             }
+
         };
 
         const onChageRestablecer = (e) => {
@@ -227,7 +240,7 @@ function SingUp() {
 
                             <Form.Item>
                                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                                    <Checkbox>Recordarme</Checkbox>
+                                    <Checkbox onClick={seeForgotClick}>Recordarme</Checkbox>
                                 </Form.Item>
 
                                 <button className="button-forgot" onClick={seeForgotClick}>

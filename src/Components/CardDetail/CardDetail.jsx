@@ -170,9 +170,12 @@ function CardDetail() {
       console.log(put);
       dispatch(saveRatingAndComment(put));
       message.success("¡La operación se realizó con éxito!", 5);
-      // window.location.reload();
-    }
+      setTimeout(function () {
+        dispatch(getReviews(id));
+        setStringR("hola");
+      }, 1000);
 
+    }
 
   }
 
