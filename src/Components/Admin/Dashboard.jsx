@@ -342,9 +342,12 @@ const Dashboard = () => {
       <div className="dashboard-component">
         <div className="pie-bars">
           <div className="pie">
+          <p className="tituloooss2">Cantidad de ventas por dia</p>
+
             <Select
               placeholder="Consola"
               className="selectores-dash"
+              
               value={selectedPlatform}
               onChange={handlePlatformChange}
             >
@@ -402,11 +405,12 @@ const Dashboard = () => {
           </div>
 
           <div className="grafico1">
-            <Select placeholder="Filtro ejemplo 1" className="selectores-dash">
+            {/* <Select placeholder="Filtro ejemplo 1" className="selectores-dash">
               <Select.Option value="demo">Opcion 1</Select.Option>
               <Select.Option value="demo">Opcion 2</Select.Option>
               <Select.Option value="demo">Opcion 3</Select.Option>
-            </Select>
+            </Select> */}
+            <p className="tituloooss">Total de ventas por dia</p>
             <ReactApexChart
               options={data2.options}
               series={data2.series}
@@ -418,16 +422,17 @@ const Dashboard = () => {
         </div>
         <div className="total-area">
           <div className="donut">
-            <p>Rating</p>
+          <p className="tituloooss">Calificaciones</p>
             <DonutChart chartData={chartData} />
           </div>
 
           <div className="grafico3" >
-            <Select placeholder="Filtro ejemplo 3" className="selectores-dash">
+      {/*       <Select placeholder="Filtro ejemplo 3" className="selectores-dash">
               <Select.Option value="demo">Opcion 1</Select.Option>
               <Select.Option value="demo">Opcion 2</Select.Option>
               <Select.Option value="demo">Opcion 3</Select.Option>
-            </Select>
+            </Select> */}
+            <p className="tituloooss">Nuevos usuarios por dia</p>
             <ReactApexChart
               options={data_area.options}
               series={data_area.series}

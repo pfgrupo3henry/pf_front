@@ -34,10 +34,11 @@ function ReviewsPagina() {
                     dataSource={reviews}
                     pagination={{
                         onChange: (page) => {
-                            console.log(page);
+                          console.log(page);
                         },
                         pageSize: 5,
-                    }}
+                        style: { textAlign: "center" },
+                      }}
                     renderItem={(item, index) => (
                         <List.Item>
                             {item.userInfo ?

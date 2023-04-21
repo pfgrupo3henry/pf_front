@@ -75,15 +75,18 @@ function PaymentsViews() {
 
   if (isLoading) {
     return (
+      <div style={{ textAlign: "center" }}>
       <Space
         direction="vertical"
         style={{
           width: "100%",
-        }}>
+        }}
+      >
         <Spin tip="Loading" size="large">
           <div className="content" />
         </Spin>
       </Space>
+    </div>
     );
   }
 

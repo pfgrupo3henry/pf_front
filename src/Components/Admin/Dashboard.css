@@ -33,9 +33,12 @@
 
 .estadisticas {
     display: flex;
-    justify-content: space-between;
+    gap: 6rem;
     width: 70%;
-    margin: auto;
+    margin-left: 6rem;
+    margin-bottom: 2rem;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
   }
 
 
@@ -61,20 +64,32 @@
     margin: auto;
     display: flex;
     justify-content: space-between;
+    transform: scale(0.9); /* Ajusta la escala según necesites */
+    transform-origin: top left;
   }
 
 .total-area {
     padding: 20px 20px 0px 20px;
     margin: auto;
     display: flex;
+    gap: 2rem;
     justify-content: space-between;
+     transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform-origin: top left;
 }
 
 .donut{
     padding: 15px;
+    margin-left: 3rem;
 }
 .grafico3{
     padding: 15px;
 }
+
+.tituloooss{
+    color: rgb(53, 53, 53);
+    font-style: oblique;
+}
+
 
 
