@@ -133,13 +133,13 @@ function DropdownShoppingCart() {
                         />
                       </Tooltip>
                       <p>{el.quantity}</p>
-                      <Tooltip title="Add">
+                      <Tooltip title="Agregar">
                         <Button
                           onClick={() => handleShoppingChart(el.id)}
                           icon={<PlusOutlined />}
                         />
                       </Tooltip>
-                      <Tooltip title="delete">
+                      <Tooltip title="Eliminar">
                         <Button
                           onClick={() => onClickDelete(el.id)}
                           icon={<DeleteOutlined />}

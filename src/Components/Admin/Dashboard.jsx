@@ -542,7 +542,7 @@ const Dashboard = () => {
               />
             </div>          
          <div className="grafico1">
-          <p >Total de ventas por día</p>
+          <p className="tituloooss">Total de ventas por día</p>
           <Column {...config} style={{ width: "23rem", height: "18rem" }} />
 
 
