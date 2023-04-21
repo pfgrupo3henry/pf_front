@@ -259,7 +259,8 @@ function ModificarJuego() {
                         <Button
                             className='buttonFormCreateProduct'
                             htmlType="submit"
-                        >Modificar Producto</Button>
+                            onClick={(event) => handleSubmit(event)}
+                        >Modificar Juego</Button>
                     </Form.Item>
 
                 </Form>
