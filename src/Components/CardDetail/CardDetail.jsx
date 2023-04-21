@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToChart,
   getReviews,
-  getChart,
   saveRatingAndComment,
   deleteChart,
 } from "../../Redux/Actions/Index";
@@ -31,9 +30,7 @@ function CardDetail() {
   const [placeholder, setPlaceholder] = useState("Dejanos tu comentario");
   const [stringR, setStringR] = useState("hola");
   const reviews2 = useSelector((state) => state.reviews);
-  const shoppingChart = useSelector((state) => state.shoppingChart);
   const Swal = require("sweetalert2");
-  const [string3, setString3] = useState("vacio");
 
   useEffect(() => {
     setProm(prom);
@@ -41,7 +38,6 @@ function CardDetail() {
 
   useEffect(() => {
     dispatch(getReviews(id));
-    dispatch(getChart(idCoockie));
   }, [dispatch]);
 
   if (!card.length) {
@@ -56,6 +52,8 @@ function CardDetail() {
 
   const handleShoppingChart = () => {
 
+    console.log(card);
+
     if (!idCoockie) {
       Swal.fire({
         title: "Error!",
@@ -65,7 +63,7 @@ function CardDetail() {
       }).then((res) => {
         window.location.href = "/login";
       });
-    } else {
+    } else if (card[0].stock > 0) {
 
       const product_id = card[0].id;
       const put = {
@@ -79,18 +77,23 @@ function CardDetail() {
       dispatch(addItemToChart(put));
       message.success("¡Juego agregado a Carrito!", 5);
 
-      setTimeout(function () {
-        setString("vacio");
-      }, 500);
-
+    } else if (card[0].stock < 1) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Juego Agotado',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      })
     }
 
   };
 
   const handleShoppingChart2 = () => {
 
-    if (!idCoockie) {
 
+    console.log(card);
+
+    if (!idCoockie) {
       Swal.fire({
         title: "Error!",
         text: 'Debes iniciar sesion',
@@ -99,7 +102,7 @@ function CardDetail() {
       }).then((res) => {
         window.location.href = "/login";
       });
-    } else {
+    } else if (card[0].stock > 0) {
 
       const product_id = card[0].id;
       const put = {
@@ -112,15 +115,15 @@ function CardDetail() {
 
       dispatch(addItemToChart(put));
       message.success("¡Juego agregado a Carrito!", 5);
+      window.location.href = "/status-payment"
 
-      setTimeout(function () {
-        setString("vacio");
-      }, 500);
-
-      setTimeout(function () {
-        setString3("completo");
-      }, 1000);
-
+    } else if (card[0].stock < 1) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Juego Agotado',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      })
     }
 
   };
@@ -173,13 +176,6 @@ function CardDetail() {
 
   }
 
-  if (string === "vacio") {
-    dispatch(getChart(idCoockie));
-    setTimeout(function () {
-      setString("completo");
-    }, 500);
-  }
-
   if (card.length !== 0) {
     if (stringR === "hola") {
       if (reviews2.length !== 0) {
@@ -203,12 +199,7 @@ function CardDetail() {
       }
     }
 
-    console.log(comment);
-    console.log(value);
-    console.log(reviews2);
-    console.log(card[0].id);
     var precio = `$ ${card[0].price}`;
-    console.log(shoppingChart);
 
     return (
       <div className="card-detail-component2">
@@ -300,28 +291,6 @@ function CardDetail() {
                       Añadir al carrito
                     </Button>
 
-                    {shoppingChart?.products?.map((game) => {
-                      console.log(card[0].id);
-                      if (game.id === card[0].id) {
-                        if (game.stock < 1) {
-                          let payload = {
-                            userId: idCoockie,
-                            gameId: id,
-                          };
-                          dispatch(deleteChart(payload));
-                          Swal.fire({
-                            title: "Error!",
-                            text: "Juego Agotado",
-                            icon: "error",
-                            confirmButtonText: "Ok",
-                          }).then((res) => {
-                            setString3("vacio");
-                          });
-                        } else if (string3 === "completo") {
-                          window.location.href = "/status-payment";
-                        }
-                      }
-                    })}
                   </div>
                 </Card>
               </div>
