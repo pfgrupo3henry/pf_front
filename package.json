@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/plots": "^1.2.5",
     "@ant-design/icons": "^5.0.1",
     "@auth0/auth0-react": "^2.0.1",
     "@emailjs/browser": "^3.10.0",
