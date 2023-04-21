@@ -2,6 +2,7 @@ import "./Nosotros.css";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import image from "../Assets/control.jpeg";
+import { CaretLeftFilled } from "@ant-design/icons";
 
 const Nosotros = () => {
   const navigate = useNavigate();
@@ -21,9 +22,11 @@ const Nosotros = () => {
           <p>Esperamos que lo disfrutes. ¡Gracias por elegirnos!"</p>
           <h2>El equipo de Henry Games.</h2>
         </div>
-        <Button className="button" type="primary" onClick={() => navigate(-1)}>
-          Volver
-        </Button>
+        <Button
+          className="button"
+          icon={<CaretLeftFilled />}
+          style={{ borderRadius: "50px" }}
+          onClick={() => navigate(-1)}></Button>
       </div>
       <img src={image} alt="imagen fondo" />
     </div>
