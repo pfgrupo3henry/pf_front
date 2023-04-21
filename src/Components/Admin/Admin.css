@@ -64,7 +64,8 @@ h1 {
   padding-top: 40px;
   z-index: 1;
   width: 20%;
-  transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform: scale(0.9);
+  /* Ajusta la escala según necesites */
   transform-origin: top left;
 }
 
@@ -139,7 +140,8 @@ h1 {
 .game-card-admin {
   display: flex;
   margin-left: 12rem;
-  transform: scale(0.8); /* Ajusta la escala según necesites */
+  transform: scale(0.8);
+  /* Ajusta la escala según necesites */
   transform-origin: top left;
 }
 
@@ -147,7 +149,8 @@ h1 {
   display: inline-block;
   padding: 0px 0px 0px 80px;
   margin-bottom: 3rem;
-  transform: scale(0.9); /* Ajusta la escala según necesites */
+  transform: scale(0.9);
+  /* Ajusta la escala según necesites */
   transform-origin: top left;
 }
 
@@ -194,12 +197,12 @@ h1 {
 }
 
 button.swal2-confirm.swalButton.swal2-styled {
-    background-color: rgba(0, 6, 10, 0.802);
-    border-color: none;
+  background-color: rgba(0, 6, 10, 0.802);
+  border-color: none;
 }
 
-.listadereviews{
-    margin-top: 2rem;
+.listadereviews {
+  margin-top: 2rem;
 }
 
 .aux7 {
@@ -258,4 +261,10 @@ button.swal2-confirm.swalButton.swal2-styled {
 .admin-component .menuOptions .ant-menu-light.ant-menu-root.ant-menu-vertical {
   width: 90%;
   margin: auto;
+}
+
+.button-formulario-x {
+  border: none;
+  background-color: white;
+  cursor: pointer;
 }

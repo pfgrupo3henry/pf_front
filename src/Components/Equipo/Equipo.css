@@ -1,0 +1,15 @@
+.anticon-github {
+      font-size: 20px;
+      color: #e4e0e0;
+      margin-left: 15px;
+
+}
+
+.equipo-container {
+      background-image: url('../Assets/equipo-fondo.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.9;
+      text-align: right;
+
+}
