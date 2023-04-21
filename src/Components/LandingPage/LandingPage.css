@@ -31,31 +31,22 @@
 }
 
 .landing-page-component .col.text-col {
-    padding-top: 80px;
+    padding-top: 110px;
     width: 40%;
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    text-align: center;
-
-
 }
 
 .landing-page-component .col h1 {
-    color: rgb(255, 60, 0);
+    color: aliceblue;
     font-size: 52px;
     line-height: 56px;
     font-weight: bold;
-
-
 }
 
 .landing-page-component .col p {
-    color: rgb(255, 60, 0);
+    color: aliceblue;
     font-size: 18px;
     line-height: 22px;
     font-weight: bold;
-
-
 }
 
 .landing-page-component .col button {
