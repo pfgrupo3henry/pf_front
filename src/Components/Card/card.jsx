@@ -28,6 +28,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [favsStringified, setFavsStringified] = useState([]);
 
   const [string, setString] = useState("vacio");
+  const [string2, setString2] = useState("vacio");
 
   const cookie = new Cookies();
   const idCoockie = cookie.get("id");
@@ -60,55 +61,120 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
   const handleFavorites = (id) => {
 
-    const product_id = id;
-    const putFavorite = {
-      userId: idCoockie,
-      products:
-      {
-        id: product_id,
-        quantity: 1
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+
+      const product_id = id;
+      const putFavorite = {
+        userId: idCoockie,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
       }
 
-    }
+      dispatch(postFavorites(putFavorite));
+      message.success("¡Juego agregado a Favoritos!", 5);
 
-    dispatch(postFavorites(putFavorite));
-    message.success("¡Juego agregado a Favoritos!", 5);
+    }
 
   };
 
   const handleFavoritesDelete = (id) => {
 
-    const product_id = id;
-    const deleteFavorite = {
-      userId: idCoockie,
-      gameId: product_id
-    }
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+      const product_id = id;
+      const deleteFavorite = {
+        userId: idCoockie,
+        gameId: product_id
+      }
 
-    dispatch(deleteFavorites(deleteFavorite));
-    message.success("¡Juego borrado de Favoritos!", 5);
+      dispatch(deleteFavorites(deleteFavorite));
+      message.success("¡Juego borrado de Favoritos!", 5);
+    }
 
   };
 
   const handleShoppingChart = (id) => {
 
-    const product_id = id;
-    const put = {
-      userId: idCoockie,
-      products:
-      {
-        id: product_id,
-        quantity: 1
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+
+      const product_id = id;
+      const put = {
+        userId: idCoockie,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
       }
+
+      dispatch(addItemToChart(put));
+      setString("vacio");
+      setString2("vacio")
+      message.success("¡Juego agregado a Carrito!", 5);
 
     }
 
-    dispatch(addItemToChart(put));
-    setString("vacio");
-    message.success("¡Juego agregado a Carrito!", 5);
 
   };
 
   const onClickDelete = (id) => {
+
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+
+      let payload = {
+        userId: idCoockie,
+        gameId: id
+      }
+
+      dispatch(deleteChart(payload));
+      setString("vacio");
+      message.success("¡Juego borrado del Carrito!", 5);
+
+    }
+
+  };
+
+  const onClickDelete2 = (id) => {
 
     let payload = {
       userId: idCoockie,
@@ -117,7 +183,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     dispatch(deleteChart(payload));
     setString("vacio");
-    message.success("¡Juego borrado del Carrito!", 5);
 
   };
 
@@ -153,30 +218,49 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           <br></br>
 
           <div className='iconsCardHomeContainer'>
-          {(allFavorites.products && allFavorites.products.some(game => game.id === id)) ? (
-          <AiFillHeart
-            onClick={() => handleFavoritesDelete(id)}
-            className='favIconCardHome' />
-        ) : (
-          <AiOutlineHeart
-            onClick={() => handleFavorites(id)}
-            className='favIconCardHome' />
-        )}
 
-        {(shoppingChart.products && shoppingChart.products.some(game => game.id === id && game.stock > 0)) ? (
-          <RiShoppingCartFill
-            onClick={() => onClickDelete(id)}
-            className='favIconCardHome' />
-        ) : (
-          <RiShoppingCartLine
-            onClick={() => handleShoppingChart(id)}
-            className='favIconCardHome' />
-        )}
-      </div>
+            {(allFavorites.products && allFavorites.products.some(game => game.id === id)) ? (
+              <AiFillHeart
+                onClick={() => handleFavoritesDelete(id)}
+                className='favIconCardHome' />
+            ) : (
+              <AiOutlineHeart
+                onClick={() => handleFavorites(id)}
+                className='favIconCardHome' />
+            )}
 
-          
+            {(shoppingChart.products && shoppingChart.products.some(game => game.id === id && game.stock > 0)) ? (
+              <RiShoppingCartFill
+                onClick={() => onClickDelete(id)}
+                className='favIconCardHome' />
+            ) : (
+              <RiShoppingCartLine
+                onClick={() => handleShoppingChart(id)}
+                className='favIconCardHome' />
+            )}
+
+            {string2 === "vacio" && shoppingChart.products && shoppingChart.products?.map((game) => {
+
+              if (game.stock < 1) {
+
+                onClickDelete2(game.id)
+                setString2("completo")
+                Swal.fire({
+                  title: "Error!",
+                  text: 'El juego no tiene stock',
+                  icon: "error",
+                  confirmButtonText: 'Ok'
+                })
+
+              } else {
+                console.log("hola")
+              }
+            })}
+
+          </div>
 
         </Card>
+
       </div>
     )
   }

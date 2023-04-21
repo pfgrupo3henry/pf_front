@@ -10,6 +10,10 @@ import ProductList from "./ProductList";
 import { PaymentsViews } from "./PaymentsViews";
 import Cookies from "universal-cookie";
 import VerReviews from "./verReviews";
+import ReviewsPagina from "./reviewsPagina";
+import ModificarJuego from "./modificarJuego";
+
+
 
 const { Search } = Input;
 
@@ -33,7 +37,9 @@ const items = [
     getItem("Modificar usuarios", "2"),
     getItem("Lista de productos", "4"),
     getItem("Listado de ventas", "5"),
-    getItem("Reviews", "6"),
+    getItem("Reviews juegos", "6"),
+    getItem("Reviews Pagina", "7"),
+    getItem("Modificar Imagen", "8"),
   ]),
 ];
 
@@ -101,6 +107,14 @@ function Admin() {
     if (e.key === "6") {
       setState("reviews");
     }
+
+    if (e.key === "7") {
+      setState("reviews-pagina");
+    }
+
+    if (e.key === "8") {
+      setState("modificar-imagen");
+    }
   };
 
   const changeTheme = (value) => {
@@ -109,8 +123,8 @@ function Admin() {
 
   if (cookieRole !== "Admin") {
     return (<div>Cargando...</div>);
-} else if (true) {
-    
+  } else if (true) {
+
     return (
       <div className="admin-component">
         <div className="menuOptions">
@@ -124,58 +138,74 @@ function Admin() {
             items={items}
           />
         </div>
-        
-          <div className="forms-render">
-            {state === "crear-juego" ? (
-              <div>
-                <FormCreateProduct />
-              </div>
-            ) : (
-              <div></div>
-            )}
-            {state === "modify-user" ? (
-              <div className="searchUserListContainer">
-                <ModifyUser />
-              </div>
-            ) : (
-              <div></div>
-            )}
 
-            {state === "modify-games" ? <div></div> : <div></div>}
+        <div className="forms-render">
+          {state === "crear-juego" ? (
+            <div>
+              <FormCreateProduct />
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {state === "modify-user" ? (
+            <div className="searchUserListContainer">
+              <ModifyUser />
+            </div>
+          ) : (
+            <div></div>
+          )}
 
-            {state === "list-products" ? (
-              <div>
-                <ProductList />
-              </div>
-            ) : (
-              <div></div>
-            )}
+          {state === "modify-games" ? <div></div> : <div></div>}
 
-            {state === "see-payments" ? (
-              <div>
-                <PaymentsViews />
-              </div>
-            ) : (
-              <div></div>
-            )}
+          {state === "list-products" ? (
+            <div>
+              <ProductList />
+            </div>
+          ) : (
+            <div></div>
+          )}
 
-            {state === "analytics-finance" ? (
-              
-                <Dashboard />
-              
-            ) : (
-              <div></div>
-            )}
+          {state === "see-payments" ? (
+            <div>
+              <PaymentsViews />
+            </div>
+          ) : (
+            <div></div>
+          )}
 
-            {state === "reviews" ? (
-              <div>
-                <VerReviews />
-              </div>
-            ) : (
-              <div></div>
-            )}
-          </div>
-        
+          {state === "analytics-finance" ? (
+
+            <Dashboard />
+
+          ) : (
+            <div></div>
+          )}
+
+          {state === "reviews" ? (
+            <div>
+              <VerReviews />
+            </div>
+          ) : (
+            <div></div>
+          )}
+
+          {state === "reviews-pagina" ? (
+            <div>
+              <ReviewsPagina />
+            </div>
+          ) : (
+            <div></div>
+          )}
+
+          {state === "modificar-imagen" ? (
+            <div>
+              <ModificarJuego />
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+
       </div>
     );
   }

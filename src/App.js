@@ -18,7 +18,7 @@ import RatingWeb from "./Components/RatingWeb/RatingWeb";
 import Equipo from './Components/Equipo/Equipo';
 import Nosotros from './Components/Nosotros/Nosotros'
 import Chatty from "./Components/Chatbot/Chatty";
-
+import ResetPasword from "./Components/resetPasword/resetPasword";
 
 function App() {
 
@@ -47,6 +47,7 @@ function App() {
           <Route path='/equipo' element={<Equipo />} />
           <Route path='/nosotros' element={<Nosotros />} />
           <Route path='/chatty' element={<Chatty />} />
+          <Route path='/user/password-reset/:token' element={<ResetPasword />} />
 
 
         </Routes>

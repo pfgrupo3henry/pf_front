@@ -55,43 +55,74 @@ function CardDetail() {
   }
 
   const handleShoppingChart = () => {
-    const product_id = card[0].id;
-    const put = {
-      userId: idCoockie,
-      products: {
-        id: product_id,
-        quantity: 1,
-      },
-    };
 
-    dispatch(addItemToChart(put));
-    message.success("¡Juego agregado a Carrito!", 5);
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
 
-    setTimeout(function () {
-      setString("vacio");
-    }, 500);
+      const product_id = card[0].id;
+      const put = {
+        userId: idCoockie,
+        products: {
+          id: product_id,
+          quantity: 1,
+        },
+      };
+
+      dispatch(addItemToChart(put));
+      message.success("¡Juego agregado a Carrito!", 5);
+
+      setTimeout(function () {
+        setString("vacio");
+      }, 500);
+
+    }
+
   };
 
   const handleShoppingChart2 = () => {
-    const product_id = card[0].id;
-    const put = {
-      userId: idCoockie,
-      products: {
-        id: product_id,
-        quantity: 1,
-      },
-    };
 
-    dispatch(addItemToChart(put));
-    message.success("¡Juego agregado a Carrito!", 5);
+    if (!idCoockie) {
 
-    setTimeout(function () {
-      setString("vacio");
-    }, 500);
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
 
-    setTimeout(function () {
-      setString3("completo");
-    }, 1000);
+      const product_id = card[0].id;
+      const put = {
+        userId: idCoockie,
+        products: {
+          id: product_id,
+          quantity: 1,
+        },
+      };
+
+      dispatch(addItemToChart(put));
+      message.success("¡Juego agregado a Carrito!", 5);
+
+      setTimeout(function () {
+        setString("vacio");
+      }, 500);
+
+      setTimeout(function () {
+        setString3("completo");
+      }, 1000);
+
+    }
+
   };
 
   function handleRatingChange(value2) {
@@ -114,17 +145,32 @@ function CardDetail() {
   }
 
   function onClick(e) {
-    e.preventDefault();
-    const put = {
-      userId: idCoockie,
-      videogameId: Number(id),
-      comment: comment,
-      rate: value,
-    };
-    console.log(put);
-    dispatch(saveRatingAndComment(put));
-    message.success("¡La operación se realizó con éxito!", 5);
-    // window.location.reload();
+
+    if (!idCoockie) {
+      e.preventDefault();
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+      e.preventDefault();
+      const put = {
+        userId: idCoockie,
+        videogameId: Number(id),
+        comment: comment,
+        rate: value,
+      };
+      console.log(put);
+      dispatch(saveRatingAndComment(put));
+      message.success("¡La operación se realizó con éxito!", 5);
+      // window.location.reload();
+    }
+
+
   }
 
   if (string === "vacio") {
@@ -281,24 +327,24 @@ function CardDetail() {
               </div>
 
               <div className="comentarios-card">
-              <div className="reviews-card-admin">
-                    <div className="carta-aux">
+                <div className="reviews-card-admin">
+                  <div className="carta-aux">
                     <div className="aux7">
-                            <h4 className="titulooo">
-                                Calificación y opiniones
-                            </h4>
-                            <div>
-                                <Rate
-                                className="rateProm"
-                                disabled
-                                bordered={false}
-                                allowHalf
-                                value={prom}
-                            />
-                            </div>
-                            <hr></hr>
-                        </div>
-                        </div>
+                      <h4 className="titulooo">
+                        Calificación y opiniones
+                      </h4>
+                      <div>
+                        <Rate
+                          className="rateProm"
+                          disabled
+                          bordered={false}
+                          allowHalf
+                          value={prom}
+                        />
+                      </div>
+                      <hr></hr>
+                    </div>
+                  </div>
 
                   {reviews2.length !== 0 ? (
                     <List
@@ -319,7 +365,7 @@ function CardDetail() {
                               ) : null
                             }
                             title={
-                              
+
                               item.status !== "Disabled" ? (
                                 <Rate
                                   className="rate"

@@ -6,6 +6,12 @@ import { getCards } from '../../Redux/Actions/Index';
 import "./Dashboard.css"
 import axios from "axios";
 import "./Admin.css"
+import { PlusOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Select,
+  Upload,
+} from 'antd';
 
 
 
@@ -43,7 +49,7 @@ const EditableCell = ({
     </td>
   );
 };
-const ProductList = () => {
+const ProductList = (props) => {
 
   useEffect(() => {
     dispatch(getCards())
@@ -126,9 +132,15 @@ const ProductList = () => {
 
   const columns = [
     {
+      title: 'ID',
+      dataIndex: 'id',
+      width: 70,
+      editable: true,
+    },
+    {
       title: 'Nombre',
       dataIndex: 'name',
-      width: 100,
+      width: 250,
       editable: true,
     },
 
@@ -142,7 +154,7 @@ const ProductList = () => {
     {
       title: 'Sub categoria',
       dataIndex: 'genre',
-      width: 50,
+      width: 100,
       editable: true,
     },
 
@@ -161,7 +173,7 @@ const ProductList = () => {
     {
       title: 'Precio',
       dataIndex: 'price',
-      width: 50,
+      width: 100,
       editable: true,
     },
     {
@@ -173,7 +185,7 @@ const ProductList = () => {
     {
       title: 'Operación',
       dataIndex: 'operation',
-      width: 150,
+      width: 160,
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -187,7 +199,7 @@ const ProductList = () => {
               Guardar
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancelar</a>
+              <a>.Cancelar</a>
             </Popconfirm>
           </span>
         ) : (

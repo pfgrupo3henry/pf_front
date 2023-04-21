@@ -2,6 +2,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import React, { useState } from "react";
 import "./Admin.css";
 import axios from "axios";
+import { getCards } from '../../Redux/Actions/Index';
 import {
     Button,
     Form,
@@ -10,9 +11,11 @@ import {
     Select,
     Upload,
 } from 'antd';
-
+import { useDispatch } from 'react-redux';
 
 function ModificarJuego() {
+
+    const dispatch = useDispatch()
 
     const [fileList, setFileList] = useState([]);
     const { TextArea } = Input;
@@ -30,12 +33,7 @@ function ModificarJuego() {
 
         let data = {
             name: event.name,
-            description: event.Description,
-            quantity: event.quantity,
             img: [fileList[0].thumbUrl],
-            price: event.price,
-            genre: event.genre,
-            platform: event.console,
         };
 
         let todasCompletas = true;
@@ -50,8 +48,9 @@ function ModificarJuego() {
         if (todasCompletas) {
 
             console.log(data);
+            console.log(data.img[0]);
 
-            axios.put("https://pfservidor-production.up.railway.app/videogames/modify", data)
+            axios.put("https://pfservidor-production.up.railway.app/videogames/modify/img", data)
                 .then((res) => {
                     console.log(res);
                     Swal.fire({
@@ -60,8 +59,8 @@ function ModificarJuego() {
                         icon: "success",
                         confirmButtonText: 'Ok'
                     }).then((res) => {
-                        window.location.reload();
-                    });
+                        dispatch(getCards())
+                    })
                 })
                 .catch((err) => {
                     console.log(err);
@@ -70,9 +69,7 @@ function ModificarJuego() {
                         text: 'Error en la modificacion del juego',
                         icon: "error",
                         confirmButtonText: 'Ok'
-                    }).then((res) => {
-                        window.location.reload();
-                    });
+                    })
                 })
 
         } else {
@@ -147,56 +144,29 @@ function ModificarJuego() {
                             <Select.Option value="Digimon World Next Order">Digimon World Next Order</Select.Option>
                             <Select.Option value="Devil May Cry HD Collection PS5 Retro">Devil May Cry HD Collection PS5 Retro</Select.Option>
                             <Select.Option value="Diablo 3 Reaper of Souls Ultimate Evil Edition">Diablo 3 Reaper of Souls Ultimate Evil Edition</Select.Option>
+
+                            <Select.Option value="eFootball PES 2020 PS5 Retro">eFootball PES 2020 PS5 Retro</Select.Option>
+                            <Select.Option value="eFootball PES 2021">eFootball PES 2021</Select.Option>
+                            <Select.Option value="eFootball PES 2021 PS5">eFootball PES 2021 PS5</Select.Option>
+                            <Select.Option value="Elden Ring">Elden Ring</Select.Option>
+                            <Select.Option value="Elden Ring PS5">Elden Ring PS5</Select.Option>
+                            <Select.Option value="Fifa 20">Fifa 20</Select.Option>
+                            <Select.Option value="Fifa 20 PS5 Retro">Fifa 20 PS5 Retro</Select.Option>
+                            <Select.Option value="Fifa 22 PS5">Fifa 22 PS5</Select.Option>
+                            <Select.Option value="Fifa 23">Fifa 23</Select.Option>
+                            <Select.Option value="Final Fantasy XV">Final Fantasy XV</Select.Option>
+
+                            <Select.Option value="God of War Ragnaro">God of War Ragnaro</Select.Option>
+                            <Select.Option value="GTA IV Complete Edition">GTA IV Complete Edition</Select.Option>
+                            <Select.Option value="GTA San Andreas">GTA San Andreas</Select.Option>
+                            <Select.Option value="GTA The Trilogy The Definitive Edition PS5">GTA The Trilogy The Definitive Edition PS5</Select.Option>
+                            <Select.Option value="GTA V PS5">GTA V PS5</Select.Option>
+                            <Select.Option value="Crash Bandicoot N Sane Trilogy">Crash Bandicoot N Sane Trilogy</Select.Option>
+                            <Select.Option value="Just Dance 2017 PS5">Just Dance 2017 PS5</Select.Option>
+                            <Select.Option value="Just Dance 2018">Just Dance 2018</Select.Option>
+                            <Select.Option value="LEGO Jurassic World">LEGO Jurassic World</Select.Option>
+                            <Select.Option value="LEGO Marvel Super Heroes PS5 Retro">LEGO Marvel Super Heroes PS5 Retro</Select.Option>
                         </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Console"
-                        name="console"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Enter the correct category"
-                            },
-                        ]}
-                    >
-                        <Select placeholder="PS5/PS4/PS3  ">
-                            <Select.Option value="PS5">PS5</Select.Option>
-                            <Select.Option value="PS4">PS4</Select.Option>
-                            <Select.Option value="PS3">PS3</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item label="Genere"
-                        name="genre"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Select an genere"
-                            },
-                        ]}>
-                        <Select placeholder="Choose an genere">
-                            <Select.Option value="Acción">Action</Select.Option>
-                            <Select.Option value="Aventura">Adventure</Select.Option>
-                            <Select.Option value="Conducción">Driving</Select.Option>
-                            <Select.Option value="Deportes">Sports</Select.Option>
-                            <Select.Option value="Infantiles">Children</Select.Option>
-                            <Select.Option value="Multijugador">Multiplayer</Select.Option>
-                            <Select.Option value="Rol">Role </Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item
-
-                        className=''
-                        label="Price"
-                        name="price"
-                        rules={[{ required: true, message: 'Enter a price per unit' }]}
-
-                    >
-                        <InputNumber
-                            className='priceInput'
-                            placeholder="Price per unit" />
                     </Form.Item>
 
                     <Form.Item label="Upload" valuePropName="fileList"
@@ -230,33 +200,11 @@ function ModificarJuego() {
 
                     </Form.Item>
 
-                    <Form.Item label="Quantity"
-                        name="quantity"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please enter an quantity"
-                            },
-                        ]}>
-                        <InputNumber placeholder="1,2,3" />
-                    </Form.Item>
-
-                    <Form.Item label="Description"
-                        name="Description"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Write some about the product"
-                            },
-                        ]}>
-                        <TextArea placeholder="About product" rows={4} />
-                    </Form.Item>
-
                     <Form.Item >
                         <Button
                             className='buttonFormCreateProduct'
                             htmlType="submit"
-                        >Modificar Producto</Button>
+                        >Modificar Juego</Button>
                     </Form.Item>
 
                 </Form>

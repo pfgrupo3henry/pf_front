@@ -22,6 +22,7 @@ function Chatty() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (query.length < 1) return handleError("Debes ingresar una consulta");
     setLoading(true);
 
     const messages = [...chatMessages, { role: "user", content: query }];
@@ -70,12 +71,13 @@ function Chatty() {
   return (
     <div
       className="container-chat"
-      style={{ position: "fixed", top: "150px", right: "30px" }}>
+      style={{ position: "fixed", top: "100px", right: "30px" }}>
+      <div className="header">Chatbot Henry Games</div>
       <div className="container-messages">
         <div className="messages">
           <ChatBubble
             type="assistant"
-            message="Hola! ¿Cómo puedo ayudarte hoy?"
+            message="¡Hola! 👋 ¿Cómo puedo ayudarte hoy?"
           />
           {chatMessages.map((message, index) => (
             <ChatBubble
@@ -85,7 +87,7 @@ function Chatty() {
             />
           ))}
           {answer && <ChatBubble type="assistant" message={answer} />}
-          {loading && <ChatBubble type="assistant" message="Cargando.." />}
+          {loading && <ChatBubble type="assistant" message="Cargando" />}
         </div>
         <div ref={scrollToDiv} />
       </div>
@@ -93,6 +95,7 @@ function Chatty() {
         <input
           type="text"
           className="input-chat"
+          placeholder="Ingresa tu mensaje"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

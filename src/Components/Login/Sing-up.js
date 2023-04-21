@@ -32,6 +32,25 @@ function SingUp() {
     });
     const Swal = require('sweetalert2');
     const form = useRef();
+    const [forgotPassword, setForgotPassword] = useState({
+        email: ""
+    });
+    const [seeForgot, setSeeForgot] = useState("");
+
+    const cookie = new Cookies();
+    const cookieName = cookie.get("firstname");
+    console.log(cookieName);
+
+    if (cookieName) {
+        Swal.fire({
+            title: "Error!",
+            text: "Ya estas logeado",
+            icon: "error",
+            confirmButtonText: "Ok",
+        }).then((res) => {
+            window.location.href = "/home";
+        });
+    }
 
 
     const onClickState = () => {
@@ -92,7 +111,7 @@ function SingUp() {
                         confirmButtonText: 'Ok',
                         customClass: {
                             confirmButton: "swalButton"
-                          }
+                        }
                     }).then((res) => {
                         window.location.reload();
                     });
@@ -110,6 +129,60 @@ function SingUp() {
             console.log(users);
         };
 
+        const seeForgotClick = () => {
+            if (seeForgot === "") {
+                setSeeForgot("see")
+            } else {
+                setSeeForgot("")
+            }
+        };
+
+        const onChageRestablecer = (e) => {
+            setForgotPassword({
+                email: e.target.value
+            })
+            console.log(forgotPassword)
+        }
+
+        const SubmitReset = (e) => {
+
+            e.preventDefault()
+
+            console.log(forgotPassword)
+
+            Axios.put("https://pfservidor-production.up.railway.app/user/password-reset", forgotPassword)
+                .then((res) => {
+                    console.log(res)
+                    Swal.fire({
+                        title: "",
+                        text: 'Revisa tu correo electronico',
+                        icon: "success",
+                        confirmButtonText: 'Ok'
+                    }).then((res) => {
+                        setForgotPassword({
+                            email: ""
+                        });
+                    });
+                })
+                .catch((err) => {
+                    console.log(err)
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Correo electronico incorrecto',
+                        icon: "error",
+                        confirmButtonText: 'Ok',
+                        customClass: {
+                            confirmButton: "swalButton"
+                        }
+                    }).then((res) => {
+                        setForgotPassword({
+                            email: ""
+                        });
+                    })
+                })
+
+        };
+
         return (
             <div className="login-form">
                 <Form
@@ -119,65 +192,111 @@ function SingUp() {
                     onChange={(e) => handleLogin(e)}
                 >
 
-                    <Form.Item
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
-                            },
-                        ]}
-                    >
-                        <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
-                    </Form.Item>
+                    {seeForgot === "" ?
 
-                    <Form.Item
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: users.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
-                            },
-                        ]}
-                    >
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Contraseña"
-                            name="password"
-                        />
-                    </Form.Item>
+                        <div>
 
-                    <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Recordarme</Checkbox>
-                        </Form.Item>
+                            <Form.Item
+                                name="email"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                                    },
+                                ]}
+                            >
+                                <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
+                            </Form.Item>
 
-                        <a className="login-form-forgot form-forgot" href="">
-                        Olvidé mi contraseña
-                        </a>
-                    </Form.Item>
+                            <Form.Item
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: users.password.length === 0 ? <p className="p-error">Completar el password</p> : <p></p>
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                    type="password"
+                                    placeholder="Contraseña"
+                                    name="password"
+                                />
+                            </Form.Item>
 
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button"
-                            onClick={submitUser}>
-                            Iniciar Sesión
-                        </Button>
-                    </Form.Item>
+                            {false ?
+                                <Form.Item>
+                                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                                        <Checkbox>Recordarme</Checkbox>
+                                    </Form.Item>
 
-                    <Form.Item>
-                        <div
-                            onClick={onClickState}
-                            className="buttonOrRegister">
-                            O Registrate!
+                                    <button className="button-forgot" onClick={seeForgotClick}>
+                                        Olvidé mi contraseña
+                                    </button>
+                                </Form.Item>
+                                :
+                                null}
+
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" className="login-form-button"
+                                    onClick={submitUser}>
+                                    Iniciar Sesión
+                                </Button>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <div
+                                    onClick={onClickState}
+                                    className="buttonOrRegister">
+                                    O Registrate!
+                                </div>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Login />
+                            </Form.Item>
+
                         </div>
-                    </Form.Item>
 
-                    <Form.Item>
-                        <Login />
-                    </Form.Item>
+                        :
+                        null}
 
                 </Form>
+
+                {seeForgot !== "" ?
+
+                    <div>
+
+                        <Form.Item
+                            label="Escribi tu email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: users.email.length === 0 ? <p className="p-error">Completar el nombre</p> : <p></p>
+                                },
+                            ]}
+                        >
+                            <Input value={forgotPassword.email} onChange={(e) => onChageRestablecer(e)} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email de usuario" />
+                        </Form.Item>
+
+
+                        <Form.Item>
+                            <button className="button-forgot" onClick={(e) => SubmitReset(e)}>
+                                Restablecer Contraseña
+                            </button>
+                            <br></br>
+                            <br></br>
+                            <button className="button-forgot" onClick={seeForgotClick}>
+                                Atras
+                            </button>
+                        </Form.Item>
+
+
+                    </div>
+                    :
+                    null}
+
             </div>
 
         );
@@ -250,7 +369,7 @@ function SingUp() {
                         confirmButtonText: 'Ok',
                         customClass: {
                             confirmButton: "swalButton"
-                          }
+                        }
                     }).then((res) => {
                         window.location.reload();
                     });
@@ -264,7 +383,7 @@ function SingUp() {
                         confirmButtonText: 'Ok',
                         customClass: {
                             confirmButton: "swalButton"
-                          }
+                        }
                     })
                 });
 
@@ -342,7 +461,7 @@ function SingUp() {
                     confirmButtonText: 'Ok',
                     customClass: {
                         confirmButton: "swalButton"
-                      }
+                    }
                 });
             } else if (!sImagen) {
                 Swal.fire({
@@ -352,13 +471,13 @@ function SingUp() {
                     confirmButtonText: 'Ok',
                     customClass: {
                         confirmButton: "swalButton"
-                      }
+                    }
                 });
             } else {
 
                 setLoader(true);
 
-                emailjs.sendForm('service_p04zgza', 'template_sque1s9', e.target, 'PvHbawws_-6fNNwSb')
+                emailjs.sendForm('service_6d91cl9', 'template_92alxin', e.target, 'G8C7QMGbuMdcamrEn')
                     .then((result) => {
                         handleSubmit();
                         console.log(result.text);
@@ -536,6 +655,9 @@ function SingUp() {
                         null}
                 </form >
 
+                <div className="go-back">
+                    <Input type="submit" value="Atras" className="go-back-input" onClick={onClickState} />
+                </div>
             </div>
 
         );
