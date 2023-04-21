@@ -28,7 +28,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
   const [favsStringified, setFavsStringified] = useState([]);
 
   const [string, setString] = useState("vacio");
-  const [string2, setString2] = useState("vacio");
 
   const cookie = new Cookies();
   const idCoockie = cookie.get("id");
@@ -140,24 +139,15 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
       dispatch(addItemToChart(put));
       setString("vacio");
-      setString2("vacio")
       message.success("¡Juego agregado a Carrito!", 5);
 
     } else if (quantity < 1) {
-      const product_id = id;
-      const put = {
-        userId: idCoockie,
-        products:
-        {
-          id: product_id,
-          quantity: 1
-        }
-
-      }
-
-      dispatch(addItemToChart(put));
-      setString("vacio");
-      setString2("vacio")
+      Swal.fire({
+        title: "Error!",
+        text: 'Juego Agotado',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      })
     }
 
   };
@@ -185,18 +175,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
       message.success("¡Juego borrado del Carrito!", 5);
 
     }
-
-  };
-
-  const onClickDelete2 = (id) => {
-
-    let payload = {
-      userId: idCoockie,
-      gameId: id
-    }
-
-    dispatch(deleteChart(payload));
-    setString("vacio");
 
   };
 
@@ -252,24 +230,6 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 onClick={() => handleShoppingChart(id, quantity)}
                 className='favIconCardHome' />
             )}
-
-            {string2 === "vacio" && shoppingChart.products && shoppingChart.products?.map((game) => {
-
-              if (game.stock < 1) {
-
-                onClickDelete2(game.id)
-                setString2("completo")
-                Swal.fire({
-                  title: "Error!",
-                  text: 'El juego no tiene stock',
-                  icon: "error",
-                  confirmButtonText: 'Ok'
-                })
-
-              } else {
-                console.log("hola")
-              }
-            })}
 
           </div>
 
