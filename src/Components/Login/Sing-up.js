@@ -37,6 +37,21 @@ function SingUp() {
     });
     const [seeForgot, setSeeForgot] = useState("");
 
+    const cookie = new Cookies();
+    const cookieName = cookie.get("firstname");
+    console.log(cookieName);
+
+    if (cookieName) {
+        Swal.fire({
+            title: "Error!",
+            text: "Ya estas logeado",
+            icon: "error",
+            confirmButtonText: "Ok",
+        }).then((res) => {
+            window.location.href = "/home";
+        });
+    }
+
 
     const onClickState = () => {
 
