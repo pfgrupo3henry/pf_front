@@ -11,6 +11,9 @@ import { PaymentsViews } from "./PaymentsViews";
 import Cookies from "universal-cookie";
 import VerReviews from "./verReviews";
 import ReviewsPagina from "./reviewsPagina";
+import ModificarJuego from "./modificarJuego";
+
+
 
 const { Search } = Input;
 
@@ -36,6 +39,7 @@ const items = [
     getItem("Listado de ventas", "5"),
     getItem("Reviews juegos", "6"),
     getItem("Reviews Pagina", "7"),
+    getItem("Modificar Imagen", "8"),
   ]),
 ];
 
@@ -106,6 +110,10 @@ function Admin() {
 
     if (e.key === "7") {
       setState("reviews-pagina");
+    }
+
+    if (e.key === "8") {
+      setState("modificar-imagen");
     }
   };
 
@@ -184,6 +192,14 @@ function Admin() {
           {state === "reviews-pagina" ? (
             <div>
               <ReviewsPagina />
+            </div>
+          ) : (
+            <div></div>
+          )}
+
+          {state === "modificar-imagen" ? (
+            <div>
+              <ModificarJuego />
             </div>
           ) : (
             <div></div>

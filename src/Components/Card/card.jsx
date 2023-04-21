@@ -61,65 +61,130 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
   const handleFavorites = (id) => {
 
-    const product_id = id;
-    const putFavorite = {
-      userId: idCoockie,
-      products:
-      {
-        id: product_id,
-        quantity: 1
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+
+      const product_id = id;
+      const putFavorite = {
+        userId: idCoockie,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
       }
 
-    }
+      dispatch(postFavorites(putFavorite));
+      message.success("¡Juego agregado a Favoritos!", 5);
 
-    dispatch(postFavorites(putFavorite));
-    message.success("¡Juego agregado a Favoritos!", 5);
+    }
 
   };
 
   const handleFavoritesDelete = (id) => {
 
-    const product_id = id;
-    const deleteFavorite = {
-      userId: idCoockie,
-      gameId: product_id
-    }
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
+      const product_id = id;
+      const deleteFavorite = {
+        userId: idCoockie,
+        gameId: product_id
+      }
 
-    dispatch(deleteFavorites(deleteFavorite));
-    message.success("¡Juego borrado de Favoritos!", 5);
+      dispatch(deleteFavorites(deleteFavorite));
+      message.success("¡Juego borrado de Favoritos!", 5);
+    }
 
   };
 
-  const handleShoppingChart = (id) => {
+  const handleShoppingChart = (id, quantity) => {
 
-    const product_id = id;
-    const put = {
-      userId: idCoockie,
-      products:
-      {
-        id: product_id,
-        quantity: 1
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else if (quantity > 0) {
+
+      const product_id = id;
+      const put = {
+        userId: idCoockie,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
       }
 
-    }
+      dispatch(addItemToChart(put));
+      setString("vacio");
+      setString2("vacio")
+      message.success("¡Juego agregado a Carrito!", 5);
 
-    dispatch(addItemToChart(put));
-    setString("vacio");
-    setString2("vacio")
-    message.success("¡Juego agregado a Carrito!", 5);
+    } else if (quantity < 1) {
+      const product_id = id;
+      const put = {
+        userId: idCoockie,
+        products:
+        {
+          id: product_id,
+          quantity: 1
+        }
+
+      }
+
+      dispatch(addItemToChart(put));
+      setString("vacio");
+      setString2("vacio")
+    }
 
   };
 
   const onClickDelete = (id) => {
 
-    let payload = {
-      userId: idCoockie,
-      gameId: id
-    }
+    if (!idCoockie) {
+      Swal.fire({
+        title: "Error!",
+        text: 'Debes iniciar sesion',
+        icon: "error",
+        confirmButtonText: 'Ok'
+      }).then((res) => {
+        window.location.href = "/login";
+      });
+    } else {
 
-    dispatch(deleteChart(payload));
-    setString("vacio");
-    message.success("¡Juego borrado del Carrito!", 5);
+      let payload = {
+        userId: idCoockie,
+        gameId: id
+      }
+
+      dispatch(deleteChart(payload));
+      setString("vacio");
+      message.success("¡Juego borrado del Carrito!", 5);
+
+    }
 
   };
 
@@ -184,7 +249,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
                 className='favIconCardHome' />
             ) : (
               <RiShoppingCartLine
-                onClick={() => handleShoppingChart(id)}
+                onClick={() => handleShoppingChart(id, quantity)}
                 className='favIconCardHome' />
             )}
 

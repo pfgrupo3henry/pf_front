@@ -78,9 +78,13 @@ h1 {
 .formCreateNewProduct {
   padding-top: 40px;
   width: 30rem;
+<<<<<<< HEAD
   transform: scale(0.9); /* Ajusta la escala según necesites */
   transform-origin: top left;
 
+=======
+  min-height: 75vh;
+>>>>>>> develop
 }
 
 .buttonFormCreateProduct {
