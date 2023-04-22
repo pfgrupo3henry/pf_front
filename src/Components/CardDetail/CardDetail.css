@@ -8,7 +8,7 @@
 
 .comentarios-card {
     padding: 15px;
-    margin-left: 80px;
+    margin-left: 30px;
     width: 40rem
 }
 
@@ -20,6 +20,7 @@
 .buttonsCardDetail {
     width: 15rem;
 }
+
 
 .buttonsContainer {
     display: flex;
@@ -48,7 +49,7 @@
 }
 
 .card-detail-component2 {
-    transform: scale(0.75); /* Ajusta la escala según necesites */
+    transform: scale(0.8); /* Ajusta la escala según necesites */
     transform-origin:  left;}
 
 .nameFormat {
@@ -61,10 +62,15 @@
     flex-direction: row;
 }
 
+
+
+.ant-rate .rate .css-dev-only-do-not-override-mxhywb .ant-rate-disabled{
+    display: flex;
+    justify-content: flex-start;
+}
+
 .rate {
     display: flex;
-    margin-left: 1rem;
-
 }
 
 .rateAux {
@@ -87,6 +93,10 @@
 .comment {
     display: flex;
     margin-top: 1rem;
+    margin-left: 1rem;
+}
+.name_review{
+    margin-left: 1rem;
 }
 
 .imgRate {

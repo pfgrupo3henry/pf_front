@@ -11,5 +11,12 @@
       background-size: cover;
       opacity: 0.9;
       text-align: right;
+      min-height: calc(100vh - 45.2px);
 
+}
+
+.auxNosotros{
+      display: flex;
+      margin-top: 5rem;
+      margin-left: 3rem;
 }

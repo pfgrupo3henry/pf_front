@@ -79,7 +79,7 @@ function CardDetail() {
 
     } else if (card[0].stock < 1) {
       Swal.fire({
-        title: "Error!",
+        title: "¡Error!",
         text: 'Juego Agotado',
         icon: "error",
         confirmButtonText: 'Ok'
@@ -95,7 +95,7 @@ function CardDetail() {
 
     if (!idCoockie) {
       Swal.fire({
-        title: "Error!",
+        title: "¡Error!",
         text: 'Debes iniciar sesion',
         icon: "error",
         confirmButtonText: 'Ok'
@@ -119,7 +119,7 @@ function CardDetail() {
 
     } else if (card[0].stock < 1) {
       Swal.fire({
-        title: "Error!",
+        title: "¡Error!",
         text: 'Juego Agotado',
         icon: "error",
         confirmButtonText: 'Ok'
@@ -140,7 +140,7 @@ function CardDetail() {
   function handleChangeInput(e) {
     if (idCoockie) {
       setComment(e.target.value);
-      setPlaceholder("Leave your comment");
+      setPlaceholder("Dejanos tu comentario");
       console.log(comment);
     } else {
       message.warning("¡Debe loguearse para Comentar!", 5);
@@ -152,7 +152,7 @@ function CardDetail() {
     if (!idCoockie) {
       e.preventDefault();
       Swal.fire({
-        title: "Error!",
+        title: "¡Error!",
         text: 'Debes iniciar sesion',
         icon: "error",
         confirmButtonText: 'Ok'
@@ -339,12 +339,16 @@ function CardDetail() {
                             title={
 
                               item.status !== "Disabled" ? (
-                                <Rate
+                                <div>
+                                  <p className="name_review">{item.userInfo.firstname}</p>
+                                  <Rate
                                   className="rate"
                                   disabled
                                   allowHalf
                                   value={Number(item.rate)}
-                                />
+                                  />
+                              </div>
+                                
                               ) : null
                             }
                             description={

@@ -3,8 +3,8 @@
       align-items: center;
       justify-content: center;
       min-height: calc(100vh - 45.2px);
-      background-image: linear-gradient(to left, #6e6d6d, #ffffff)
-}
+/*       background-image: linear-gradient(to left, #6e6d6d, #ffffff)
+ */}
 
 .mapa-lista {
       display: inline-block;
@@ -12,9 +12,24 @@
       align-items: center;
       justify-content: center;
       padding: 0px 80px 0px 0px;
+      font-style: oblique;
+      color: rgba(53, 53, 53, 0.808);
+
 }
+.mapita{
+      border-radius: 0.5rem;
+      border: none;
+      box-shadow: 0px 2px 10px gray;
+
+}
+
 
 .boton-list {
       border: none;
       background: none;
+      font-style: oblique;
+      color: rgb(53, 53, 53);
+
+
+      
 }
