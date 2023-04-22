@@ -67,11 +67,9 @@
 
 .cardIndoUserInformation {
     padding-top: 80px;
-    max-width: 1300px;
     width: 75%;
     display: flex;
-    gap: 40px;
-    justify-content: center;
+    margin-right: 5rem;
     background-color: white;
     transform: scale(0.9);
     /* Ajusta la escala según necesites */
@@ -169,9 +167,9 @@
     gap: 3rem;
 }
 
-.cardIndoUserInformation .ant-list-pagination-align-end {
-    text-align: center !important;
-}
+    /* .cardIndoUserInformation .ant-list-pagination-align-end {
+        text-align: center !important;
+    } */
 
 .infoUserDetail {
     display: flex;

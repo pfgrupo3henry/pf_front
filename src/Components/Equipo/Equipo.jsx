@@ -54,25 +54,29 @@ const Equipo = () => {
         Volver
       </FloatButton>
       <Divider></Divider>
+      <div className="auxNosotros">
       <List
-        bordered
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item>
-            <Typography.Text style={{ fontFamily: "fantasy", fontSize: 20 }}>
-              {<CodeOutlined style={{ fontSize: 20 }} />}
-              {"    "}
-              {item.user}
-              {"     "}
-              {item.role}
-              {"     "}
-              <Link to={item.link}>
-                <GithubOutlined style={{ fontSize: 25 }} />
-              </Link>
-            </Typography.Text>
-          </List.Item>
-        )}
-      />
+      
+      bordered ={false}
+      dataSource={data}
+      renderItem={(item) => (
+        <List.Item>
+          <Typography.Text style={{ fontFamily: "fantasy", fontSize: 20 }}>
+            {<CodeOutlined style={{ fontSize: 20 }} />}
+            {"    "}
+            {item.user}
+            {"     "}
+            {item.role}
+            {"     "}
+            <Link to={item.link}>
+              <GithubOutlined style={{ fontSize: 25 }} />
+            </Link>
+          </Typography.Text>
+        </List.Item>
+      )}
+    />
+      </div>
+     
     </div>
   );
 };

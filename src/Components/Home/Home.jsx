@@ -23,6 +23,11 @@ import axios from "axios";
 import { MessageTwoTone, PhoneTwoTone, SmileTwoTone } from "@ant-design/icons";
 import RatingWeb from "../RatingWeb/RatingWeb";
 import Chatty from "../Chatbot/Chatty";
+import { BsWhatsapp } from "react-icons/bs";
+import { BsEmojiHeartEyes }from "react-icons/bs";
+import { BsChatRightText }from "react-icons/bs";
+
+
 
 function Home(label, key, icon, children, type) {
   const { logout } = useAuth0();
@@ -240,20 +245,22 @@ function Home(label, key, icon, children, type) {
               <FloatButton
                 onClick={handleWWClick}
                 tooltip="Consulta con nosotros!"
-                icon={<PhoneTwoTone twoToneColor="#39F805" />}
+                icon={<BsWhatsapp className="icon_wapp" />}
               />
               <Divider type="vertical" />
               <Link to="/ratingWeb" element={<RatingWeb />}>
                 <FloatButton
-                  tooltip="Califica la Web!"
-                  icon={<SmileTwoTone twoToneColor="#39F805" />}
-                />
+                  tooltip="¡Califica la Web!"
+/*                   icon={ <div className="corazon">😍</div> }
+ */                
+                  icon={<BsEmojiHeartEyes color="rgba(9, 22, 29, 0.712)"/>}
+                  />
               </Link>
               <Divider type="vertical" />
               <FloatButton
-                tooltip="Chatea con Henry!"
+                tooltip="¡Chatea con Henry!"
                 onClick={showModal}
-                icon={<MessageTwoTone twoToneColor="#39F805" />}></FloatButton>
+                icon={<BsChatRightText color="rgba(9, 22, 29, 0.712)" />}></FloatButton>
               <div className="modal-container">
                 <Modal
                   className="modal"

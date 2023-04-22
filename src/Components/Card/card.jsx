@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { postFavorites, addItemToChart, deleteFavorites, deleteChart, getFavorites, getChart } from "../../Redux/Actions/Index";
 import React, { useEffect, useState } from "react";
-import { Card, message } from 'antd';
+import { Card, Tag, message } from 'antd';
 import "../Card/card.css"
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
@@ -193,11 +193,15 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
 
     return (
       <div className="card-component">
+
+      <div style={{ pointerEvents: quantity === 0 ? 'none' : null }}>
+
         <Card
           onClick={(e) => {
             e.target.tagName !== 'svg' && e.target.tagName !== 'path' && navigate(`/game/${id}`)
           }}
           hoverable
+          className={quantity === 0 ? "card_disable" : null}
           style={{
             width: 180,
           }}
@@ -205,7 +209,7 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
         >
           <Meta
             title={title}
-            description={precio}
+            description={quantity === 0 ? <div className="sin_stock"><p>{precio}</p><Tag>SIN STOCK</Tag> </div>  : precio }
           />
           <br></br>
 
@@ -234,6 +238,11 @@ function CardElement({ title, imgProvisoria, description, price, descriptionComp
           </div>
 
         </Card>
+
+        </div>
+        
+
+       
 
       </div>
     )
