@@ -15,6 +15,18 @@
     transform: scale(1.2)
 }
 
+.sin_stock{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 5.2rem;
+}
+
+.card_disable{
+    filter: grayscale(100%);
+
+}
+
 .card-component .iconsCardHomeContainer {
     display: flex;
     flex-direction: row;
